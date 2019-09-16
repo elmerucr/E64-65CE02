@@ -196,10 +196,10 @@
 		46241AB12324420500569490 /* sdl2 */ = {
 			isa = PBXGroup;
 			children = (
-				46241AB42324422200569490 /* sdl2_pid_delay.cpp */,
-				46241AB22324422200569490 /* sdl2_pid_delay.hpp */,
-				46241AB52324422200569490 /* sdl2.cpp */,
 				46241AB32324422200569490 /* sdl2.hpp */,
+				46241AB52324422200569490 /* sdl2.cpp */,
+				46241AB22324422200569490 /* sdl2_pid_delay.hpp */,
+				46241AB42324422200569490 /* sdl2_pid_delay.cpp */,
 			);
 			name = sdl2;
 			sourceTree = "<group>";

@@ -18,6 +18,9 @@ In debug mode:
 ![E64 debug mode](./docs/E64_debug_2019-09-04.png)
 ## Compiling
 ### Core application
+#### macOS
+* Install the [SDL2 framework](https://www.libsdl.org/download-2.0.php) to /Library/Frameworks
+* Open the Xcode project in the ./macOS/E64 folder and build
 #### Ubuntu Linux
 Run the following commands in a terminal:
 
