@@ -1,12 +1,12 @@
 # ![E64test](./docs/E64_icon.png)
 ## Description
-The E64 (Enhanced 64) will be a virtual computer system that runs on macOS, linux and windows. It's heavily inspired by the Commodore 64 and other (more advanced) personal computer systems of the era.
+The E64 (Enhanced 64) will be a virtual computer system that runs on macOS and linux. It's heavily inspired by the Commodore 64 and other (more advanced) personal computer systems of the era.
 
 Technical specifications (not yet complete):
 * CSG 65CE02 CPU (8bit and some 16bit instructions) running at 4.096MHz using the [lib65ce02](https://github.com/elmerucr/lib65ce02) library.
 * A total of 16MB of ram in combination with a Texas Instruments SN74LS612 Memory Management Unit.
 * A custom Video Interface Chip with a resolution of 512x320 pixels (512x256 excluding  top and bottom borders).
-* Up to four SID chips (MOS 6581) with stereo mixing possibilities. Each individual SID chip runs at 985248Hz (C64 pal) for a correct pitch. Emulation is achieved with the excellent [reSID](http://www.zimmers.net/anonftp/pub/cbm/crossplatform/emulators/resid/index.html) library.
+* Up to four SID chips (MOS 6581) with stereo mixing possibilities. Each individual SID chip runs at 985248Hz (C64 pal) for identical pitch. Emulation is achieved with the excellent [reSID](http://www.zimmers.net/anonftp/pub/cbm/crossplatform/emulators/resid/index.html) library.
 ## Motivation
 todo
 ## Core functions
@@ -28,15 +28,13 @@ Run the following commands in a terminal:
 
 ````git clone https://github.com/elmerucr/E64````
 
-````cd E64````
-
-````mkdir build````
-
-````cd build````
+````cd E64 && mkdir build && cd build````
 
 ````cmake ..````
 
 ````make````
+
+Finally to run the application in the build directory:
 
 ````./E64````
 ### Assembling kernel ROM
