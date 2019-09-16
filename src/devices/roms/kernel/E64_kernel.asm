@@ -43,15 +43,19 @@ cold_start:
 
 	; play welcome sound!
 	lda #$82
-	sta SID_BASE+$01	; frequency of voice 1 (high byte)
+	sta SID0_BASE+$01	; frequency of voice 1 (high byte)
 	lda #$09
-	sta SID_BASE+$05	; attack and decay of voice 1
+	sta SID0_BASE+$05	; attack and decay of voice 1
 	lda #$1e
-	sta SID_BASE+$0f	; freq of voice 3
+	sta SID0_BASE+$0f	; freq of voice 3
 	lda #$0f
-	sta SID_BASE+$18	; max volume
+	sta SID0_BASE+$18	; max volume
+	lda #$ff
+	sta SID0_LEFT		; left channel mix
+	lda #$10
+	sta SID0_RGHT		; right channel mix
 	lda #$85
-	sta SID_BASE+$04	; play bell by opening gate on bit0 register #4
+	sta SID0_BASE+$04	; play bell by opening gate on bit0 register #4
                                 ; bit 4 is for a triangle wave form
                                 ; bit 2 is for a ring modulation connected to voice 3
 

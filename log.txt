@@ -33,6 +33,7 @@ todo / bugs
 
 2019
 ====
+2019-09-16 "sids" renamed to "sound", moved to c++ code and left/right channel mixing enabled
 2019-09-12 For some reason, breakpoints still trigger when "breakpoints_active" is false inside cpu
 2019-09-12 To simplify source code, scanline breakpoints have been removed. First get pixel clock right.
 2019-09-12 Pulse single step function removed, now only one execute function that takes an argument. Introduced a bug with delay system...

@@ -1,7 +1,7 @@
 
 ; 64tass Turbo Assembler Macro V1.54.1864? listing file
 ; 64tass -b -C -L E64_kernel.lst -o E64_kernel.bin E64_kernel.asm
-; Sat Sep  7 22:08:08 2019
+; Mon Sep 16 22:51:33 2019
 
 ;Offset	;Hex		;Monitor	;Source
 
@@ -27,7 +27,9 @@
 =1027						VICV_TSH = VICV_BASE + $03
 =1028						VICV_CSL = VICV_BASE + $04
 =1029						VICV_CSH = VICV_BASE + $05
-=$0500						SID_BASE = $0500
+=$0500						SID0_BASE = $0500
+=$0580						SID0_LEFT = $0580
+=$0581						SID0_RGHT = $0581
 =$00						ASCII_NULL	= $00
 =$08						ASCII_BKSPC	= $08
 =$0a						ASCII_LF	= $0a
@@ -56,128 +58,132 @@
 .e01f	8d 02 04	sta $0402		sta VICV_TSL
 .e022	1a		inc a			inc a
 .e023	8d 04 04	sta $0404		sta VICV_CSL
-.e026	20 a9 e0	jsr $e0a9		jsr clear_screen
-.e029	f4 f7 e0	phw #$e0f7		phw #welc1	; push the address of the first welcome message onto the stack
-.e02c	20 e9 e0	jsr $e0e9		jsr put_string
-.e02f	f4 0f e1	phw #$e10f		phw #welc2
-.e032	20 e9 e0	jsr $e0e9		jsr put_string
+.e026	20 b3 e0	jsr $e0b3		jsr clear_screen
+.e029	f4 01 e1	phw #$e101		phw #welc1	; push the address of the first welcome message onto the stack
+.e02c	20 f3 e0	jsr $e0f3		jsr put_string
+.e02f	f4 19 e1	phw #$e119		phw #welc2
+.e032	20 f3 e0	jsr $e0f3		jsr put_string
 .e035	a9 82		lda #$82		lda #$82
-.e037	8d 01 05	sta $0501		sta SID_BASE+$01	; frequency of voice 1 (high byte)
+.e037	8d 01 05	sta $0501		sta SID0_BASE+$01	; frequency of voice 1 (high byte)
 .e03a	a9 09		lda #$09		lda #$09
-.e03c	8d 05 05	sta $0505		sta SID_BASE+$05	; attack and decay of voice 1
+.e03c	8d 05 05	sta $0505		sta SID0_BASE+$05	; attack and decay of voice 1
 .e03f	a9 1e		lda #$1e		lda #$1e
-.e041	8d 0f 05	sta $050f		sta SID_BASE+$0f	; freq of voice 3
+.e041	8d 0f 05	sta $050f		sta SID0_BASE+$0f	; freq of voice 3
 .e044	a9 0f		lda #$0f		lda #$0f
-.e046	8d 18 05	sta $0518		sta SID_BASE+$18	; max volume
-.e049	a9 85		lda #$85		lda #$85
-.e04b	8d 04 05	sta $0504		sta SID_BASE+$04	; play bell by opening gate on bit0 register #4
-.e04e	ad 00 c2	lda $c200	-	lda $c200	; load a char from screen memory
-.e051	1a		inc a			inc a		; increase value of accumulator
-.e052	8d 00 c2	sta $c200		sta $c200	; store it back
-.e055	a2 00		ldx #$00		ldx #$00	; init counter to 0
-.e057	bd 80 03	lda $0380,x	-	lda $0380,x	; load key state
-.e05a	9d 00 c4	sta $c400,x		sta $c400,x	; store it somewhere on screen
-.e05d	e8		inx			inc x
-.e05e	e0 49		cpx #$49		cpx #$49	; last key?
-.e060	d0 f5		bne $e057		bne -
-.e062	80 ea		bra $e04e		bra --
-.e064					irq_handler:
-.e064	48		pha			pha		; save processor state
-.e065	da		phx			phx
-.e066	5a		phy			phy
-.e067	db		phz			phz
-.e068	ba		tsx			tsx		; load sl into x
-.e069	0b		tsy			tsy		; load sh into y
-.e06a	86 f0		stx $f0			stx P0		; store sp into pointer register P0
-.e06c	84 f1		sty $f1			sty P0+1
-.e06e	a0 05		ldy #$05		ldy #$05	; index is $5
-.e070	b1 f0		lda ($f0),y		lda (P0),y	; load the pushed status byte into accumulator
-.e072	29 10		and #$10		and #%00010000	; was break "flag" present on stack?
-.e074	f0 04		beq $e07a		beq +		; no: branch to normal irq part
-.e076	ea		nop			nop		; blabla
-.e077	ea		nop			nop		; blabla
-.e078	80 21		bra $e09b		bra ++
-.e07a	ad 00 03	lda $0300	+	lda CIA_BASE+0	; load current status
-.e07d	29 80		and #$80		and #%10000000	; did CIA cause the interrupt?
-.e07f	f0 1a		beq $e09b		beq +		; no: skip the next part
-.e081	a9 01		lda #$01		lda #%00000001	;
-.e083	8d 00 03	sta $0300		sta CIA_BASE+0	; acknowledge the interrupt
-.e086	ad 00 03	lda $0300	-	lda CIA_BASE+0
-.e089	29 01		and #$01		and #%00000001	; if bit 0 is on, a keyboard event is waiting
-.e08b	f0 0e		beq $e09b		beq +		; no, skip the next part
-.e08d	ad 02 03	lda $0302		lda CIA_BASE+2	; read a scancode
-.e090	30 f4		bmi $e086		bmi -		; if bit 7 is set, check for a next event
-.e092	aa		tax			tax		; move scancode into index register
-.e093	bd 80 ff	lda $ff80,x		lda scancode_to_ascii,x		; lookup corresponding ascii value in table
-.e096	20 cf e0	jsr $e0cf		jsr put_char
-.e099	80 eb		bra $e086		bra -
-.e09b	fb		plz		+	plz		; restore processor state
-.e09c	7a		ply			ply
-.e09d	fa		plx			plx
-.e09e	68		pla			pla
-.e09f	40		rti			rti		; return from interrupt
-.e0a0					nmi_handler:
-.e0a0	48		pha			pha
-.e0a1	da		phx			phx
-.e0a2	5a		phy			phy
-.e0a3	db		phz			phz
-.e0a4	fb		plz			plz
-.e0a5	7a		ply			ply
-.e0a6	fa		plx			plx
-.e0a7	68		pla			pla
-.e0a8	40		rti			rti
-.e0a9					clear_screen:
-.e0a9	a9 00		lda #$00		lda #$00
-.e0ab	85 f0		sta $f0			sta P0
-.e0ad	85 f2		sta $f2			sta P1
-.e0af	a9 c0		lda #$c0		lda #$c0
-.e0b1	85 f1		sta $f1			sta P0+1
-.e0b3	a9 c8		lda #$c8		lda #$c8
-.e0b5	85 f3		sta $f3			sta P1+1
-.e0b7	a0 00		ldy #$00		ldy #$00
-.e0b9	a9 20		lda #$20	-	lda #ASCII_SPACE
-.e0bb	91 f0		sta ($f0),y		sta (P0),y
-.e0bd	a9 0c		lda #$0c		lda #$0c	; grey
-.e0bf	91 f2		sta ($f2),y		sta (P1),y
-.e0c1	c8		iny			inc y
-.e0c2	d0 f5		bne $e0b9		bne -
-.e0c4	e6 f1		inc $f1			inc P0+1
-.e0c6	e6 f3		inc $f3			inc P1+1
-.e0c8	a6 f1		ldx $f1			ldx P0+1
-.e0ca	e0 c8		cpx #$c8		cpx #$c8
-.e0cc	d0 eb		bne $e0b9		bne -
-.e0ce	60		rts			rts
-.e0cf					put_char:
-.e0cf	da		phx			phx
-.e0d0	5a		phy			phy
-.e0d1	c9 0a		cmp #$0a		cmp #ASCII_LF
-.e0d3	f0 0f		beq $e0e4		beq +
-.e0d5	aa		tax			tax
-.e0d6	bd 00 ff	lda $ff00,x		lda ascii_to_screencode,x
-.e0d9	a4 00		ldy $00			ldy cursor_pos
-.e0db	99 00 c0	sta $c000,y		sta $c000,y
-.e0de	c8		iny			inc y
-.e0df	84 00		sty $00			sty cursor_pos
-.e0e1	7a		ply			ply
-.e0e2	fa		plx			plx
-.e0e3	60		rts			rts
-.e0e4	ea		nop		+	nop			; part in which LF is printed...
-.e0e5	ea		nop			nop
-.e0e6	7a		ply			ply
-.e0e7	fa		plx			plx
-.e0e8	60		rts			rts
-.e0e9					put_string:
-.e0e9	a0 00		ldy #$00		ldy #$00
-.e0eb	e2 03		lda ($03,s),y	-	lda (#$03,s),y
-.e0ed	f0 06		beq $e0f5		beq +
-.e0ef	20 cf e0	jsr $e0cf		jsr put_char
-.e0f2	c8		iny			inc y
-.e0f3	80 f6		bra $e0eb		bra -
-.e0f5	62 02		rts #$02	+	rtn #$02
->e0f7	45 36 34 20 28 43 29 32		welc1	.text "E64 (C)2019 by elmerucr",ASCII_NULL
->e0ff	30 31 39 20 62 79 20 65 6c 6d 65 72 75 63 72 00
->e10f	20 2d 20 6b 65 72 6e 65		welc2	.text " - kernel V20190829",ASCII_NULL
->e117	6c 20 56 32 30 31 39 30 38 32 39 00
+.e046	8d 18 05	sta $0518		sta SID0_BASE+$18	; max volume
+.e049	a9 ff		lda #$ff		lda #$ff
+.e04b	8d 80 05	sta $0580		sta SID0_LEFT		; left channel mix
+.e04e	a9 10		lda #$10		lda #$10
+.e050	8d 81 05	sta $0581		sta SID0_RGHT		; right channel mix
+.e053	a9 85		lda #$85		lda #$85
+.e055	8d 04 05	sta $0504		sta SID0_BASE+$04	; play bell by opening gate on bit0 register #4
+.e058	ad 00 c2	lda $c200	-	lda $c200	; load a char from screen memory
+.e05b	1a		inc a			inc a		; increase value of accumulator
+.e05c	8d 00 c2	sta $c200		sta $c200	; store it back
+.e05f	a2 00		ldx #$00		ldx #$00	; init counter to 0
+.e061	bd 80 03	lda $0380,x	-	lda $0380,x	; load key state
+.e064	9d 00 c4	sta $c400,x		sta $c400,x	; store it somewhere on screen
+.e067	e8		inx			inc x
+.e068	e0 49		cpx #$49		cpx #$49	; last key?
+.e06a	d0 f5		bne $e061		bne -
+.e06c	80 ea		bra $e058		bra --
+.e06e					irq_handler:
+.e06e	48		pha			pha		; save processor state
+.e06f	da		phx			phx
+.e070	5a		phy			phy
+.e071	db		phz			phz
+.e072	ba		tsx			tsx		; load sl into x
+.e073	0b		tsy			tsy		; load sh into y
+.e074	86 f0		stx $f0			stx P0		; store sp into pointer register P0
+.e076	84 f1		sty $f1			sty P0+1
+.e078	a0 05		ldy #$05		ldy #$05	; index is $5
+.e07a	b1 f0		lda ($f0),y		lda (P0),y	; load the pushed status byte into accumulator
+.e07c	29 10		and #$10		and #%00010000	; was break "flag" present on stack?
+.e07e	f0 04		beq $e084		beq +		; no: branch to normal irq part
+.e080	ea		nop			nop		; blabla
+.e081	ea		nop			nop		; blabla
+.e082	80 21		bra $e0a5		bra ++
+.e084	ad 00 03	lda $0300	+	lda CIA_BASE+0	; load current status
+.e087	29 80		and #$80		and #%10000000	; did CIA cause the interrupt?
+.e089	f0 1a		beq $e0a5		beq +		; no: skip the next part
+.e08b	a9 01		lda #$01		lda #%00000001	;
+.e08d	8d 00 03	sta $0300		sta CIA_BASE+0	; acknowledge the interrupt
+.e090	ad 00 03	lda $0300	-	lda CIA_BASE+0
+.e093	29 01		and #$01		and #%00000001	; if bit 0 is on, a keyboard event is waiting
+.e095	f0 0e		beq $e0a5		beq +		; no, skip the next part
+.e097	ad 02 03	lda $0302		lda CIA_BASE+2	; read a scancode
+.e09a	30 f4		bmi $e090		bmi -		; if bit 7 is set, check for a next event
+.e09c	aa		tax			tax		; move scancode into index register
+.e09d	bd 80 ff	lda $ff80,x		lda scancode_to_ascii,x		; lookup corresponding ascii value in table
+.e0a0	20 d9 e0	jsr $e0d9		jsr put_char
+.e0a3	80 eb		bra $e090		bra -
+.e0a5	fb		plz		+	plz		; restore processor state
+.e0a6	7a		ply			ply
+.e0a7	fa		plx			plx
+.e0a8	68		pla			pla
+.e0a9	40		rti			rti		; return from interrupt
+.e0aa					nmi_handler:
+.e0aa	48		pha			pha
+.e0ab	da		phx			phx
+.e0ac	5a		phy			phy
+.e0ad	db		phz			phz
+.e0ae	fb		plz			plz
+.e0af	7a		ply			ply
+.e0b0	fa		plx			plx
+.e0b1	68		pla			pla
+.e0b2	40		rti			rti
+.e0b3					clear_screen:
+.e0b3	a9 00		lda #$00		lda #$00
+.e0b5	85 f0		sta $f0			sta P0
+.e0b7	85 f2		sta $f2			sta P1
+.e0b9	a9 c0		lda #$c0		lda #$c0
+.e0bb	85 f1		sta $f1			sta P0+1
+.e0bd	a9 c8		lda #$c8		lda #$c8
+.e0bf	85 f3		sta $f3			sta P1+1
+.e0c1	a0 00		ldy #$00		ldy #$00
+.e0c3	a9 20		lda #$20	-	lda #ASCII_SPACE
+.e0c5	91 f0		sta ($f0),y		sta (P0),y
+.e0c7	a9 0c		lda #$0c		lda #$0c	; grey
+.e0c9	91 f2		sta ($f2),y		sta (P1),y
+.e0cb	c8		iny			inc y
+.e0cc	d0 f5		bne $e0c3		bne -
+.e0ce	e6 f1		inc $f1			inc P0+1
+.e0d0	e6 f3		inc $f3			inc P1+1
+.e0d2	a6 f1		ldx $f1			ldx P0+1
+.e0d4	e0 c8		cpx #$c8		cpx #$c8
+.e0d6	d0 eb		bne $e0c3		bne -
+.e0d8	60		rts			rts
+.e0d9					put_char:
+.e0d9	da		phx			phx
+.e0da	5a		phy			phy
+.e0db	c9 0a		cmp #$0a		cmp #ASCII_LF
+.e0dd	f0 0f		beq $e0ee		beq +
+.e0df	aa		tax			tax
+.e0e0	bd 00 ff	lda $ff00,x		lda ascii_to_screencode,x
+.e0e3	a4 00		ldy $00			ldy cursor_pos
+.e0e5	99 00 c0	sta $c000,y		sta $c000,y
+.e0e8	c8		iny			inc y
+.e0e9	84 00		sty $00			sty cursor_pos
+.e0eb	7a		ply			ply
+.e0ec	fa		plx			plx
+.e0ed	60		rts			rts
+.e0ee	ea		nop		+	nop			; part in which LF is printed...
+.e0ef	ea		nop			nop
+.e0f0	7a		ply			ply
+.e0f1	fa		plx			plx
+.e0f2	60		rts			rts
+.e0f3					put_string:
+.e0f3	a0 00		ldy #$00		ldy #$00
+.e0f5	e2 03		lda ($03,s),y	-	lda (#$03,s),y
+.e0f7	f0 06		beq $e0ff		beq +
+.e0f9	20 d9 e0	jsr $e0d9		jsr put_char
+.e0fc	c8		iny			inc y
+.e0fd	80 f6		bra $e0f5		bra -
+.e0ff	62 02		rts #$02	+	rtn #$02
+>e101	45 36 34 20 28 43 29 32		welc1	.text "E64 (C)2019 by elmerucr",ASCII_NULL
+>e109	30 31 39 20 62 79 20 65 6c 6d 65 72 75 63 72 00
+>e119	20 2d 20 6b 65 72 6e 65		welc2	.text " - kernel V20190829",ASCII_NULL
+>e121	6c 20 56 32 30 31 39 30 38 32 39 00
 
 ;******  Processing file: E64_kernel_rom_tables.asm
 
@@ -349,10 +355,10 @@
 ;******  Return to file: E64_kernel.asm
 
 .fffa					nmi_vector:
->fffa	a0 e0					.word nmi_handler
+>fffa	aa e0					.word nmi_handler
 .fffc					reset_vector:
 >fffc	00 e0					.word cold_start
 .fffe					brk_vector:
->fffe	64 e0					.word irq_handler
+>fffe	6e e0					.word irq_handler
 
 ;******  End of listing

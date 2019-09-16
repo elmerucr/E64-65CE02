@@ -20,9 +20,10 @@
 #include "timer.hpp"
 
 // global components of the system
-csg65ce02   cpu_ic;
+csg65ce02  cpu_ic;
 E64::timer timer_ic;
 E64::vicv  vicv_ic;
+E64::sound sound_ic;
 C256::sdl2_pid_delay frame_delay(15000.0);
 bool application_running;
 
@@ -42,7 +43,7 @@ int main()
     E64::exception_collector_add_device(1, &cia_irq_line);
     E64::exception_collector_add_device(2, &(timer_ic.irq_line) );
 
-    sound_init();
+    //sound_init();
     // note: sid units do not produce interrupts!
 
     // cpu stuff

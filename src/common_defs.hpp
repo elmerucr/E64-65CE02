@@ -143,5 +143,7 @@ extern E64::timer timer_ic;
 extern E64::vicv vicv_ic;
 #include "sdl2_pid_delay.hpp"
 extern C256::sdl2_pid_delay frame_delay;
+#include "sound.hpp"
+extern E64::sound sound_ic;
 
 #endif

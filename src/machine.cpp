@@ -37,7 +37,8 @@ int E64::machine_execute(uint16_t no_of_cycles)
     // run cycles on vicv
     vicv_ic.run(cpu_to_vicv.clock(processed_cycles));
     // calculate no. of cycles to run on sids
-    sound_run(cpu_to_sid.clock(processed_cycles));
+    sound_ic.run(cpu_to_sid.clock(processed_cycles));
+    //sound_run(cpu_to_sid.clock(processed_cycles));
     // start audio only if buffer is large enough
     if(E64::sdl2_get_queued_audio_size() > (AUDIO_BUFFER_SIZE/2)) E64::sdl2_start_audio();
     // run cycles on timer
