@@ -1,0 +1,29 @@
+	cursor_pos = $00
+
+	P0 = $f0
+	P1 = $f2
+	P2 = $f4
+	P3 = $f6
+	P4 = $f8
+	P5 = $fa
+	P6 = $fc
+	P7 = $fe
+
+	CIA_BASE = $0300
+
+	VICV_BASE = $0400
+	VICV_BO = VICV_BASE + $00
+	VICV_BG = VICV_BASE + $01
+	VICV_TSL = VICV_BASE + $02
+	VICV_TSH = VICV_BASE + $03
+	VICV_CSL = VICV_BASE + $04
+	VICV_CSH = VICV_BASE + $05
+
+	SID_BASE = $0500
+
+	ASCII_NULL	= $00
+	ASCII_BKSPC	= $08
+	ASCII_LF	= $0a
+	ASCII_CR	= $0d
+	ASCII_SPACE	= $20
+	ASCII_DEL	= $7f
