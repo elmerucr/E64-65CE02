@@ -21,7 +21,7 @@ In debug mode:
 #### macOS
 * Install the [SDL2 framework](https://www.libsdl.org/download-2.0.php) to /Library/Frameworks
 * Open the Xcode project in the ./macOS/E64 folder and build
-#### Ubuntu Linux
+#### Ubuntu Linux and derivatives
 Run the following commands in a terminal:
 
 ````sudo apt install build-essential cmake git libsdl2-dev````
