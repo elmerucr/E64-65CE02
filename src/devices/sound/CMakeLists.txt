@@ -1,5 +1,5 @@
 add_subdirectory(resid-0.16/)
 
-add_library(sids STATIC sound.cpp)
+add_library(sound STATIC sound.cpp)
 
-target_link_libraries(sids reSID)
+target_link_libraries(sound reSID)
