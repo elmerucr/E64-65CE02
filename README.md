@@ -24,19 +24,19 @@ In debug mode:
 #### Ubuntu Linux and derivatives
 Run the following commands in a terminal:
 
-````sudo apt install build-essential cmake git libsdl2-dev````
-
-````git clone https://github.com/elmerucr/E64````
-
-````cd E64 && mkdir build && cd build````
-
-````cmake ..````
-
-````make````
+````console
+$ sudo apt install build-essential cmake git libsdl2-dev
+$ git clone https://github.com/elmerucr/E64
+$ cd E64 && mkdir build && cd build
+$ cmake ..
+$ make
+````
 
 Finally to run the application in the build directory:
 
-````./E64````
+````console
+./E64
+````
 ### Assembling kernel ROM
 todo
 ## MIT License
