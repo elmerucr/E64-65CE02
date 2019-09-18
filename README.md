@@ -32,10 +32,10 @@ $ cmake ..
 $ make
 ````
 
-Finally to run the application in the build directory:
+Finally to run the application from the build directory:
 
 ````console
-./E64
+$ ./E64
 ````
 ### Assembling kernel ROM
 todo
