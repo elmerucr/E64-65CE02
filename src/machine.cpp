@@ -60,7 +60,7 @@ E64::machine::machine()
 
 E64::machine::~machine()
 {
-    delete timer_ic;
+    //delete timer_ic;
     
     delete cpu_to_vicv;
     delete cpu_to_sid;
