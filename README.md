@@ -32,7 +32,7 @@ $ cmake ..
 $ make
 ````
 
-Finally to run the application from the build directory:
+Finally, to run the application from the build directory:
 
 ````console
 $ ./E64
