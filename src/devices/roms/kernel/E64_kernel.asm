@@ -6,7 +6,7 @@
 
 	* = $e000
 
-cold_start:
+cold_start
 			; no need to manually clear decimal flag, done by 65ce02 reset procedure
 			; no need to manually set i flag, done by reset procedure
 			; no need to manually set e flag, done by reset procedure
@@ -27,7 +27,8 @@ cold_start:
 	lda #$00	; black for border
 	sta VICV_BO
 
-	sta VICV_TSH	; point vicv to text and color screen (assert accum. contains $00)
+	lda #$00
+	sta VICV_TSH	; point vicv to text and color screen
 	sta VICV_CSH
 	lda #$18
 	sta VICV_TSL
@@ -72,7 +73,7 @@ cold_start:
 
 	bra --
 
-irq_handler:
+exception_handler
 	pha		; save processor state
 	phx
 	phy
@@ -117,7 +118,7 @@ irq_handler:
 	pla
 	rti		; return from interrupt
 
-nmi_handler:
+nmi_handler
 	pha
 	phx
 	phy
@@ -131,7 +132,7 @@ nmi_handler:
 	pla
 	rti
 
-clear_screen:
+clear_screen
 	lda #$00
 	sta P0
 	sta P1
@@ -155,7 +156,7 @@ clear_screen:
 
 ; put_char expects an ascii value in accumulator
 ; it will print the character at the current cursor position and increase the cursor position
-put_char:
+put_char
 	phx
 	phy
 	cmp #ASCII_LF
@@ -178,7 +179,7 @@ put_char:
 ; put_string
 ; this routine expects an address of the string to be pushed onto the stack
 ; at the end the rtn # instruction is used to clean up the stack
-put_string:
+put_string
 	ldy #$00
 -	lda (#$03,s),y
 	beq +
@@ -191,16 +192,16 @@ put_string:
 
 ; strings
 welc1	.text "E64 (C)2019 by elmerucr",ASCII_NULL
-welc2	.text " - kernel V20190829",ASCII_NULL
+welc2	.text " - kernel V20190920",ASCII_NULL
 
 	* = $ff00
 	.include "E64_kernel_rom_tables.asm"
 
 ; end of 8k rom, three vectors:
 	* = $fffa
-nmi_vector:
+nmi_vector
 	.word nmi_handler
-reset_vector:
+reset_vector
 	.word cold_start
-brk_vector:
-	.word irq_handler
+brk_vector
+	.word exception_handler
