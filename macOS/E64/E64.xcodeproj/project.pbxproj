@@ -176,8 +176,8 @@
 				46241AC02324429100569490 /* csg65ce02_macros.h */,
 				46241AC32324429200569490 /* csg65ce02.c */,
 				46241ABD2324429100569490 /* csg65ce02.h */,
-				46241ABF2324429100569490 /* exception_collector.cpp */,
 				46241AC12324429100569490 /* exception_collector.hpp */,
+				46241ABF2324429100569490 /* exception_collector.cpp */,
 			);
 			name = cpu;
 			sourceTree = "<group>";

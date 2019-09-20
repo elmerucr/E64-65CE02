@@ -7,10 +7,11 @@
 
 #include "cia.hpp"
 #include "exception_collector.hpp"
+#include "common_defs.hpp"
 
 uint8_t cia_registers[256];
 uint8_t cia_scancodes_last_known_state[128];
-bool cia_irq_line;
+bool *cia_irq_line;
 
 // implement a fifo queue, important for key presses, you don't want them in the wrong order
 uint8_t cia_event_queue[256];
@@ -20,8 +21,9 @@ uint8_t event_stack_pointer_head;
 // if (head - tail) == 0, then no item available
 uint8_t event_stack_pointer_tail;
 
-void cia_init(void)
+void cia_init(bool *irq_pointer)
 {
+    cia_irq_line = irq_pointer;
     for(int i=0; i<256; i++) cia_registers[i] = 0x00;
     for(int i=0; i<128; i++) cia_scancodes_last_known_state[i] = 0x00;
     for(int i=0; i<256; i++) cia_event_queue[i] = 0x00;
@@ -29,7 +31,7 @@ void cia_init(void)
     event_stack_pointer_tail = 0;
     // on reset of cia, line is "high" = 1
     // please note that registers 0 and 1 start empty
-    cia_irq_line = true;
+    *cia_irq_line = true;
 }
 
 void cia_push_event(uint8_t event)
@@ -76,7 +78,7 @@ void cia_update_status()
                 cia_push_event(i);
                 if(cia_registers[0x01] & 0x01)
                 {
-                    cia_irq_line = false;
+                    *cia_irq_line = false;
                     cia_registers[0x00] |= 0x80;
                 }
                 break;
@@ -85,7 +87,7 @@ void cia_update_status()
                 cia_push_event(0x80 | i);
                 if(cia_registers[0x01] & 0x01)
                 {
-                    cia_irq_line = false;
+                    *cia_irq_line = false;
                     cia_registers[0x00] |= 0x80;
                 }
                 break;
@@ -95,7 +97,7 @@ void cia_update_status()
         }
     }
     // IMPORTANT: immediately call this function, it's not in the main loop!
-    E64::exception_collector_update_status();
+    exception_collector_ic.update_status();
 }
 
 // read and write functions to data registers of cia
@@ -119,11 +121,11 @@ void cia_write_byte(uint8_t address, uint8_t byte)
             if(byte & 0x01)
             {
                 // a write to bit 0, means acknowledge the interrupt
-                cia_irq_line = true;
+                *cia_irq_line = true;
                 // clear bit 7
                 cia_registers[0x00] &= 0x7f;
                 // IMPORTANT: immediately call to next function, it's not in the main loop!
-                E64::exception_collector_update_status();
+                exception_collector_ic.update_status();
             }
             break;
         case 0x01:

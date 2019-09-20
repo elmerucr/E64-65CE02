@@ -63,11 +63,11 @@ namespace E64
         uint64_t timer3_counter;
 
         uint32_t bpm_to_clock_interval(uint16_t bpm);
+
+        bool *irq_line;
     public:
-        // shouldn't be accessible from outside, but it's more practical currently
-        bool irq_line;
         // constructor
-        timer(void);
+        timer(bool *irq_pointer);
         // reset, called by constructor
         void reset(void);
 

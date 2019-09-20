@@ -35,9 +35,9 @@
 
 extern uint8_t cia_registers[];
 extern uint8_t cia_scancodes_last_known_state[];
-extern bool cia_irq_line;
+extern bool *cia_irq_line;
 
-void cia_init(void);
+void cia_init(bool *irq_pointer);
 void cia_update_status(void);
 
 void cia_push_event(uint8_t scancode);

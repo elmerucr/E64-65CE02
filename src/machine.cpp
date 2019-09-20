@@ -9,7 +9,7 @@
 #include "common_defs.hpp"
 #include "vicv.hpp"
 #include "debug_console.hpp"
-#include "exception_collector.hpp"
+//#include "exception_collector.hpp"
 #include "sound.hpp"
 #include "frequency_divider.hpp"
 #include "sdl2.hpp"
@@ -51,7 +51,7 @@ E64::machine::machine()
 {
     current_mode = RUNNING_MODE;
     
-    timer_ic = new timer();
+    //timer_ic = new timer();
     
     cpu_to_vicv  = new frequency_divider(CPU_CLOCK_SPEED, VICV_CLOCK_SPEED);
     cpu_to_sid   = new frequency_divider(CPU_CLOCK_SPEED, SID_CLOCK_SPEED );

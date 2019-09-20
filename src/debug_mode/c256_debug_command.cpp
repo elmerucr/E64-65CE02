@@ -371,5 +371,5 @@ uint32_t c256_debug_command_hex_string_to_int(const char *temp_string)
 void c256_debug_command_single_step_cpu()
 {
     E64::machine_execute(0);
-    E64::exception_collector_update_status();
+    exception_collector_ic.update_status();
 }

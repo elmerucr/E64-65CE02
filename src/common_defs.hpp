@@ -135,6 +135,8 @@ extern char c256_string2[];
 extern bool application_running;
 
 // some objects need to be visible at global level:
+#include "exception_collector.hpp"
+extern E64::exception_collector exception_collector_ic;
 #include "csg65ce02.h"
 extern csg65ce02 cpu_ic;
 #include "timer.hpp"

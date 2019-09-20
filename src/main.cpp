@@ -20,9 +20,11 @@
 #include "timer.hpp"
 
 // global components of the system
+
+E64::exception_collector exception_collector_ic;
 csg65ce02  cpu_ic;
-E64::timer timer_ic;
-E64::vicv  vicv_ic;
+E64::timer timer_ic(exception_collector_ic.add_device());
+E64::vicv  vicv_ic(exception_collector_ic.add_device());
 E64::sound sound_ic;
 C256::sdl2_pid_delay frame_delay(15000.0);
 bool application_running;
@@ -30,21 +32,14 @@ bool application_running;
 int main()
 {
     printf("E64 (C)%i by elmerucr V%i.%i.%i\n", E64_YEAR, E64_MAJOR_VERSION, E64_MINOR_VERSION, E64_BUILD);
+    
     // set up window management, audio and some other stuff
     E64::sdl2_init();
 
     // start pla (mmu, bankswitching, etc...)
     pla_init();
 
-    E64::exception_collector_init();
-    E64::exception_collector_add_device(0, &(vicv_ic.irq_line));
-
-    cia_init();
-    E64::exception_collector_add_device(1, &cia_irq_line);
-    E64::exception_collector_add_device(2, &(timer_ic.irq_line) );
-
-    //sound_init();
-    // note: sid units do not produce interrupts!
+    cia_init(exception_collector_ic.add_device());
 
     // cpu stuff
     csg65ce02_init(&cpu_ic);

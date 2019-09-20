@@ -43,9 +43,11 @@ namespace E64
         // overlay related things
         bool overlay_present;
         uint32_t borders_contrast_foreground_color(void);
+        
+        bool *irq_line;
 
     public:
-        vicv(void);
+        vicv(bool *irq_pointer);
         ~vicv(void);
 
         // pointer to the buffer that currently can be shown
@@ -56,8 +58,6 @@ namespace E64
         // move this member to private again????   !!!!
         uint32_t *color_palette;
 
-        // unfortunately, the next one needs to be public and accessible:
-        bool irq_line;
         // this will be flagged if a frame is completely done
         bool frame_done;
 
