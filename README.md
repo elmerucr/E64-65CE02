@@ -1,6 +1,6 @@
 # ![E64test](./docs/E64_icon.png)
 ## Description
-The E64 (Enhanced 64) will be a virtual computer system that runs on macOS and linux. It's heavily inspired by the Commodore 64 and other (more advanced) personal computer systems of the era.
+The E64 (Enhanced 64) is a virtual computer system (under construction) that runs on macOS and linux. It's heavily inspired by the Commodore 64 and other (more advanced) personal computer systems of the era.
 
 Technical specifications (not yet complete):
 * CSG 65CE02 CPU (8bit and some 16bit instructions) running at 4.096MHz using the [lib65ce02](https://github.com/elmerucr/lib65ce02) library.
@@ -19,6 +19,7 @@ In debug mode:
 ## Compiling
 ### Core application
 #### macOS
+* Install [Xcode](https://developer.apple.com/xcode)
 * Install the [SDL2 framework](https://www.libsdl.org/download-2.0.php) to /Library/Frameworks
 * Open the Xcode project in the ./macOS/E64 folder and build
 #### Ubuntu Linux and derivatives
