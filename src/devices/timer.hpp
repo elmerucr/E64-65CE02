@@ -25,15 +25,15 @@
 //    bit 3: Write a 1: Acknowledge timer3 interrupt
 //    .
 //
-//  register 1 os Interrupt Control Register
+//  register 1 is Interrupt Control Register
 //  READ and WRITE:
-//    bit 0: 1=Timer0 generates interrupts, 0=off
-//    bit 1: 1=Timer1 generates interrupts, 0=off
-//    bit 2: 1=Timer2 generates interrupts, 0=off
-//    bit 3: 1=Timer3 generates interrupts, 0=off
+//    bit 0: Timer0 interrupts 1=on, 0=off
+//    bit 1: Timer1 interrupts 1=on, 0=off
+//    bit 2: Timer2 interrupts 1=on, 0=off
+//    bit 3: Timer3 interrupts 1=on, 0=off
 //    .
-//    .
-//
+//    register 2 and 3 are respectively the lo and hi byte
+//    of an unsigned 16bit valur=e
 
 #ifndef timer_hpp
 #define timer_hpp
