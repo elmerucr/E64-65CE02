@@ -1,7 +1,7 @@
 
-; 64tass Turbo Assembler Macro V1.54.1864? listing file
+; 64tass Turbo Assembler Macro V1.54.1900 listing file
 ; 64tass -b -C -L E64_kernel.lst -o E64_kernel.bin E64_kernel.asm
-; Fri Sep 20 18:18:30 2019
+; Sat Sep 21 11:41:59 2019
 
 ;Offset	;Hex		;Monitor	;Source
 
@@ -186,8 +186,8 @@
 .e101	62 02		rts #$02	+	rtn #$02
 >e103	45 36 34 20 28 43 29 32		welc1	.text "E64 (C)2019 by elmerucr",ASCII_NULL
 >e10b	30 31 39 20 62 79 20 65 6c 6d 65 72 75 63 72 00
->e11b	20 2d 20 6b 65 72 6e 65		welc2	.text " - kernel V20190920",ASCII_NULL
->e123	6c 20 56 32 30 31 39 30 39 32 30 00
+>e11b	20 2d 20 6b 65 72 6e 65		welc2	.text " - kernel V20190921",ASCII_NULL
+>e123	6c 20 56 32 30 31 39 30 39 32 31 00
 
 ;******  Processing file: E64_kernel_rom_tables.asm
 

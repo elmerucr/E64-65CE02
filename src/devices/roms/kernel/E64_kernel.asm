@@ -189,10 +189,9 @@ put_string
 ;+	rts
 +	rtn #$02
 
-
 ; strings
 welc1	.text "E64 (C)2019 by elmerucr",ASCII_NULL
-welc2	.text " - kernel V20190920",ASCII_NULL
+welc2	.text " - kernel V20190921",ASCII_NULL
 
 	* = $ff00
 	.include "E64_kernel_rom_tables.asm"
