@@ -155,15 +155,20 @@ scancode_to_ascii:		; temporary hack!!!!!!!
 	.byte	$2d		; C256_SCANCODE_MINUS,
 	.byte	$3d		; C256_SCANCODE_EQUALS,
 	.byte	$80		; C256_SCANCODE_BACKSPACE,
-	.byte	$80		; C256_SCANCODE_TAB,   please finish!
+	.byte	$80		; C256_SCANCODE_TAB,
 	.byte	$71		; C256_SCANCODE_Q,
 	.byte	$77		; C256_SCANCODE_W,
 	.byte	$65		; C256_SCANCODE_E,
 	.byte	$72		; C256_SCANCODE_R,
 	.byte	$74		; C256_SCANCODE_T,
 	.byte	$79		; C256_SCANCODE_Y,
-    ;C256_SCANCODE_U,
-    ;C256_SCANCODE_I,               // 0x20
+	.byte	$75		; C256_SCANCODE_U,
+	.byte	$69		; C256_SCANCODE_I,
+	.byte	$6f		; C256_SCANCODE_O,
+	.byte	$70		; C256_SCANCODE_P,
+	.byte	$5b		; C256_SCANCODE_[,
+	.byte	$5d		; C256_SCANCODE_],
+	.byte	$0a		; C256_SCANCODE_LF,
 
 hex_table
 	.text	"0123456789abcdef"

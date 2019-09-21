@@ -1,7 +1,7 @@
 
 ; 64tass Turbo Assembler Macro V1.54.1900 listing file
 ; 64tass -b -C -L E64_kernel.lst -o E64_kernel.bin E64_kernel.asm
-; Sat Sep 21 11:41:59 2019
+; Sat Sep 21 13:27:31 2019
 
 ;Offset	;Hex		;Monitor	;Source
 
@@ -63,10 +63,10 @@
 .e024	1a		inc a			inc a
 .e025	8d 04 04	sta $0404		sta VICV_CSL
 .e028	20 b5 e0	jsr $e0b5		jsr clear_screen
-.e02b	f4 03 e1	phw #$e103		phw #welc1	; push the address of the first welcome message onto the stack
-.e02e	20 f5 e0	jsr $e0f5		jsr put_string
-.e031	f4 1b e1	phw #$e11b		phw #welc2
-.e034	20 f5 e0	jsr $e0f5		jsr put_string
+.e02b	f4 0a e1	phw #$e10a		phw #welc1	; push the address of the first welcome message onto the stack
+.e02e	20 fc e0	jsr $e0fc		jsr put_string
+.e031	f4 22 e1	phw #$e122		phw #welc2
+.e034	20 fc e0	jsr $e0fc		jsr put_string
 .e037	a9 82		lda #$82		lda #$82
 .e039	8d 01 05	sta $0501		sta SID0_BASE+$01	; frequency of voice 1 (high byte)
 .e03c	a9 09		lda #$09		lda #$09
@@ -110,7 +110,7 @@
 .e086	ad 00 03	lda $0300	+	lda CIA_BASE+0	; load current status
 .e089	29 80		and #$80		and #%10000000	; did CIA cause the interrupt?
 .e08b	f0 1a		beq $e0a7		beq +		; no: skip the next part
-.e08d	a9 01		lda #$01		lda #%00000001	;
+.e08d	a9 01		lda #$01		lda #%00000001	; yes: handle it
 .e08f	8d 00 03	sta $0300		sta CIA_BASE+0	; acknowledge the interrupt
 .e092	ad 00 03	lda $0300	-	lda CIA_BASE+0
 .e095	29 01		and #$01		and #%00000001	; if bit 0 is on, a keyboard event is waiting
@@ -171,23 +171,26 @@
 .e0ed	7a		ply			ply
 .e0ee	fa		plx			plx
 .e0ef	60		rts			rts
-.e0f0	ea		nop		+	nop			; part in which LF is printed...
-.e0f1	ea		nop			nop
-.e0f2	7a		ply			ply
-.e0f3	fa		plx			plx
-.e0f4	60		rts			rts
-.e0f5					put_string
-.e0f5	a0 00		ldy #$00		ldy #$00
-.e0f7	e2 03		lda ($03,s),y	-	lda (#$03,s),y
-.e0f9	f0 06		beq $e101		beq +
-.e0fb	20 db e0	jsr $e0db		jsr put_char
-.e0fe	c8		iny			inc y
-.e0ff	80 f6		bra $e0f7		bra -
-.e101	62 02		rts #$02	+	rtn #$02
->e103	45 36 34 20 28 43 29 32		welc1	.text "E64 (C)2019 by elmerucr",ASCII_NULL
->e10b	30 31 39 20 62 79 20 65 6c 6d 65 72 75 63 72 00
->e11b	20 2d 20 6b 65 72 6e 65		welc2	.text " - kernel V20190921",ASCII_NULL
->e123	6c 20 56 32 30 31 39 30 39 32 31 00
+.e0f0	a5 00		lda $00		+	lda cursor_pos		; print LF
+.e0f2	18		clc			clc
+.e0f3	69 40		adc #$40		adc #$40		; add 64 chars to current position
+.e0f5	29 c0		and #$c0		and #%11000000		; move to the first char of the line
+.e0f7	85 00		sta $00			sta cursor_pos
+.e0f9	7a		ply			ply
+.e0fa	fa		plx			plx
+.e0fb	60		rts			rts
+.e0fc					put_string
+.e0fc	a0 00		ldy #$00		ldy #$00
+.e0fe	e2 03		lda ($03,s),y	-	lda (#$03,s),y
+.e100	f0 06		beq $e108		beq +
+.e102	20 db e0	jsr $e0db		jsr put_char
+.e105	c8		iny			inc y
+.e106	80 f6		bra $e0fe		bra -
+.e108	62 02		rts #$02	+	rtn #$02
+>e10a	45 36 34 20 28 43 29 32		welc1	.text "E64 (C)2019 by elmerucr",ASCII_NULL
+>e112	30 31 39 20 62 79 20 65 6c 6d 65 72 75 63 72 00
+>e122	20 2d 20 6b 65 72 6e 65		welc2	.text " - kernel V20190921",ASCII_NULL
+>e12a	6c 20 56 32 30 31 39 30 39 32 31 00
 
 ;******  Processing file: E64_kernel_rom_tables.asm
 
@@ -345,16 +348,23 @@
 >ff95	2d					.byte	$2d		; C256_SCANCODE_MINUS,
 >ff96	3d					.byte	$3d		; C256_SCANCODE_EQUALS,
 >ff97	80					.byte	$80		; C256_SCANCODE_BACKSPACE,
->ff98	80					.byte	$80		; C256_SCANCODE_TAB,   please finish!
+>ff98	80					.byte	$80		; C256_SCANCODE_TAB,
 >ff99	71					.byte	$71		; C256_SCANCODE_Q,
 >ff9a	77					.byte	$77		; C256_SCANCODE_W,
 >ff9b	65					.byte	$65		; C256_SCANCODE_E,
 >ff9c	72					.byte	$72		; C256_SCANCODE_R,
 >ff9d	74					.byte	$74		; C256_SCANCODE_T,
 >ff9e	79					.byte	$79		; C256_SCANCODE_Y,
-.ff9f					hex_table
->ff9f	30 31 32 33 34 35 36 37			.text	"0123456789abcdef"
->ffa7	38 39 61 62 63 64 65 66
+>ff9f	75					.byte	$75		; C256_SCANCODE_U,
+>ffa0	69					.byte	$69		; C256_SCANCODE_I,
+>ffa1	6f					.byte	$6f		; C256_SCANCODE_O,
+>ffa2	70					.byte	$70		; C256_SCANCODE_P,
+>ffa3	5b					.byte	$5b		; C256_SCANCODE_[,
+>ffa4	5d					.byte	$5d		; C256_SCANCODE_],
+>ffa5	0a					.byte	$0a		; C256_SCANCODE_LF,
+.ffa6					hex_table
+>ffa6	30 31 32 33 34 35 36 37			.text	"0123456789abcdef"
+>ffae	38 39 61 62 63 64 65 66
 
 ;******  Return to file: E64_kernel.asm
 

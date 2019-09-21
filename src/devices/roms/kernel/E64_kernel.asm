@@ -97,8 +97,8 @@ exception_handler
 +	lda CIA_BASE+0	; load current status
 	and #%10000000	; did CIA cause the interrupt?
 	beq +		; no: skip the next part
-			;
-	lda #%00000001	;
+
+	lda #%00000001	; yes: handle it
 	sta CIA_BASE+0	; acknowledge the interrupt
 
 -	lda CIA_BASE+0
@@ -170,8 +170,11 @@ put_char
 	ply
 	plx
 	rts
-+	nop			; part in which LF is printed...
-	nop
++	lda cursor_pos		; print LF
+	clc
+	adc #$40		; add 64 chars to current position
+	and #%11000000		; move to the first char of the line
+	sta cursor_pos
 	ply
 	plx
 	rts
@@ -186,7 +189,6 @@ put_string
 	jsr put_char
 	inc y
 	bra -
-;+	rts
 +	rtn #$02
 
 ; strings
