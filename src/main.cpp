@@ -51,18 +51,15 @@ int main()
     E64::c256_machine_state_switch_to_running();
     //c256_machine_state_switch_to_debug();
 
-    ////////////////////////
-    // start of main loop //
-    ////////////////////////
-    
+    // start of main loop
     application_running = true;
-
+    
     while(application_running)
     {
         switch(machine_mode_current)
         {
             case E64::E64_RUNNING:
-                switch( E64::machine_execute(512) )
+                switch( E64::machine_execute(256) )
                 {
                     case E64::NOTHING:
                         break;

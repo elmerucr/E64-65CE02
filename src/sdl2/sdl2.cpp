@@ -82,7 +82,7 @@ void E64::sdl2_init()
     printf("[SDL] now using backend '%s'\n", SDL_GetCurrentVideoDriver());
 
     // setup context
-    context0.current_window_size = 2;
+    context0.current_window_size = 3;
     context0.fullscreen = false;
     // create window - title will be set later by function E64::sdl2_update_title()
     context0.window = SDL_CreateWindow("", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_sizes[context0.current_window_size].x, window_sizes[context0.current_window_size].y, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
@@ -94,7 +94,8 @@ void E64::sdl2_init()
     SDL_RenderSetLogicalSize(context0.renderer, VICV_PIXELS_PER_SCANLINE, 320);
     // create a texture that is able to refresh very frequently
     context0.texture = SDL_CreateTexture(context0.renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, VICV_PIXELS_PER_SCANLINE, 320);
-    // each call to SDL_PollEvent invokes SDL_PumpEvents() that updates the array
+    
+    // each call to SDL_PollEvent invokes SDL_PumpEvents() that updates this array
     E64_sdl2_keyboard_state = SDL_GetKeyboardState(NULL);
 
     // INIT AUDIO STUFF

@@ -169,6 +169,16 @@ scancode_to_ascii:		; temporary hack!!!!!!!
 	.byte	$5b		; C256_SCANCODE_[,
 	.byte	$5d		; C256_SCANCODE_],
 	.byte	$0a		; C256_SCANCODE_LF,
+	.byte	$61		; C256_SCANCODE_A,
+	.byte	$73		; C256_SCANCODE_S,
+	.byte	$64		; C256_SCANCODE_D,
+	.byte	$66		; C256_SCANCODE_F,
+	.byte	$67		; C256_SCANCODE_G,
+	.byte	$68		; C256_SCANCODE_H,
+	.byte	$6a		; C256_SCANCODE_J,
+	.byte	$6b		; C256_SCANCODE_K,
+	.byte	$6c		; C256_SCANCODE_L,
+	.byte	$3b		; C256_SCANCODE_;,
 
 hex_table
 	.text	"0123456789abcdef"

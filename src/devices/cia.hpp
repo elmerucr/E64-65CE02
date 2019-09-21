@@ -27,8 +27,8 @@
 //  register 2 contains the scancode for the last key press
 //  READ only
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <cstdint>
+#include <cstdbool>
 
 #ifndef cia_hpp
 #define cia_hpp

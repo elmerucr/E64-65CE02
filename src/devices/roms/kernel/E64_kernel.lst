@@ -1,7 +1,7 @@
 
 ; 64tass Turbo Assembler Macro V1.54.1900 listing file
 ; 64tass -b -C -L E64_kernel.lst -o E64_kernel.bin E64_kernel.asm
-; Sat Sep 21 13:27:31 2019
+; Sat Sep 21 16:01:47 2019
 
 ;Offset	;Hex		;Monitor	;Source
 
@@ -362,9 +362,19 @@
 >ffa3	5b					.byte	$5b		; C256_SCANCODE_[,
 >ffa4	5d					.byte	$5d		; C256_SCANCODE_],
 >ffa5	0a					.byte	$0a		; C256_SCANCODE_LF,
-.ffa6					hex_table
->ffa6	30 31 32 33 34 35 36 37			.text	"0123456789abcdef"
->ffae	38 39 61 62 63 64 65 66
+>ffa6	61					.byte	$61		; C256_SCANCODE_A,
+>ffa7	73					.byte	$73		; C256_SCANCODE_S,
+>ffa8	64					.byte	$64		; C256_SCANCODE_D,
+>ffa9	66					.byte	$66		; C256_SCANCODE_F,
+>ffaa	67					.byte	$67		; C256_SCANCODE_G,
+>ffab	68					.byte	$68		; C256_SCANCODE_H,
+>ffac	6a					.byte	$6a		; C256_SCANCODE_J,
+>ffad	6b					.byte	$6b		; C256_SCANCODE_K,
+>ffae	6c					.byte	$6c		; C256_SCANCODE_L,
+>ffaf	3b					.byte	$3b		; C256_SCANCODE_;,
+.ffb0					hex_table
+>ffb0	30 31 32 33 34 35 36 37			.text	"0123456789abcdef"
+>ffb8	38 39 61 62 63 64 65 66
 
 ;******  Return to file: E64_kernel.asm
 
