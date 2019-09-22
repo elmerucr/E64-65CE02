@@ -42,7 +42,7 @@ cold_start
 	phw #welc2
 	jsr put_string
 
-	; play welcome sound!
+	; play welcome sound
 	lda #$82
 	sta SID0_BASE+$01	; frequency of voice 1 (high byte)
 	lda #$09
@@ -86,34 +86,52 @@ exception_handler
 	ldy #$05	; index is $5
 	lda (P0),y	; load the pushed status byte into accumulator
 	and #%00010000	; was break "flag" present on stack?
-	beq +		; no: branch to normal irq part
+	beq irq_handler	; no, branch to irq handler
 
-			; START OF BRK handler
+	; START OF BRK handler
+	; blabla
+brk_handler
 	nop		; blabla
 	nop		; blabla
-	bra ++
+	bra exception_cleanup
 
-			; START OF IRQ handler
-+	lda CIA_BASE+0	; load current status
-	and #%10000000	; did CIA cause the interrupt?
-	beq +		; no: skip the next part
+	; START OF IRQ handler
+	; all devices that can cause interrupts, will be checked
+	; best order to check:
+	; (1) VICV
+	; (2) timer
+	; (3) CIA
+irq_handler
+	; VICV portion
+	;
+	; blabla
 
-	lda #%00000001	; yes: handle it
-	sta CIA_BASE+0	; acknowledge the interrupt
+	; timer portion
+	;
+	; blabla
 
--	lda CIA_BASE+0
-	and #%00000001	; if bit 0 is on, a keyboard event is waiting
-	beq +		; no, skip the next part
-	lda CIA_BASE+2	; read a scancode
-	bmi -		; if bit 7 is set, check for a next event
-	tax		; move scancode into index register
-	lda scancode_to_ascii,x		; lookup corresponding ascii value in table
+	; CIA portion
+	lda CIA_BASE+0		; load current status
+	and #%10000000		; did CIA cause the interrupt?
+	beq exception_cleanup	; no, skip to cleanup
+
+	lda #%00000001	; acknowledge the interrupt
+	sta CIA_BASE+0
+
+-	lda CIA_BASE+0	; if bit 0 is on, a keyboard event is waiting
+	and #%00000001
+	beq exception_cleanup	; no, skip the next part
+	lda CIA_BASE+2		; read a scancode
+	bmi -			; if bit 7 is set, check for a next event
+	tax			; move scancode into x register
+	lda scancode_to_ascii,x	; lookup corresponding ascii value in table
 	jsr put_char
-
 	bra -
-			; cleanup stuff of the irq handler
-+	plz		; restore processor state
-	ply
+	jmp exception_cleanup
+
+exception_cleanup
+	plz		; cleanup stuff of the exception handler
+	ply		; restore processor state
 	plx
 	pla
 	rti		; return from interrupt
@@ -192,8 +210,8 @@ put_string
 +	rtn #$02
 
 ; strings
-welc1	.text "E64 (C)2019 by elmerucr",ASCII_NULL
-welc2	.text " - kernel V20190921",ASCII_NULL
+welc1	.text "E64 kernel V20190922",ASCII_NULL
+welc2	.text " (C)2019 elmerucr",ASCII_NULL
 
 	* = $ff00
 	.include "E64_kernel_rom_tables.asm"

@@ -1,7 +1,7 @@
 
 ; 64tass Turbo Assembler Macro V1.54.1900 listing file
 ; 64tass -b -C -L E64_kernel.lst -o E64_kernel.bin E64_kernel.asm
-; Sat Sep 21 16:01:47 2019
+; Sun Sep 22 16:02:08 2019
 
 ;Offset	;Hex		;Monitor	;Source
 
@@ -62,11 +62,11 @@
 .e021	8d 02 04	sta $0402		sta VICV_TSL
 .e024	1a		inc a			inc a
 .e025	8d 04 04	sta $0404		sta VICV_CSL
-.e028	20 b5 e0	jsr $e0b5		jsr clear_screen
-.e02b	f4 0a e1	phw #$e10a		phw #welc1	; push the address of the first welcome message onto the stack
-.e02e	20 fc e0	jsr $e0fc		jsr put_string
+.e028	20 b8 e0	jsr $e0b8		jsr clear_screen
+.e02b	f4 0d e1	phw #$e10d		phw #welc1	; push the address of the first welcome message onto the stack
+.e02e	20 ff e0	jsr $e0ff		jsr put_string
 .e031	f4 22 e1	phw #$e122		phw #welc2
-.e034	20 fc e0	jsr $e0fc		jsr put_string
+.e034	20 ff e0	jsr $e0ff		jsr put_string
 .e037	a9 82		lda #$82		lda #$82
 .e039	8d 01 05	sta $0501		sta SID0_BASE+$01	; frequency of voice 1 (high byte)
 .e03c	a9 09		lda #$09		lda #$09
@@ -103,94 +103,98 @@
 .e07a	a0 05		ldy #$05		ldy #$05	; index is $5
 .e07c	b1 f0		lda ($f0),y		lda (P0),y	; load the pushed status byte into accumulator
 .e07e	29 10		and #$10		and #%00010000	; was break "flag" present on stack?
-.e080	f0 04		beq $e086		beq +		; no: branch to normal irq part
+.e080	f0 04		beq $e086		beq irq_handler	; no, branch to irq handler
+.e082					brk_handler
 .e082	ea		nop			nop		; blabla
 .e083	ea		nop			nop		; blabla
-.e084	80 21		bra $e0a7		bra ++
-.e086	ad 00 03	lda $0300	+	lda CIA_BASE+0	; load current status
-.e089	29 80		and #$80		and #%10000000	; did CIA cause the interrupt?
-.e08b	f0 1a		beq $e0a7		beq +		; no: skip the next part
-.e08d	a9 01		lda #$01		lda #%00000001	; yes: handle it
-.e08f	8d 00 03	sta $0300		sta CIA_BASE+0	; acknowledge the interrupt
-.e092	ad 00 03	lda $0300	-	lda CIA_BASE+0
-.e095	29 01		and #$01		and #%00000001	; if bit 0 is on, a keyboard event is waiting
-.e097	f0 0e		beq $e0a7		beq +		; no, skip the next part
-.e099	ad 02 03	lda $0302		lda CIA_BASE+2	; read a scancode
-.e09c	30 f4		bmi $e092		bmi -		; if bit 7 is set, check for a next event
-.e09e	aa		tax			tax		; move scancode into index register
-.e09f	bd 80 ff	lda $ff80,x		lda scancode_to_ascii,x		; lookup corresponding ascii value in table
-.e0a2	20 db e0	jsr $e0db		jsr put_char
+.e084	80 24		bra $e0aa		bra exception_cleanup
+.e086					irq_handler
+.e086	ad 00 03	lda $0300		lda CIA_BASE+0		; load current status
+.e089	29 80		and #$80		and #%10000000		; did CIA cause the interrupt?
+.e08b	f0 1d		beq $e0aa		beq exception_cleanup	; no, skip to cleanup
+.e08d	a9 01		lda #$01		lda #%00000001	; acknowledge the interrupt
+.e08f	8d 00 03	sta $0300		sta CIA_BASE+0
+.e092	ad 00 03	lda $0300	-	lda CIA_BASE+0	; if bit 0 is on, a keyboard event is waiting
+.e095	29 01		and #$01		and #%00000001
+.e097	f0 11		beq $e0aa		beq exception_cleanup	; no, skip the next part
+.e099	ad 02 03	lda $0302		lda CIA_BASE+2		; read a scancode
+.e09c	30 f4		bmi $e092		bmi -			; if bit 7 is set, check for a next event
+.e09e	aa		tax			tax			; move scancode into x register
+.e09f	bd 80 ff	lda $ff80,x		lda scancode_to_ascii,x	; lookup corresponding ascii value in table
+.e0a2	20 de e0	jsr $e0de		jsr put_char
 .e0a5	80 eb		bra $e092		bra -
-.e0a7	fb		plz		+	plz		; restore processor state
-.e0a8	7a		ply			ply
-.e0a9	fa		plx			plx
-.e0aa	68		pla			pla
-.e0ab	40		rti			rti		; return from interrupt
-.e0ac					nmi_handler
-.e0ac	48		pha			pha
-.e0ad	da		phx			phx
-.e0ae	5a		phy			phy
-.e0af	db		phz			phz
-.e0b0	fb		plz			plz
-.e0b1	7a		ply			ply
-.e0b2	fa		plx			plx
-.e0b3	68		pla			pla
-.e0b4	40		rti			rti
-.e0b5					clear_screen
-.e0b5	a9 00		lda #$00		lda #$00
-.e0b7	85 f0		sta $f0			sta P0
-.e0b9	85 f2		sta $f2			sta P1
-.e0bb	a9 c0		lda #$c0		lda #$c0
-.e0bd	85 f1		sta $f1			sta P0+1
-.e0bf	a9 c8		lda #$c8		lda #$c8
-.e0c1	85 f3		sta $f3			sta P1+1
-.e0c3	a0 00		ldy #$00		ldy #$00
-.e0c5	a9 20		lda #$20	-	lda #ASCII_SPACE
-.e0c7	91 f0		sta ($f0),y		sta (P0),y
-.e0c9	a9 0c		lda #$0c		lda #$0c	; grey
-.e0cb	91 f2		sta ($f2),y		sta (P1),y
-.e0cd	c8		iny			inc y
-.e0ce	d0 f5		bne $e0c5		bne -
-.e0d0	e6 f1		inc $f1			inc P0+1
-.e0d2	e6 f3		inc $f3			inc P1+1
-.e0d4	a6 f1		ldx $f1			ldx P0+1
-.e0d6	e0 c8		cpx #$c8		cpx #$c8
-.e0d8	d0 eb		bne $e0c5		bne -
-.e0da	60		rts			rts
-.e0db					put_char
-.e0db	da		phx			phx
-.e0dc	5a		phy			phy
-.e0dd	c9 0a		cmp #$0a		cmp #ASCII_LF
-.e0df	f0 0f		beq $e0f0		beq +
-.e0e1	aa		tax			tax
-.e0e2	bd 00 ff	lda $ff00,x		lda ascii_to_screencode,x
-.e0e5	a4 00		ldy $00			ldy cursor_pos
-.e0e7	99 00 c0	sta $c000,y		sta $c000,y
-.e0ea	c8		iny			inc y
-.e0eb	84 00		sty $00			sty cursor_pos
-.e0ed	7a		ply			ply
-.e0ee	fa		plx			plx
-.e0ef	60		rts			rts
-.e0f0	a5 00		lda $00		+	lda cursor_pos		; print LF
-.e0f2	18		clc			clc
-.e0f3	69 40		adc #$40		adc #$40		; add 64 chars to current position
-.e0f5	29 c0		and #$c0		and #%11000000		; move to the first char of the line
-.e0f7	85 00		sta $00			sta cursor_pos
-.e0f9	7a		ply			ply
-.e0fa	fa		plx			plx
-.e0fb	60		rts			rts
-.e0fc					put_string
-.e0fc	a0 00		ldy #$00		ldy #$00
-.e0fe	e2 03		lda ($03,s),y	-	lda (#$03,s),y
-.e100	f0 06		beq $e108		beq +
-.e102	20 db e0	jsr $e0db		jsr put_char
-.e105	c8		iny			inc y
-.e106	80 f6		bra $e0fe		bra -
-.e108	62 02		rts #$02	+	rtn #$02
->e10a	45 36 34 20 28 43 29 32		welc1	.text "E64 (C)2019 by elmerucr",ASCII_NULL
->e112	30 31 39 20 62 79 20 65 6c 6d 65 72 75 63 72 00
->e122	20 2d 20 6b 65 72 6e 65		welc2	.text " - kernel V20190921",ASCII_NULL
->e12a	6c 20 56 32 30 31 39 30 39 32 31 00
+.e0a7	4c aa e0	jmp $e0aa		jmp exception_cleanup
+.e0aa					exception_cleanup
+.e0aa	fb		plz			plz		; cleanup stuff of the exception handler
+.e0ab	7a		ply			ply		; restore processor state
+.e0ac	fa		plx			plx
+.e0ad	68		pla			pla
+.e0ae	40		rti			rti		; return from interrupt
+.e0af					nmi_handler
+.e0af	48		pha			pha
+.e0b0	da		phx			phx
+.e0b1	5a		phy			phy
+.e0b2	db		phz			phz
+.e0b3	fb		plz			plz
+.e0b4	7a		ply			ply
+.e0b5	fa		plx			plx
+.e0b6	68		pla			pla
+.e0b7	40		rti			rti
+.e0b8					clear_screen
+.e0b8	a9 00		lda #$00		lda #$00
+.e0ba	85 f0		sta $f0			sta P0
+.e0bc	85 f2		sta $f2			sta P1
+.e0be	a9 c0		lda #$c0		lda #$c0
+.e0c0	85 f1		sta $f1			sta P0+1
+.e0c2	a9 c8		lda #$c8		lda #$c8
+.e0c4	85 f3		sta $f3			sta P1+1
+.e0c6	a0 00		ldy #$00		ldy #$00
+.e0c8	a9 20		lda #$20	-	lda #ASCII_SPACE
+.e0ca	91 f0		sta ($f0),y		sta (P0),y
+.e0cc	a9 0c		lda #$0c		lda #$0c	; grey
+.e0ce	91 f2		sta ($f2),y		sta (P1),y
+.e0d0	c8		iny			inc y
+.e0d1	d0 f5		bne $e0c8		bne -
+.e0d3	e6 f1		inc $f1			inc P0+1
+.e0d5	e6 f3		inc $f3			inc P1+1
+.e0d7	a6 f1		ldx $f1			ldx P0+1
+.e0d9	e0 c8		cpx #$c8		cpx #$c8
+.e0db	d0 eb		bne $e0c8		bne -
+.e0dd	60		rts			rts
+.e0de					put_char
+.e0de	da		phx			phx
+.e0df	5a		phy			phy
+.e0e0	c9 0a		cmp #$0a		cmp #ASCII_LF
+.e0e2	f0 0f		beq $e0f3		beq +
+.e0e4	aa		tax			tax
+.e0e5	bd 00 ff	lda $ff00,x		lda ascii_to_screencode,x
+.e0e8	a4 00		ldy $00			ldy cursor_pos
+.e0ea	99 00 c0	sta $c000,y		sta $c000,y
+.e0ed	c8		iny			inc y
+.e0ee	84 00		sty $00			sty cursor_pos
+.e0f0	7a		ply			ply
+.e0f1	fa		plx			plx
+.e0f2	60		rts			rts
+.e0f3	a5 00		lda $00		+	lda cursor_pos		; print LF
+.e0f5	18		clc			clc
+.e0f6	69 40		adc #$40		adc #$40		; add 64 chars to current position
+.e0f8	29 c0		and #$c0		and #%11000000		; move to the first char of the line
+.e0fa	85 00		sta $00			sta cursor_pos
+.e0fc	7a		ply			ply
+.e0fd	fa		plx			plx
+.e0fe	60		rts			rts
+.e0ff					put_string
+.e0ff	a0 00		ldy #$00		ldy #$00
+.e101	e2 03		lda ($03,s),y	-	lda (#$03,s),y
+.e103	f0 06		beq $e10b		beq +
+.e105	20 de e0	jsr $e0de		jsr put_char
+.e108	c8		iny			inc y
+.e109	80 f6		bra $e101		bra -
+.e10b	62 02		rts #$02	+	rtn #$02
+>e10d	45 36 34 20 6b 65 72 6e		welc1	.text "E64 kernel V20190922",ASCII_NULL
+>e115	65 6c 20 56 32 30 31 39 30 39 32 32 00
+>e122	20 28 43 29 32 30 31 39		welc2	.text " (C)2019 elmerucr",ASCII_NULL
+>e12a	20 65 6c 6d 65 72 75 63 72 00
 
 ;******  Processing file: E64_kernel_rom_tables.asm
 
@@ -379,7 +383,7 @@
 ;******  Return to file: E64_kernel.asm
 
 .fffa					nmi_vector
->fffa	ac e0					.word nmi_handler
+>fffa	af e0					.word nmi_handler
 .fffc					reset_vector
 >fffc	00 e0					.word cold_start
 .fffe					brk_vector
