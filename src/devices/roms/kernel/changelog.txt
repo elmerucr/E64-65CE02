@@ -2,4 +2,5 @@
 
 2019
 ====
+2019-09-22 introduced irq vectors (indirect jumps as part of the irq handling routine)
 2019-09-21 compiled with 64tass V1.54.1900

@@ -59,7 +59,7 @@ int main(int argc, char **argv)
 
     // Select starting mode of C256
     E64::c256_machine_state_switch_to_running();
-    //c256_machine_state_switch_to_debug();
+    //E64::c256_machine_state_switch_to_debug();
 
     // start of main loop
     application_running = true;

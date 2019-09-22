@@ -19,6 +19,12 @@ cold_start
 	lda #$01	; set bit 0 in accumulator
 	tsb CIA_BASE+1	; turn on keyboard interrupt generation by CIA
 
+	; install the vector for the cia irq routine
+	lda #<cia_irq_handler
+	sta CIA_VECTOR
+	lda #>cia_irq_handler
+	sta CIA_VECTOR+1
+
 	cli		; clear irq disable flag (enable irqs)
 
 			; set colors:
@@ -111,6 +117,8 @@ irq_handler
 	; blabla
 
 	; CIA portion
+	jmp(CIA_VECTOR)		; jmp
+cia_irq_handler
 	lda CIA_BASE+0		; load current status
 	and #%10000000		; did CIA cause the interrupt?
 	beq exception_cleanup	; no, skip to cleanup

@@ -1,13 +1,23 @@
+	; zero page
 	cursor_pos = $00
 
-	P0 = $f0
-	P1 = $f2
-	P2 = $f4
-	P3 = $f6
-	P4 = $f8
-	P5 = $fa
-	P6 = $fc
-	P7 = $fe
+	P0 = $f0	; pointer for general use
+	P1 = $f2	; pointer for general use
+	P2 = $f4	; pointer for general use
+	P3 = $f6	; pointer for general use
+	P4 = $f8	; pointer for general use
+	P5 = $fa	; pointer for general use
+	P6 = $fc	; pointer for general use
+	P7 = $fe	; pointer for general use
+
+	; kernel ram area
+	TIMER0_VECTOR = $0800
+	TIMER1_VECTOR = $0802
+	TIMER2_VECTOR = $0804
+	TIMER3_VECTOR = $0806
+	CIA_VECTOR    = $0808
+
+
 
 	CIA_BASE = $0300
 
