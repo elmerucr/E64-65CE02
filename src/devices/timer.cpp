@@ -1,9 +1,7 @@
-//
 //  timer.cpp
 //  E64
 //
 //  Copyright © 2019 elmerucr. All rights reserved.
-//
 
 #include "timer.hpp"
 #include "common_defs.hpp"

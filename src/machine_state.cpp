@@ -8,8 +8,8 @@
 #include "sdl2.hpp"
 #include "debug_console.hpp"
 #include "debug_screen.hpp"
-#include "c256_debug_command.hpp"
-#include "c256_debug_status_bar.hpp"
+#include "debug_command.hpp"
+#include "debug_status_bar.hpp"
 
 enum E64::mode machine_mode_current;
 
@@ -36,8 +36,8 @@ void E64::c256_machine_state_switch_to_debug(void)
     debug_console_putchar('\n');
     //c256_debug_command_dump_cpu_status();
     debug_console_put_prompt();
-    c256_debug_status_bar_clear();
-    c256_debug_status_bar_refresh();
+    debug_status_bar_clear();
+    debug_status_bar_refresh();
 
     // the next three function calls are necessary to force a screen update when entering debug.
     // in debug mode, a screen refresh occurs only when an event has happened

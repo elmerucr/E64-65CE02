@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		46241AAA2324418400569490 /* c256_debug_status_bar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AA22324418400569490 /* c256_debug_status_bar.cpp */; };
+		46241AAA2324418400569490 /* debug_status_bar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AA22324418400569490 /* debug_status_bar.cpp */; };
 		46241AAB2324418400569490 /* debug_screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AA42324418400569490 /* debug_screen.cpp */; };
 		46241AAC2324418400569490 /* debug_console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AA72324418400569490 /* debug_console.cpp */; };
-		46241AAD2324418400569490 /* c256_debug_command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AA92324418400569490 /* c256_debug_command.cpp */; };
+		46241AAD2324418400569490 /* debug_command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AA92324418400569490 /* debug_command.cpp */; };
 		46241AB62324422200569490 /* sdl2_pid_delay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AB42324422200569490 /* sdl2_pid_delay.cpp */; };
 		46241AB72324422200569490 /* sdl2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AB52324422200569490 /* sdl2.cpp */; };
 		46241ABB2324425300569490 /* kernel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AB92324425300569490 /* kernel.cpp */; };
@@ -51,14 +51,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		46241AA22324418400569490 /* c256_debug_status_bar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = c256_debug_status_bar.cpp; path = ../../../src/debug_mode/c256_debug_status_bar.cpp; sourceTree = "<group>"; };
+		46241AA22324418400569490 /* debug_status_bar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = debug_status_bar.cpp; path = ../../../src/debug_mode/debug_status_bar.cpp; sourceTree = "<group>"; };
 		46241AA32324418400569490 /* debug_console.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = debug_console.hpp; path = ../../../src/debug_mode/debug_console.hpp; sourceTree = "<group>"; };
 		46241AA42324418400569490 /* debug_screen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = debug_screen.cpp; path = ../../../src/debug_mode/debug_screen.cpp; sourceTree = "<group>"; };
-		46241AA52324418400569490 /* c256_debug_status_bar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = c256_debug_status_bar.hpp; path = ../../../src/debug_mode/c256_debug_status_bar.hpp; sourceTree = "<group>"; };
+		46241AA52324418400569490 /* debug_status_bar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = debug_status_bar.hpp; path = ../../../src/debug_mode/debug_status_bar.hpp; sourceTree = "<group>"; };
 		46241AA62324418400569490 /* debug_screen.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = debug_screen.hpp; path = ../../../src/debug_mode/debug_screen.hpp; sourceTree = "<group>"; };
 		46241AA72324418400569490 /* debug_console.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = debug_console.cpp; path = ../../../src/debug_mode/debug_console.cpp; sourceTree = "<group>"; };
-		46241AA82324418400569490 /* c256_debug_command.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = c256_debug_command.hpp; path = ../../../src/debug_mode/c256_debug_command.hpp; sourceTree = "<group>"; };
-		46241AA92324418400569490 /* c256_debug_command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = c256_debug_command.cpp; path = ../../../src/debug_mode/c256_debug_command.cpp; sourceTree = "<group>"; };
+		46241AA82324418400569490 /* debug_command.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = debug_command.hpp; path = ../../../src/debug_mode/debug_command.hpp; sourceTree = "<group>"; };
+		46241AA92324418400569490 /* debug_command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = debug_command.cpp; path = ../../../src/debug_mode/debug_command.cpp; sourceTree = "<group>"; };
 		46241AB22324422200569490 /* sdl2_pid_delay.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = sdl2_pid_delay.hpp; path = ../../../src/sdl2/sdl2_pid_delay.hpp; sourceTree = "<group>"; };
 		46241AB32324422200569490 /* sdl2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = sdl2.hpp; path = ../../../src/sdl2/sdl2.hpp; sourceTree = "<group>"; };
 		46241AB42324422200569490 /* sdl2_pid_delay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sdl2_pid_delay.cpp; path = ../../../src/sdl2/sdl2_pid_delay.cpp; sourceTree = "<group>"; };
@@ -144,10 +144,10 @@
 				46241AA42324418400569490 /* debug_screen.cpp */,
 				46241AA32324418400569490 /* debug_console.hpp */,
 				46241AA72324418400569490 /* debug_console.cpp */,
-				46241AA82324418400569490 /* c256_debug_command.hpp */,
-				46241AA92324418400569490 /* c256_debug_command.cpp */,
-				46241AA52324418400569490 /* c256_debug_status_bar.hpp */,
-				46241AA22324418400569490 /* c256_debug_status_bar.cpp */,
+				46241AA82324418400569490 /* debug_command.hpp */,
+				46241AA92324418400569490 /* debug_command.cpp */,
+				46241AA52324418400569490 /* debug_status_bar.hpp */,
+				46241AA22324418400569490 /* debug_status_bar.cpp */,
 			);
 			name = debug_mode;
 			sourceTree = "<group>";
@@ -155,15 +155,13 @@
 		46241AAE232441E000569490 /* devices */ = {
 			isa = PBXGroup;
 			children = (
+				462600B72337FAFB00A4ED6D /* cia */,
 				46241AAF232441EF00569490 /* cpu */,
 				46241AB0232441F500569490 /* mmu */,
-				46241ACE232442BF00569490 /* vicv */,
-				46241ACD232442B900569490 /* sound */,
 				46241AB82324423400569490 /* roms */,
-				46241B01232443A500569490 /* cia.hpp */,
-				46241B00232443A500569490 /* cia.cpp */,
-				46241B02232443A500569490 /* timer.hpp */,
-				46241AFF232443A500569490 /* timer.cpp */,
+				46241ACD232442B900569490 /* sound */,
+				462600B82337FB2100A4ED6D /* timer */,
+				46241ACE232442BF00569490 /* vicv */,
 			);
 			name = devices;
 			sourceTree = "<group>";
@@ -264,6 +262,24 @@
 			name = resid;
 			sourceTree = "<group>";
 		};
+		462600B72337FAFB00A4ED6D /* cia */ = {
+			isa = PBXGroup;
+			children = (
+				46241B01232443A500569490 /* cia.hpp */,
+				46241B00232443A500569490 /* cia.cpp */,
+			);
+			name = cia;
+			sourceTree = "<group>";
+		};
+		462600B82337FB2100A4ED6D /* timer */ = {
+			isa = PBXGroup;
+			children = (
+				46241B02232443A500569490 /* timer.hpp */,
+				46241AFF232443A500569490 /* timer.cpp */,
+			);
+			name = timer;
+			sourceTree = "<group>";
+		};
 		46A1F86F231D7218003982FA = {
 			isa = PBXGroup;
 			children = (
@@ -298,7 +314,6 @@
 				46241AA12324412200569490 /* debug_mode */,
 				46241AAE232441E000569490 /* devices */,
 				46241AB12324420500569490 /* sdl2 */,
-				46A1F88A231D7596003982FA /* main.cpp */,
 				46241B0B232443F200569490 /* common_defs.hpp */,
 				46241B05232443F100569490 /* common_defs.cpp */,
 				46241B0A232443F200569490 /* frequency_divider.hpp */,
@@ -307,6 +322,7 @@
 				46241B06232443F100569490 /* machine_state.cpp */,
 				46241B08232443F100569490 /* machine.hpp */,
 				46241B07232443F100569490 /* machine.cpp */,
+				46A1F88A231D7596003982FA /* main.cpp */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -421,11 +437,11 @@
 				46241ABB2324425300569490 /* kernel.cpp in Sources */,
 				4686D713232D7735002BD2D9 /* wave8580_PST.cc in Sources */,
 				46241ABC2324425300569490 /* patched_char_rom.cpp in Sources */,
-				46241AAA2324418400569490 /* c256_debug_status_bar.cpp in Sources */,
+				46241AAA2324418400569490 /* debug_status_bar.cpp in Sources */,
 				4686D70F232D7735002BD2D9 /* wave8580_P_T.cc in Sources */,
 				4686D6EF232D7706002BD2D9 /* sound.cpp in Sources */,
 				46241ACB232442AC00569490 /* pla.cpp in Sources */,
-				46241AAD2324418400569490 /* c256_debug_command.cpp in Sources */,
+				46241AAD2324418400569490 /* debug_command.cpp in Sources */,
 				46241AAC2324418400569490 /* debug_console.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

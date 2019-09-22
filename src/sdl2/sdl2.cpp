@@ -21,7 +21,7 @@
 #include "machine.hpp"
 #include "debug_screen.hpp"
 #include "debug_console.hpp"
-#include "c256_debug_command.hpp"
+#include "debug_command.hpp"
 #include "cia.hpp"
 
 struct window_size
@@ -374,7 +374,7 @@ int E64::sdl2_process_events()
                             debug_console_arrow_down();
                             break;
                         case SDLK_F1:
-                            c256_debug_command_single_step_cpu();
+                            debug_command_single_step_cpu();
                             if( debug_console.status_bar_active == false ) {
                                 debug_console_cursor_deactivate();
                                 debug_console_toggle_status_bar();

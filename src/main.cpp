@@ -16,7 +16,7 @@
 #include "debug_console.hpp"
 #include "machine.hpp"
 #include "debug_screen.hpp"
-#include "c256_debug_status_bar.hpp"
+#include "debug_status_bar.hpp"
 #include "cia.hpp"
 #include "exception_collector.hpp"
 #include "sound.hpp"
@@ -57,7 +57,7 @@ int main(int argc, char **argv)
 
     debug_console_init();
 
-    // Select starting mode of C256
+    // Select starting mode of E64
     E64::c256_machine_state_switch_to_running();
     //E64::c256_machine_state_switch_to_debug();
 
@@ -83,7 +83,7 @@ int main(int argc, char **argv)
                     vicv_ic.frame_done = false;
                     // process events and catch a possible exit signal
                     if(E64::sdl2_process_events() == E64::QUIT_EVENT) application_running = false;
-                    cia_update_status();
+                    cia_run();
                     E64::sdl2_update_screen();
                     frame_delay.run();
                 }
@@ -93,7 +93,7 @@ int main(int argc, char **argv)
                 E64::sdl2_delay_10ms();
                 if( debug_console_cursor_flash() )
                 {
-                    c256_debug_status_bar_refresh();
+                    debug_status_bar_refresh();
                     debug_console_blit_to_debug_screen();
                     E64::debug_screen_update();
                     E64::sdl2_update_screen();
@@ -107,7 +107,7 @@ int main(int argc, char **argv)
                         // nothing happened, so do nothing
                         break;
                     case E64::KEYPRESS_EVENT:
-                        c256_debug_status_bar_refresh();
+                        debug_status_bar_refresh();
                         debug_console_blit_to_debug_screen();
                         E64::debug_screen_update();
                         E64::sdl2_update_screen();

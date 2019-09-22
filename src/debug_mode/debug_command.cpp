@@ -1,22 +1,22 @@
-//  c256_debug_command.cpp
-//  C256
+//  debug_command.cpp
+//  E64
 //
 //  Copyright © 2019 elmerucr. All rights reserved.
 
 #include <cstdio>
 #include <cstring>
 
-#include "c256_debug_command.hpp"
+#include "debug_command.hpp"
 #include "debug_console.hpp"
 #include "machine_state.hpp"
 #include "machine.hpp"
 #include "common_defs.hpp"
 #include "sdl2.hpp"
 #include "csg65ce02_dasm.h"
-#include "c256_debug_status_bar.hpp"
+#include "debug_status_bar.hpp"
 #include "exception_collector.hpp"
 
-void c256_debug_command_execute(char *string_to_parse_and_exec)
+void E64::debug_command_execute(char *string_to_parse_and_exec)
 {
     // use temporary pointer
     char *clean_start = string_to_parse_and_exec;
@@ -66,7 +66,7 @@ void c256_debug_command_execute(char *string_to_parse_and_exec)
         }
         else if( strlen(token1) == 4)
         {
-            uint16_t temp_16bit = c256_debug_command_hex_string_to_int(token1);
+            uint16_t temp_16bit = debug_command_hex_string_to_int(token1);
             if( cpu_ic.breakpoint_array[temp_16bit] )
             {
                 snprintf(c256_string2, 256, "breakpoint at $%04x removed\n", temp_16bit);
@@ -103,7 +103,7 @@ void c256_debug_command_execute(char *string_to_parse_and_exec)
     {
         if(token1 == NULL)
         {
-            c256_debug_command_disassemble(16);
+            debug_command_disassemble(16);
         }
         else
         {
@@ -193,7 +193,7 @@ void c256_debug_command_execute(char *string_to_parse_and_exec)
     {
         if( token1 == NULL )
         {
-            c256_debug_command_memory_dump(cpu_ic.pc, 8);
+            debug_command_memory_dump(cpu_ic.pc, 8);
         }
         else
         {
@@ -202,17 +202,17 @@ void c256_debug_command_execute(char *string_to_parse_and_exec)
             switch(strlen(token1))
             {
                 case 4:
-                    temp_16bit = c256_debug_command_hex_string_to_int(token1);
+                    temp_16bit = debug_command_hex_string_to_int(token1);
                     if( token2 == NULL)
                     {
-                        c256_debug_command_memory_dump(temp_16bit, 8);
+                        debug_command_memory_dump(temp_16bit, 8);
                     }
                     else
                     {
                         switch(strlen(token2))
                         {
                             case 2:
-                                temp_8bit = c256_debug_command_hex_string_to_int(token2);
+                                temp_8bit = debug_command_hex_string_to_int(token2);
                                 csg65ce02_write_byte(temp_16bit, temp_8bit);
                                 break;
                             default:
@@ -253,11 +253,11 @@ void c256_debug_command_execute(char *string_to_parse_and_exec)
     }
     else if( strcmp(token0, "r") == 0 )
     {
-        c256_debug_command_dump_cpu_status();
+        debug_command_dump_cpu_status();
     }
     else if( strcmp(token0, "t") == 0 )
     {
-        c256_debug_command_memory_dump(cpu_ic.sp, 1);
+        debug_command_memory_dump(cpu_ic.sp, 1);
     }
     else if( strcmp(token0, "ver") == 0 )
     {
@@ -290,7 +290,7 @@ void c256_debug_command_execute(char *string_to_parse_and_exec)
     }
 }
 
-void c256_debug_command_dump_cpu_status()
+void E64::debug_command_dump_cpu_status()
 {
     csg65ce02_dump_status(&cpu_ic, c256_string2);
     debug_console_print(c256_string2);
@@ -301,7 +301,7 @@ void c256_debug_command_dump_cpu_status()
     debug_console_putchar('\n');
 }
 
-void c256_debug_command_disassemble(uint8_t number)
+void E64::debug_command_disassemble(uint8_t number)
 {
     uint16_t temp_pc = cpu_ic.pc;
     for(int i = 0; i<number; i++)
@@ -313,7 +313,7 @@ void c256_debug_command_disassemble(uint8_t number)
     }
 }
 
-void c256_debug_command_memory_dump(uint16_t address, int rows)
+void E64::debug_command_memory_dump(uint16_t address, int rows)
 {
     for(int i=0; i<rows; i++ )
     {
@@ -342,7 +342,7 @@ void c256_debug_command_memory_dump(uint16_t address, int rows)
 // hex2int
 // take a hex string and convert it to a 32bit number (max 8 hex digits)
 // from: https://stackoverflow.com/questions/10156409/convert-hex-string-char-to-int
-uint32_t c256_debug_command_hex_string_to_int(const char *temp_string)
+uint32_t E64::debug_command_hex_string_to_int(const char *temp_string)
 {
     uint32_t val = 0;
     while (*temp_string)
@@ -368,7 +368,7 @@ uint32_t c256_debug_command_hex_string_to_int(const char *temp_string)
     return val;
 }
 
-void c256_debug_command_single_step_cpu()
+void E64::debug_command_single_step_cpu()
 {
     E64::machine_execute(0);
     exception_collector_ic.update_status();

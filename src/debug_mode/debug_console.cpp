@@ -9,8 +9,8 @@
 #include "debug_console.hpp"
 #include "debug_screen.hpp"
 #include "machine_state.hpp"
-#include "c256_debug_command.hpp"
-#include "c256_debug_status_bar.hpp"
+#include "debug_command.hpp"
+#include "debug_status_bar.hpp"
 
 debug_console_struct debug_console;
 
@@ -38,7 +38,7 @@ void debug_console_init(void)
     debug_console.status_bar_total_chars = debug_console.status_bar_rows * 64;
     debug_console.status_bar_cursor_pos = 0;
     debug_console.status_bar_base_pos = debug_console.status_bar_cursor_pos & (64-1);
-    c256_debug_status_bar_refresh();
+    debug_status_bar_refresh();
     //
     for(int i=0; i<(debug_console.status_bar_rows + 1); i++) debug_console_print("\n");
     debug_console_version();
@@ -245,7 +245,7 @@ void debug_console_enter()
     }
     c256_string[64] = ASCII_NULL;
     debug_console_putchar('\n');
-    c256_debug_command_execute(c256_string);
+    E64::debug_command_execute(c256_string);
     debug_console_put_prompt();
 }
 

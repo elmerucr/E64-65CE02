@@ -62,7 +62,7 @@ uint8_t cia_pop_event(void)
     return result;
 }
 
-void cia_update_status()
+void cia_run()
 {
     // register 128 to 255 reflect the current keyboard state
     // shift each register one bit to the left, bit 0 is only set if key is pressed

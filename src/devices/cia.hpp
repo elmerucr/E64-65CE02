@@ -28,7 +28,6 @@
 //  READ only
 
 #include <cstdint>
-#include <cstdbool>
 
 #ifndef cia_hpp
 #define cia_hpp
@@ -38,7 +37,9 @@ extern uint8_t cia_scancodes_last_known_state[];
 extern bool *cia_irq_line;
 
 void cia_init(bool *irq_pointer);
-void cia_update_status(void);
+
+// unlike other components, the CIA doesn't need a specified no of cycles as argument
+void cia_run(void);
 
 void cia_push_event(uint8_t scancode);
 uint8_t cia_pop_event(void);
