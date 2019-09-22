@@ -17,9 +17,9 @@ namespace E64
         E64_RUNNING
     };
 
-    void c256_machine_state_switch_mode(void);
-    void c256_machine_state_switch_to_running(void);
-    void c256_machine_state_switch_to_debug(void);
+    void machine_state_switch_mode(void);
+    void machine_state_switch_to_running(void);
+    void machine_state_switch_to_debug(void);
 }
 
 extern enum E64::mode machine_mode_current;

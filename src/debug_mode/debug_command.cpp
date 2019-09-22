@@ -93,7 +93,7 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     else if( strcmp(token0, "c") == 0 )
     {
         E64::sdl2_wait_until_enter_released();
-        E64::c256_machine_state_switch_to_running();
+        E64::machine_state_switch_to_running();
     }
     else if( strcmp(token0, "clear") == 0 )
     {
@@ -370,6 +370,6 @@ uint32_t E64::debug_command_hex_string_to_int(const char *temp_string)
 
 void E64::debug_command_single_step_cpu()
 {
-    E64::machine_execute(0);
+    E64::machine_run(0);
     exception_collector_ic.update_status();
 }

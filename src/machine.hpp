@@ -6,6 +6,8 @@
 #include <cstdint>
 
 #include "frequency_divider.hpp"
+#include "exception_collector.hpp"
+#include "csg65ce02.h"
 #include "timer.hpp"
 
 #ifndef machine_hpp
@@ -13,7 +15,7 @@
 
 namespace E64
 {
-    int machine_execute(uint16_t no_of_cycles);
+    int machine_run(uint16_t no_of_cycles);
     
     enum machine_mode
     {
@@ -29,18 +31,21 @@ namespace E64
     
     class machine
     {
-        enum machine_mode current_mode;
+    private:
         frequency_divider *cpu_to_vicv;
         frequency_divider *cpu_to_sid;
         frequency_divider *cpu_to_timer;
-        
     public:
+        enum machine_mode   current_mode;
+
+        csg65ce02           *cpu_ic;
+        exception_collector *exception_collector_ic;
+        timer               *timer_ic;
+
         machine();
         ~machine();
-        
-        timer *timer_ic;
-        
-        int run(uint16_t no_of_cycles);
+        void    reset(void);
+        int     run(uint16_t no_of_cycles);
     };
 }
     

@@ -9,7 +9,6 @@
 #include "common_defs.hpp"
 #include "vicv.hpp"
 #include "debug_console.hpp"
-//#include "exception_collector.hpp"
 #include "sound.hpp"
 #include "frequency_divider.hpp"
 #include "sdl2.hpp"
@@ -19,7 +18,7 @@ E64::frequency_divider cpu_to_vicv (CPU_CLOCK_SPEED, VICV_CLOCK_SPEED);
 E64::frequency_divider cpu_to_sid  (CPU_CLOCK_SPEED, SID_CLOCK_SPEED );
 E64::frequency_divider cpu_to_timer(CPU_CLOCK_SPEED, CPU_CLOCK_SPEED );
 
-int E64::machine_execute(uint16_t no_of_cycles)
+int E64::machine_run(uint16_t no_of_cycles)
 {
     // default exit_code of the function is 0, no breakpoints have occurred
     int exit_code = NOTHING;
@@ -50,8 +49,13 @@ int E64::machine_execute(uint16_t no_of_cycles)
 E64::machine::machine()
 {
     current_mode = RUNNING_MODE;
+
+    cpu_ic = new csg65ce02;
+    csg65ce02_init(this->cpu_ic);
+    csg65ce02_reset(this->cpu_ic);
     
-    //timer_ic = new timer();
+    exception_collector_ic = new exception_collector();
+    timer_ic = new timer(exception_collector_ic->add_device());
     
     cpu_to_vicv  = new frequency_divider(CPU_CLOCK_SPEED, VICV_CLOCK_SPEED);
     cpu_to_sid   = new frequency_divider(CPU_CLOCK_SPEED, SID_CLOCK_SPEED );
@@ -60,16 +64,19 @@ E64::machine::machine()
 
 E64::machine::~machine()
 {
-    //delete timer_ic;
-    
-    delete cpu_to_vicv;
-    delete cpu_to_sid;
     delete cpu_to_timer;
+    delete cpu_to_sid;
+    delete cpu_to_vicv;
+
+    delete timer_ic;
+    delete exception_collector_ic;
+
+    csg65ce02_cleanup(this->cpu_ic);
 }
 
-///////
-///////
-///////
+///
+///
+///
 //int E64::machine::run(uint16_t no_of_cycles)
 //{
 //    // default exit_code of the function is 0, no breakpoints have occurred
@@ -96,6 +103,6 @@ E64::machine::~machine()
 //    
 //    return exit_code;
 //}
-///////
-///////
-///////
+///
+///
+///

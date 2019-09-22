@@ -13,20 +13,20 @@
 
 enum E64::mode machine_mode_current;
 
-void E64::c256_machine_state_switch_mode()
+void E64::machine_state_switch_mode()
 {
     switch(machine_mode_current)
     {
         case E64_RUNNING:
-            E64::c256_machine_state_switch_to_debug();
+            E64::machine_state_switch_to_debug();
             break;
         case E64_DEBUG:
-            E64::c256_machine_state_switch_to_running();
+            E64::machine_state_switch_to_running();
             break;
     }
 }
 
-void E64::c256_machine_state_switch_to_debug(void)
+void E64::machine_state_switch_to_debug(void)
 {
     E64::sdl2_stop_audio();
     machine_mode_current = E64_DEBUG;
@@ -47,7 +47,7 @@ void E64::c256_machine_state_switch_to_debug(void)
     E64::sdl2_update_screen();
 }
 
-void E64::c256_machine_state_switch_to_running(void)
+void E64::machine_state_switch_to_running(void)
 {
     machine_mode_current = E64_RUNNING;
     E64::sdl2_update_title();

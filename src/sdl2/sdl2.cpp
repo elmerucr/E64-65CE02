@@ -191,7 +191,7 @@ int E64::sdl2_process_events()
                 if(event.key.keysym.sym == SDLK_F9)
                 {
                     E64::sdl2_wait_until_f9_released();
-                    c256_machine_state_switch_mode();
+                    machine_state_switch_mode();
                 }
                 else if(machine_mode_current == E64_RUNNING)
                 {

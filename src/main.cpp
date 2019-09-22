@@ -34,6 +34,11 @@ bool application_running;
 
 int main(int argc, char **argv)
 {
+    // test
+    E64::machine computer;
+    computer.timer_ic->reset();
+    // test
+    
     printf("E64 (C)%i by elmerucr V%i.%i.%i\n", E64_YEAR, E64_MAJOR_VERSION, E64_MINOR_VERSION, E64_BUILD);
     
     std::cout << std::endl << "Command line arguments:" << std::endl;
@@ -58,7 +63,7 @@ int main(int argc, char **argv)
     debug_console_init();
 
     // Select starting mode of E64
-    E64::c256_machine_state_switch_to_running();
+    E64::machine_state_switch_to_running();
     //E64::c256_machine_state_switch_to_debug();
 
     // start of main loop
@@ -69,12 +74,12 @@ int main(int argc, char **argv)
         switch(machine_mode_current)
         {
             case E64::E64_RUNNING:
-                switch( E64::machine_execute(256) )
+                switch( E64::machine_run(256) )
                 {
                     case E64::NOTHING:
                         break;
                     case E64::CPU_BREAKPOINT:
-                        E64::c256_machine_state_switch_to_debug();
+                        E64::machine_state_switch_to_debug();
                         break;
                 }
                 // if full frame was drawn call other update functions:
