@@ -110,7 +110,7 @@ uint8_t cia_read_byte(uint8_t address)
     else
     {
         return cia_registers[address];
-    }   // special case is registers 0x02 (contains the popped scancode for the last event)
+    }
 }
 
 void cia_write_byte(uint8_t address, uint8_t byte)

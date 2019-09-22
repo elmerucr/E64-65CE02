@@ -3,6 +3,9 @@
 //
 //  Copyright © 2017 elmerucr. All rights reserved.
 
+#include <iostream>
+#include <cstdio>
+
 #include "common_defs.hpp"
 #include "sdl2.hpp"
 #include "sdl2_pid_delay.hpp"
@@ -29,9 +32,16 @@ E64::sound sound_ic;
 C256::sdl2_pid_delay frame_delay(15000.0);
 bool application_running;
 
-int main()
+int main(int argc, char **argv)
 {
     printf("E64 (C)%i by elmerucr V%i.%i.%i\n", E64_YEAR, E64_MAJOR_VERSION, E64_MINOR_VERSION, E64_BUILD);
+    
+    std::cout << std::endl << "Command line arguments:" << std::endl;
+    for(int i=0; i<argc ; i++)
+    {
+        std::cout << argv[i] << std::endl;
+    }
+    std::cout << std::endl;
     
     // set up window management, audio and some other stuff
     E64::sdl2_init();
@@ -106,9 +116,8 @@ int main()
                 break;
         }
     }
-    /////////////////////
-    // end of mainloop //
-    /////////////////////
+
+    // end of mainloop
 
     printf("detected quit event\n");
 
