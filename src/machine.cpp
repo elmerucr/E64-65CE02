@@ -56,6 +56,8 @@ E64::machine::machine()
     
     exception_collector_ic = new exception_collector();
     timer_ic = new timer(exception_collector_ic->add_device());
+    vicv_ic = new vicv(exception_collector_ic->add_device());
+    sound_ic = new sound();
     
     cpu_to_vicv  = new frequency_divider(CPU_CLOCK_SPEED, VICV_CLOCK_SPEED);
     cpu_to_sid   = new frequency_divider(CPU_CLOCK_SPEED, SID_CLOCK_SPEED );
@@ -68,41 +70,33 @@ E64::machine::~machine()
     delete cpu_to_sid;
     delete cpu_to_vicv;
 
+    delete sound_ic;
+    delete vicv_ic;
     delete timer_ic;
     delete exception_collector_ic;
 
     csg65ce02_cleanup(this->cpu_ic);
 }
 
-///
-///
-///
-//int E64::machine::run(uint16_t no_of_cycles)
-//{
-//    // default exit_code of the function is 0, no breakpoints have occurred
-//    int exit_code = NOTHING;
-//    
-//    unsigned int processed_cycles;
-//    
-//    if( csg65ce02_run(&cpu_ic, no_of_cycles, &processed_cycles) )
-//    {
-//        // cpu breakpoint encountered
-//        snprintf(c256_string2, 256, "\ncpu breakpoint occurred at $%04x\n.", cpu_ic.pc);
-//        debug_console_print(c256_string2);
-//        exit_code = CPU_BREAKPOINT;
-//    }
-//    
-//    // run cycles on vicv
-//    vicv_ic.run(cpu_to_vicv->clock(processed_cycles));
-//    // calculate no. of cycles to run on sids
-//    sids_run(cpu_to_sid->clock(processed_cycles));
-//    // start audio only if buffer is large enough
-//    if(E64::sdl2_get_queued_audio_size() > (AUDIO_BUFFER_SIZE/2)) E64::sdl2_start_audio();
-//    // run cycles on timer
-//    timer_ic->run(cpu_to_timer->clock(processed_cycles));
-//    
-//    return exit_code;
-//}
-///
-///
-///
+int E64::machine::run(uint16_t no_of_cycles)
+{
+    // default exit_code of the function is 0, no breakpoints have occurred
+    int exit_code = NOTHING;
+    unsigned int processed_cycles;
+    if( csg65ce02_run(this->cpu_ic, no_of_cycles, &processed_cycles) )
+    {
+        // cpu breakpoint encountered
+        snprintf(c256_string2, 256, "\ncpu breakpoint occurred at $%04x\n.", cpu_ic->pc);
+        debug_console_print(c256_string2);
+        exit_code = CPU_BREAKPOINT;
+    }
+    // run cycles on vicv
+    vicv_ic->run(cpu_to_vicv->clock(processed_cycles));
+    // calculate no. of cycles to run on sound
+    sound_ic->run(cpu_to_sid->clock(processed_cycles));
+    // start audio only if buffer is large enough
+    if(E64::sdl2_get_queued_audio_size() > (AUDIO_BUFFER_SIZE/2)) E64::sdl2_start_audio();
+    // run cycles on timer
+    timer_ic->run(cpu_to_timer->clock(processed_cycles));
+    return exit_code;
+}

@@ -295,7 +295,7 @@ void E64::debug_command_dump_cpu_status()
     csg65ce02_dump_status(&cpu_ic, c256_string2);
     debug_console_print(c256_string2);
     debug_console_print("\n\n");
-    debug_console_putchar('.');
+    debug_console_print(".,");
     csg65ce02_dasm(cpu_ic.pc, c256_string2, 256);
     debug_console_print(c256_string2);
     debug_console_putchar('\n');
