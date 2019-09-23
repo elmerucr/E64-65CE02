@@ -1,4 +1,3 @@
-//
 //  cia.hpp
 //  E64
 //
@@ -125,4 +124,4 @@ enum E64_scancodes
     E64_SCANCODE_RIGHT             // 0x48
 };
 
-#endif /* cia_hpp */
+#endif

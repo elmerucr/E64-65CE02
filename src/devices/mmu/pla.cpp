@@ -3,12 +3,13 @@
 //
 //  Copyright © 2017 elmerucr. All rights reserved.
 
+#include <cstdint>
+
 #include "pla.hpp"
 #include "vicv.hpp"
 #include "SN74LS612.hpp"
 #include "cia.hpp"
 #include "sound.hpp"
-#include <cstdint>
 
 uint8_t *ram;
 
@@ -49,7 +50,7 @@ uint8_t csg65ce02_read_byte(uint16_t address)
     {
         result = cia_read_byte(address & 0x00ff);
     }
-    else if((page >> 5) == IO_E64_KERNEL_MASK)
+    else if((page & IO_E64_KERNEL_MASK) == IO_E64_KERNEL_MASK)
     {
         result = kernel[address & 0x1fff];
     }
@@ -61,6 +62,8 @@ uint8_t csg65ce02_read_byte(uint16_t address)
     return result;
 }
 
+// Function definitions needed by lib65ce02
+// these take care of memory access by CPU
 void csg65ce02_write_byte(uint16_t address, uint8_t byte)
 {
     uint8_t page = (address & 0xff00) >> 8;
@@ -79,6 +82,8 @@ void csg65ce02_write_byte(uint16_t address, uint8_t byte)
     else if(page == IO_CIA_PAGE)
     {
         cia_write_byte(address & 0x00ff, byte);
+        // immediately connect the collected output of the irq lines to the cpu
+        csg65ce02_set_irq( &cpu_ic, exception_collector_ic.update_status() );
     }
     else
     {

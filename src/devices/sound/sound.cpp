@@ -7,9 +7,6 @@
 #include "sdl2.hpp"
 #include "common_defs.hpp"
 
-// reSID header
-#include "sid.h"
-
 E64::sound::sound()
 {
     for(int i = 0; i<4; i++)

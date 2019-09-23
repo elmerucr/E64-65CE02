@@ -1,13 +1,9 @@
-//
 //  cia.cpp
 //  E64
 //
 //  Copyright © 2019 elmerucr. All rights reserved.
-//
 
 #include "cia.hpp"
-#include "exception_collector.hpp"
-#include "common_defs.hpp"
 
 uint8_t cia_registers[256];
 uint8_t cia_scancodes_last_known_state[128];
@@ -96,8 +92,6 @@ void cia_run()
                 break;
         }
     }
-    // IMPORTANT: immediately call this function, it's not in the main loop!
-    exception_collector_ic.update_status();
 }
 
 // read and write functions to data registers of cia
@@ -124,8 +118,6 @@ void cia_write_byte(uint8_t address, uint8_t byte)
                 *cia_irq_line = true;
                 // clear bit 7
                 cia_registers[0x00] &= 0x7f;
-                // IMPORTANT: immediately call to next function, it's not in the main loop!
-                exception_collector_ic.update_status();
             }
             break;
         case 0x01:

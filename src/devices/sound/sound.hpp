@@ -6,6 +6,7 @@
 #include <cstdio>
 #include <cstdint>
 
+// resid header
 #include "sid.h"
 
 #ifndef sound_hpp

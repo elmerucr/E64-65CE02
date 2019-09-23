@@ -89,6 +89,8 @@ int main(int argc, char **argv)
                     // process events and catch a possible exit signal
                     if(E64::sdl2_process_events() == E64::QUIT_EVENT) application_running = false;
                     cia_run();
+                    // immediately connect the collected output of the irq lines to the cpu
+                    csg65ce02_set_irq( &cpu_ic, exception_collector_ic.update_status() );
                     E64::sdl2_update_screen();
                     frame_delay.run();
                 }

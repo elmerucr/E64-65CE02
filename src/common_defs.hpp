@@ -31,7 +31,7 @@
 #define IO_SID_PAGE         0x05
 #define TIMER_PAGE          0x06
 
-#define IO_E64_KERNEL_MASK 0x07
+#define IO_E64_KERNEL_MASK  0xE0
 
 // E64 elmerucr colors
 //#define C64_BLACK       0xff000000  // color 0 - argb8888
