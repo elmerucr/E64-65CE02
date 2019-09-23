@@ -12,9 +12,9 @@ Technical specifications (not yet complete and work in progress):
 todo
 ## Screenshots
 Running in normal mode:
-![E64 normal mode](./docs/E64_2019-09-04.png)
+![E64 normal mode](./docs/E64_2019-09-23.png)
 In debug mode:
-![E64 debug mode](./docs/E64_debug_2019-09-04.png)
+![E64 debug mode](./docs/E64_debug_2019-09-23.png)
 ## Compiling
 ### Core application
 #### macOS
