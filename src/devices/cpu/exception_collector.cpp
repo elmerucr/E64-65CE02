@@ -32,5 +32,5 @@ void E64::exception_collector::update_status()
                     (!(*device_list[6])) |
                     (!(*device_list[7])) ;
     result = !result;
-    irq_signal = result;
+    irq_output_signal = result;
 }

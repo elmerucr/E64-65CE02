@@ -169,19 +169,19 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     {
         if( token1 == NULL )
         {
-            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", exception_collector_ic.irq_signal ? 1 : 0);
+            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", exception_collector_ic.irq_output_signal ? 1 : 0);
             debug_console_print(c256_string2);
         }
         else if( strcmp(token1, "0") == 0)
         {
-            exception_collector_ic.irq_signal = false;
-            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", exception_collector_ic.irq_signal ? 1 : 0);
+            exception_collector_ic.irq_output_signal = false;
+            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", exception_collector_ic.irq_output_signal ? 1 : 0);
             debug_console_print(c256_string2);
         }
         else if( strcmp(token1, "1") == 0)
         {
-            exception_collector_ic.irq_signal = true;
-            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", exception_collector_ic.irq_signal ? 1 : 0);
+            exception_collector_ic.irq_output_signal = true;
+            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", exception_collector_ic.irq_output_signal ? 1 : 0);
             debug_console_print(c256_string2);
         }
         else

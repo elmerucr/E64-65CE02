@@ -58,7 +58,7 @@ int main(int argc, char **argv)
 
     // cpu stuff
     csg65ce02_init(&cpu_ic);
-    csg65ce02_assign_irq_pin(&cpu_ic, &exception_collector_ic.irq_signal);
+    csg65ce02_assign_irq_pin(&cpu_ic, &exception_collector_ic.irq_output_signal);
     csg65ce02_reset(&cpu_ic);
 
     debug_console_init();
