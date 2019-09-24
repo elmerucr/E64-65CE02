@@ -17,8 +17,9 @@ namespace E64
         bool default_device = true;
     public:
         exception_collector(void);
+        bool irq_signal;
         bool* add_device(void);
-        bool update_status(void);
+        void update_status(void);
     };
 }
 

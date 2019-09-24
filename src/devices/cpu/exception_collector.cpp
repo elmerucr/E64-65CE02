@@ -21,16 +21,16 @@ bool *E64::exception_collector::add_device()
     return return_value;
 }
 
-bool E64::exception_collector::update_status()
+void E64::exception_collector::update_status()
 {
     bool result =   (!(*device_list[0])) |
-    (!(*device_list[1])) |
-    (!(*device_list[2])) |
-    (!(*device_list[3])) |
-    (!(*device_list[4])) |
-    (!(*device_list[5])) |
-    (!(*device_list[6])) |
-    (!(*device_list[7])) ;
+                    (!(*device_list[1])) |
+                    (!(*device_list[2])) |
+                    (!(*device_list[3])) |
+                    (!(*device_list[4])) |
+                    (!(*device_list[5])) |
+                    (!(*device_list[6])) |
+                    (!(*device_list[7])) ;
     result = !result;
-    return result;
+    irq_signal = result;
 }

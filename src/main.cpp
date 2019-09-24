@@ -58,6 +58,7 @@ int main(int argc, char **argv)
 
     // cpu stuff
     csg65ce02_init(&cpu_ic);
+    csg65ce02_assign_irq_pin(&cpu_ic, &exception_collector_ic.irq_signal);
     csg65ce02_reset(&cpu_ic);
 
     debug_console_init();
@@ -89,8 +90,7 @@ int main(int argc, char **argv)
                     // process events and catch a possible exit signal
                     if(E64::sdl2_process_events() == E64::QUIT_EVENT) application_running = false;
                     cia_run();
-                    // immediately connect the collected output of the irq lines to the cpu
-                    csg65ce02_set_irq( &cpu_ic, exception_collector_ic.update_status() );
+                    exception_collector_ic.update_status();
                     E64::sdl2_update_screen();
                     frame_delay.run();
                 }

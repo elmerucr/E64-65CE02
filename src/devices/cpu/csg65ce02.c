@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "csg65ce02.h"
 #include "csg65ce02_macros.h"
 
@@ -127,7 +128,6 @@ void csg65ce02_reset(csg65ce02 *thisCPU)
 
 	// default states of irq and nmi pins
 	thisCPU->exception_type = NONE;
-	thisCPU->irq_pin = true;
 	thisCPU->nmi_pin = true;
 	thisCPU->nmi_pin_previous_state = true;
 
@@ -221,7 +221,7 @@ int csg65ce02_run(csg65ce02 *thisCPU, unsigned int no_cycles, unsigned int *proc
             }
 			else
 			{
-                if(thisCPU->irq_pin)
+                if(*thisCPU->irq_pin == true)
 				{						            		// irq pin is up
                     thisCPU->exception_type = NONE;
                 }
@@ -241,8 +241,7 @@ int csg65ce02_run(csg65ce02 *thisCPU, unsigned int no_cycles, unsigned int *proc
         	thisCPU->nmi_pin_previous_state = thisCPU->nmi_pin;
         }
 
-        uint16_t extractedExpr = pcReg;
-        current_opcode = thisCPU->exception_type ? 0x00 : csg65ce02_read_byte(extractedExpr);
+		current_opcode = thisCPU->exception_type ? 0x00 : csg65ce02_read_byte(pcReg);
 
 		csg65ce02_calculate_effective_address(thisCPU, current_opcode, &effective_address_l, &effective_address_h);
 
@@ -1018,9 +1017,9 @@ inline void csg65ce02_handle_opcode(csg65ce02 *thisCPU, uint8_t opcode, uint16_t
 	}
 }
 
-void csg65ce02_set_irq(csg65ce02 *thisCPU, bool level)
+void csg65ce02_assign_irq_pin(csg65ce02 *thisCPU, bool *pin)
 {
-	thisCPU->irq_pin = level;
+	thisCPU->irq_pin = pin;
 }
 
 void csg65ce02_set_nmi(csg65ce02 *thisCPU, bool level)

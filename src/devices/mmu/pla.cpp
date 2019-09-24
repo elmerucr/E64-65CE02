@@ -82,8 +82,7 @@ void csg65ce02_write_byte(uint16_t address, uint8_t byte)
     else if(page == IO_CIA_PAGE)
     {
         cia_write_byte(address & 0x00ff, byte);
-        // immediately connect the collected output of the irq lines to the cpu
-        csg65ce02_set_irq( &cpu_ic, exception_collector_ic.update_status() );
+        exception_collector_ic.update_status();
     }
     else
     {
