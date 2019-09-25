@@ -68,7 +68,6 @@
 		46241ABD2324429100569490 /* csg65ce02.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = csg65ce02.h; path = ../../../src/devices/cpu/csg65ce02.h; sourceTree = "<group>"; };
 		46241ABE2324429100569490 /* csg65ce02_dasm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = csg65ce02_dasm.h; path = ../../../src/devices/cpu/csg65ce02_dasm.h; sourceTree = "<group>"; };
 		46241ABF2324429100569490 /* exception_collector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = exception_collector.cpp; path = ../../../src/devices/cpu/exception_collector.cpp; sourceTree = "<group>"; };
-		46241AC02324429100569490 /* csg65ce02_macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = csg65ce02_macros.h; path = ../../../src/devices/cpu/csg65ce02_macros.h; sourceTree = "<group>"; };
 		46241AC12324429100569490 /* exception_collector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = exception_collector.hpp; path = ../../../src/devices/cpu/exception_collector.hpp; sourceTree = "<group>"; };
 		46241AC22324429200569490 /* csg65ce02_dasm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = csg65ce02_dasm.c; path = ../../../src/devices/cpu/csg65ce02_dasm.c; sourceTree = "<group>"; };
 		46241AC32324429200569490 /* csg65ce02.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = csg65ce02.c; path = ../../../src/devices/cpu/csg65ce02.c; sourceTree = "<group>"; };
@@ -169,11 +168,10 @@
 		46241AAF232441EF00569490 /* cpu */ = {
 			isa = PBXGroup;
 			children = (
-				46241AC22324429200569490 /* csg65ce02_dasm.c */,
-				46241ABE2324429100569490 /* csg65ce02_dasm.h */,
-				46241AC02324429100569490 /* csg65ce02_macros.h */,
-				46241AC32324429200569490 /* csg65ce02.c */,
 				46241ABD2324429100569490 /* csg65ce02.h */,
+				46241AC32324429200569490 /* csg65ce02.c */,
+				46241ABE2324429100569490 /* csg65ce02_dasm.h */,
+				46241AC22324429200569490 /* csg65ce02_dasm.c */,
 				46241AC12324429100569490 /* exception_collector.hpp */,
 				46241ABF2324429100569490 /* exception_collector.cpp */,
 			);
