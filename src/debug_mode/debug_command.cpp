@@ -125,8 +125,8 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
         {
             debug_console_print("Debug Mode                      Running Mode\n");
             debug_console_print("==========                      ============\n");
-            debug_console_print("F1    next cpu instruction      F9    switch running-debug\n");
-            debug_console_print("b     cpu breakpoints           F10   toggle overlay\n");
+            debug_console_print("F1    next cpu instruction      F9    switch mode\n");
+            debug_console_print("b     cpu breakpoints           F10   toggle runtime stats\n");
             debug_console_print("c     continue execution\n");
             debug_console_print("d     disassemble\n");
             debug_console_print("m     memory dump\n");
@@ -169,19 +169,19 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     {
         if( token1 == NULL )
         {
-            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", exception_collector_ic.irq_output_signal ? 1 : 0);
+            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", exception_collector_ic.irq_output_pin ? 1 : 0);
             debug_console_print(c256_string2);
         }
         else if( strcmp(token1, "0") == 0)
         {
-            exception_collector_ic.irq_output_signal = false;
-            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", exception_collector_ic.irq_output_signal ? 1 : 0);
+            exception_collector_ic.irq_output_pin = false;
+            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", exception_collector_ic.irq_output_pin ? 1 : 0);
             debug_console_print(c256_string2);
         }
         else if( strcmp(token1, "1") == 0)
         {
-            exception_collector_ic.irq_output_signal = true;
-            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", exception_collector_ic.irq_output_signal ? 1 : 0);
+            exception_collector_ic.irq_output_pin = true;
+            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", exception_collector_ic.irq_output_pin ? 1 : 0);
             debug_console_print(c256_string2);
         }
         else
@@ -237,13 +237,13 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
         else if( strcmp(token1, "0") == 0)
         {
             csg65ce02_set_nmi(&cpu_ic, false);
-            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", cpu_ic.nmi_pin ? 1 : 0);
+            snprintf(c256_string2, 256, "Current status of nmi pin is %1u\n", cpu_ic.nmi_pin ? 1 : 0);
             debug_console_print(c256_string2);
         }
         else if( strcmp(token1, "1") == 0)
         {
             csg65ce02_set_nmi(&cpu_ic, true);
-            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", cpu_ic.nmi_pin ? 1 : 0);
+            snprintf(c256_string2, 256, "Current status of nmi pin is %1u\n", cpu_ic.nmi_pin ? 1 : 0);
             debug_console_print(c256_string2);
         }
         else

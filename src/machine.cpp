@@ -55,8 +55,8 @@ E64::machine::machine()
     csg65ce02_reset(this->cpu_ic);
     
     exception_collector_ic = new exception_collector();
-    timer_ic = new timer(exception_collector_ic->add_device());
-    vicv_ic = new vicv(exception_collector_ic->add_device());
+    timer_ic = new timer(exception_collector_ic->connect_device());
+    vicv_ic = new vicv(exception_collector_ic->connect_device());
     sound_ic = new sound();
     
     cpu_to_vicv  = new frequency_divider(CPU_CLOCK_SPEED, VICV_CLOCK_SPEED);

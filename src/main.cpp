@@ -26,8 +26,8 @@
 
 E64::exception_collector exception_collector_ic;
 csg65ce02  cpu_ic;
-E64::timer timer_ic(exception_collector_ic.add_device());
-E64::vicv  vicv_ic(exception_collector_ic.add_device());
+E64::timer timer_ic(exception_collector_ic.connect_device());
+E64::vicv  vicv_ic(exception_collector_ic.connect_device());
 E64::sound sound_ic;
 C256::sdl2_pid_delay frame_delay(15000.0);
 bool application_running;
@@ -54,11 +54,11 @@ int main(int argc, char **argv)
     // start pla (mmu, bankswitching, etc...)
     pla_init();
 
-    cia_init(exception_collector_ic.add_device());
+    cia_init(exception_collector_ic.connect_device());
 
     // cpu stuff
     csg65ce02_init(&cpu_ic);
-    csg65ce02_assign_irq_pin(&cpu_ic, &exception_collector_ic.irq_output_signal);
+    csg65ce02_assign_irq_pin(&cpu_ic, &exception_collector_ic.irq_output_pin);
     csg65ce02_reset(&cpu_ic);
 
     debug_console_init();

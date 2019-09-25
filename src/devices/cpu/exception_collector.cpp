@@ -9,13 +9,13 @@
 
 E64::exception_collector::exception_collector()
 {
-    for(int i=0; i<8; i++) device_list[i] = &default_device;
+    for(int i=0; i<8; i++) irq_input_pins[i] = &default_device;
     next_available_device = 0;
 }
 
-bool *E64::exception_collector::add_device()
+bool *E64::exception_collector::connect_device()
 {
-    bool *return_value = device_list[next_available_device];
+    bool *return_value = irq_input_pins[next_available_device];
     next_available_device++;
     next_available_device &= 7;
     return return_value;
@@ -23,14 +23,14 @@ bool *E64::exception_collector::add_device()
 
 void E64::exception_collector::update_status()
 {
-    bool result =   (!(*device_list[0])) |
-                    (!(*device_list[1])) |
-                    (!(*device_list[2])) |
-                    (!(*device_list[3])) |
-                    (!(*device_list[4])) |
-                    (!(*device_list[5])) |
-                    (!(*device_list[6])) |
-                    (!(*device_list[7])) ;
+    bool result =   (!(*irq_input_pins[0])) |
+                    (!(*irq_input_pins[1])) |
+                    (!(*irq_input_pins[2])) |
+                    (!(*irq_input_pins[3])) |
+                    (!(*irq_input_pins[4])) |
+                    (!(*irq_input_pins[5])) |
+                    (!(*irq_input_pins[6])) |
+                    (!(*irq_input_pins[7])) ;
     result = !result;
-    irq_output_signal = result;
+    irq_output_pin = result;
 }

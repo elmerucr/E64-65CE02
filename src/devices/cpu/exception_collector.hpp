@@ -12,13 +12,13 @@ namespace E64
 {
     class exception_collector
     {
-        bool *device_list[8];
+        bool *irq_input_pins[8];
         uint8_t next_available_device;
         bool default_device = true;
     public:
         exception_collector(void);
-        bool irq_output_signal;
-        bool* add_device(void);
+        bool irq_output_pin;
+        bool* connect_device(void);
         void update_status(void);
     };
 }
