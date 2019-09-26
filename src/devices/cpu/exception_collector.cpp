@@ -13,12 +13,11 @@ E64::exception_collector::exception_collector()
     next_available_device = 0;
 }
 
-bool *E64::exception_collector::connect_device()
+void E64::exception_collector::connect_device(bool *device)
 {
-    bool *return_value = irq_input_pins[next_available_device];
+    irq_input_pins[next_available_device] = device;
     next_available_device++;
     next_available_device &= 7;
-    return return_value;
 }
 
 void E64::exception_collector::update_status()

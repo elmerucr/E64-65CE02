@@ -10,7 +10,7 @@
 
 #define E64_MAJOR_VERSION        0
 #define E64_MINOR_VERSION        3
-#define E64_BUILD                20190925
+#define E64_BUILD                20190926
 #define E64_YEAR                 2019
 
 #define RAM_SIZE                 0x1000000    // 16mb system
@@ -135,8 +135,8 @@ extern char c256_string2[];
 extern bool application_running;
 
 // some objects need to be visible at global level:
-#include "exception_collector.hpp"
-extern E64::exception_collector exception_collector_ic;
+//#include "exception_collector.hpp"
+//extern E64::exception_collector exception_collector_ic;
 #include "csg65ce02.h"
 extern csg65ce02 cpu_ic;
 #include "timer.hpp"
@@ -147,5 +147,7 @@ extern E64::vicv vicv_ic;
 extern C256::sdl2_pid_delay frame_delay;
 #include "sound.hpp"
 extern E64::sound sound_ic;
+#include "machine.hpp"
+extern E64::machine computer;
 
 #endif

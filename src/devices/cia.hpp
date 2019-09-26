@@ -33,9 +33,9 @@
 
 extern uint8_t cia_registers[];
 extern uint8_t cia_scancodes_last_known_state[];
-extern bool *cia_irq_line;
+extern bool cia_irq_line;
 
-void cia_init(bool *irq_pointer);
+void cia_init(void);
 
 // unlike other components, the CIA doesn't need a specified no of cycles as argument
 void cia_run(void);

@@ -6,15 +6,14 @@
 #include "timer.hpp"
 #include "common_defs.hpp"
 
-E64::timer::timer(bool *irq_pointer)
+E64::timer::timer()
 {
-    irq_line = irq_pointer;
     reset();
 }
 
 void E64::timer::reset()
 {
-    *irq_line = true;
+    irq_line = true;
 
     // may never be zero
     timer0_bpm = 1;

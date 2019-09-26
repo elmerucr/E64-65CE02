@@ -63,12 +63,13 @@ namespace E64
 
         uint32_t bpm_to_clock_interval(uint16_t bpm);
 
-        bool *irq_line;
     public:
         // constructor
-        timer(bool *irq_pointer);
+        timer(void);
         // reset, called by constructor
         void reset(void);
+        
+        bool irq_line;
 
         // access functions
         uint8_t read_byte(uint8_t address);

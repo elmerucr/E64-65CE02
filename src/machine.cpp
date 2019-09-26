@@ -35,9 +35,8 @@ int E64::machine_run(uint16_t no_of_cycles)
     
     // run cycles on vicv
     vicv_ic.run(cpu_to_vicv.clock(processed_cycles));
-    // calculate no. of cycles to run on sids
+    // calculate no. of cycles to run on sound device
     sound_ic.run(cpu_to_sid.clock(processed_cycles));
-    //sound_run(cpu_to_sid.clock(processed_cycles));
     // start audio only if buffer is large enough
     if(E64::sdl2_get_queued_audio_size() > (AUDIO_BUFFER_SIZE/2)) E64::sdl2_start_audio();
     // run cycles on timer
@@ -50,13 +49,18 @@ E64::machine::machine()
 {
     current_mode = RUNNING_MODE;
 
+    exception_collector_ic = new exception_collector();
+    
     cpu_ic = new csg65ce02;
     csg65ce02_init(this->cpu_ic);
     csg65ce02_reset(this->cpu_ic);
     
-    exception_collector_ic = new exception_collector();
-    timer_ic = new timer(exception_collector_ic->connect_device());
-    vicv_ic = new vicv(exception_collector_ic->connect_device());
+    timer_ic = new timer();
+    exception_collector_ic->connect_device(&timer_ic->irq_line);
+    
+    vicv_ic = new vicv();
+    exception_collector_ic->connect_device(&vicv_ic->irq_line);
+    
     sound_ic = new sound();
     
     cpu_to_vicv  = new frequency_divider(CPU_CLOCK_SPEED, VICV_CLOCK_SPEED);
@@ -73,9 +77,10 @@ E64::machine::~machine()
     delete sound_ic;
     delete vicv_ic;
     delete timer_ic;
-    delete exception_collector_ic;
 
     csg65ce02_cleanup(this->cpu_ic);
+    
+    delete exception_collector_ic;
 }
 
 int E64::machine::run(uint16_t no_of_cycles)
@@ -92,7 +97,7 @@ int E64::machine::run(uint16_t no_of_cycles)
     }
     // run cycles on vicv
     vicv_ic->run(cpu_to_vicv->clock(processed_cycles));
-    // calculate no. of cycles to run on sound
+    // calculate no. of cycles to run on sound device
     sound_ic->run(cpu_to_sid->clock(processed_cycles));
     // start audio only if buffer is large enough
     if(E64::sdl2_get_queued_audio_size() > (AUDIO_BUFFER_SIZE/2)) E64::sdl2_start_audio();

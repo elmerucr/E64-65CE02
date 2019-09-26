@@ -43,12 +43,11 @@ namespace E64
         // overlay related things
         bool overlay_present;
         uint32_t borders_contrast_foreground_color(void);
-        
-        bool *irq_line;
-
     public:
-        vicv(bool *irq_pointer);
+        vicv(void);
         ~vicv(void);
+        
+        bool irq_line;
 
         // pointer to the buffer that currently can be shown
         uint32_t *front_buffer;

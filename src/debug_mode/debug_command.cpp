@@ -14,7 +14,6 @@
 #include "sdl2.hpp"
 #include "csg65ce02_dasm.h"
 #include "debug_status_bar.hpp"
-#include "exception_collector.hpp"
 
 void E64::debug_command_execute(char *string_to_parse_and_exec)
 {
@@ -113,7 +112,7 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     else if( strcmp(token0, "exit") == 0 )
     {
         E64::sdl2_wait_until_enter_released();
-        application_running = false;
+        computer.running = false;
     }
     else if( strcmp(token0, "full") == 0 )
     {
@@ -169,19 +168,19 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     {
         if( token1 == NULL )
         {
-            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", exception_collector_ic.irq_output_pin ? 1 : 0);
+            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", computer.exception_collector_ic->irq_output_pin ? 1 : 0);
             debug_console_print(c256_string2);
         }
         else if( strcmp(token1, "0") == 0)
         {
-            exception_collector_ic.irq_output_pin = false;
-            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", exception_collector_ic.irq_output_pin ? 1 : 0);
+            computer.exception_collector_ic->irq_output_pin = false;
+            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", computer.exception_collector_ic->irq_output_pin ? 1 : 0);
             debug_console_print(c256_string2);
         }
         else if( strcmp(token1, "1") == 0)
         {
-            exception_collector_ic.irq_output_pin = true;
-            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", exception_collector_ic.irq_output_pin ? 1 : 0);
+            computer.exception_collector_ic->irq_output_pin = true;
+            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", computer.exception_collector_ic->irq_output_pin ? 1 : 0);
             debug_console_print(c256_string2);
         }
         else
@@ -371,5 +370,5 @@ uint32_t E64::debug_command_hex_string_to_int(const char *temp_string)
 void E64::debug_command_single_step_cpu()
 {
     E64::machine_run(0);
-    exception_collector_ic.update_status();
+    computer.exception_collector_ic->update_status();
 }

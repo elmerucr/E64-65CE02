@@ -20,4 +20,4 @@ namespace E64
     void SN74LS612_write_byte(uint8_t address, uint8_t byte);
 }
 
-#endif /* SN74LS612_hpp */
+#endif

@@ -43,9 +43,10 @@ namespace E64
         
     public:
         enum machine_mode   current_mode;
+        bool running;
 
-        csg65ce02           *cpu_ic;
         exception_collector *exception_collector_ic;
+        csg65ce02           *cpu_ic;
         timer               *timer_ic;
         vicv                *vicv_ic;
         sound               *sound_ic;

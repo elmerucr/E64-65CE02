@@ -9,10 +9,8 @@
 #include "common_defs.hpp"
 #include "pla.hpp"
 
-E64::vicv::vicv(bool *irq_pointer)
+E64::vicv::vicv()
 {
-    irq_line = irq_pointer;
-    
     screen_buffer_0 = new uint32_t[VICV_PIXELS_PER_SCANLINE*320];
     screen_buffer_1 = new uint32_t[VICV_PIXELS_PER_SCANLINE*320];
     color_palette   = new uint32_t[256];
@@ -109,7 +107,7 @@ void E64::vicv::reset()
     for(int i = 0x40; i < 0x100; i++) color_palette[i] = C64_LIGHTBLUE;
 
     // set irq line
-    *irq_line = true;
+    irq_line = true;
     
     frame_done = false;
 
