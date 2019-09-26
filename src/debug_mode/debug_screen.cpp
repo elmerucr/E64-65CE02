@@ -5,9 +5,7 @@
 
 #include "debug_screen.hpp"
 #include "common_defs.hpp"
-#include "sdl2.hpp"
-#include "pla.hpp"
-#include "machine_state.hpp"
+#include "mmu.hpp"
 #include "vicv.hpp"
 #include "machine.hpp"
 

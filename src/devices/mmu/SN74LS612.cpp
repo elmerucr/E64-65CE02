@@ -15,7 +15,7 @@ void E64::SN74LS612_init(void)
     for(int i=0; i<16; i++)
     {
         // Each register contains a 12bit pointer to a 4kb block
-        // in 1mb of ram (as seen from the mmu).
+        // in 16mb of ram (as seen from the mmu).
         // After reset, the csg65ce02 sees first 64k of ram
         // unless it is overrided/shadowed by i/o adressess or rom
         SN74LS612_registers[i] = i;

@@ -1,11 +1,11 @@
-//  c256_pla.cpp
+//  c256_mmu.cpp
 //  E64
 //
 //  Copyright © 2017 elmerucr. All rights reserved.
 
 #include <cstdint>
 
-#include "pla.hpp"
+#include "mmu.hpp"
 #include "vicv.hpp"
 #include "SN74LS612.hpp"
 #include "cia.hpp"
@@ -13,7 +13,7 @@
 
 uint8_t *ram;
 
-void pla_init()
+void mmu_init()
 {
     E64::SN74LS612_init();
     // allocate main ram and fill with a pattern
@@ -22,7 +22,7 @@ void pla_init()
     for(int i=0; i< RAM_SIZE; i++) ram[i] = (i & 64) ? 0x80 : 0x00;
 }
 
-void pla_cleanup()
+void mmu_cleanup()
 {
     delete [] ram;
     ram = nullptr;

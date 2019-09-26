@@ -9,7 +9,7 @@
 #include "common_defs.hpp"
 #include "sdl2.hpp"
 #include "sdl2_pid_delay.hpp"
-#include "pla.hpp"
+#include "mmu.hpp"
 #include "machine_state.hpp"
 #include "vicv.hpp"
 #include "csg65ce02.h"
@@ -49,7 +49,7 @@ int main(int argc, char **argv)
     E64::sdl2_init();
 
     // start pla (mmu, bankswitching, etc...)
-    pla_init();
+    mmu_init();
 
     cia_init();
 
@@ -130,7 +130,7 @@ int main(int argc, char **argv)
     // cleanup window management
     E64::sdl2_cleanup();
     // memory is last thing to cleanup
-    pla_cleanup();
+    mmu_cleanup();
 
     printf("closing E64\n");
 

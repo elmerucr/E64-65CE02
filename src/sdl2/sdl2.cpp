@@ -16,7 +16,7 @@
 #include "common_defs.hpp"
 #include "sdl2.hpp"
 #include "vicv.hpp"
-#include "pla.hpp"
+#include "mmu.hpp"
 #include "machine_state.hpp"
 #include "machine.hpp"
 #include "debug_screen.hpp"
