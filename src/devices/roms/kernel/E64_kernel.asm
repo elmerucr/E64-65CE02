@@ -16,13 +16,22 @@ cold_start
 	tys		; move y into sh
 	cle		; clear extended mode flag to enable large stack
 
+	; set up timer interrupt
+	lda #$b8		; load value 3000 ($0bb8 = 3000bpm = 50Hz) into low and high bytes
+	sta TIMER_BASE+2
+	lda #$0b
+	sta TIMER_BASE+3
+	lda TIMER_BASE+1	; turn on interrupt generation by clock0
+	ora #%00000001
+	sta TIMER_BASE+1
+
+	; cia interrupts
 	lda #$01	; set bit 0 in accumulator
 	tsb CIA_BASE+1	; turn on keyboard interrupt generation by CIA
-
 	; install the vector for the cia irq routine
-	lda #<cia_irq_handler
+	lda #<cia_irq_handler+3
 	sta CIA_VECTOR
-	lda #>cia_irq_handler
+	lda #>cia_irq_handler+3
 	sta CIA_VECTOR+1
 
 	cli		; clear irq disable flag (enable irqs)
@@ -113,12 +122,15 @@ irq_handler
 	; blabla
 
 	; timer portion
+timer_irq_handler
 	;
 	; blabla
+	; jmp exception_cleanup
+
 
 	; CIA portion
-	jmp(CIA_VECTOR)		; jmp
 cia_irq_handler
+	jmp(CIA_VECTOR)		; jmp
 	lda CIA_BASE+0		; load current status
 	and #%10000000		; did CIA cause the interrupt?
 	beq exception_cleanup	; no, skip to cleanup

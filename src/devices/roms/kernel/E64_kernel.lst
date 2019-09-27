@@ -1,7 +1,7 @@
 
 ; 64tass Turbo Assembler Macro V1.54.1900 listing file
 ; 64tass -b -C -L E64_kernel.lst -o E64_kernel.bin E64_kernel.asm
-; Sun Sep 22 19:18:07 2019
+; Fri Sep 27 22:43:16 2019
 
 ;Offset	;Hex		;Monitor	;Source
 
@@ -38,6 +38,7 @@
 =$0520						SID1_BASE = $0520
 =$0582						SID1_LEFT = $0582
 =$0583						SID1_RGHT = $0583
+=$0600						TIMER_BASE = $0600
 =$00						ASCII_NULL	= $00
 =$08						ASCII_BKSPC	= $08
 =$0a						ASCII_LF	= $0a
@@ -53,159 +54,167 @@
 .e004	9a		txs			txs		; move x into sl
 .e005	2b		tys			tys		; move y into sh
 .e006	02		cle			cle		; clear extended mode flag to enable large stack
-.e007	a9 01		lda #$01		lda #$01	; set bit 0 in accumulator
-.e009	0c 01 03	tsb $0301		tsb CIA_BASE+1	; turn on keyboard interrupt generation by CIA
-.e00c	a9 93		lda #$93		lda #<cia_irq_handler
-.e00e	8d 08 08	sta $0808		sta CIA_VECTOR
-.e011	a9 e0		lda #$e0		lda #>cia_irq_handler
-.e013	8d 09 08	sta $0809		sta CIA_VECTOR+1
-.e016	58		cli			cli		; clear irq disable flag (enable irqs)
-.e017	a9 06		lda #$06		lda #$06	; blue for background
-.e019	8d 01 04	sta $0401		sta VICV_BG
-.e01c	a9 00		lda #$00		lda #$00	; black for border
-.e01e	8d 00 04	sta $0400		sta VICV_BO
-.e021	a9 00		lda #$00		lda #$00
-.e023	8d 03 04	sta $0403		sta VICV_TSH	; point vicv to text and color screen
-.e026	8d 05 04	sta $0405		sta VICV_CSH
-.e029	a9 18		lda #$18		lda #$18
-.e02b	8d 02 04	sta $0402		sta VICV_TSL
-.e02e	1a		inc a			inc a
-.e02f	8d 04 04	sta $0404		sta VICV_CSL
-.e032	20 c5 e0	jsr $e0c5		jsr clear_screen
-.e035	f4 1a e1	phw #$e11a		phw #welc1	; push the address of the first welcome message onto the stack
-.e038	20 0c e1	jsr $e10c		jsr put_string
-.e03b	f4 2f e1	phw #$e12f		phw #welc2
-.e03e	20 0c e1	jsr $e10c		jsr put_string
-.e041	a9 82		lda #$82		lda #$82
-.e043	8d 01 05	sta $0501		sta SID0_BASE+$01	; frequency of voice 1 (high byte)
-.e046	a9 09		lda #$09		lda #$09
-.e048	8d 05 05	sta $0505		sta SID0_BASE+$05	; attack and decay of voice 1
-.e04b	a9 1e		lda #$1e		lda #$1e
-.e04d	8d 0f 05	sta $050f		sta SID0_BASE+$0f	; freq of voice 3
-.e050	a9 0f		lda #$0f		lda #$0f
-.e052	8d 18 05	sta $0518		sta SID0_BASE+$18	; max volume
-.e055	a9 ff		lda #$ff		lda #$ff
-.e057	8d 80 05	sta $0580		sta SID0_LEFT		; left channel mix
-.e05a	a9 10		lda #$10		lda #$10
-.e05c	8d 81 05	sta $0581		sta SID0_RGHT		; right channel mix
-.e05f	a9 85		lda #$85		lda #$85
-.e061	8d 04 05	sta $0504		sta SID0_BASE+$04	; play bell by opening gate on bit0 register #4
-.e064	ad 00 c2	lda $c200	-	lda $c200	; load a char from screen memory
-.e067	1a		inc a			inc a		; increase value of accumulator
-.e068	8d 00 c2	sta $c200		sta $c200	; store it back
-.e06b	a2 00		ldx #$00		ldx #$00	; init counter to 0
-.e06d	bd 80 03	lda $0380,x	-	lda $0380,x	; load key state
-.e070	9d 00 c4	sta $c400,x		sta $c400,x	; store it somewhere on screen
-.e073	e8		inx			inc x
-.e074	e0 49		cpx #$49		cpx #$49	; last key?
-.e076	d0 f5		bne $e06d		bne -
-.e078	80 ea		bra $e064		bra --
-.e07a					exception_handler
-.e07a	48		pha			pha		; save processor state
-.e07b	da		phx			phx
-.e07c	5a		phy			phy
-.e07d	db		phz			phz
-.e07e	ba		tsx			tsx		; load sl into x
-.e07f	0b		tsy			tsy		; load sh into y
-.e080	86 f0		stx $f0			stx P0		; store sp into pointer register P0
-.e082	84 f1		sty $f1			sty P0+1
-.e084	a0 05		ldy #$05		ldy #$05	; index is $5
-.e086	b1 f0		lda ($f0),y		lda (P0),y	; load the pushed status byte into accumulator
-.e088	29 10		and #$10		and #%00010000	; was break "flag" present on stack?
-.e08a	f0 04		beq $e090		beq irq_handler	; no, branch to irq handler
-.e08c					brk_handler
-.e08c	ea		nop			nop		; blabla
-.e08d	ea		nop			nop		; blabla
-.e08e	80 27		bra $e0b7		bra exception_cleanup
-.e090					irq_handler
-.e090	6c 08 08	jmp ($0808)		jmp(CIA_VECTOR)		; jmp
-.e093					cia_irq_handler
-.e093	ad 00 03	lda $0300		lda CIA_BASE+0		; load current status
-.e096	29 80		and #$80		and #%10000000		; did CIA cause the interrupt?
-.e098	f0 1d		beq $e0b7		beq exception_cleanup	; no, skip to cleanup
-.e09a	a9 01		lda #$01		lda #%00000001	; acknowledge the interrupt
-.e09c	8d 00 03	sta $0300		sta CIA_BASE+0
-.e09f	ad 00 03	lda $0300	-	lda CIA_BASE+0	; if bit 0 is on, a keyboard event is waiting
-.e0a2	29 01		and #$01		and #%00000001
-.e0a4	f0 11		beq $e0b7		beq exception_cleanup	; no, skip the next part
-.e0a6	ad 02 03	lda $0302		lda CIA_BASE+2		; read a scancode
-.e0a9	30 f4		bmi $e09f		bmi -			; if bit 7 is set, check for a next event
-.e0ab	aa		tax			tax			; move scancode into x register
-.e0ac	bd 80 ff	lda $ff80,x		lda scancode_to_ascii,x	; lookup corresponding ascii value in table
-.e0af	20 eb e0	jsr $e0eb		jsr put_char
-.e0b2	80 eb		bra $e09f		bra -
-.e0b4	4c b7 e0	jmp $e0b7		jmp exception_cleanup
-.e0b7					exception_cleanup
-.e0b7	fb		plz			plz		; cleanup stuff of the exception handler
-.e0b8	7a		ply			ply		; restore processor state
-.e0b9	fa		plx			plx
-.e0ba	68		pla			pla
-.e0bb	40		rti			rti		; return from interrupt
-.e0bc					nmi_handler
-.e0bc	48		pha			pha
-.e0bd	da		phx			phx
-.e0be	5a		phy			phy
-.e0bf	db		phz			phz
-.e0c0	fb		plz			plz
-.e0c1	7a		ply			ply
-.e0c2	fa		plx			plx
-.e0c3	68		pla			pla
-.e0c4	40		rti			rti
-.e0c5					clear_screen
-.e0c5	a9 00		lda #$00		lda #$00
-.e0c7	85 f0		sta $f0			sta P0
-.e0c9	85 f2		sta $f2			sta P1
-.e0cb	a9 c0		lda #$c0		lda #$c0
-.e0cd	85 f1		sta $f1			sta P0+1
-.e0cf	a9 c8		lda #$c8		lda #$c8
-.e0d1	85 f3		sta $f3			sta P1+1
-.e0d3	a0 00		ldy #$00		ldy #$00
-.e0d5	a9 20		lda #$20	-	lda #ASCII_SPACE
-.e0d7	91 f0		sta ($f0),y		sta (P0),y
-.e0d9	a9 0c		lda #$0c		lda #$0c	; grey
-.e0db	91 f2		sta ($f2),y		sta (P1),y
-.e0dd	c8		iny			inc y
-.e0de	d0 f5		bne $e0d5		bne -
-.e0e0	e6 f1		inc $f1			inc P0+1
-.e0e2	e6 f3		inc $f3			inc P1+1
-.e0e4	a6 f1		ldx $f1			ldx P0+1
-.e0e6	e0 c8		cpx #$c8		cpx #$c8
-.e0e8	d0 eb		bne $e0d5		bne -
-.e0ea	60		rts			rts
-.e0eb					put_char
-.e0eb	da		phx			phx
-.e0ec	5a		phy			phy
-.e0ed	c9 0a		cmp #$0a		cmp #ASCII_LF
-.e0ef	f0 0f		beq $e100		beq +
-.e0f1	aa		tax			tax
-.e0f2	bd 00 ff	lda $ff00,x		lda ascii_to_screencode,x
-.e0f5	a4 00		ldy $00			ldy cursor_pos
-.e0f7	99 00 c0	sta $c000,y		sta $c000,y
-.e0fa	c8		iny			inc y
-.e0fb	84 00		sty $00			sty cursor_pos
-.e0fd	7a		ply			ply
-.e0fe	fa		plx			plx
-.e0ff	60		rts			rts
-.e100	a5 00		lda $00		+	lda cursor_pos		; print LF
-.e102	18		clc			clc
-.e103	69 40		adc #$40		adc #$40		; add 64 chars to current position
-.e105	29 c0		and #$c0		and #%11000000		; move to the first char of the line
-.e107	85 00		sta $00			sta cursor_pos
-.e109	7a		ply			ply
-.e10a	fa		plx			plx
-.e10b	60		rts			rts
-.e10c					put_string
-.e10c	a0 00		ldy #$00		ldy #$00
-.e10e	e2 03		lda ($03,s),y	-	lda (#$03,s),y
-.e110	f0 06		beq $e118		beq +
-.e112	20 eb e0	jsr $e0eb		jsr put_char
-.e115	c8		iny			inc y
-.e116	80 f6		bra $e10e		bra -
-.e118	62 02		rts #$02	+	rtn #$02
->e11a	45 36 34 20 6b 65 72 6e		welc1	.text "E64 kernel V20190922",ASCII_NULL
->e122	65 6c 20 56 32 30 31 39 30 39 32 32 00
->e12f	20 28 43 29 32 30 31 39		welc2	.text " (C)2019 elmerucr",ASCII_NULL
->e137	20 65 6c 6d 65 72 75 63 72 00
+.e007	a9 b8		lda #$b8		lda #$b8		; load value 3000 ($0bb8 = 3000bpm = 50Hz) into low and high bytes
+.e009	8d 02 06	sta $0602		sta TIMER_BASE+2
+.e00c	a9 0b		lda #$0b		lda #$0b
+.e00e	8d 03 06	sta $0603		sta TIMER_BASE+3
+.e011	ad 01 06	lda $0601		lda TIMER_BASE+1	; turn on interrupt generation by clock0
+.e014	09 01		ora #$01		ora #%00000001
+.e016	8d 01 06	sta $0601		sta TIMER_BASE+1
+.e019	a9 01		lda #$01		lda #$01	; set bit 0 in accumulator
+.e01b	0c 01 03	tsb $0301		tsb CIA_BASE+1	; turn on keyboard interrupt generation by CIA
+.e01e	a9 a5		lda #$a5		lda #<cia_irq_handler+3
+.e020	8d 08 08	sta $0808		sta CIA_VECTOR
+.e023	a9 e0		lda #$e0		lda #>cia_irq_handler+3
+.e025	8d 09 08	sta $0809		sta CIA_VECTOR+1
+.e028	58		cli			cli		; clear irq disable flag (enable irqs)
+.e029	a9 06		lda #$06		lda #$06	; blue for background
+.e02b	8d 01 04	sta $0401		sta VICV_BG
+.e02e	a9 00		lda #$00		lda #$00	; black for border
+.e030	8d 00 04	sta $0400		sta VICV_BO
+.e033	a9 00		lda #$00		lda #$00
+.e035	8d 03 04	sta $0403		sta VICV_TSH	; point vicv to text and color screen
+.e038	8d 05 04	sta $0405		sta VICV_CSH
+.e03b	a9 18		lda #$18		lda #$18
+.e03d	8d 02 04	sta $0402		sta VICV_TSL
+.e040	1a		inc a			inc a
+.e041	8d 04 04	sta $0404		sta VICV_CSL
+.e044	20 d7 e0	jsr $e0d7		jsr clear_screen
+.e047	f4 2c e1	phw #$e12c		phw #welc1	; push the address of the first welcome message onto the stack
+.e04a	20 1e e1	jsr $e11e		jsr put_string
+.e04d	f4 41 e1	phw #$e141		phw #welc2
+.e050	20 1e e1	jsr $e11e		jsr put_string
+.e053	a9 82		lda #$82		lda #$82
+.e055	8d 01 05	sta $0501		sta SID0_BASE+$01	; frequency of voice 1 (high byte)
+.e058	a9 09		lda #$09		lda #$09
+.e05a	8d 05 05	sta $0505		sta SID0_BASE+$05	; attack and decay of voice 1
+.e05d	a9 1e		lda #$1e		lda #$1e
+.e05f	8d 0f 05	sta $050f		sta SID0_BASE+$0f	; freq of voice 3
+.e062	a9 0f		lda #$0f		lda #$0f
+.e064	8d 18 05	sta $0518		sta SID0_BASE+$18	; max volume
+.e067	a9 ff		lda #$ff		lda #$ff
+.e069	8d 80 05	sta $0580		sta SID0_LEFT		; left channel mix
+.e06c	a9 10		lda #$10		lda #$10
+.e06e	8d 81 05	sta $0581		sta SID0_RGHT		; right channel mix
+.e071	a9 85		lda #$85		lda #$85
+.e073	8d 04 05	sta $0504		sta SID0_BASE+$04	; play bell by opening gate on bit0 register #4
+.e076	ad 00 c2	lda $c200	-	lda $c200	; load a char from screen memory
+.e079	1a		inc a			inc a		; increase value of accumulator
+.e07a	8d 00 c2	sta $c200		sta $c200	; store it back
+.e07d	a2 00		ldx #$00		ldx #$00	; init counter to 0
+.e07f	bd 80 03	lda $0380,x	-	lda $0380,x	; load key state
+.e082	9d 00 c4	sta $c400,x		sta $c400,x	; store it somewhere on screen
+.e085	e8		inx			inc x
+.e086	e0 49		cpx #$49		cpx #$49	; last key?
+.e088	d0 f5		bne $e07f		bne -
+.e08a	80 ea		bra $e076		bra --
+.e08c					exception_handler
+.e08c	48		pha			pha		; save processor state
+.e08d	da		phx			phx
+.e08e	5a		phy			phy
+.e08f	db		phz			phz
+.e090	ba		tsx			tsx		; load sl into x
+.e091	0b		tsy			tsy		; load sh into y
+.e092	86 f0		stx $f0			stx P0		; store sp into pointer register P0
+.e094	84 f1		sty $f1			sty P0+1
+.e096	a0 05		ldy #$05		ldy #$05	; index is $5
+.e098	b1 f0		lda ($f0),y		lda (P0),y	; load the pushed status byte into accumulator
+.e09a	29 10		and #$10		and #%00010000	; was break "flag" present on stack?
+.e09c	f0 04		beq $e0a2		beq irq_handler	; no, branch to irq handler
+.e09e					brk_handler
+.e09e	ea		nop			nop		; blabla
+.e09f	ea		nop			nop		; blabla
+.e0a0	80 27		bra $e0c9		bra exception_cleanup
+.e0a2					irq_handler
+.e0a2					timer_irq_handler
+.e0a2					cia_irq_handler
+.e0a2	6c 08 08	jmp ($0808)		jmp(CIA_VECTOR)		; jmp
+.e0a5	ad 00 03	lda $0300		lda CIA_BASE+0		; load current status
+.e0a8	29 80		and #$80		and #%10000000		; did CIA cause the interrupt?
+.e0aa	f0 1d		beq $e0c9		beq exception_cleanup	; no, skip to cleanup
+.e0ac	a9 01		lda #$01		lda #%00000001	; acknowledge the interrupt
+.e0ae	8d 00 03	sta $0300		sta CIA_BASE+0
+.e0b1	ad 00 03	lda $0300	-	lda CIA_BASE+0	; if bit 0 is on, a keyboard event is waiting
+.e0b4	29 01		and #$01		and #%00000001
+.e0b6	f0 11		beq $e0c9		beq exception_cleanup	; no, skip the next part
+.e0b8	ad 02 03	lda $0302		lda CIA_BASE+2		; read a scancode
+.e0bb	30 f4		bmi $e0b1		bmi -			; if bit 7 is set, check for a next event
+.e0bd	aa		tax			tax			; move scancode into x register
+.e0be	bd 80 ff	lda $ff80,x		lda scancode_to_ascii,x	; lookup corresponding ascii value in table
+.e0c1	20 fd e0	jsr $e0fd		jsr put_char
+.e0c4	80 eb		bra $e0b1		bra -
+.e0c6	4c c9 e0	jmp $e0c9		jmp exception_cleanup
+.e0c9					exception_cleanup
+.e0c9	fb		plz			plz		; cleanup stuff of the exception handler
+.e0ca	7a		ply			ply		; restore processor state
+.e0cb	fa		plx			plx
+.e0cc	68		pla			pla
+.e0cd	40		rti			rti		; return from interrupt
+.e0ce					nmi_handler
+.e0ce	48		pha			pha
+.e0cf	da		phx			phx
+.e0d0	5a		phy			phy
+.e0d1	db		phz			phz
+.e0d2	fb		plz			plz
+.e0d3	7a		ply			ply
+.e0d4	fa		plx			plx
+.e0d5	68		pla			pla
+.e0d6	40		rti			rti
+.e0d7					clear_screen
+.e0d7	a9 00		lda #$00		lda #$00
+.e0d9	85 f0		sta $f0			sta P0
+.e0db	85 f2		sta $f2			sta P1
+.e0dd	a9 c0		lda #$c0		lda #$c0
+.e0df	85 f1		sta $f1			sta P0+1
+.e0e1	a9 c8		lda #$c8		lda #$c8
+.e0e3	85 f3		sta $f3			sta P1+1
+.e0e5	a0 00		ldy #$00		ldy #$00
+.e0e7	a9 20		lda #$20	-	lda #ASCII_SPACE
+.e0e9	91 f0		sta ($f0),y		sta (P0),y
+.e0eb	a9 0c		lda #$0c		lda #$0c	; grey
+.e0ed	91 f2		sta ($f2),y		sta (P1),y
+.e0ef	c8		iny			inc y
+.e0f0	d0 f5		bne $e0e7		bne -
+.e0f2	e6 f1		inc $f1			inc P0+1
+.e0f4	e6 f3		inc $f3			inc P1+1
+.e0f6	a6 f1		ldx $f1			ldx P0+1
+.e0f8	e0 c8		cpx #$c8		cpx #$c8
+.e0fa	d0 eb		bne $e0e7		bne -
+.e0fc	60		rts			rts
+.e0fd					put_char
+.e0fd	da		phx			phx
+.e0fe	5a		phy			phy
+.e0ff	c9 0a		cmp #$0a		cmp #ASCII_LF
+.e101	f0 0f		beq $e112		beq +
+.e103	aa		tax			tax
+.e104	bd 00 ff	lda $ff00,x		lda ascii_to_screencode,x
+.e107	a4 00		ldy $00			ldy cursor_pos
+.e109	99 00 c0	sta $c000,y		sta $c000,y
+.e10c	c8		iny			inc y
+.e10d	84 00		sty $00			sty cursor_pos
+.e10f	7a		ply			ply
+.e110	fa		plx			plx
+.e111	60		rts			rts
+.e112	a5 00		lda $00		+	lda cursor_pos		; print LF
+.e114	18		clc			clc
+.e115	69 40		adc #$40		adc #$40		; add 64 chars to current position
+.e117	29 c0		and #$c0		and #%11000000		; move to the first char of the line
+.e119	85 00		sta $00			sta cursor_pos
+.e11b	7a		ply			ply
+.e11c	fa		plx			plx
+.e11d	60		rts			rts
+.e11e					put_string
+.e11e	a0 00		ldy #$00		ldy #$00
+.e120	e2 03		lda ($03,s),y	-	lda (#$03,s),y
+.e122	f0 06		beq $e12a		beq +
+.e124	20 fd e0	jsr $e0fd		jsr put_char
+.e127	c8		iny			inc y
+.e128	80 f6		bra $e120		bra -
+.e12a	62 02		rts #$02	+	rtn #$02
+>e12c	45 36 34 20 6b 65 72 6e		welc1	.text "E64 kernel V20190922",ASCII_NULL
+>e134	65 6c 20 56 32 30 31 39 30 39 32 32 00
+>e141	20 28 43 29 32 30 31 39		welc2	.text " (C)2019 elmerucr",ASCII_NULL
+>e149	20 65 6c 6d 65 72 75 63 72 00
 
 ;******  Processing file: E64_kernel_rom_tables.asm
 
@@ -394,10 +403,10 @@
 ;******  Return to file: E64_kernel.asm
 
 .fffa					nmi_vector
->fffa	bc e0					.word nmi_handler
+>fffa	ce e0					.word nmi_handler
 .fffc					reset_vector
 >fffc	00 e0					.word cold_start
 .fffe					brk_vector
->fffe	7a e0					.word exception_handler
+>fffe	8c e0					.word exception_handler
 
 ;******  End of listing

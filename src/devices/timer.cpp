@@ -18,17 +18,12 @@ void E64::timer::reset()
     registers[0] = 0x00;        // no pending irq's
     registers[1] = 0x00;        // all interrupt times turned off
     
-    // load 16bit register with value 3000 bpm (= 50 Hz)
-    registers[2] = 0xb8;
-    registers[3] = 0x0b;
-
-    // may never be zero
-    timer0_bpm = registers[2] | (registers[3] << 8);
-
-    // load register with value 1 bpm (= 50 Hz)
+    // load register with value 1 bpm
     registers[2] = 0x01;
     registers[3] = 0x00;
     
+    // may never be zero
+    timer0_bpm = registers[2] | (registers[3] << 8);
     timer1_bpm = registers[2] | (registers[3] << 8);
     timer2_bpm = registers[2] | (registers[3] << 8);
     timer3_bpm = registers[2] | (registers[3] << 8);
@@ -55,6 +50,7 @@ void E64::timer::run(uint32_t number_of_cycles)
     {
         timer0_counter -= timer0_clock_interval;
         irq_pin = false;
+        registers[0] |= 0x81;
     }
     if(timer1_counter >= timer1_clock_interval)
     {
@@ -89,18 +85,37 @@ void E64::timer::write_byte(uint8_t address, uint8_t byte)
     switch(address & 0x03)
     {
         case 0x00:
+            //    b s   r
+            //    0 0 = 0
+            //    0 1 = 1
+            //    1 0 = 0
+            //    1 1 = 0
+            //
+            //    b = bit that's written
+            //    s = status (on if an interrupt was caused)
+            //    r = boolean result (acknowledge an interrupt (s=1) if it is written to with a 1
+            //    r = (!b) & s
+            
+            registers[0] = (!(byte & 0x0f)) & registers[0];
+            if( (registers[0] & 0x0f) == 0 )
+            {
+                irq_pin = true;
+                registers[0] = 0x00;    // clear timer status register
+            }
             break;
         case 0x01:
-            if( byte & 0x01 )
+        {
+            uint8_t result = 0x00;
+            if( (!(registers[0x01] & 0x01)) & (byte & 0x01) )
             {
-                // turn on timer0
-            }
-            else
-            {
-                // turn off timer0
+                timer0_bpm = registers[2] | (registers[3] << 8);
+                if(timer0_bpm == 0) timer0_bpm = 1;
+                timer0_clock_interval = bpm_to_clock_interval(timer0_bpm);
                 
             }
+            registers[0x01] = byte & 0x0f;
             break;
+        }
         default:
             registers[address & 0x03] = byte;
             break;
