@@ -56,7 +56,7 @@ E64::machine::machine()
     csg65ce02_reset(this->cpu_ic);
     
     timer_ic = new timer();
-    exception_collector_ic->connect_device(&timer_ic->irq_line);
+    exception_collector_ic->connect_device(&timer_ic->irq_pin);
     
     vicv_ic = new vicv();
     exception_collector_ic->connect_device(&vicv_ic->irq_line);

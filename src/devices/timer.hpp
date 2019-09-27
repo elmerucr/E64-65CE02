@@ -32,7 +32,7 @@
 //    bit 3: Timer3 interrupts 1=on, 0=off
 //    .
 //    register 2 and 3 are respectively the lo and hi byte
-//    of an unsigned 16bit valur=e
+//    of an unsigned 16bit value
 
 #ifndef timer_hpp
 #define timer_hpp
@@ -44,7 +44,7 @@ namespace E64
     class timer
     {
     private:
-        uint8_t registers[16];
+        uint8_t registers[4];
 
         uint16_t timer0_bpm;
         uint16_t timer1_bpm;
@@ -69,7 +69,7 @@ namespace E64
         // reset, called by constructor
         void reset(void);
         
-        bool irq_line;
+        bool irq_pin;
 
         // access functions
         uint8_t read_byte(uint8_t address);

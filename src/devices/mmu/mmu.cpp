@@ -42,6 +42,10 @@ uint8_t csg65ce02_read_byte(uint16_t address)
     {
         result = sound_ic.read_byte(address & 0x00ff);
     }
+    else if(page == TIMER_PAGE)
+    {
+        result = timer_ic.read_byte(address & 0x00ff);
+    }
     else if(page == MMU_PAGE)
     {
         result = E64::SN74LS612_read_byte(address & 0x00ff);
@@ -74,6 +78,10 @@ void csg65ce02_write_byte(uint16_t address, uint8_t byte)
     else if(page == IO_SID_PAGE)
     {
         sound_ic.write_byte(address & 0x00ff, byte);
+    }
+    else if(page == TIMER_PAGE)
+    {
+        timer_ic.write_byte(address & 0x00ff, byte);
     }
     else if(page == MMU_PAGE)
     {

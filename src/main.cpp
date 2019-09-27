@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 {
     printf("E64 (C)%i by elmerucr V%i.%i.%i\n", E64_YEAR, E64_MAJOR_VERSION, E64_MINOR_VERSION, E64_BUILD);
     
-    computer.exception_collector_ic->connect_device(&timer_ic.irq_line);
+    computer.exception_collector_ic->connect_device(&timer_ic.irq_pin);
     computer.exception_collector_ic->connect_device(&vicv_ic.irq_line);
     computer.exception_collector_ic->connect_device(&cia_irq_line);        // big mistake, need to make this a class!!!
     
