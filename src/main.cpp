@@ -81,14 +81,16 @@ int main(int argc, char **argv)
                         E64::machine_state_switch_to_debug();
                         break;
                 }
+                //
+                computer.exception_collector_ic->update_status();
                 // if full frame was drawn call other update functions:
                 if(vicv_ic.frame_done == true)
                 {
                     vicv_ic.frame_done = false;
                     // process events and catch a possible exit signal
                     if(E64::sdl2_process_events() == E64::QUIT_EVENT) computer.running = false;
+                    // updates at 50Hz for cia is ok, it's connected to user input
                     cia_run();
-                    computer.exception_collector_ic->update_status();
                     E64::sdl2_update_screen();
                     frame_delay.run();
                 }

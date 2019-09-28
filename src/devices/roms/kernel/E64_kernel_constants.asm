@@ -11,14 +11,15 @@
 	P7 = $fe	; pointer for general use
 
 	; kernel ram area
-	TIMER0_VECTOR = $0800
-	TIMER1_VECTOR = $0802
-	TIMER2_VECTOR = $0804
-	TIMER3_VECTOR = $0806
-	CIA_VECTOR    = $0808
+	TIMER0_VECTOR	= $0800
+	TIMER1_VECTOR	= $0802
+	TIMER2_VECTOR	= $0804
+	TIMER3_VECTOR	= $0806
+	CIA_VECTOR	= $0808
 
+	CURR_TEXT_COLOR	= $080a		; 1 byte
 
-
+	; i/o addresses
 	CIA_BASE = $0300
 
 	VICV_BASE = $0400

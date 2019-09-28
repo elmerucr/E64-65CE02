@@ -22,16 +22,17 @@ cold_start
 	lda #$0b
 	sta TIMER_BASE+3
 	lda TIMER_BASE+1	; turn on interrupt generation by clock0
-	ora #%00000001
+	ora #%00000000
+	;ora #%00000001
 	sta TIMER_BASE+1
 
 	; cia interrupts
 	lda #$01	; set bit 0 in accumulator
 	tsb CIA_BASE+1	; turn on keyboard interrupt generation by CIA
 	; install the vector for the cia irq routine
-	lda #<cia_irq_handler+3
+	lda #<cia_irq_handler_continued
 	sta CIA_VECTOR
-	lda #>cia_irq_handler+3
+	lda #>cia_irq_handler_continued
 	sta CIA_VECTOR+1
 
 	cli		; clear irq disable flag (enable irqs)
@@ -41,6 +42,8 @@ cold_start
 	sta VICV_BG
 	lda #$00	; black for border
 	sta VICV_BO
+	lda #$0c	; grey for text color
+	sta CURR_TEXT_COLOR
 
 	lda #$00
 	sta VICV_TSH	; point vicv to text and color screen
@@ -123,6 +126,7 @@ irq_handler
 
 	; timer portion
 timer_irq_handler
+	;jmp (TIMER0_VECTOR)
 	;
 	; blabla
 	; jmp exception_cleanup
@@ -130,23 +134,25 @@ timer_irq_handler
 
 	; CIA portion
 cia_irq_handler
-	jmp(CIA_VECTOR)		; jmp
-	lda CIA_BASE+0		; load current status
+	lda CIA_BASE		; load ISR status
 	and #%10000000		; did CIA cause the interrupt?
 	beq exception_cleanup	; no, skip to cleanup
+
 
 	lda #%00000001	; acknowledge the interrupt
 	sta CIA_BASE+0
 
--	lda CIA_BASE+0	; if bit 0 is on, a keyboard event is waiting
+	jmp (CIA_VECTOR)	; jmp
+cia_irq_handler_continued
+	lda CIA_BASE		; if bit 0 is on, a keyboard event is waiting
 	and #%00000001
 	beq exception_cleanup	; no, skip the next part
 	lda CIA_BASE+2		; read a scancode
-	bmi -			; if bit 7 is set, check for a next event
+	bmi cia_irq_handler_continued	; if bit 7 is set, check for a next event
 	tax			; move scancode into x register
 	lda scancode_to_ascii,x	; lookup corresponding ascii value in table
 	jsr put_char
-	bra -
+	bra cia_irq_handler_continued
 	jmp exception_cleanup
 
 exception_cleanup
@@ -181,7 +187,7 @@ clear_screen
 	ldy #$00
 -	lda #ASCII_SPACE
 	sta (P0),y
-	lda #$0c	; grey
+	lda CURR_TEXT_COLOR	; load current text color from ram
 	sta (P1),y
 	inc y
 	bne -
@@ -203,6 +209,8 @@ put_char
 	lda ascii_to_screencode,x
 	ldy cursor_pos
 	sta $c000,y
+	lda CURR_TEXT_COLOR
+	sta $c800,y
 	inc y
 	sty cursor_pos
 	ply
@@ -230,7 +238,7 @@ put_string
 +	rtn #$02
 
 ; strings
-welc1	.text "E64 kernel V20190922",ASCII_NULL
+welc1	.text "E64 kernel V20190928",ASCII_NULL
 welc2	.text " (C)2019 elmerucr",ASCII_NULL
 
 	* = $ff00
