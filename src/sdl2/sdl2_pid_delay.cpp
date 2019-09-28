@@ -6,6 +6,7 @@
 #include <chrono>
 #include <thread>
 #include <cstdint>
+#include <iostream>
 #ifdef _WIN64
 	#include <SDL.h>
 #elseifdef _WIN32
@@ -91,6 +92,11 @@ void C256::sdl2_pid_delay::run()
         // run pid's
         //current_delay = fps_pid.process(framerate, evaluation_interval);
         current_delay = audiobuffer_pid.process(smoothed_audio_queue_size, evaluation_interval);
+        if (current_delay < 5000)
+        {
+            std::cout << "[PID Delay] system too slow?" << std::endl;
+            current_delay = 5000;
+        }
     }
 
     statistics_framecounter++;

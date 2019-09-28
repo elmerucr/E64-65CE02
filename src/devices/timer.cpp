@@ -105,13 +105,13 @@ void E64::timer::write_byte(uint8_t address, uint8_t byte)
             break;
         case 0x01:
         {
-            uint8_t result = 0x00;
+            //uint8_t result = 0x00;
             if( (!(registers[0x01] & 0x01)) & (byte & 0x01) )
             {
-                timer0_bpm = registers[2] | (registers[3] << 8);
+                timer0_bpm = registers[2] | (uint16_t)(registers[3] << 8);
                 if(timer0_bpm == 0) timer0_bpm = 1;
                 timer0_clock_interval = bpm_to_clock_interval(timer0_bpm);
-                
+                timer0_counter = 0;
             }
             registers[0x01] = byte & 0x0f;
             break;

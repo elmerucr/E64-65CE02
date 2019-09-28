@@ -103,5 +103,6 @@ int E64::machine::run(uint16_t no_of_cycles)
     if(E64::sdl2_get_queued_audio_size() > (AUDIO_BUFFER_SIZE/2)) E64::sdl2_start_audio();
     // run cycles on timer
     timer_ic->run(cpu_to_timer->clock(processed_cycles));
+    
     return exit_code;
 }

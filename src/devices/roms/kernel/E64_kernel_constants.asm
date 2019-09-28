@@ -1,5 +1,4 @@
 	; zero page
-	cursor_pos = $00
 
 	P0 = $f0	; pointer for general use
 	P1 = $f2	; pointer for general use
@@ -17,7 +16,8 @@
 	TIMER3_VECTOR	= $0806
 	CIA_VECTOR	= $0808
 
-	CURR_TEXT_COLOR	= $080a		; 1 byte
+	CURSOR_POS	= $080a		; word
+	CURR_TEXT_COLOR	= $080c		; byte
 
 	; i/o addresses
 	CIA_BASE = $0300

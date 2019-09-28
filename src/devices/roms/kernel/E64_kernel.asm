@@ -16,17 +16,23 @@ cold_start
 	tys		; move y into sh
 	cle		; clear extended mode flag to enable large stack
 
+	; $189e gaat, $189f complete crash...
 	; set up timer interrupt
-	lda #$b8		; load value 3000 ($0bb8 = 3000bpm = 50Hz) into low and high bytes
+	lda #$9e		; load value 3000 ($0bb8 = 3000bpm = 50Hz) into low and high bytes
 	sta TIMER_BASE+2
-	lda #$0b
+	lda #$18
 	sta TIMER_BASE+3
 	lda TIMER_BASE+1	; turn on interrupt generation by clock0
-	ora #%00000000
-	;ora #%00000001
+	;ora #%00000000
+	ora #%00000001
 	sta TIMER_BASE+1
 
-	; cia interrupts
+	lda #<timer_irq_handler_continued
+	sta TIMER0_VECTOR
+	lda #>timer_irq_handler_continued
+	sta TIMER0_VECTOR+1
+
+	; setup cia interrupt
 	lda #$01	; set bit 0 in accumulator
 	tsb CIA_BASE+1	; turn on keyboard interrupt generation by CIA
 	; install the vector for the cia irq routine
@@ -50,7 +56,7 @@ cold_start
 	sta VICV_CSH
 	lda #$18
 	sta VICV_TSL
-	inc a
+	lda #$19
 	sta VICV_CSL
 
 	jsr clear_screen
@@ -126,8 +132,19 @@ irq_handler
 
 	; timer portion
 timer_irq_handler
-	;jmp (TIMER0_VECTOR)
-	;
+	lda TIMER_BASE		; load ISR status
+	and #%10000000		; did TIMER cause the interrupt?
+	beq cia_irq_handler	; no, skip to cia irq handler
+
+	lda #%00000001		; acknowledge the interrupt
+	sta TIMER_BASE
+
+	jmp (TIMER0_VECTOR)
+timer_irq_handler_continued
+	inc VICV_BG
+
+	jmp exception_cleanup
+
 	; blabla
 	; jmp exception_cleanup
 
@@ -138,9 +155,8 @@ cia_irq_handler
 	and #%10000000		; did CIA cause the interrupt?
 	beq exception_cleanup	; no, skip to cleanup
 
-
 	lda #%00000001	; acknowledge the interrupt
-	sta CIA_BASE+0
+	sta CIA_BASE
 
 	jmp (CIA_VECTOR)	; jmp
 cia_irq_handler_continued
@@ -207,20 +223,20 @@ put_char
 	beq +
 	tax
 	lda ascii_to_screencode,x
-	ldy cursor_pos
+	ldy CURSOR_POS
 	sta $c000,y
 	lda CURR_TEXT_COLOR
 	sta $c800,y
 	inc y
-	sty cursor_pos
+	sty CURSOR_POS
 	ply
 	plx
 	rts
-+	lda cursor_pos		; print LF
++	lda CURSOR_POS		; print LF
 	clc
 	adc #$40		; add 64 chars to current position
 	and #%11000000		; move to the first char of the line
-	sta cursor_pos
+	sta CURSOR_POS
 	ply
 	plx
 	rts

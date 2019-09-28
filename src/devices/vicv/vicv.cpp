@@ -103,8 +103,8 @@ void E64::vicv::reset()
     color_palette[0x3e] = C64_BRWN_14;
     color_palette[0x3f] = C64_BRWN_15;
     
-    // the rest (0x40-0xff) is C64_LIGHTBLUE
-    for(int i = 0x40; i < 0x100; i++) color_palette[i] = C64_LIGHTBLUE;
+    // the rest (0x40-0xff) is C64_BLUE
+    for(int i = 0x40; i < 0x100; i++) color_palette[i] = C64_BLUE;
 
     // set irq line
     irq_line = true;

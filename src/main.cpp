@@ -38,12 +38,12 @@ int main(int argc, char **argv)
     computer.exception_collector_ic->connect_device(&vicv_ic.irq_line);
     computer.exception_collector_ic->connect_device(&cia_irq_line);        // big mistake, need to make this a class!!!
     
-    std::cout << std::endl << "Command line arguments:" << std::endl;
-    for(int i=0; i<argc ; i++)
-    {
-        std::cout << argv[i] << std::endl;
-    }
-    std::cout << std::endl;
+//    std::cout << std::endl << "Command line arguments:" << std::endl;
+//    for(int i=0; i<argc ; i++)
+//    {
+//        std::cout << argv[i] << std::endl;
+//    }
+//    std::cout << std::endl;
     
     // set up window management, audio and some other stuff
     E64::sdl2_init();
