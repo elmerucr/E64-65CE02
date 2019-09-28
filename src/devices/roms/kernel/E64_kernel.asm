@@ -18,7 +18,7 @@ cold_start
 
 	; $189e gaat, $189f complete crash...
 	; set up timer interrupt
-	lda #$9e		; load value 3000 ($0bb8 = 3000bpm = 50Hz) into low and high bytes
+	lda #$9f		; load value 3000 ($0bb8 = 3000bpm = 50Hz) into low and high bytes
 	sta TIMER_BASE+2
 	lda #$18
 	sta TIMER_BASE+3

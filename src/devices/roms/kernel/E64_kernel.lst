@@ -1,7 +1,7 @@
 
 ; 64tass Turbo Assembler Macro V1.54.1900 listing file
 ; 64tass -b -C -L E64_kernel.lst -o E64_kernel.bin E64_kernel.asm
-; Sat Sep 28 15:57:56 2019
+; Sat Sep 28 22:00:57 2019
 
 ;Offset	;Hex		;Monitor	;Source
 
@@ -55,7 +55,7 @@
 .e004	9a		txs			txs		; move x into sl
 .e005	2b		tys			tys		; move y into sh
 .e006	02		cle			cle		; clear extended mode flag to enable large stack
-.e007	a9 9e		lda #$9e		lda #$9e		; load value 3000 ($0bb8 = 3000bpm = 50Hz) into low and high bytes
+.e007	a9 9f		lda #$9f		lda #$9f		; load value 3000 ($0bb8 = 3000bpm = 50Hz) into low and high bytes
 .e009	8d 02 06	sta $0602		sta TIMER_BASE+2
 .e00c	a9 18		lda #$18		lda #$18
 .e00e	8d 03 06	sta $0603		sta TIMER_BASE+3
