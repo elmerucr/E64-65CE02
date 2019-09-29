@@ -61,8 +61,8 @@ int main(int argc, char **argv)
     debug_console_init();
 
     // Select starting mode of E64
-    //E64::machine_state_switch_to_running();
-    E64::machine_state_switch_to_debug();
+    E64::machine_state_switch_to_running();
+    //E64::machine_state_switch_to_debug();
 
     // start of main loop
     computer.running = true;
