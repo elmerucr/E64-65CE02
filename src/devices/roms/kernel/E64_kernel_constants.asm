@@ -1,5 +1,14 @@
 	; zero page
 
+	IP0 = $e0	; pointers for interrupt routines
+	IP1 = $e2
+	IP2 = $e4
+	IP3 = $e6
+	IP4 = $e8
+	IP5 = $ea
+	IP6 = $ec
+	IP7 = $ee
+
 	P0 = $f0	; pointer for general use
 	P1 = $f2	; pointer for general use
 	P2 = $f4	; pointer for general use

@@ -34,7 +34,7 @@ void debug_console_init(void)
 
     // status bar stuff
     debug_console.status_bar_active = true;
-    debug_console.status_bar_rows = 8;
+    debug_console.status_bar_rows = 16;
     debug_console.status_bar_total_chars = debug_console.status_bar_rows * 64;
     debug_console.status_bar_cursor_pos = 0;
     debug_console.status_bar_base_pos = debug_console.status_bar_cursor_pos & (64-1);

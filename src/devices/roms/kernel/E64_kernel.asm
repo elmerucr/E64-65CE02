@@ -16,14 +16,12 @@ cold_start
 	tys		; move y into sh
 	cle		; clear extended mode flag to enable large stack
 
-	; $189e gaat, $189f complete crash...
 	; set up timer interrupt
-	lda #$9f		; load value 3000 ($0bb8 = 3000bpm = 50Hz) into low and high bytes
-	sta TIMER_BASE+2
-	lda #$18
+	lda #$3c		; load value 3000 ($0bb8 = 3000bpm = 50Hz) into low and high bytes
+	sta TIMER_BASE+2	; or value $003c = 60bpm
+	lda #$00
 	sta TIMER_BASE+3
 	lda TIMER_BASE+1	; turn on interrupt generation by clock0
-	;ora #%00000000
 	ora #%00000001
 	sta TIMER_BASE+1
 
@@ -59,6 +57,8 @@ cold_start
 	lda #$19
 	sta VICV_CSL
 
+	; if we remove this function call, the bug doesn't appear
+	; if we replace with jmp's, there's also the bug
 	jsr clear_screen
 
 	phw #welc1	; push the address of the first welcome message onto the stack
@@ -105,10 +105,10 @@ exception_handler
 			; retrieve the pushed status byte from stack
 	tsx		; load sl into x
 	tsy		; load sh into y
-	stx P0		; store sp into pointer register P0
-	sty P0+1
+	stx IP0		; store sp into pointer register IP0
+	sty IP0+1
 	ldy #$05	; index is $5
-	lda (P0),y	; load the pushed status byte into accumulator
+	lda (IP0),y	; load the pushed status byte into accumulator
 	and #%00010000	; was break "flag" present on stack?
 	beq irq_handler	; no, branch to irq handler
 
@@ -141,12 +141,14 @@ timer_irq_handler
 
 	jmp (TIMER0_VECTOR)
 timer_irq_handler_continued
-	inc VICV_BG
-
-	jmp exception_cleanup
+	lda VICV_BG
+	inc a
+	and #%00001111
+	sta VICV_BO
+	sta VICV_BG
 
 	; blabla
-	; jmp exception_cleanup
+	jmp exception_cleanup
 
 
 	; CIA portion

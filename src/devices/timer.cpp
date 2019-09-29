@@ -121,3 +121,13 @@ void E64::timer::write_byte(uint8_t address, uint8_t byte)
             break;
     }
 }
+
+uint64_t E64::timer::timer0_counter_value()
+{
+    return timer0_counter;
+}
+
+uint64_t E64::timer::timer0_clock_interval_value()
+{
+    return timer0_clock_interval;
+}

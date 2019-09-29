@@ -59,6 +59,11 @@ void debug_status_bar_refresh()
         debug_status_bar_print(c256_string2);
         debug_status_bar_putchar('\n');
     }
+    // timer ic information
+    snprintf(c256_string2, 256, "%6llu %6llu",timer_ic.timer0_counter_value(), timer_ic.timer0_clock_interval_value());
+    debug_status_bar_set_cursor_pos(580);
+    debug_status_bar_print(c256_string2);
+    
     // set accent colors for titles etc...
     debug_console.status_bar_foreground_color = 0x2b;
     debug_console.status_bar_background_color = 0x26;
@@ -83,6 +88,9 @@ void debug_status_bar_refresh()
     debug_status_bar_set_cursor_pos(281);
     debug_status_bar_print(c256_string2);
 
+    snprintf(c256_string2, 256, "    timer_ic    \n 0 \n 1 \n 2 \n 3 ");
+    debug_status_bar_set_cursor_pos(513);
+    debug_status_bar_print(c256_string2);
 }
 
 void debug_status_bar_set_cursor_pos(uint16_t pos)

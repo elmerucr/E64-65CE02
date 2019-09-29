@@ -51,6 +51,7 @@ namespace E64
         uint16_t timer2_bpm;
         uint16_t timer3_bpm;
 
+        
         uint32_t timer0_clock_interval;
         uint32_t timer1_clock_interval;
         uint32_t timer2_clock_interval;
@@ -75,6 +76,9 @@ namespace E64
         uint8_t read_byte(uint8_t address);
         void write_byte(uint8_t address, uint8_t byte);
 
+        uint64_t timer0_counter_value(void);
+        uint64_t timer0_clock_interval_value(void);
+        
         // run cycles on this ic
         void run(uint32_t number_of_cycles);
     };
