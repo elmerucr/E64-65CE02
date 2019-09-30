@@ -111,6 +111,7 @@ int E64::machine::run(uint16_t no_of_cycles)
 void E64::machine::switch_to_running()
 {
     current_mode = NORMAL_MODE;
+    // audio starts "automatically" when buffer reaches a minimum size
     E64::sdl2_update_title();
 }
 
@@ -122,8 +123,6 @@ void E64::machine::switch_to_debug()
 
     debug_console_putchar('\n');
     debug_console_put_prompt();
-    debug_status_bar_clear();
-    debug_status_bar_refresh();
 }
 
 void E64::machine::switch_mode()

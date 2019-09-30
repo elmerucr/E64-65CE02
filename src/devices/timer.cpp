@@ -19,8 +19,8 @@ void E64::timer::reset()
     registers[1] = 0x00;        // all interrupt times turned off
     
     // load register with value 1 bpm
-    registers[2] = 0x01;
-    registers[3] = 0x00;
+    registers[2] = 0x01;    // lo
+    registers[3] = 0x00;    // hi
     
     // may never be zero
     timer0_bpm = registers[2] | (registers[3] << 8);
@@ -52,20 +52,23 @@ void E64::timer::run(uint32_t number_of_cycles)
         irq_pin = false;
         registers[0] |= 0x81;
     }
-    if(timer1_counter >= timer1_clock_interval)
+    if( (timer1_counter >= timer1_clock_interval) && (registers[1] & 0x02) )
     {
         timer1_counter -= timer1_clock_interval;
-        // and what else needs to be done...
+        irq_pin = false;
+        registers[0] |= 0x82;
     }
-    if(timer2_counter >= timer2_clock_interval)
+    if( (timer2_counter >= timer2_clock_interval) && (registers[1] & 0x04) )
     {
         timer2_counter -= timer2_clock_interval;
-        // and what else needs to be done...
+        irq_pin = false;
+        registers[0] |= 0x84;
     }
-    if(timer3_counter >= timer3_clock_interval)
+    if( (timer3_counter >= timer3_clock_interval) && (registers[1] & 0x08) )
     {
         timer3_counter -= timer3_clock_interval;
-        // and what else needs to be done...
+        irq_pin = false;
+        registers[0] |= 0x88;
     }
 }
 
@@ -122,12 +125,42 @@ void E64::timer::write_byte(uint8_t address, uint8_t byte)
     }
 }
 
-uint64_t E64::timer::timer0_counter_value()
+uint64_t E64::timer::get_timer0_counter()
 {
     return timer0_counter;
 }
 
-uint64_t E64::timer::timer0_clock_interval_value()
+uint64_t E64::timer::get_timer0_clock_interval()
 {
     return timer0_clock_interval;
+}
+
+uint64_t E64::timer::get_timer1_counter()
+{
+    return timer1_counter;
+}
+
+uint64_t E64::timer::get_timer1_clock_interval()
+{
+    return timer1_clock_interval;
+}
+
+uint64_t E64::timer::get_timer2_counter()
+{
+    return timer2_counter;
+}
+
+uint64_t E64::timer::get_timer2_clock_interval()
+{
+    return timer2_clock_interval;
+}
+
+uint64_t E64::timer::get_timer3_counter()
+{
+    return timer3_counter;
+}
+
+uint64_t E64::timer::get_timer3_clock_interval()
+{
+    return timer3_clock_interval;
 }

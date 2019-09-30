@@ -133,8 +133,7 @@ irq_handler
 	; timer portion
 timer_irq_handler
 	lda TIMER_BASE		; load ISR status
-	and #%10000000		; did TIMER cause the interrupt?
-	beq cia_irq_handler	; no, skip to cia irq handler
+	bpl cia_irq_handler	; did timer cause interrupt? No: (bit 7 = 0), skip to cia irq handler
 
 	lda #%00000001		; acknowledge the interrupt
 	sta TIMER_BASE
@@ -153,8 +152,7 @@ timer_irq_handler_continued
 	; CIA portion
 cia_irq_handler
 	lda CIA_BASE		; load ISR status
-	and #%10000000		; did CIA cause the interrupt?
-	beq exception_cleanup	; no, skip to cleanup
+	bpl exception_cleanup	; did CIA cause the interrupt? No (bit 7 = 0), skip to cleanup
 
 	lda #%00000001	; acknowledge the interrupt
 	sta CIA_BASE

@@ -60,8 +60,17 @@ void debug_status_bar_refresh()
         debug_status_bar_putchar('\n');
     }
     // timer ic information
-    snprintf(c256_string2, 256, "%6llu %6llu",timer_ic.timer0_counter_value(), timer_ic.timer0_clock_interval_value());
+    snprintf(c256_string2, 256, "%6llu %6llu",timer_ic.get_timer0_counter(), timer_ic.get_timer0_clock_interval());
     debug_status_bar_set_cursor_pos(580);
+    debug_status_bar_print(c256_string2);
+    snprintf(c256_string2, 256, "%6llu %6llu",timer_ic.get_timer1_counter(), timer_ic.get_timer1_clock_interval());
+    debug_status_bar_set_cursor_pos(644);
+    debug_status_bar_print(c256_string2);
+    snprintf(c256_string2, 256, "%6llu %6llu",timer_ic.get_timer2_counter(), timer_ic.get_timer2_clock_interval());
+    debug_status_bar_set_cursor_pos(708);
+    debug_status_bar_print(c256_string2);
+    snprintf(c256_string2, 256, "%6llu %6llu",timer_ic.get_timer3_counter(), timer_ic.get_timer3_clock_interval());
+    debug_status_bar_set_cursor_pos(772);
     debug_status_bar_print(c256_string2);
     
     // set accent colors for titles etc...
