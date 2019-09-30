@@ -8,7 +8,6 @@
 #include "common_defs.hpp"
 #include "debug_console.hpp"
 #include "debug_screen.hpp"
-#include "machine_state.hpp"
 #include "debug_command.hpp"
 #include "debug_status_bar.hpp"
 

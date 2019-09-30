@@ -8,7 +8,6 @@
 
 #include "debug_command.hpp"
 #include "debug_console.hpp"
-#include "machine_state.hpp"
 #include "machine.hpp"
 #include "common_defs.hpp"
 #include "sdl2.hpp"
@@ -92,7 +91,7 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     else if( strcmp(token0, "c") == 0 )
     {
         E64::sdl2_wait_until_enter_released();
-        E64::machine_state_switch_to_running();
+        computer.switch_to_running();
     }
     else if( strcmp(token0, "clear") == 0 )
     {

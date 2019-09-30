@@ -12,6 +12,7 @@
 #include "sound.hpp"
 #include "frequency_divider.hpp"
 #include "sdl2.hpp"
+#include "debug_status_bar.hpp"
 
 // init frequency dividers (make sure the right amount of cycles will run on different ic's)
 E64::frequency_divider cpu_to_vicv (CPU_CLOCK_SPEED, VICV_CLOCK_SPEED);
@@ -47,7 +48,7 @@ int E64::machine_run(uint16_t no_of_cycles)
 
 E64::machine::machine()
 {
-    current_mode = RUNNING_MODE;
+    current_mode = NORMAL_MODE;
 
     exception_collector_ic = new exception_collector();
     
@@ -105,4 +106,35 @@ int E64::machine::run(uint16_t no_of_cycles)
     timer_ic->run(cpu_to_timer->clock(processed_cycles));
     
     return exit_code;
+}
+
+void E64::machine::switch_to_running()
+{
+    current_mode = NORMAL_MODE;
+    E64::sdl2_update_title();
+}
+
+void E64::machine::switch_to_debug()
+{
+    current_mode = DEBUG_MODE;
+    E64::sdl2_stop_audio();
+    E64::sdl2_update_title();
+
+    debug_console_putchar('\n');
+    debug_console_put_prompt();
+    debug_status_bar_clear();
+    debug_status_bar_refresh();
+}
+
+void E64::machine::switch_mode()
+{
+    switch(current_mode)
+    {
+        case NORMAL_MODE:
+            switch_to_debug();
+            break;
+        case DEBUG_MODE:
+            switch_to_running();
+            break;
+    }
 }

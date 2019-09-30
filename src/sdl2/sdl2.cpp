@@ -17,7 +17,6 @@
 #include "sdl2.hpp"
 #include "vicv.hpp"
 #include "mmu.hpp"
-#include "machine_state.hpp"
 #include "machine.hpp"
 #include "debug_screen.hpp"
 #include "debug_console.hpp"
@@ -191,16 +190,16 @@ int E64::sdl2_process_events()
                 if(event.key.keysym.sym == SDLK_F9)
                 {
                     E64::sdl2_wait_until_f9_released();
-                    machine_state_switch_mode();
+                    computer.switch_mode();
                 }
-                else if(machine_mode_current == E64_RUNNING)
+                else if(computer.current_mode == NORMAL_MODE)
                 {
                     if(event.key.keysym.sym == SDLK_F10)
                     {
                         vicv_ic.toggle_overlay();
                     }
                 }
-                else if(machine_mode_current == E64_DEBUG)
+                else if(computer.current_mode == DEBUG_MODE)
                 {
                     switch(event.key.keysym.sym)
                     {
@@ -470,12 +469,12 @@ int E64::sdl2_process_events()
 
 void E64::sdl2_update_screen()
 {
-    switch(machine_mode_current)
+    switch(computer.current_mode)
     {
-        case E64_RUNNING:
+        case NORMAL_MODE:
             SDL_UpdateTexture(context0.texture, NULL, vicv_ic.front_buffer, VICV_PIXELS_PER_SCANLINE * sizeof(uint32_t));
             break;
-        case E64_DEBUG:
+        case DEBUG_MODE:
             SDL_UpdateTexture(context0.texture, NULL, debug_screen_buffer, VICV_PIXELS_PER_SCANLINE * sizeof(uint32_t));
             break;
     }
@@ -485,12 +484,12 @@ void E64::sdl2_update_screen()
 
 void E64::sdl2_update_title(void)
 {
-    switch(machine_mode_current)
+    switch(computer.current_mode)
     {
-        case E64_RUNNING:
+        case NORMAL_MODE:
             SDL_SetWindowTitle(context0.window, "E64");
             break;
-        case E64_DEBUG:
+        case DEBUG_MODE:
             SDL_SetWindowTitle(context0.window, "E64 debug mode");
             break;
     }

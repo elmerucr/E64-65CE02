@@ -24,7 +24,6 @@
 		46241B03232443A600569490 /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AFF232443A500569490 /* timer.cpp */; };
 		46241B04232443A600569490 /* cia.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241B00232443A500569490 /* cia.cpp */; };
 		46241B0D232443F200569490 /* common_defs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241B05232443F100569490 /* common_defs.cpp */; };
-		46241B0E232443F200569490 /* machine_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241B06232443F100569490 /* machine_state.cpp */; };
 		46241B0F232443F200569490 /* machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241B07232443F100569490 /* machine.cpp */; };
 		46241B10232443F200569490 /* frequency_divider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241B0C232443F200569490 /* frequency_divider.cpp */; };
 		4686D6EF232D7706002BD2D9 /* sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6EE232D7706002BD2D9 /* sound.cpp */; };
@@ -82,10 +81,8 @@
 		46241B01232443A500569490 /* cia.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = cia.hpp; path = ../../../src/devices/cia.hpp; sourceTree = "<group>"; };
 		46241B02232443A500569490 /* timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = timer.hpp; path = ../../../src/devices/timer.hpp; sourceTree = "<group>"; };
 		46241B05232443F100569490 /* common_defs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = common_defs.cpp; path = ../../../src/common_defs.cpp; sourceTree = "<group>"; };
-		46241B06232443F100569490 /* machine_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = machine_state.cpp; path = ../../../src/machine_state.cpp; sourceTree = "<group>"; };
 		46241B07232443F100569490 /* machine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = machine.cpp; path = ../../../src/machine.cpp; sourceTree = "<group>"; };
 		46241B08232443F100569490 /* machine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = machine.hpp; path = ../../../src/machine.hpp; sourceTree = "<group>"; };
-		46241B09232443F200569490 /* machine_state.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = machine_state.hpp; path = ../../../src/machine_state.hpp; sourceTree = "<group>"; };
 		46241B0A232443F200569490 /* frequency_divider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = frequency_divider.hpp; path = ../../../src/frequency_divider.hpp; sourceTree = "<group>"; };
 		46241B0B232443F200569490 /* common_defs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = common_defs.hpp; path = ../../../src/common_defs.hpp; sourceTree = "<group>"; };
 		46241B0C232443F200569490 /* frequency_divider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = frequency_divider.cpp; path = ../../../src/frequency_divider.cpp; sourceTree = "<group>"; };
@@ -316,8 +313,6 @@
 				46241B05232443F100569490 /* common_defs.cpp */,
 				46241B0A232443F200569490 /* frequency_divider.hpp */,
 				46241B0C232443F200569490 /* frequency_divider.cpp */,
-				46241B09232443F200569490 /* machine_state.hpp */,
-				46241B06232443F100569490 /* machine_state.cpp */,
 				46241B08232443F100569490 /* machine.hpp */,
 				46241B07232443F100569490 /* machine.cpp */,
 				46A1F88A231D7596003982FA /* main.cpp */,
@@ -418,7 +413,6 @@
 				46241AB72324422200569490 /* sdl2.cpp in Sources */,
 				46241AC42324429200569490 /* exception_collector.cpp in Sources */,
 				4686D70D232D7735002BD2D9 /* wave6581_PST.cc in Sources */,
-				46241B0E232443F200569490 /* machine_state.cpp in Sources */,
 				46241B04232443A600569490 /* cia.cpp in Sources */,
 				4686D714232D7735002BD2D9 /* envelope.cc in Sources */,
 				46241AAB2324418400569490 /* debug_screen.cpp in Sources */,
