@@ -16,7 +16,7 @@ cold_start
 	tys		; move y into sh
 	cle		; clear extended mode flag to enable large stack
 
-	; set up timer interrupt
+	; set up timer0 interrupt
 	lda #$3c		; load value 3000 ($0bb8 = 3000bpm = 50Hz) into low and high bytes
 	sta TIMER_BASE+2	; or value $003c = 60bpm
 	lda #$00
@@ -25,10 +25,23 @@ cold_start
 	ora #%00000001
 	sta TIMER_BASE+1
 
-	lda #<timer_irq_handler_continued
+	lda #<timer0_irq_handler_continued
 	sta TIMER0_VECTOR
-	lda #>timer_irq_handler_continued
+	lda #>timer0_irq_handler_continued
 	sta TIMER0_VECTOR+1
+
+	; set up timer1 interrupt
+	lda #$85
+	sta TIMER_BASE+2
+	lda #$00
+	sta TIMER_BASE+3
+	lda TIMER_BASE+1
+	ora #%00000010
+	sta TIMER_BASE+1
+	lda #<timer1_irq_handler_continued
+	sta TIMER1_VECTOR
+	lda #>timer1_irq_handler_continued
+	sta TIMER1_VECTOR+1
 
 	; setup cia interrupt
 	lda #$01	; set bit 0 in accumulator
@@ -135,19 +148,31 @@ timer_irq_handler
 	lda TIMER_BASE		; load ISR status
 	bpl cia_irq_handler	; did timer cause interrupt? No: (bit 7 = 0), skip to cia irq handler
 
-	lda #%00000001		; acknowledge the interrupt
-	sta TIMER_BASE
-
+	pha		; store the current value of a on stack
+	and #%00000001	; did timer0 cause the interrupt?
+	beq timer1_irq_handler	; no, jump to timer1
+	sta TIMER_BASE	; yes, acknowledge
 	jmp (TIMER0_VECTOR)
-timer_irq_handler_continued
+timer0_irq_handler_continued
 	lda $c800
 	inc a
 	and #%00001111
 	sta $c800
-
-	; blabla
+	pla
 	jmp exception_cleanup
 
+timer1_irq_handler
+	pla			; retrieve the original state of a
+	and #%00000010		; did timer1 cause the interrupt?
+	beq exception_cleanup	; no, jump to exception cleanup
+	sta TIMER_BASE		; yes, acknowledge
+	jmp (TIMER1_VECTOR)
+timer1_irq_handler_continued
+	lda $c801
+	inc a
+	and #%00001111
+	sta $c801
+	jmp exception_cleanup
 
 	; CIA portion
 cia_irq_handler
