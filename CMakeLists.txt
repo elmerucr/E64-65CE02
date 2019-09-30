@@ -9,6 +9,6 @@ include_directories(${SDL2_INCLUDE_DIRS} src/ src/debug_mode/ src/devices/ src/d
 
 add_subdirectory(src/)
 
-add_executable(E64 src/main.cpp src/common_defs.cpp src/frequency_divider.cpp src/machine_state.cpp src/machine.cpp)
+add_executable(E64 src/main.cpp src/common_defs.cpp src/frequency_divider.cpp src/machine.cpp)
 
 target_link_libraries(E64 cia cpu debug_mode E64_sdl2 mmu resid roms sound timer vicv ${SDL2_LIBRARIES})
