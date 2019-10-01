@@ -3,7 +3,7 @@
 ## Description
 The E64 (Enhanced 64) is a virtual computer system (under construction) that runs on macOS and linux. It's heavily inspired by the Commodore 64 and other (more advanced) personal computer systems of the era.
 
-Technical specifications (not yet complete and work in progress):
+Technical specifications (not yet complete and a work in progress):
 * CSG 65CE02 CPU (mostly 8 bit and some 16 bit instructions) running at 4.096MHz using the [lib65ce02](https://github.com/elmerucr/lib65ce02) library.
 * A total of 16MB ram connected to a Texas Instruments SN74LS612 Memory Management Unit.
 * A custom Video Interface Chip with a resolution of 512x320 pixels (512x256 excluding  top and bottom borders).
@@ -41,14 +41,21 @@ $ ./E64
 ### Assembling the kernel ROM
 Make sure to have ````64tass```` installed on your system and working from the command line.
 
-In the ````./src/devices/roms/kernel/```` directory, a ````Makefile```` can be found that makes use of ````64tass```` to assemble the ````*.asm```` sourcefiles into a binary rom image. Furthermore, a small ````bin2hex```` utility will be built that converts this image into a c++ sourcefile (````kernel.cpp````).
+In the ````./src/devices/roms/kernel/```` directory, a ````Makefile```` can be found that makes use of ````64tass```` to assemble the ````*.asm```` sourcefiles into a binary rom image. Furthermore, a small ````bin2hex```` utility will be built that converts this image into a c++ sourcefile (````kernel.cpp````) that's part of the larger E64 project.
 ## Other websites and projects of interest
+* [64tass](https://sourceforge.net/projects/tass64/) - An assembler for the legendary 6502 processor and it's derivatives
+* [asmx multi-CPU assembler](http://xi6.com/projects/asmx/) - Excellent assembler with Motorola 680x0 support amongst others
+* [C256 Foenix](https://c256foenix.com) - A computer that could have possibly followed the Commodore 128 if things would have been different at Commodore at the time
+* [Hatari](https://hatari.tuxfamily.org) - Hatari is an Atari ST/STE/TT/Falcon emulator
 * [lib65ce02](https://github.com/elmerucr/lib65ce02) - CSG65CE02 emulator written in C
 * [Mega65](http://mega65.org) - The 21st century realization of the C65 heritage
 * [Musashi](https://github.com/kstenerud/Musashi) - Motorola 680x0 emulator written in C
-* [VICE](http://vice-emu.sourceforge.net) - the Versatile Commodore Emulator
-* [VirtualC64](http://www.dirkwhoffmann.de/software/virtualC64.html) - A Commodore 64 on your Apple Macintosh
+* [SDL Simple DirectMedia Layer](https://www.libsdl.org) - A cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware
+* [ultimate64](https://ultimate64.com/Ultimate-64) - A hardware implementation (FPGA) of the C64
 * [vAmiga](http://www.dirkwhoffmann.de/software/vAmiga.html) - An Amiga 500, 1000, or 2000 on your Apple Macintosh
+* [VICE](http://vice-emu.sourceforge.net) - The Versatile Commodore Emulator
+* [VirtualC64](http://www.dirkwhoffmann.de/software/virtualC64.html) - A Commodore 64 on your Apple Macintosh
+* [visual6502](http://www.visual6502.org) - Visual Transistor-level Simulation of the 6502 CPU
 ## MIT License
 Copyright (c) 2019 elmerucr
 
