@@ -21,9 +21,8 @@ cold_start
 	sta TIMER_BASE+2	; or value $003c = 60bpm
 	lda #$00
 	sta TIMER_BASE+3
-	lda TIMER_BASE+1	; turn on interrupt generation by clock0
-	ora #%00000001
-	sta TIMER_BASE+1
+	lda #%00000001		; turn on interrupt generation by clock0
+	tsb TIMER_BASE+1
 
 	lda #<timer0_irq_handler_continued
 	sta TIMER0_VECTOR
@@ -33,11 +32,11 @@ cold_start
 	; set up timer1 interrupt
 	lda #$85
 	sta TIMER_BASE+2
-	lda #$00
+	lda #$01
 	sta TIMER_BASE+3
-	lda TIMER_BASE+1
-	ora #%00000010
-	sta TIMER_BASE+1
+	lda #%00000010
+	tsb TIMER_BASE+1
+
 	lda #<timer1_irq_handler_continued
 	sta TIMER1_VECTOR
 	lda #>timer1_irq_handler_continued

@@ -108,9 +108,8 @@ void E64::timer::write_byte(uint8_t address, uint8_t byte)
             break;
         case 0x01:
         {
-            uint8_t turned_on = byte & (!registers[1]);
+            uint8_t turned_on = byte & (~registers[1]);
             if( turned_on & 0x01 )
-            //if( (!(registers[0x01] & 0x01)) & (byte & 0x01) )
             {
                 timer0_bpm = registers[2] | (uint16_t)(registers[3] << 8);
                 if(timer0_bpm == 0) timer0_bpm = 1;
@@ -118,7 +117,6 @@ void E64::timer::write_byte(uint8_t address, uint8_t byte)
                 timer0_counter = 0;
             }
             if( turned_on & 0x02 )
-            //if( (!(registers[0x01] & 0x02)) & (byte & 0x02) )
             {
                 timer1_bpm = registers[2] | (uint16_t)(registers[3] << 8);
                 if(timer1_bpm == 0) timer1_bpm = 1;

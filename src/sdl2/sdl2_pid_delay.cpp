@@ -97,6 +97,7 @@ void C256::sdl2_pid_delay::run()
             std::cout << "[PID Delay] system too slow?" << std::endl;
             current_delay = 5000;
         }
+        if (current_delay > 20000) current_delay = 20000;
     }
 
     statistics_framecounter++;
