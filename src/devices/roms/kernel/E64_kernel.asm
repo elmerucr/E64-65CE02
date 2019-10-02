@@ -39,21 +39,37 @@ cold_start
 	sta TIMER_BASE+3
 	lda #%00000010
 	tsb TIMER_BASE+1
-
+	; set up timer1 interrupt vector
 	lda #<timer1_irq_handler_continued
 	sta TIMER1_VECTOR
 	lda #>timer1_irq_handler_continued
 	sta TIMER1_VECTOR+1
 
 	; set up timer2 interrupt
-	lda #%00000000
-	;lda #%00000100
+	lda #$3c
+	sta TIMER_BASE+2
+	lda #$00
+	sta TIMER_BASE+3
+	lda #%00000100
 	tsb TIMER_BASE+1
-
+	; set up timer2 interrupt vector
 	lda #<timer2_irq_handler_continued
 	sta TIMER2_VECTOR
 	lda #>timer2_irq_handler_continued
 	sta TIMER2_VECTOR+1
+
+	; set up timer3 interrupt
+	lda #$42
+	sta TIMER_BASE+2
+	lda #$01
+	sta TIMER_BASE+3
+	lda #%00001000
+	tsb TIMER_BASE+1
+	; set up timer2 interrupt vector
+	lda #<timer3_irq_handler_continued
+	sta TIMER3_VECTOR
+	lda #>timer3_irq_handler_continued
+	sta TIMER3_VECTOR+1
 
 	; setup cia interrupt
 	lda #%00000001	; set bit 0 in accumulator
@@ -107,9 +123,7 @@ cold_start
                                 ; bit 4 is for a triangle wave form
                                 ; bit 2 is for a ring modulation connected to voice 3
 
--	lda $c200	; load a char from screen memory
-	inc a		; increase value of accumulator
-	sta $c200	; store it back
+-	inc $c200	; increase a char in screen memory
 
 	ldx #$00	; init counter to 0
 -	lda $0380,x	; load key state
@@ -157,25 +171,22 @@ irq_handler
 timer_irq_handler
 	lda TIMER_BASE			; load ISR status
 	bpl cia_irq_handler		; did timer cause interrupt? No: (bit 7 = 0), skip to cia irq handler
-
-	pha						; Yes, store the current value of accumulator on stack
-	and #%00000001			; did timer0 cause the interrupt?
-	beq timer1_irq_handler	; no, jump to timer1
-	sta TIMER_BASE			; yes, acknowledge
+timer0_irq_handler
+	sta IP4L				; No: store acc in basepage
+	bbr 0,IP4L,timer1_irq_handler
+	lda #%00000001
+	sta TIMER_BASE			; acknowledge
 	jmp (TIMER0_VECTOR)
 timer0_irq_handler_continued
 	lda $c800
 	inc a
 	and #%00001111
 	sta $c800
-	pla
 	jmp exception_cleanup
-
 timer1_irq_handler
-	pla					; retrieve the original state of a
-	and #%00000010		; did timer1 cause the interrupt?
-	beq exception_cleanup	; no, jump to exception cleanup
-	sta TIMER_BASE		; yes, acknowledge
+	bbr 1,IP4L,timer2_irq_handler
+	lda #%00000010
+	sta TIMER_BASE		; acknowledge
 	jmp (TIMER1_VECTOR)
 timer1_irq_handler_continued
 	lda $c801
@@ -183,10 +194,28 @@ timer1_irq_handler_continued
 	and #%00001111
 	sta $c801
 	jmp exception_cleanup
-
 timer2_irq_handler
-
+	bbr 2,IP4L,timer3_irq_handler
+	lda #%00000100
+	sta TIMER_BASE		; acknowledge
+	jmp (TIMER2_VECTOR)
 timer2_irq_handler_continued
+	lda $c802
+	inc a
+	and #%00001111
+	sta $c802
+	jmp exception_cleanup
+timer3_irq_handler
+	;bbr 3,IP4L,exception_cleanup	; it must be timer3!
+	lda #%00001000
+	sta TIMER_BASE		; acknowledge
+	jmp (TIMER3_VECTOR)
+timer3_irq_handler_continued
+	lda $c804
+	inc a
+	and #%00001111
+	sta $c804
+	jmp exception_cleanup
 
 	; CIA portion
 cia_irq_handler

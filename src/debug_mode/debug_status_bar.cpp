@@ -33,26 +33,26 @@ void debug_status_bar_refresh()
     debug_status_bar_clear();
     // print cpu status in default colours
     csg65ce02_dump_status(&cpu_ic, c256_string2);
-    debug_status_bar_set_cursor_pos(65);
+    debug_status_bar_set_cursor_pos(64);
     debug_status_bar_print(c256_string2);
     // cpu cycles
     snprintf(c256_string2, 256, "last: %4u", cpu_ic.cycles_last_executed_instruction);
-    debug_status_bar_set_cursor_pos(321);
+    debug_status_bar_set_cursor_pos(320);
     debug_status_bar_print(c256_string2);
     // interrupt pins
     snprintf(c256_string2, 256, "irq  : %1u\nnmi  : %1u(%1u)",computer.exception_collector_ic->irq_output_pin ? 1 : 0, cpu_ic.nmi_pin ? 1 : 0, cpu_ic.nmi_pin_previous_state);
-    debug_status_bar_set_cursor_pos(333);
+    debug_status_bar_set_cursor_pos(332);
     debug_status_bar_print(c256_string2);
     status_bar_foreground_color_buffer[405] = 0x26;
     status_bar_foreground_color_buffer[406] = 0x26;
     status_bar_foreground_color_buffer[407] = 0x26;
     // cpu scanlines
     snprintf(c256_string2, 256, "line: %3u\npix : %3u", vicv_ic.return_current_scanline(), vicv_ic.return_current_pixel() );
-    debug_status_bar_set_cursor_pos(345);
+    debug_status_bar_set_cursor_pos(344);
     debug_status_bar_print(c256_string2);
     // disassembly of next instruction
     uint16_t temp_pc = cpu_ic.pc;
-    debug_status_bar_set_cursor_pos(99);
+    debug_status_bar_set_cursor_pos(98);
     for(int i= 0; i<7; i++ )
     {
         temp_pc += csg65ce02_dasm(temp_pc, c256_string2, 256);
@@ -61,16 +61,16 @@ void debug_status_bar_refresh()
     }
     // timer ic information
     snprintf(c256_string2, 256, "%6llu %6llu",timer_ic.get_timer0_counter(), timer_ic.get_timer0_clock_interval());
-    debug_status_bar_set_cursor_pos(580);
+    debug_status_bar_set_cursor_pos(579);
     debug_status_bar_print(c256_string2);
     snprintf(c256_string2, 256, "%6llu %6llu",timer_ic.get_timer1_counter(), timer_ic.get_timer1_clock_interval());
-    debug_status_bar_set_cursor_pos(644);
+    debug_status_bar_set_cursor_pos(643);
     debug_status_bar_print(c256_string2);
     snprintf(c256_string2, 256, "%6llu %6llu",timer_ic.get_timer2_counter(), timer_ic.get_timer2_clock_interval());
-    debug_status_bar_set_cursor_pos(708);
+    debug_status_bar_set_cursor_pos(707);
     debug_status_bar_print(c256_string2);
     snprintf(c256_string2, 256, "%6llu %6llu",timer_ic.get_timer3_counter(), timer_ic.get_timer3_clock_interval());
-    debug_status_bar_set_cursor_pos(772);
+    debug_status_bar_set_cursor_pos(771);
     debug_status_bar_print(c256_string2);
     
     // set accent colors for titles etc...
@@ -78,27 +78,27 @@ void debug_status_bar_refresh()
     debug_console.status_bar_background_color = 0x26;
 
     snprintf(c256_string2, 256, "       cpu internal status       ");
-    debug_status_bar_set_cursor_pos(1);
+    debug_status_bar_set_cursor_pos(0);
     debug_status_bar_print(c256_string2);
 
     snprintf(c256_string2, 256, "        disassembly         ");
-    debug_status_bar_set_cursor_pos(35);
+    debug_status_bar_set_cursor_pos(34);
     debug_status_bar_print(c256_string2);
 
     snprintf(c256_string2, 256, "cpu cycles");
-    debug_status_bar_set_cursor_pos(257);
+    debug_status_bar_set_cursor_pos(256);
     debug_status_bar_print(c256_string2);
 
     snprintf(c256_string2, 256, "  cpu pins  ");
-    debug_status_bar_set_cursor_pos(268);
+    debug_status_bar_set_cursor_pos(267);
     debug_status_bar_print(c256_string2);
 
     snprintf(c256_string2, 256, "  vic v  ");
-    debug_status_bar_set_cursor_pos(281);
+    debug_status_bar_set_cursor_pos(280);
     debug_status_bar_print(c256_string2);
 
     snprintf(c256_string2, 256, "    timer_ic    \n 0 \n 1 \n 2 \n 3 ");
-    debug_status_bar_set_cursor_pos(513);
+    debug_status_bar_set_cursor_pos(512);
     debug_status_bar_print(c256_string2);
 }
 
