@@ -16,14 +16,17 @@ cold_start
 	tys		; move y into sh
 	cle		; clear extended mode flag to enable large stack
 
+	lda #$00		; explicitly turn off all timer interrupts
+	sta TIMER_BASE
+
 	; set up timer0 interrupt
-	lda #$3c		; load value 3000 ($0bb8 = 3000bpm = 50Hz) into low and high bytes
-	sta TIMER_BASE+2	; or value $003c = 60bpm
-	lda #$00
+	lda #$b8			; load value 3000 ($0bb8 = 3000bpm = 50Hz) into low and high bytes
+	sta TIMER_BASE+2
+	lda #$0b
 	sta TIMER_BASE+3
 	lda #%00000001		; turn on interrupt generation by clock0
 	tsb TIMER_BASE+1
-
+	; set up timer0 interrupt vector
 	lda #<timer0_irq_handler_continued
 	sta TIMER0_VECTOR
 	lda #>timer0_irq_handler_continued
@@ -42,8 +45,18 @@ cold_start
 	lda #>timer1_irq_handler_continued
 	sta TIMER1_VECTOR+1
 
+	; set up timer2 interrupt
+	lda #%00000000
+	;lda #%00000100
+	tsb TIMER_BASE+1
+
+	lda #<timer2_irq_handler_continued
+	sta TIMER2_VECTOR
+	lda #>timer2_irq_handler_continued
+	sta TIMER2_VECTOR+1
+
 	; setup cia interrupt
-	lda #$01	; set bit 0 in accumulator
+	lda #%00000001	; set bit 0 in accumulator
 	tsb CIA_BASE+1	; turn on keyboard interrupt generation by CIA
 	; install the vector for the cia irq routine
 	lda #<cia_irq_handler_continued
@@ -51,9 +64,9 @@ cold_start
 	lda #>cia_irq_handler_continued
 	sta CIA_VECTOR+1
 
-	cli		; clear irq disable flag (enable irqs)
+	cli		; clear irq disable flag (enable all irqs)
 
-			; set colors:
+				; set colors:
 	lda #$06	; blue for background
 	sta VICV_BG
 	lda #$00	; black for border
@@ -69,13 +82,11 @@ cold_start
 	lda #$19
 	sta VICV_CSL
 
-	; if we remove this function call, the bug doesn't appear
-	; if we replace with jmp's, there's also the bug
 	jsr clear_screen
 
-	phw #welc1	; push the address of the first welcome message onto the stack
+	phw #welc1		; first welcome message
 	jsr put_string
-	phw #welc2
+	phw #welc2		; second part of message
 	jsr put_string
 
 	; play welcome sound
@@ -117,10 +128,10 @@ exception_handler
 			; retrieve the pushed status byte from stack
 	tsx		; load sl into x
 	tsy		; load sh into y
-	stx IP0		; store sp into pointer register IP0
-	sty IP0+1
+	stx IP0L	; store sp into pointer register IP0
+	sty IP0H
 	ldy #$05	; index is $5
-	lda (IP0),y	; load the pushed status byte into accumulator
+	lda (IP0L),y	; load the pushed status byte into accumulator
 	and #%00010000	; was break "flag" present on stack?
 	beq irq_handler	; no, branch to irq handler
 
@@ -144,13 +155,13 @@ irq_handler
 
 	; timer portion
 timer_irq_handler
-	lda TIMER_BASE		; load ISR status
-	bpl cia_irq_handler	; did timer cause interrupt? No: (bit 7 = 0), skip to cia irq handler
+	lda TIMER_BASE			; load ISR status
+	bpl cia_irq_handler		; did timer cause interrupt? No: (bit 7 = 0), skip to cia irq handler
 
-	pha		; store the current value of a on stack
-	and #%00000001	; did timer0 cause the interrupt?
+	pha						; Yes, store the current value of accumulator on stack
+	and #%00000001			; did timer0 cause the interrupt?
 	beq timer1_irq_handler	; no, jump to timer1
-	sta TIMER_BASE	; yes, acknowledge
+	sta TIMER_BASE			; yes, acknowledge
 	jmp (TIMER0_VECTOR)
 timer0_irq_handler_continued
 	lda $c800
@@ -161,7 +172,7 @@ timer0_irq_handler_continued
 	jmp exception_cleanup
 
 timer1_irq_handler
-	pla			; retrieve the original state of a
+	pla					; retrieve the original state of a
 	and #%00000010		; did timer1 cause the interrupt?
 	beq exception_cleanup	; no, jump to exception cleanup
 	sta TIMER_BASE		; yes, acknowledge
@@ -172,6 +183,10 @@ timer1_irq_handler_continued
 	and #%00001111
 	sta $c801
 	jmp exception_cleanup
+
+timer2_irq_handler
+
+timer2_irq_handler_continued
 
 	; CIA portion
 cia_irq_handler
@@ -277,7 +292,7 @@ put_string
 +	rtn #$02
 
 ; strings
-welc1	.text "E64 kernel V20190929",ASCII_NULL
+welc1	.text "E64 kernel V20191002",ASCII_NULL
 welc2	.text " (C)2019 elmerucr",ASCII_NULL
 
 	* = $ff00

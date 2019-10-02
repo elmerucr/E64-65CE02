@@ -97,9 +97,9 @@ void E64::timer::write_byte(uint8_t address, uint8_t byte)
             //    b = bit that's written
             //    s = status (on if an interrupt was caused)
             //    r = boolean result (acknowledge an interrupt (s=1) if it is written to with a 1
-            //    r = (!b) & s
+            //    r = (~b) & s
             
-            registers[0] = (!(byte & 0x0f)) & registers[0];
+            registers[0] = (~(byte & 0x0f)) & registers[0];
             if( (registers[0] & 0x0f) == 0 )
             {
                 irq_pin = true;
@@ -122,6 +122,20 @@ void E64::timer::write_byte(uint8_t address, uint8_t byte)
                 if(timer1_bpm == 0) timer1_bpm = 1;
                 timer1_clock_interval = bpm_to_clock_interval(timer1_bpm);
                 timer1_counter = 0;
+            }
+            if( turned_on & 0x04 )
+            {
+                timer2_bpm = registers[2] | (uint16_t)(registers[3] << 8);
+                if(timer2_bpm == 0) timer2_bpm = 1;
+                timer2_clock_interval = bpm_to_clock_interval(timer2_bpm);
+                timer2_counter = 0;
+            }
+            if( turned_on & 0x08 )
+            {
+                timer3_bpm = registers[2] | (uint16_t)(registers[3] << 8);
+                if(timer3_bpm == 0) timer3_bpm = 1;
+                timer3_clock_interval = bpm_to_clock_interval(timer3_bpm);
+                timer3_counter = 0;
             }
             registers[0x01] = byte & 0x0f;
             break;

@@ -1,13 +1,21 @@
 	; zero page
 
-	IP0 = $e0	; pointers for interrupt routines
-	IP1 = $e2
-	IP2 = $e4
-	IP3 = $e6
-	IP4 = $e8
-	IP5 = $ea
-	IP6 = $ec
-	IP7 = $ee
+	IP0L = $e0	; pointers / memory locations for interrupt routines
+	IP0H = $e1
+	IP1L = $e2
+	IP1H = $e3
+	IP2L = $e4
+	IP2H = $e5
+	IP3L = $e6
+	IP3H = $e7
+	IP4L = $e8
+	IP4H = $e9
+	IP5L = $ea
+	IP5H = $eb
+	IP6L = $ec
+	IP6H = $ed
+	IP7L = $ee
+	IP7H = $ef
 
 	P0 = $f0	; pointer for general use
 	P1 = $f2	; pointer for general use
