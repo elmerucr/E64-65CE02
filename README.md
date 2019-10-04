@@ -53,9 +53,10 @@ In the ````./src/devices/roms/kernel/```` directory, a ````Makefile```` can be f
 * [SDL Simple DirectMedia Layer](https://www.libsdl.org) - A cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware
 * [ultimate64](https://ultimate64.com/Ultimate-64) - A hardware implementation (FPGA) of the C64
 * [vAmiga](http://www.dirkwhoffmann.de/software/vAmiga.html) - An Amiga 500, 1000, or 2000 on your Apple Macintosh
+* [vasm](http://sun.hasenbraten.de/vasm/) - A portable and retargetable assembler with very good support for the Motorola 680x0 family (including M6888x, M68851 and CPU32)
 * [VICE](http://vice-emu.sourceforge.net) - The Versatile Commodore Emulator
 * [VirtualC64](http://www.dirkwhoffmann.de/software/virtualC64.html) - A Commodore 64 on your Apple Macintosh
-* [visual6502](http://www.visual6502.org) - Visual Transistor-level Simulation of the 6502 CPU
+* [visual6502](http://www.visual6502.org) - Visual Transistor-level Simulation of the 6502 CPU and other chips
 ## MIT License
 Copyright (c) 2019 elmerucr
 
