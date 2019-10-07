@@ -65,7 +65,6 @@ int main(int argc, char **argv)
 
     // start of main loop
     computer.running = true;
-    //application_running = true;
     
     while(computer.running)
     {

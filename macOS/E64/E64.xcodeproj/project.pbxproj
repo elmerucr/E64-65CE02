@@ -119,6 +119,7 @@
 		46A1F87D231D721A003982FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		46A1F882231D721A003982FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		46A1F88A231D7596003982FA /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../../src/main.cpp; sourceTree = "<group>"; };
+		46F5DE3A234A2BAA0053A401 /* E64 copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "E64 copy-Info.plist"; path = "/Users/elmer/Desktop/E64/macOS/E64/E64 copy-Info.plist"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,6 +282,7 @@
 				46A1F87A231D7218003982FA /* E64 */,
 				46A1F879231D7218003982FA /* Products */,
 				46A1F88C231D9AD6003982FA /* Frameworks */,
+				46F5DE3A234A2BAA0053A401 /* E64 copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
