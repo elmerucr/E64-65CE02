@@ -7,7 +7,7 @@ Technical specifications (not yet complete and a work in progress):
 * CSG 65CE02 CPU (mostly 8 bit and some 16 bit instructions) running at 4.096MHz using the [lib65ce02](https://github.com/elmerucr/lib65ce02) library.
 * A total of 16MB ram connected to a Texas Instruments SN74LS612 Memory Management Unit.
 * A custom Video Interface Chip with a resolution of 512x320 pixels (512x256 excluding  top and bottom borders).
-* Up to four SID chips (MOS 6581) with stereo mixing possibilities. Each individual SID chip runs at 985248Hz (C64 pal) for identical pitch. Emulation is achieved with the excellent [resid](http://www.zimmers.net/anonftp/pub/cbm/crossplatform/emulators/resid/index.html) library.
+* Up to four SID chips (MOS 6581) with stereo mixing possibilities. Each individual SID chip runs at 985248Hz (C64 pal) for correct pitch. Emulation is achieved with the excellent [resid](http://www.zimmers.net/anonftp/pub/cbm/crossplatform/emulators/resid/index.html) library.
 * Four independent timers with interrupt functionality.
 ## Motivation
 todo
