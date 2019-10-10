@@ -45,6 +45,46 @@
 		4686D718232D7735002BD2D9 /* wave6581_P_T.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D708232D7735002BD2D9 /* wave6581_P_T.cc */; };
 		469BDFF4231D9FEC00868BBE /* SDL2.framework in Resources */ = {isa = PBXBuildFile; fileRef = 469BDFF3231D9FEC00868BBE /* SDL2.framework */; };
 		469BDFF5231DA03400868BBE /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469BDFF3231D9FEC00868BBE /* SDL2.framework */; };
+		469EBBBA234FB36B00028136 /* frequency_divider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241B0C232443F200569490 /* frequency_divider.cpp */; };
+		469EBBBB234FB36B00028136 /* sdl2_pid_delay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AB42324422200569490 /* sdl2_pid_delay.cpp */; };
+		469EBBBC234FB36B00028136 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46A1F88A231D7596003982FA /* main.cpp */; };
+		469EBBBD234FB36B00028136 /* filter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6F3232D7734002BD2D9 /* filter.cc */; };
+		469EBBBE234FB36B00028136 /* version.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6FE232D7735002BD2D9 /* version.cc */; };
+		469EBBBF234FB36B00028136 /* voice.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6F7232D7734002BD2D9 /* voice.cc */; };
+		469EBBC0234FB36B00028136 /* extfilt.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D707232D7735002BD2D9 /* extfilt.cc */; };
+		469EBBC1234FB36B00028136 /* SN74LS612.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241ACA232442AC00569490 /* SN74LS612.cpp */; };
+		469EBBC2234FB36B00028136 /* wave6581__ST.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6F6232D7734002BD2D9 /* wave6581__ST.cc */; };
+		469EBBC3234FB36B00028136 /* csg65ce02_dasm.c in Sources */ = {isa = PBXBuildFile; fileRef = 46241AC22324429200569490 /* csg65ce02_dasm.c */; };
+		469EBBC4234FB36B00028136 /* wave6581_P_T.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D708232D7735002BD2D9 /* wave6581_P_T.cc */; };
+		469EBBC5234FB36B00028136 /* wave8580__ST.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6FD232D7735002BD2D9 /* wave8580__ST.cc */; };
+		469EBBC6234FB36B00028136 /* sdl2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AB52324422200569490 /* sdl2.cpp */; };
+		469EBBC7234FB36B00028136 /* exception_collector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241ABF2324429100569490 /* exception_collector.cpp */; };
+		469EBBC8234FB36B00028136 /* wave6581_PST.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6F8232D7734002BD2D9 /* wave6581_PST.cc */; };
+		469EBBC9234FB36B00028136 /* cia.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241B00232443A500569490 /* cia.cpp */; };
+		469EBBCA234FB36B00028136 /* envelope.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D704232D7735002BD2D9 /* envelope.cc */; };
+		469EBBCB234FB36B00028136 /* debug_screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AA42324418400569490 /* debug_screen.cpp */; };
+		469EBBCC234FB36B00028136 /* common_defs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241B05232443F100569490 /* common_defs.cpp */; };
+		469EBBCD234FB36B00028136 /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AFF232443A500569490 /* timer.cpp */; };
+		469EBBCE234FB36B00028136 /* wave6581_PS_.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D706232D7735002BD2D9 /* wave6581_PS_.cc */; };
+		469EBBCF234FB36B00028136 /* wave8580_PS_.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6FB232D7734002BD2D9 /* wave8580_PS_.cc */; };
+		469EBBD0234FB36B00028136 /* pot.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D705232D7735002BD2D9 /* pot.cc */; };
+		469EBBD1234FB36B00028136 /* wave.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6F2232D7734002BD2D9 /* wave.cc */; };
+		469EBBD2234FB36B00028136 /* csg65ce02.c in Sources */ = {isa = PBXBuildFile; fileRef = 46241AC32324429200569490 /* csg65ce02.c */; };
+		469EBBD3234FB36B00028136 /* sid.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6F9232D7734002BD2D9 /* sid.cc */; };
+		469EBBD4234FB36B00028136 /* machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241B07232443F100569490 /* machine.cpp */; };
+		469EBBD5234FB36B00028136 /* vicv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AFD2324438D00569490 /* vicv.cpp */; };
+		469EBBD6234FB36B00028136 /* kernel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AB92324425300569490 /* kernel.cpp */; };
+		469EBBD7234FB36B00028136 /* wave8580_PST.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6FF232D7735002BD2D9 /* wave8580_PST.cc */; };
+		469EBBD8234FB36B00028136 /* patched_char_rom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241ABA2324425300569490 /* patched_char_rom.cpp */; };
+		469EBBD9234FB36B00028136 /* debug_status_bar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AA22324418400569490 /* debug_status_bar.cpp */; };
+		469EBBDA234FB36B00028136 /* wave8580_P_T.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6FA232D7734002BD2D9 /* wave8580_P_T.cc */; };
+		469EBBDB234FB36B00028136 /* sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6EE232D7706002BD2D9 /* sound.cpp */; };
+		469EBBDC234FB36B00028136 /* mmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AC9232442AC00569490 /* mmu.cpp */; };
+		469EBBDD234FB36B00028136 /* debug_command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AA92324418400569490 /* debug_command.cpp */; };
+		469EBBDE234FB36B00028136 /* debug_console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AA72324418400569490 /* debug_console.cpp */; };
+		469EBBE0234FB36B00028136 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469BDFF3231D9FEC00868BBE /* SDL2.framework */; };
+		469EBBE2234FB36B00028136 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46A1F87D231D721A003982FA /* Assets.xcassets */; };
+		469EBBE3234FB36B00028136 /* SDL2.framework in Resources */ = {isa = PBXBuildFile; fileRef = 469BDFF3231D9FEC00868BBE /* SDL2.framework */; };
 		46A1F87E231D721A003982FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46A1F87D231D721A003982FA /* Assets.xcassets */; };
 		46A1F88B231D7596003982FA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46A1F88A231D7596003982FA /* main.cpp */; };
 /* End PBXBuildFile section */
@@ -115,6 +155,8 @@
 		4686D707232D7735002BD2D9 /* extfilt.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = extfilt.cc; path = "../../../src/devices/sound/resid-0.16/extfilt.cc"; sourceTree = "<group>"; };
 		4686D708232D7735002BD2D9 /* wave6581_P_T.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wave6581_P_T.cc; path = "../../../src/devices/sound/resid-0.16/wave6581_P_T.cc"; sourceTree = "<group>"; };
 		469BDFF3231D9FEC00868BBE /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		469EBBE7234FB36B00028136 /* E64-II.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "E64-II.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		469EBBE8234FB36B00028136 /* E64 copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "E64 copy2-Info.plist"; path = "/Users/elmer/Desktop/E64/macOS/E64/E64 copy2-Info.plist"; sourceTree = "<absolute>"; };
 		46A1F878231D7218003982FA /* E64.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = E64.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46A1F87D231D721A003982FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		46A1F882231D721A003982FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -123,6 +165,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		469EBBDF234FB36B00028136 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				469EBBE0234FB36B00028136 /* SDL2.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		46A1F875231D7218003982FA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -276,6 +326,36 @@
 			name = timer;
 			sourceTree = "<group>";
 		};
+		469EBBB4234FB2F800028136 /* E64-I */ = {
+			isa = PBXGroup;
+			children = (
+				469EBBB6234FB32D00028136 /* Devices */,
+			);
+			name = "E64-I";
+			sourceTree = "<group>";
+		};
+		469EBBB5234FB31200028136 /* E64-II */ = {
+			isa = PBXGroup;
+			children = (
+				469EBBB7234FB33700028136 /* Devices */,
+			);
+			name = "E64-II";
+			sourceTree = "<group>";
+		};
+		469EBBB6234FB32D00028136 /* Devices */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Devices;
+			sourceTree = "<group>";
+		};
+		469EBBB7234FB33700028136 /* Devices */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Devices;
+			sourceTree = "<group>";
+		};
 		46A1F86F231D7218003982FA = {
 			isa = PBXGroup;
 			children = (
@@ -283,6 +363,7 @@
 				46A1F879231D7218003982FA /* Products */,
 				46A1F88C231D9AD6003982FA /* Frameworks */,
 				46F5DE3A234A2BAA0053A401 /* E64 copy-Info.plist */,
+				469EBBE8234FB36B00028136 /* E64 copy2-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -290,6 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				46A1F878231D7218003982FA /* E64.app */,
+				469EBBE7234FB36B00028136 /* E64-II.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -297,7 +379,9 @@
 		46A1F87A231D7218003982FA /* E64 */ = {
 			isa = PBXGroup;
 			children = (
-				46A1F889231D742D003982FA /* src */,
+				469EBBB4234FB2F800028136 /* E64-I */,
+				469EBBB5234FB31200028136 /* E64-II */,
+				46A1F889231D742D003982FA /* Shared */,
 				46A1F87D231D721A003982FA /* Assets.xcassets */,
 				46A1F882231D721A003982FA /* Info.plist */,
 				46241B11232444A000569490 /* log.txt */,
@@ -305,7 +389,7 @@
 			path = E64;
 			sourceTree = "<group>";
 		};
-		46A1F889231D742D003982FA /* src */ = {
+		46A1F889231D742D003982FA /* Shared */ = {
 			isa = PBXGroup;
 			children = (
 				46241AA12324412200569490 /* debug_mode */,
@@ -319,7 +403,7 @@
 				46241B07232443F100569490 /* machine.cpp */,
 				46A1F88A231D7596003982FA /* main.cpp */,
 			);
-			name = src;
+			name = Shared;
 			sourceTree = "<group>";
 		};
 		46A1F88C231D9AD6003982FA /* Frameworks */ = {
@@ -333,6 +417,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		469EBBB8234FB36B00028136 /* E64-II */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 469EBBE4234FB36B00028136 /* Build configuration list for PBXNativeTarget "E64-II" */;
+			buildPhases = (
+				469EBBB9234FB36B00028136 /* Sources */,
+				469EBBDF234FB36B00028136 /* Frameworks */,
+				469EBBE1234FB36B00028136 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "E64-II";
+			productName = E64;
+			productReference = 469EBBE7234FB36B00028136 /* E64-II.app */;
+			productType = "com.apple.product-type.application";
+		};
 		46A1F877231D7218003982FA /* E64 */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 46A1F886231D721A003982FA /* Build configuration list for PBXNativeTarget "E64" */;
@@ -379,11 +480,21 @@
 			projectRoot = "";
 			targets = (
 				46A1F877231D7218003982FA /* E64 */,
+				469EBBB8234FB36B00028136 /* E64-II */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		469EBBE1234FB36B00028136 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				469EBBE2234FB36B00028136 /* Assets.xcassets in Resources */,
+				469EBBE3234FB36B00028136 /* SDL2.framework in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		46A1F876231D7218003982FA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -396,6 +507,50 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		469EBBB9234FB36B00028136 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				469EBBBA234FB36B00028136 /* frequency_divider.cpp in Sources */,
+				469EBBBB234FB36B00028136 /* sdl2_pid_delay.cpp in Sources */,
+				469EBBBC234FB36B00028136 /* main.cpp in Sources */,
+				469EBBBD234FB36B00028136 /* filter.cc in Sources */,
+				469EBBBE234FB36B00028136 /* version.cc in Sources */,
+				469EBBBF234FB36B00028136 /* voice.cc in Sources */,
+				469EBBC0234FB36B00028136 /* extfilt.cc in Sources */,
+				469EBBC1234FB36B00028136 /* SN74LS612.cpp in Sources */,
+				469EBBC2234FB36B00028136 /* wave6581__ST.cc in Sources */,
+				469EBBC3234FB36B00028136 /* csg65ce02_dasm.c in Sources */,
+				469EBBC4234FB36B00028136 /* wave6581_P_T.cc in Sources */,
+				469EBBC5234FB36B00028136 /* wave8580__ST.cc in Sources */,
+				469EBBC6234FB36B00028136 /* sdl2.cpp in Sources */,
+				469EBBC7234FB36B00028136 /* exception_collector.cpp in Sources */,
+				469EBBC8234FB36B00028136 /* wave6581_PST.cc in Sources */,
+				469EBBC9234FB36B00028136 /* cia.cpp in Sources */,
+				469EBBCA234FB36B00028136 /* envelope.cc in Sources */,
+				469EBBCB234FB36B00028136 /* debug_screen.cpp in Sources */,
+				469EBBCC234FB36B00028136 /* common_defs.cpp in Sources */,
+				469EBBCD234FB36B00028136 /* timer.cpp in Sources */,
+				469EBBCE234FB36B00028136 /* wave6581_PS_.cc in Sources */,
+				469EBBCF234FB36B00028136 /* wave8580_PS_.cc in Sources */,
+				469EBBD0234FB36B00028136 /* pot.cc in Sources */,
+				469EBBD1234FB36B00028136 /* wave.cc in Sources */,
+				469EBBD2234FB36B00028136 /* csg65ce02.c in Sources */,
+				469EBBD3234FB36B00028136 /* sid.cc in Sources */,
+				469EBBD4234FB36B00028136 /* machine.cpp in Sources */,
+				469EBBD5234FB36B00028136 /* vicv.cpp in Sources */,
+				469EBBD6234FB36B00028136 /* kernel.cpp in Sources */,
+				469EBBD7234FB36B00028136 /* wave8580_PST.cc in Sources */,
+				469EBBD8234FB36B00028136 /* patched_char_rom.cpp in Sources */,
+				469EBBD9234FB36B00028136 /* debug_status_bar.cpp in Sources */,
+				469EBBDA234FB36B00028136 /* wave8580_P_T.cc in Sources */,
+				469EBBDB234FB36B00028136 /* sound.cpp in Sources */,
+				469EBBDC234FB36B00028136 /* mmu.cpp in Sources */,
+				469EBBDD234FB36B00028136 /* debug_command.cpp in Sources */,
+				469EBBDE234FB36B00028136 /* debug_console.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		46A1F874231D7218003982FA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -443,6 +598,52 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		469EBBE5234FB36B00028136 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_II;
+				CODE_SIGN_ENTITLEMENTS = E64/E64.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				INFOPLIST_FILE = "E64 copy2-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = elmerucr.E64;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		469EBBE6234FB36B00028136 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_II;
+				CODE_SIGN_ENTITLEMENTS = E64/E64.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				INFOPLIST_FILE = "E64 copy2-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = elmerucr.E64;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		46A1F884231D721A003982FA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -561,7 +762,7 @@
 		46A1F887231D721A003982FA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_I;
 				CODE_SIGN_ENTITLEMENTS = E64/E64.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -584,7 +785,7 @@
 		46A1F888231D721A003982FA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_I;
 				CODE_SIGN_ENTITLEMENTS = E64/E64.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -607,6 +808,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		469EBBE4234FB36B00028136 /* Build configuration list for PBXNativeTarget "E64-II" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				469EBBE5234FB36B00028136 /* Debug */,
+				469EBBE6234FB36B00028136 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		46A1F873231D7218003982FA /* Build configuration list for PBXProject "E64" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

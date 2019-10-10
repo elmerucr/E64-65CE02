@@ -3,8 +3,6 @@
 //
 //  Copyright © 2019 elmerucr. All rights reserved.
 
-#include <iostream>
-
 #include "exception_collector.hpp"
 
 E64::exception_collector::exception_collector()
