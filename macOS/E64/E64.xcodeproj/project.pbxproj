@@ -203,38 +203,12 @@
 			isa = PBXGroup;
 			children = (
 				462600B72337FAFB00A4ED6D /* cia */,
-				46241AAF232441EF00569490 /* cpu */,
-				46241AB0232441F500569490 /* mmu */,
-				46241AB82324423400569490 /* roms */,
+				46241AB82324423400569490 /* rom */,
 				46241ACD232442B900569490 /* sound */,
 				462600B82337FB2100A4ED6D /* timer */,
 				46241ACE232442BF00569490 /* vicv */,
 			);
 			name = devices;
-			sourceTree = "<group>";
-		};
-		46241AAF232441EF00569490 /* cpu */ = {
-			isa = PBXGroup;
-			children = (
-				46241ABD2324429100569490 /* csg65ce02.h */,
-				46241AC32324429200569490 /* csg65ce02.c */,
-				46241ABE2324429100569490 /* csg65ce02_dasm.h */,
-				46241AC22324429200569490 /* csg65ce02_dasm.c */,
-				46241AC12324429100569490 /* exception_collector.hpp */,
-				46241ABF2324429100569490 /* exception_collector.cpp */,
-			);
-			name = cpu;
-			sourceTree = "<group>";
-		};
-		46241AB0232441F500569490 /* mmu */ = {
-			isa = PBXGroup;
-			children = (
-				46241AC9232442AC00569490 /* mmu.cpp */,
-				46241AC8232442AC00569490 /* mmu.hpp */,
-				46241ACA232442AC00569490 /* SN74LS612.cpp */,
-				46241AC7232442AC00569490 /* SN74LS612.hpp */,
-			);
-			name = mmu;
 			sourceTree = "<group>";
 		};
 		46241AB12324420500569490 /* sdl2 */ = {
@@ -248,13 +222,13 @@
 			name = sdl2;
 			sourceTree = "<group>";
 		};
-		46241AB82324423400569490 /* roms */ = {
+		46241AB82324423400569490 /* rom */ = {
 			isa = PBXGroup;
 			children = (
 				46241AB92324425300569490 /* kernel.cpp */,
 				46241ABA2324425300569490 /* patched_char_rom.cpp */,
 			);
-			name = roms;
+			name = rom;
 			sourceTree = "<group>";
 		};
 		46241ACD232442B900569490 /* sound */ = {
@@ -329,7 +303,8 @@
 		469EBBB4234FB2F800028136 /* E64-I */ = {
 			isa = PBXGroup;
 			children = (
-				469EBBB6234FB32D00028136 /* Devices */,
+				469EBBB6234FB32D00028136 /* devices */,
+				46ED0029234FBE8C00B43B56 /* mmu */,
 			);
 			name = "E64-I";
 			sourceTree = "<group>";
@@ -337,23 +312,25 @@
 		469EBBB5234FB31200028136 /* E64-II */ = {
 			isa = PBXGroup;
 			children = (
-				469EBBB7234FB33700028136 /* Devices */,
+				469EBBB7234FB33700028136 /* devices */,
 			);
 			name = "E64-II";
 			sourceTree = "<group>";
 		};
-		469EBBB6234FB32D00028136 /* Devices */ = {
+		469EBBB6234FB32D00028136 /* devices */ = {
 			isa = PBXGroup;
 			children = (
+				46ED0026234FBCBD00B43B56 /* cpu */,
 			);
-			name = Devices;
+			name = devices;
 			sourceTree = "<group>";
 		};
-		469EBBB7234FB33700028136 /* Devices */ = {
+		469EBBB7234FB33700028136 /* devices */ = {
 			isa = PBXGroup;
 			children = (
+				46ED0027234FBD8E00B43B56 /* cpu */,
 			);
-			name = Devices;
+			name = devices;
 			sourceTree = "<group>";
 		};
 		46A1F86F231D7218003982FA = {
@@ -412,6 +389,45 @@
 				469BDFF3231D9FEC00868BBE /* SDL2.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		46ED0026234FBCBD00B43B56 /* cpu */ = {
+			isa = PBXGroup;
+			children = (
+				46ED0028234FBDF800B43B56 /* lib65ce02 */,
+				46241AC12324429100569490 /* exception_collector.hpp */,
+				46241ABF2324429100569490 /* exception_collector.cpp */,
+			);
+			name = cpu;
+			sourceTree = "<group>";
+		};
+		46ED0027234FBD8E00B43B56 /* cpu */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = cpu;
+			sourceTree = "<group>";
+		};
+		46ED0028234FBDF800B43B56 /* lib65ce02 */ = {
+			isa = PBXGroup;
+			children = (
+				46241ABD2324429100569490 /* csg65ce02.h */,
+				46241AC32324429200569490 /* csg65ce02.c */,
+				46241ABE2324429100569490 /* csg65ce02_dasm.h */,
+				46241AC22324429200569490 /* csg65ce02_dasm.c */,
+			);
+			name = lib65ce02;
+			sourceTree = "<group>";
+		};
+		46ED0029234FBE8C00B43B56 /* mmu */ = {
+			isa = PBXGroup;
+			children = (
+				46241AC8232442AC00569490 /* mmu.hpp */,
+				46241AC9232442AC00569490 /* mmu.cpp */,
+				46241AC7232442AC00569490 /* SN74LS612.hpp */,
+				46241ACA232442AC00569490 /* SN74LS612.cpp */,
+			);
+			name = mmu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
