@@ -229,19 +229,20 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     {
         if( token1 == NULL )
         {
-            snprintf(c256_string2, 256, "Current status of nmi pin is %1u\n", cpu_ic.nmi_pin ? 1 : 0);
+            snprintf(c256_string2, 256, "Current status of nmi pin is %1u\n", computer.exception_collector_ic->nmi_output_pin ? 1 : 0);
             debug_console_print(c256_string2);
         }
         else if( strcmp(token1, "0") == 0)
         {
-            csg65ce02_set_nmi(&cpu_ic, false);
-            snprintf(c256_string2, 256, "Current status of nmi pin is %1u\n", cpu_ic.nmi_pin ? 1 : 0);
+            computer.exception_collector_ic->nmi_output_pin = false;
+            //csg65ce02_set_nmi(&cpu_ic, false);
+            snprintf(c256_string2, 256, "Current status of nmi pin is %1u\n", computer.exception_collector_ic->nmi_output_pin ? 1 : 0);
             debug_console_print(c256_string2);
         }
         else if( strcmp(token1, "1") == 0)
         {
-            csg65ce02_set_nmi(&cpu_ic, true);
-            snprintf(c256_string2, 256, "Current status of nmi pin is %1u\n", cpu_ic.nmi_pin ? 1 : 0);
+            computer.exception_collector_ic->nmi_output_pin = true;
+            snprintf(c256_string2, 256, "Current status of nmi pin is %1u\n", computer.exception_collector_ic->nmi_output_pin ? 1 : 0);
             debug_console_print(c256_string2);
         }
         else

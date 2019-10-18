@@ -18,6 +18,7 @@ namespace E64
     public:
         exception_collector(void);
         bool irq_output_pin;
+        bool nmi_output_pin;
         void connect_device(bool *device);
         void update_status(void);
     };

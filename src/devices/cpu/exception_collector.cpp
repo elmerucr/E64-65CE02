@@ -9,6 +9,9 @@ E64::exception_collector::exception_collector()
 {
     for(int i=0; i<8; i++) irq_input_pins[i] = &default_device;
     next_available_device = 0;
+    update_status();
+    
+    nmi_output_pin = true;
 }
 
 void E64::exception_collector::connect_device(bool *device)
