@@ -24,9 +24,9 @@ int E64::machine_run(uint16_t no_of_cycles)
     // default exit_code of the function is 0, no breakpoints have occurred
     int exit_code = NOTHING;
 
-    unsigned int processed_cycles;
+    unsigned int processed_cycles = csg65ce02_run(&cpu_ic, no_of_cycles);
 
-    if( csg65ce02_run(&cpu_ic, no_of_cycles, &processed_cycles) )
+    if( cpu_ic.exit_code_run_function == 1 )
     {
         // cpu breakpoint encountered
         snprintf(c256_string2, 256, "\ncpu breakpoint occurred at $%04x\n.", cpu_ic.pc);
@@ -88,8 +88,8 @@ int E64::machine::run(uint16_t no_of_cycles)
 {
     // default exit_code of the function is 0, no breakpoints have occurred
     int exit_code = NOTHING;
-    unsigned int processed_cycles;
-    if( csg65ce02_run(this->cpu_ic, no_of_cycles, &processed_cycles) )
+    unsigned int processed_cycles = csg65ce02_run(this->cpu_ic, no_of_cycles);
+    if( this->cpu_ic->exit_code_run_function == 1 )
     {
         // cpu breakpoint encountered
         snprintf(c256_string2, 256, "\ncpu breakpoint occurred at $%04x\n.", cpu_ic->pc);

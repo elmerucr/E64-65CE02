@@ -239,14 +239,16 @@ inline uint8_t csg65ce02_pull_byte(csg65ce02 *thisCPU)
 	}
 }
 
-//	Main function, run a number of cycles on the virtual cpu
-int csg65ce02_run(csg65ce02 *thisCPU, unsigned int no_cycles, unsigned int *processed_cycles)
+// Main function, run a number of cycles on the virtual cpu, returns the no of processed cycles
+// Exit code of the run function is stored in exit_code_run_function inside struct (0 on normal exit, 1 on ext breakpoint)
+int csg65ce02_run(csg65ce02 *thisCPU, unsigned int no_cycles)
 {
 	uint8_t  current_opcode;
 	uint16_t effective_address_l;		// low byte address of the effective address, normally used
 	uint16_t effective_address_h;		// high byte address of the effective address (for IMMW / ABSW addressing)
 
-	thisCPU->cycle_count = 0;
+	thisCPU->initial_cycles = no_cycles;
+	thisCPU->remaining_cycles = no_cycles;
 
 	// actual instruction loop
 	do
@@ -294,7 +296,7 @@ int csg65ce02_run(csg65ce02 *thisCPU, unsigned int no_cycles, unsigned int *proc
 		csg65ce02_handle_opcode(thisCPU, current_opcode, effective_address_l, effective_address_h);
 
 		thisCPU->cycles_last_executed_instruction = cycles_per_instruction[current_opcode];
-		thisCPU->cycle_count += thisCPU->cycles_last_executed_instruction;
+		thisCPU->remaining_cycles -= thisCPU->cycles_last_executed_instruction;
 
 		// increase pc only if the instruction does not actively change the pc by itself
 		if( !modify_pc_per_instruction[current_opcode] )
@@ -305,22 +307,24 @@ int csg65ce02_run(csg65ce02 *thisCPU, unsigned int no_cycles, unsigned int *proc
 		// check for breakpoint conditions
 		if( (thisCPU->breakpoints_active == true ) && (thisCPU->breakpoint_array[PC_REG] == true) )
 		{
-			printf("BREAKPOINT!\n");
-			// do things necessary to initiate a breakpoint
+			csg65ce02_end_timeslice(thisCPU);
 		}
         // Three conditions must be met to keep running:
         //    (1) enough cycles?
         //    (2) no breakpoint?
         //    (3) breakpoints activated?
     }
-	while(	(thisCPU->cycle_count < no_cycles) &&
-				!((thisCPU->breakpoint_array[PC_REG] == true) && (thisCPU->breakpoints_active == true) ) );
+	while(thisCPU->remaining_cycles > 0);
 
-	*processed_cycles = thisCPU->cycle_count;
+	thisCPU->exit_code_run_function = thisCPU->breakpoint_array[PC_REG] ? 1 : 0;
 
-	int result = thisCPU->breakpoint_array[PC_REG] ? 1 : 0;
+    return thisCPU->initial_cycles - thisCPU->remaining_cycles;
+}
 
-    return result;
+void csg65ce02_end_timeslice(csg65ce02 *thisCPU)
+{
+	thisCPU->initial_cycles -= thisCPU->remaining_cycles;
+	thisCPU->remaining_cycles = 0;
 }
 
 inline void csg65ce02_calculate_effective_address(csg65ce02 *thisCPU, uint8_t opcode, uint16_t *eal, uint16_t *eah)

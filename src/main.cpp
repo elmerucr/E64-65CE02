@@ -72,7 +72,7 @@ int main(int argc, char **argv)
         switch(computer.current_mode)
         {
             case E64::NORMAL_MODE:
-                switch( E64::machine_run(256) )
+                switch( E64::machine_run(64) )
                 {
                     case E64::NOTHING:
                         break;
