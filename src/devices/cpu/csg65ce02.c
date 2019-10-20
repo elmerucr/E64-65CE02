@@ -250,6 +250,8 @@ int csg65ce02_run(csg65ce02 *thisCPU, unsigned int no_cycles)
 	thisCPU->initial_cycles = no_cycles;
 	thisCPU->remaining_cycles = no_cycles;
 
+    thisCPU->exit_code_run_function = 0;
+
 	// actual instruction loop
 	do
 	{
@@ -304,21 +306,37 @@ int csg65ce02_run(csg65ce02 *thisCPU, unsigned int no_cycles)
 			PC_REG += bytes_per_instruction[current_opcode];
 		}
 
-		// check for breakpoint conditions
-		if( (thisCPU->breakpoints_active == true ) && (thisCPU->breakpoint_array[PC_REG] == true) )
-		{
-			csg65ce02_end_timeslice(thisCPU);
-		}
-        // Three conditions must be met to keep running:
-        //    (1) enough cycles?
-        //    (2) no breakpoint?
-        //    (3) breakpoints activated?
+		// Check for breakpoint conditions:
+		// (1) Do we respond to breakpoints at all? - and:
+		// (2) Do we hit a breakpoint at the current program counter?
+        if( thisCPU->breakpoints_active )
+        {
+            if( thisCPU->breakpoint_array[PC_REG] )
+            {
+                csg65ce02_end_timeslice(thisCPU);
+                thisCPU->exit_code_run_function = 1;
+            }
+        }
     }
 	while(thisCPU->remaining_cycles > 0);
-
-	thisCPU->exit_code_run_function = thisCPU->breakpoint_array[PC_REG] ? 1 : 0;
-
+	// return number of consumed cycles
     return thisCPU->initial_cycles - thisCPU->remaining_cycles;
+}
+
+int csg65ce02_cycles_run(csg65ce02 *thisCPU)
+{
+	return thisCPU->initial_cycles = thisCPU->remaining_cycles;
+}
+
+int csg65ce02_cycles_remaining(csg65ce02 *thisCPU)
+{
+	return thisCPU->remaining_cycles;
+}
+
+void csg65ce02_add_cycles(csg65ce02 *thisCPU, unsigned int cycles)
+{
+	thisCPU->initial_cycles += cycles;
+	thisCPU->remaining_cycles += cycles;
 }
 
 void csg65ce02_end_timeslice(csg65ce02 *thisCPU)
