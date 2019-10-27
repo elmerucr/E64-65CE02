@@ -47,7 +47,6 @@
 		469BDFF5231DA03400868BBE /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469BDFF3231D9FEC00868BBE /* SDL2.framework */; };
 		469EBBBA234FB36B00028136 /* frequency_divider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241B0C232443F200569490 /* frequency_divider.cpp */; };
 		469EBBBB234FB36B00028136 /* sdl2_pid_delay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AB42324422200569490 /* sdl2_pid_delay.cpp */; };
-		469EBBBC234FB36B00028136 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46A1F88A231D7596003982FA /* main.cpp */; };
 		469EBBBD234FB36B00028136 /* filter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6F3232D7734002BD2D9 /* filter.cc */; };
 		469EBBBE234FB36B00028136 /* version.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6FE232D7735002BD2D9 /* version.cc */; };
 		469EBBBF234FB36B00028136 /* voice.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6F7232D7734002BD2D9 /* voice.cc */; };
@@ -81,7 +80,8 @@
 		469EBBE2234FB36B00028136 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46A1F87D231D721A003982FA /* Assets.xcassets */; };
 		469EBBE3234FB36B00028136 /* SDL2.framework in Resources */ = {isa = PBXBuildFile; fileRef = 469BDFF3231D9FEC00868BBE /* SDL2.framework */; };
 		46A1F87E231D721A003982FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46A1F87D231D721A003982FA /* Assets.xcassets */; };
-		46A1F88B231D7596003982FA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46A1F88A231D7596003982FA /* main.cpp */; };
+		46D0E6B023663B8100F32578 /* main_E64-I.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46D0E6AF23663B8100F32578 /* main_E64-I.cpp */; };
+		46D0E6B223663BC000F32578 /* main_E64-II.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46D0E6B123663BC000F32578 /* main_E64-II.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -155,7 +155,8 @@
 		46A1F878231D7218003982FA /* E64.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = E64.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46A1F87D231D721A003982FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		46A1F882231D721A003982FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		46A1F88A231D7596003982FA /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../../src/main.cpp; sourceTree = "<group>"; };
+		46D0E6AF23663B8100F32578 /* main_E64-I.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "main_E64-I.cpp"; path = "../../../src/E64-I/main_E64-I.cpp"; sourceTree = "<group>"; };
+		46D0E6B123663BC000F32578 /* main_E64-II.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "main_E64-II.cpp"; path = "../../../src/E64-II/main_E64-II.cpp"; sourceTree = "<group>"; };
 		46F5DE3A234A2BAA0053A401 /* E64 copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "E64 copy-Info.plist"; path = "/Users/elmer/Desktop/E64/macOS/E64/E64 copy-Info.plist"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -313,6 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				469EBBB6234FB32D00028136 /* devices */,
+				46D0E6AF23663B8100F32578 /* main_E64-I.cpp */,
 			);
 			name = "E64-I";
 			sourceTree = "<group>";
@@ -321,6 +323,7 @@
 			isa = PBXGroup;
 			children = (
 				469EBBB7234FB33700028136 /* devices */,
+				46D0E6B123663BC000F32578 /* main_E64-II.cpp */,
 			);
 			name = "E64-II";
 			sourceTree = "<group>";
@@ -388,7 +391,6 @@
 				46241B0C232443F200569490 /* frequency_divider.cpp */,
 				46241B08232443F100569490 /* machine.hpp */,
 				46241B07232443F100569490 /* machine.cpp */,
-				46A1F88A231D7596003982FA /* main.cpp */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -540,7 +542,6 @@
 			files = (
 				469EBBBA234FB36B00028136 /* frequency_divider.cpp in Sources */,
 				469EBBBB234FB36B00028136 /* sdl2_pid_delay.cpp in Sources */,
-				469EBBBC234FB36B00028136 /* main.cpp in Sources */,
 				469EBBBD234FB36B00028136 /* filter.cc in Sources */,
 				469EBBBE234FB36B00028136 /* version.cc in Sources */,
 				469EBBBF234FB36B00028136 /* voice.cc in Sources */,
@@ -557,6 +558,7 @@
 				469EBBCD234FB36B00028136 /* timer.cpp in Sources */,
 				469EBBCE234FB36B00028136 /* wave6581_PS_.cc in Sources */,
 				469EBBCF234FB36B00028136 /* wave8580_PS_.cc in Sources */,
+				46D0E6B223663BC000F32578 /* main_E64-II.cpp in Sources */,
 				469EBBD0234FB36B00028136 /* pot.cc in Sources */,
 				469EBBD1234FB36B00028136 /* wave.cc in Sources */,
 				469EBBD3234FB36B00028136 /* sid.cc in Sources */,
@@ -579,11 +581,11 @@
 			files = (
 				46241B10232443F200569490 /* frequency_divider.cpp in Sources */,
 				46241AB62324422200569490 /* sdl2_pid_delay.cpp in Sources */,
-				46A1F88B231D7596003982FA /* main.cpp in Sources */,
 				4686D70A232D7735002BD2D9 /* filter.cc in Sources */,
 				4686D712232D7735002BD2D9 /* version.cc in Sources */,
 				46723D3D2365E428007ADDC2 /* exception_collector.cpp in Sources */,
 				4686D70C232D7735002BD2D9 /* voice.cc in Sources */,
+				46D0E6B023663B8100F32578 /* main_E64-I.cpp in Sources */,
 				4686D717232D7735002BD2D9 /* extfilt.cc in Sources */,
 				4686D70B232D7735002BD2D9 /* wave6581__ST.cc in Sources */,
 				46723D332365E397007ADDC2 /* SN74LS612.cpp in Sources */,

@@ -28,4 +28,4 @@ namespace E64 {
     };
 }
 
-#endif /* frequency_divider_hpp */
+#endif
