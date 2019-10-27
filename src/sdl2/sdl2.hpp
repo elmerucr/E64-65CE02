@@ -26,6 +26,7 @@ namespace E64
     // window management
     void sdl2_update_screen(void);
     void sdl2_update_title(void);
+    void sdl2_reset_window_size(void);
     void sdl2_increase_window_size(void);
     void sdl2_decrease_window_size(void);
     void sdl2_toggle_fullscreen(void);

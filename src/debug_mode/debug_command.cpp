@@ -92,6 +92,7 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     {
         E64::sdl2_wait_until_enter_released();
         computer.switch_to_running();
+        cpu_ic.force_next_instruction = true;
     }
     else if( strcmp(token0, "clear") == 0 )
     {
@@ -266,7 +267,7 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     {
         if(token1 == NULL)
         {
-            debug_console_print("error: missing argument + or -\n");
+            E64::sdl2_reset_window_size();
         }
         else if( strcmp(token1, "+") == 0 )
         {
@@ -369,6 +370,7 @@ uint32_t E64::debug_command_hex_string_to_int(const char *temp_string)
 
 void E64::debug_command_single_step_cpu()
 {
+    cpu_ic.force_next_instruction = true;
     E64::machine_run(0);
     computer.exception_collector_ic->update_status();
 }

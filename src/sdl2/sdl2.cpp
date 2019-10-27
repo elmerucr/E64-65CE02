@@ -84,11 +84,11 @@ void E64::sdl2_init()
     context0.current_window_size = 2;
     context0.fullscreen = false;
     // create window - title will be set later by function E64::sdl2_update_title()
-    context0.window = SDL_CreateWindow("", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_sizes[context0.current_window_size].x, window_sizes[context0.current_window_size].y, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    context0.window = SDL_CreateWindow("", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_sizes[context0.current_window_size].x, window_sizes[context0.current_window_size].y, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
     // create renderer and link it to window
     context0.renderer = SDL_CreateRenderer(context0.window, -1, SDL_RENDERER_ACCELERATED);
     // suggest to make the scaled rendering look smoother
-    //SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
+    //SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
     // set logical size
     SDL_RenderSetLogicalSize(context0.renderer, VICV_PIXELS_PER_SCANLINE, 320);
     // create a texture that is able to refresh very frequently
@@ -138,6 +138,12 @@ void E64::sdl2_init()
     printf("channels\t%d\t\t%d\n", want.channels, have.channels);
     printf("samples\t\t%d\t\t%d\n", want.samples, have.samples);
     audio_running = false;
+}
+
+void E64::sdl2_reset_window_size()
+{
+    SDL_SetWindowSize(context0.window, window_sizes[context0.current_window_size].x, window_sizes[context0.current_window_size].y);
+    SDL_SetWindowPosition(context0.window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 }
 
 void E64::sdl2_increase_window_size()
@@ -191,6 +197,7 @@ int E64::sdl2_process_events()
                 {
                     E64::sdl2_wait_until_f9_released();
                     computer.switch_mode();
+                    cpu_ic.force_next_instruction = true;
                 }
                 else if(computer.current_mode == NORMAL_MODE)
                 {
@@ -383,6 +390,12 @@ int E64::sdl2_process_events()
                     }
                 }
                 return_value = KEYPRESS_EVENT;
+                break;
+            case SDL_WINDOWEVENT:
+                if(event.window.event == SDL_WINDOWEVENT_RESIZED)
+                {
+                    printf("[SDL] window resize event\n");
+                }
                 break;
             case SDL_QUIT:
                 return_value = QUIT_EVENT;

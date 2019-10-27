@@ -15,17 +15,17 @@
 		46241AB72324422200569490 /* sdl2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AB52324422200569490 /* sdl2.cpp */; };
 		46241ABB2324425300569490 /* kernel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AB92324425300569490 /* kernel.cpp */; };
 		46241ABC2324425300569490 /* patched_char_rom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241ABA2324425300569490 /* patched_char_rom.cpp */; };
-		46241AC42324429200569490 /* exception_collector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241ABF2324429100569490 /* exception_collector.cpp */; };
-		46241AC52324429200569490 /* csg65ce02_dasm.c in Sources */ = {isa = PBXBuildFile; fileRef = 46241AC22324429200569490 /* csg65ce02_dasm.c */; };
-		46241AC62324429200569490 /* csg65ce02.c in Sources */ = {isa = PBXBuildFile; fileRef = 46241AC32324429200569490 /* csg65ce02.c */; };
-		46241ACB232442AC00569490 /* mmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AC9232442AC00569490 /* mmu.cpp */; };
-		46241ACC232442AC00569490 /* SN74LS612.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241ACA232442AC00569490 /* SN74LS612.cpp */; };
 		46241AFE2324438D00569490 /* vicv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AFD2324438D00569490 /* vicv.cpp */; };
 		46241B03232443A600569490 /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AFF232443A500569490 /* timer.cpp */; };
 		46241B04232443A600569490 /* cia.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241B00232443A500569490 /* cia.cpp */; };
 		46241B0D232443F200569490 /* common_defs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241B05232443F100569490 /* common_defs.cpp */; };
 		46241B0F232443F200569490 /* machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241B07232443F100569490 /* machine.cpp */; };
 		46241B10232443F200569490 /* frequency_divider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241B0C232443F200569490 /* frequency_divider.cpp */; };
+		46723D332365E397007ADDC2 /* SN74LS612.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46723D2F2365E397007ADDC2 /* SN74LS612.cpp */; };
+		46723D342365E397007ADDC2 /* mmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46723D312365E397007ADDC2 /* mmu.cpp */; };
+		46723D392365E3DB007ADDC2 /* csg65ce02.c in Sources */ = {isa = PBXBuildFile; fileRef = 46723D362365E3DB007ADDC2 /* csg65ce02.c */; };
+		46723D3A2365E3DB007ADDC2 /* csg65ce02_dasm.c in Sources */ = {isa = PBXBuildFile; fileRef = 46723D372365E3DB007ADDC2 /* csg65ce02_dasm.c */; };
+		46723D3D2365E428007ADDC2 /* exception_collector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46723D3C2365E428007ADDC2 /* exception_collector.cpp */; };
 		4686D6EF232D7706002BD2D9 /* sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6EE232D7706002BD2D9 /* sound.cpp */; };
 		4686D709232D7735002BD2D9 /* wave.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6F2232D7734002BD2D9 /* wave.cc */; };
 		4686D70A232D7735002BD2D9 /* filter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6F3232D7734002BD2D9 /* filter.cc */; };
@@ -52,13 +52,10 @@
 		469EBBBE234FB36B00028136 /* version.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6FE232D7735002BD2D9 /* version.cc */; };
 		469EBBBF234FB36B00028136 /* voice.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6F7232D7734002BD2D9 /* voice.cc */; };
 		469EBBC0234FB36B00028136 /* extfilt.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D707232D7735002BD2D9 /* extfilt.cc */; };
-		469EBBC1234FB36B00028136 /* SN74LS612.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241ACA232442AC00569490 /* SN74LS612.cpp */; };
 		469EBBC2234FB36B00028136 /* wave6581__ST.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6F6232D7734002BD2D9 /* wave6581__ST.cc */; };
-		469EBBC3234FB36B00028136 /* csg65ce02_dasm.c in Sources */ = {isa = PBXBuildFile; fileRef = 46241AC22324429200569490 /* csg65ce02_dasm.c */; };
 		469EBBC4234FB36B00028136 /* wave6581_P_T.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D708232D7735002BD2D9 /* wave6581_P_T.cc */; };
 		469EBBC5234FB36B00028136 /* wave8580__ST.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6FD232D7735002BD2D9 /* wave8580__ST.cc */; };
 		469EBBC6234FB36B00028136 /* sdl2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AB52324422200569490 /* sdl2.cpp */; };
-		469EBBC7234FB36B00028136 /* exception_collector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241ABF2324429100569490 /* exception_collector.cpp */; };
 		469EBBC8234FB36B00028136 /* wave6581_PST.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6F8232D7734002BD2D9 /* wave6581_PST.cc */; };
 		469EBBC9234FB36B00028136 /* cia.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241B00232443A500569490 /* cia.cpp */; };
 		469EBBCA234FB36B00028136 /* envelope.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D704232D7735002BD2D9 /* envelope.cc */; };
@@ -69,7 +66,6 @@
 		469EBBCF234FB36B00028136 /* wave8580_PS_.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6FB232D7734002BD2D9 /* wave8580_PS_.cc */; };
 		469EBBD0234FB36B00028136 /* pot.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D705232D7735002BD2D9 /* pot.cc */; };
 		469EBBD1234FB36B00028136 /* wave.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6F2232D7734002BD2D9 /* wave.cc */; };
-		469EBBD2234FB36B00028136 /* csg65ce02.c in Sources */ = {isa = PBXBuildFile; fileRef = 46241AC32324429200569490 /* csg65ce02.c */; };
 		469EBBD3234FB36B00028136 /* sid.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6F9232D7734002BD2D9 /* sid.cc */; };
 		469EBBD4234FB36B00028136 /* machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241B07232443F100569490 /* machine.cpp */; };
 		469EBBD5234FB36B00028136 /* vicv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AFD2324438D00569490 /* vicv.cpp */; };
@@ -79,7 +75,6 @@
 		469EBBD9234FB36B00028136 /* debug_status_bar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AA22324418400569490 /* debug_status_bar.cpp */; };
 		469EBBDA234FB36B00028136 /* wave8580_P_T.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6FA232D7734002BD2D9 /* wave8580_P_T.cc */; };
 		469EBBDB234FB36B00028136 /* sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4686D6EE232D7706002BD2D9 /* sound.cpp */; };
-		469EBBDC234FB36B00028136 /* mmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AC9232442AC00569490 /* mmu.cpp */; };
 		469EBBDD234FB36B00028136 /* debug_command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AA92324418400569490 /* debug_command.cpp */; };
 		469EBBDE234FB36B00028136 /* debug_console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46241AA72324418400569490 /* debug_console.cpp */; };
 		469EBBE0234FB36B00028136 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469BDFF3231D9FEC00868BBE /* SDL2.framework */; };
@@ -104,16 +99,6 @@
 		46241AB52324422200569490 /* sdl2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sdl2.cpp; path = ../../../src/sdl2/sdl2.cpp; sourceTree = "<group>"; };
 		46241AB92324425300569490 /* kernel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = kernel.cpp; path = ../../../src/devices/roms/kernel/kernel.cpp; sourceTree = "<group>"; };
 		46241ABA2324425300569490 /* patched_char_rom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = patched_char_rom.cpp; path = ../../../src/devices/roms/patched_char_rom.cpp; sourceTree = "<group>"; };
-		46241ABD2324429100569490 /* csg65ce02.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = csg65ce02.h; path = ../../../src/devices/cpu/csg65ce02.h; sourceTree = "<group>"; };
-		46241ABE2324429100569490 /* csg65ce02_dasm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = csg65ce02_dasm.h; path = ../../../src/devices/cpu/csg65ce02_dasm.h; sourceTree = "<group>"; };
-		46241ABF2324429100569490 /* exception_collector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = exception_collector.cpp; path = ../../../src/devices/cpu/exception_collector.cpp; sourceTree = "<group>"; };
-		46241AC12324429100569490 /* exception_collector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = exception_collector.hpp; path = ../../../src/devices/cpu/exception_collector.hpp; sourceTree = "<group>"; };
-		46241AC22324429200569490 /* csg65ce02_dasm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = csg65ce02_dasm.c; path = ../../../src/devices/cpu/csg65ce02_dasm.c; sourceTree = "<group>"; };
-		46241AC32324429200569490 /* csg65ce02.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = csg65ce02.c; path = ../../../src/devices/cpu/csg65ce02.c; sourceTree = "<group>"; };
-		46241AC7232442AC00569490 /* SN74LS612.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SN74LS612.hpp; path = ../../../src/devices/mmu/SN74LS612.hpp; sourceTree = "<group>"; };
-		46241AC8232442AC00569490 /* mmu.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = mmu.hpp; path = ../../../src/devices/mmu/mmu.hpp; sourceTree = "<group>"; };
-		46241AC9232442AC00569490 /* mmu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mmu.cpp; path = ../../../src/devices/mmu/mmu.cpp; sourceTree = "<group>"; };
-		46241ACA232442AC00569490 /* SN74LS612.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SN74LS612.cpp; path = ../../../src/devices/mmu/SN74LS612.cpp; sourceTree = "<group>"; };
 		46241AFC2324438C00569490 /* vicv.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = vicv.hpp; path = ../../../src/devices/vicv/vicv.hpp; sourceTree = "<group>"; };
 		46241AFD2324438D00569490 /* vicv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vicv.cpp; path = ../../../src/devices/vicv/vicv.cpp; sourceTree = "<group>"; };
 		46241AFF232443A500569490 /* timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = timer.cpp; path = ../../../src/devices/timer.cpp; sourceTree = "<group>"; };
@@ -127,6 +112,16 @@
 		46241B0B232443F200569490 /* common_defs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = common_defs.hpp; path = ../../../src/common_defs.hpp; sourceTree = "<group>"; };
 		46241B0C232443F200569490 /* frequency_divider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = frequency_divider.cpp; path = ../../../src/frequency_divider.cpp; sourceTree = "<group>"; };
 		46241B11232444A000569490 /* log.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = log.txt; path = ../../../log.txt; sourceTree = "<group>"; };
+		46723D2F2365E397007ADDC2 /* SN74LS612.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SN74LS612.cpp; path = "../../../src/E64-I/devices/mmu/SN74LS612.cpp"; sourceTree = "<group>"; };
+		46723D302365E397007ADDC2 /* SN74LS612.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SN74LS612.hpp; path = "../../../src/E64-I/devices/mmu/SN74LS612.hpp"; sourceTree = "<group>"; };
+		46723D312365E397007ADDC2 /* mmu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mmu.cpp; path = "../../../src/E64-I/devices/mmu/mmu.cpp"; sourceTree = "<group>"; };
+		46723D322365E397007ADDC2 /* mmu.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = mmu.hpp; path = "../../../src/E64-I/devices/mmu/mmu.hpp"; sourceTree = "<group>"; };
+		46723D352365E3DB007ADDC2 /* csg65ce02.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = csg65ce02.h; path = "../../../src/E64-I/devices/cpu/csg65ce02.h"; sourceTree = "<group>"; };
+		46723D362365E3DB007ADDC2 /* csg65ce02.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = csg65ce02.c; path = "../../../src/E64-I/devices/cpu/csg65ce02.c"; sourceTree = "<group>"; };
+		46723D372365E3DB007ADDC2 /* csg65ce02_dasm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = csg65ce02_dasm.c; path = "../../../src/E64-I/devices/cpu/csg65ce02_dasm.c"; sourceTree = "<group>"; };
+		46723D382365E3DB007ADDC2 /* csg65ce02_dasm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = csg65ce02_dasm.h; path = "../../../src/E64-I/devices/cpu/csg65ce02_dasm.h"; sourceTree = "<group>"; };
+		46723D3B2365E428007ADDC2 /* exception_collector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = exception_collector.hpp; path = "../../../src/E64-I/devices/cpu/exception_collector.hpp"; sourceTree = "<group>"; };
+		46723D3C2365E428007ADDC2 /* exception_collector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = exception_collector.cpp; path = "../../../src/E64-I/devices/cpu/exception_collector.cpp"; sourceTree = "<group>"; };
 		4686D6ED232D7706002BD2D9 /* sound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = sound.hpp; path = ../../../src/devices/sound/sound.hpp; sourceTree = "<group>"; };
 		4686D6EE232D7706002BD2D9 /* sound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sound.cpp; path = ../../../src/devices/sound/sound.cpp; sourceTree = "<group>"; };
 		4686D6F0232D7734002BD2D9 /* envelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = envelope.h; path = "../../../src/devices/sound/resid-0.16/envelope.h"; sourceTree = "<group>"; };
@@ -300,11 +295,24 @@
 			name = timer;
 			sourceTree = "<group>";
 		};
+		46723D3E2365E46D007ADDC2 /* Musashi */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Musashi;
+			sourceTree = "<group>";
+		};
+		46723D3F2365E66B007ADDC2 /* mmu */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = mmu;
+			sourceTree = "<group>";
+		};
 		469EBBB4234FB2F800028136 /* E64-I */ = {
 			isa = PBXGroup;
 			children = (
 				469EBBB6234FB32D00028136 /* devices */,
-				46ED0029234FBE8C00B43B56 /* mmu */,
 			);
 			name = "E64-I";
 			sourceTree = "<group>";
@@ -321,6 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				46ED0026234FBCBD00B43B56 /* cpu */,
+				46ED0029234FBE8C00B43B56 /* mmu */,
 			);
 			name = devices;
 			sourceTree = "<group>";
@@ -329,6 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				46ED0027234FBD8E00B43B56 /* cpu */,
+				46723D3F2365E66B007ADDC2 /* mmu */,
 			);
 			name = devices;
 			sourceTree = "<group>";
@@ -395,8 +405,8 @@
 			isa = PBXGroup;
 			children = (
 				46ED0028234FBDF800B43B56 /* lib65ce02 */,
-				46241AC12324429100569490 /* exception_collector.hpp */,
-				46241ABF2324429100569490 /* exception_collector.cpp */,
+				46723D3B2365E428007ADDC2 /* exception_collector.hpp */,
+				46723D3C2365E428007ADDC2 /* exception_collector.cpp */,
 			);
 			name = cpu;
 			sourceTree = "<group>";
@@ -404,6 +414,7 @@
 		46ED0027234FBD8E00B43B56 /* cpu */ = {
 			isa = PBXGroup;
 			children = (
+				46723D3E2365E46D007ADDC2 /* Musashi */,
 			);
 			name = cpu;
 			sourceTree = "<group>";
@@ -411,10 +422,10 @@
 		46ED0028234FBDF800B43B56 /* lib65ce02 */ = {
 			isa = PBXGroup;
 			children = (
-				46241ABD2324429100569490 /* csg65ce02.h */,
-				46241AC32324429200569490 /* csg65ce02.c */,
-				46241ABE2324429100569490 /* csg65ce02_dasm.h */,
-				46241AC22324429200569490 /* csg65ce02_dasm.c */,
+				46723D372365E3DB007ADDC2 /* csg65ce02_dasm.c */,
+				46723D382365E3DB007ADDC2 /* csg65ce02_dasm.h */,
+				46723D362365E3DB007ADDC2 /* csg65ce02.c */,
+				46723D352365E3DB007ADDC2 /* csg65ce02.h */,
 			);
 			name = lib65ce02;
 			sourceTree = "<group>";
@@ -422,10 +433,10 @@
 		46ED0029234FBE8C00B43B56 /* mmu */ = {
 			isa = PBXGroup;
 			children = (
-				46241AC8232442AC00569490 /* mmu.hpp */,
-				46241AC9232442AC00569490 /* mmu.cpp */,
-				46241AC7232442AC00569490 /* SN74LS612.hpp */,
-				46241ACA232442AC00569490 /* SN74LS612.cpp */,
+				46723D312365E397007ADDC2 /* mmu.cpp */,
+				46723D322365E397007ADDC2 /* mmu.hpp */,
+				46723D2F2365E397007ADDC2 /* SN74LS612.cpp */,
+				46723D302365E397007ADDC2 /* SN74LS612.hpp */,
 			);
 			name = mmu;
 			sourceTree = "<group>";
@@ -534,13 +545,10 @@
 				469EBBBE234FB36B00028136 /* version.cc in Sources */,
 				469EBBBF234FB36B00028136 /* voice.cc in Sources */,
 				469EBBC0234FB36B00028136 /* extfilt.cc in Sources */,
-				469EBBC1234FB36B00028136 /* SN74LS612.cpp in Sources */,
 				469EBBC2234FB36B00028136 /* wave6581__ST.cc in Sources */,
-				469EBBC3234FB36B00028136 /* csg65ce02_dasm.c in Sources */,
 				469EBBC4234FB36B00028136 /* wave6581_P_T.cc in Sources */,
 				469EBBC5234FB36B00028136 /* wave8580__ST.cc in Sources */,
 				469EBBC6234FB36B00028136 /* sdl2.cpp in Sources */,
-				469EBBC7234FB36B00028136 /* exception_collector.cpp in Sources */,
 				469EBBC8234FB36B00028136 /* wave6581_PST.cc in Sources */,
 				469EBBC9234FB36B00028136 /* cia.cpp in Sources */,
 				469EBBCA234FB36B00028136 /* envelope.cc in Sources */,
@@ -551,7 +559,6 @@
 				469EBBCF234FB36B00028136 /* wave8580_PS_.cc in Sources */,
 				469EBBD0234FB36B00028136 /* pot.cc in Sources */,
 				469EBBD1234FB36B00028136 /* wave.cc in Sources */,
-				469EBBD2234FB36B00028136 /* csg65ce02.c in Sources */,
 				469EBBD3234FB36B00028136 /* sid.cc in Sources */,
 				469EBBD4234FB36B00028136 /* machine.cpp in Sources */,
 				469EBBD5234FB36B00028136 /* vicv.cpp in Sources */,
@@ -561,7 +568,6 @@
 				469EBBD9234FB36B00028136 /* debug_status_bar.cpp in Sources */,
 				469EBBDA234FB36B00028136 /* wave8580_P_T.cc in Sources */,
 				469EBBDB234FB36B00028136 /* sound.cpp in Sources */,
-				469EBBDC234FB36B00028136 /* mmu.cpp in Sources */,
 				469EBBDD234FB36B00028136 /* debug_command.cpp in Sources */,
 				469EBBDE234FB36B00028136 /* debug_console.cpp in Sources */,
 			);
@@ -576,17 +582,18 @@
 				46A1F88B231D7596003982FA /* main.cpp in Sources */,
 				4686D70A232D7735002BD2D9 /* filter.cc in Sources */,
 				4686D712232D7735002BD2D9 /* version.cc in Sources */,
+				46723D3D2365E428007ADDC2 /* exception_collector.cpp in Sources */,
 				4686D70C232D7735002BD2D9 /* voice.cc in Sources */,
 				4686D717232D7735002BD2D9 /* extfilt.cc in Sources */,
-				46241ACC232442AC00569490 /* SN74LS612.cpp in Sources */,
 				4686D70B232D7735002BD2D9 /* wave6581__ST.cc in Sources */,
-				46241AC52324429200569490 /* csg65ce02_dasm.c in Sources */,
+				46723D332365E397007ADDC2 /* SN74LS612.cpp in Sources */,
 				4686D718232D7735002BD2D9 /* wave6581_P_T.cc in Sources */,
 				4686D711232D7735002BD2D9 /* wave8580__ST.cc in Sources */,
+				46723D342365E397007ADDC2 /* mmu.cpp in Sources */,
 				46241AB72324422200569490 /* sdl2.cpp in Sources */,
-				46241AC42324429200569490 /* exception_collector.cpp in Sources */,
 				4686D70D232D7735002BD2D9 /* wave6581_PST.cc in Sources */,
 				46241B04232443A600569490 /* cia.cpp in Sources */,
+				46723D3A2365E3DB007ADDC2 /* csg65ce02_dasm.c in Sources */,
 				4686D714232D7735002BD2D9 /* envelope.cc in Sources */,
 				46241AAB2324418400569490 /* debug_screen.cpp in Sources */,
 				46241B0D232443F200569490 /* common_defs.cpp in Sources */,
@@ -595,17 +602,16 @@
 				4686D710232D7735002BD2D9 /* wave8580_PS_.cc in Sources */,
 				4686D715232D7735002BD2D9 /* pot.cc in Sources */,
 				4686D709232D7735002BD2D9 /* wave.cc in Sources */,
-				46241AC62324429200569490 /* csg65ce02.c in Sources */,
 				4686D70E232D7735002BD2D9 /* sid.cc in Sources */,
 				46241B0F232443F200569490 /* machine.cpp in Sources */,
 				46241AFE2324438D00569490 /* vicv.cpp in Sources */,
 				46241ABB2324425300569490 /* kernel.cpp in Sources */,
 				4686D713232D7735002BD2D9 /* wave8580_PST.cc in Sources */,
 				46241ABC2324425300569490 /* patched_char_rom.cpp in Sources */,
+				46723D392365E3DB007ADDC2 /* csg65ce02.c in Sources */,
 				46241AAA2324418400569490 /* debug_status_bar.cpp in Sources */,
 				4686D70F232D7735002BD2D9 /* wave8580_P_T.cc in Sources */,
 				4686D6EF232D7706002BD2D9 /* sound.cpp in Sources */,
-				46241ACB232442AC00569490 /* mmu.cpp in Sources */,
 				46241AAD2324418400569490 /* debug_command.cpp in Sources */,
 				46241AAC2324418400569490 /* debug_console.cpp in Sources */,
 			);
