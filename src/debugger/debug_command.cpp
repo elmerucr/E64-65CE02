@@ -122,8 +122,8 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     {
         if(token1 == NULL)
         {
-            debug_console_print("Debug Mode                      Running Mode\n");
-            debug_console_print("==========                      ============\n");
+            debug_console_print("Debugger                        Running Mode\n");
+            debug_console_print("========                        ============\n");
             debug_console_print("F1    next cpu instruction      F9    switch mode\n");
             debug_console_print("b     cpu breakpoints           F10   toggle runtime stats\n");
             debug_console_print("c     continue execution\n");

@@ -52,7 +52,7 @@ void debug_console_version()
 
 void debug_console_welcome()
 {
-    debug_console_print("Debug Mode - type <help> for more information");
+    debug_console_print("Debugger - type <help> for more information");
 }
 
 void debug_console_add_row_if_necessary()

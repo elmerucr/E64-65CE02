@@ -503,7 +503,7 @@ void E64::sdl2_update_title(void)
             SDL_SetWindowTitle(context0.window, "E64");
             break;
         case DEBUG_MODE:
-            SDL_SetWindowTitle(context0.window, "E64 debug mode");
+            SDL_SetWindowTitle(context0.window, "E64 debugger");
             break;
     }
 }
