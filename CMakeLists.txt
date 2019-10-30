@@ -37,4 +37,4 @@ add_executable(
     src/shared/frequency_divider.cpp
     src/shared/machine.cpp)
 
-target_link_libraries(E64 cia cpu debugger E64_sdl2 mmu resid roms sound timer vicv ${SDL2_LIBRARIES})
+target_link_libraries(E64 char_rom cia cpu debugger E64_sdl2 kernel mmu resid sound timer vicv ${SDL2_LIBRARIES})
