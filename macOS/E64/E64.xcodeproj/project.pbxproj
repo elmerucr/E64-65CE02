@@ -15,8 +15,6 @@
 		46050A45236981B40073A85F /* frequency_divider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A3F236981B40073A85F /* frequency_divider.cpp */; };
 		46050A482369822B0073A85F /* cia.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A462369822B0073A85F /* cia.cpp */; };
 		46050A492369822B0073A85F /* cia.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A462369822B0073A85F /* cia.cpp */; };
-		46050A4B2369831B0073A85F /* patched_char_rom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A4A2369831B0073A85F /* patched_char_rom.cpp */; };
-		46050A4C2369831B0073A85F /* patched_char_rom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A4A2369831B0073A85F /* patched_char_rom.cpp */; };
 		46050A502369837B0073A85F /* kernel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A4F2369837B0073A85F /* kernel.cpp */; };
 		46050A6A236983B40073A85F /* wave8580_PS_.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46050A52236983B30073A85F /* wave8580_PS_.cc */; };
 		46050A6B236983B40073A85F /* wave8580_PS_.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46050A52236983B30073A85F /* wave8580_PS_.cc */; };
@@ -79,6 +77,7 @@
 		469EBBE2234FB36B00028136 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46A1F87D231D721A003982FA /* Assets.xcassets */; };
 		469EBBE3234FB36B00028136 /* SDL2.framework in Resources */ = {isa = PBXBuildFile; fileRef = 469BDFF3231D9FEC00868BBE /* SDL2.framework */; };
 		46A1F87E231D721A003982FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46A1F87D231D721A003982FA /* Assets.xcassets */; };
+		46C069E923699BA600B1DCB4 /* patched_char_rom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46C069E823699BA600B1DCB4 /* patched_char_rom.cpp */; };
 		46D0E6B023663B8100F32578 /* main_E64-I.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46D0E6AF23663B8100F32578 /* main_E64-I.cpp */; };
 		46D0E6B223663BC000F32578 /* main_E64-II.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46D0E6B123663BC000F32578 /* main_E64-II.cpp */; };
 /* End PBXBuildFile section */
@@ -92,7 +91,6 @@
 		46050A3F236981B40073A85F /* frequency_divider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = frequency_divider.cpp; path = ../../../src/shared/frequency_divider.cpp; sourceTree = "<group>"; };
 		46050A462369822B0073A85F /* cia.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cia.cpp; path = ../../../src/shared/devices/cia/cia.cpp; sourceTree = "<group>"; };
 		46050A472369822B0073A85F /* cia.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = cia.hpp; path = ../../../src/shared/devices/cia/cia.hpp; sourceTree = "<group>"; };
-		46050A4A2369831B0073A85F /* patched_char_rom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = patched_char_rom.cpp; path = ../../../src/shared/devices/rom/patched_char_rom.cpp; sourceTree = "<group>"; };
 		46050A4F2369837B0073A85F /* kernel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = kernel.cpp; path = "../../../src/E64-I/devices/rom/kernel/kernel.cpp"; sourceTree = "<group>"; };
 		46050A51236983B30073A85F /* pot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pot.h; path = "../../../src/shared/devices/sound/resid-0.16/pot.h"; sourceTree = "<group>"; };
 		46050A52236983B30073A85F /* wave8580_PS_.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wave8580_PS_.cc; path = "../../../src/shared/devices/sound/resid-0.16/wave8580_PS_.cc"; sourceTree = "<group>"; };
@@ -154,6 +152,7 @@
 		46A1F878231D7218003982FA /* E64.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = E64.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46A1F87D231D721A003982FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		46A1F882231D721A003982FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		46C069E823699BA600B1DCB4 /* patched_char_rom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = patched_char_rom.cpp; path = ../../../src/shared/devices/char_rom/patched_char_rom.cpp; sourceTree = "<group>"; };
 		46D0E6AF23663B8100F32578 /* main_E64-I.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "main_E64-I.cpp"; path = "../../../src/E64-I/main_E64-I.cpp"; sourceTree = "<group>"; };
 		46D0E6B123663BC000F32578 /* main_E64-II.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "main_E64-II.cpp"; path = "../../../src/E64-II/main_E64-II.cpp"; sourceTree = "<group>"; };
 		46F5DE3A234A2BAA0053A401 /* E64 copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "E64 copy-Info.plist"; path = "/Users/elmer/Desktop/E64/macOS/E64/E64 copy-Info.plist"; sourceTree = "<absolute>"; };
@@ -213,8 +212,8 @@
 		46241AAE232441E000569490 /* devices */ = {
 			isa = PBXGroup;
 			children = (
+				46241AB82324423400569490 /* char_rom */,
 				462600B72337FAFB00A4ED6D /* cia */,
-				46241AB82324423400569490 /* rom */,
 				46241ACD232442B900569490 /* sound */,
 				462600B82337FB2100A4ED6D /* timer */,
 				46241ACE232442BF00569490 /* vicv */,
@@ -233,12 +232,12 @@
 			name = sdl2;
 			sourceTree = "<group>";
 		};
-		46241AB82324423400569490 /* rom */ = {
+		46241AB82324423400569490 /* char_rom */ = {
 			isa = PBXGroup;
 			children = (
-				46050A4A2369831B0073A85F /* patched_char_rom.cpp */,
+				46C069E823699BA600B1DCB4 /* patched_char_rom.cpp */,
 			);
-			name = rom;
+			name = char_rom;
 			sourceTree = "<group>";
 		};
 		46241ACD232442B900569490 /* sound */ = {
@@ -565,7 +564,6 @@
 				46050A7D236983B40073A85F /* extfilt.cc in Sources */,
 				4626B0D72368E8C4003C56F8 /* debug_screen.cpp in Sources */,
 				46050A87236983B40073A85F /* sid.cc in Sources */,
-				46050A4C2369831B0073A85F /* patched_char_rom.cpp in Sources */,
 				46050A81236983B40073A85F /* wave6581__ST.cc in Sources */,
 				46050A89236983B40073A85F /* version.cc in Sources */,
 				46050A43236981B40073A85F /* machine.cpp in Sources */,
@@ -624,8 +622,8 @@
 				46723D392365E3DB007ADDC2 /* csg65ce02.c in Sources */,
 				46050A44236981B40073A85F /* frequency_divider.cpp in Sources */,
 				46050A72236983B40073A85F /* wave.cc in Sources */,
+				46C069E923699BA600B1DCB4 /* patched_char_rom.cpp in Sources */,
 				46050A9A236984270073A85F /* sdl2_pid_delay.cpp in Sources */,
-				46050A4B2369831B0073A85F /* patched_char_rom.cpp in Sources */,
 				46050A42236981B40073A85F /* machine.cpp in Sources */,
 				46050A88236983B40073A85F /* version.cc in Sources */,
 				46050A80236983B40073A85F /* wave6581__ST.cc in Sources */,
