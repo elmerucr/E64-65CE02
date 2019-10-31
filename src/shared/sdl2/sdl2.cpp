@@ -197,13 +197,13 @@ int E64::sdl2_process_events()
                 {
                     E64::sdl2_wait_until_f9_released();
                     computer.switch_mode();
-                    cpu_ic.force_next_instruction = true;
+                    computer.cpu_ic->force_next_instruction = true;
                 }
                 else if(computer.current_mode == NORMAL_MODE)
                 {
                     if(event.key.keysym.sym == SDLK_F10)
                     {
-                        vicv_ic.toggle_overlay();
+                        computer.vicv_ic->toggle_overlay();
                     }
                 }
                 else if(computer.current_mode == DEBUG_MODE)
@@ -485,7 +485,7 @@ void E64::sdl2_update_screen()
     switch(computer.current_mode)
     {
         case NORMAL_MODE:
-            SDL_UpdateTexture(context0.texture, NULL, vicv_ic.front_buffer, VICV_PIXELS_PER_SCANLINE * sizeof(uint32_t));
+            SDL_UpdateTexture(context0.texture, NULL, computer.vicv_ic->front_buffer, VICV_PIXELS_PER_SCANLINE * sizeof(uint32_t));
             break;
         case DEBUG_MODE:
             SDL_UpdateTexture(context0.texture, NULL, debug_screen_buffer, VICV_PIXELS_PER_SCANLINE * sizeof(uint32_t));

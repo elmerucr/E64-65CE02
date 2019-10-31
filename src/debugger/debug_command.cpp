@@ -34,7 +34,7 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     {
         if(token1 == NULL)
         {
-            if( cpu_ic.breakpoints_active )
+            if( computer.cpu_ic->breakpoints_active )
             {
                 debug_console_print("system responds to breakpoints\n");
             }
@@ -45,7 +45,7 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
             int count = 0;
             for(int i = 0; i<65536; i++)
             {
-                if( cpu_ic.breakpoint_array[i] == true )
+                if( computer.cpu_ic->breakpoint_array[i] == true )
                 {
                     count++;
                     snprintf(c256_string2, 256, "$%04x\n", i);
@@ -56,26 +56,26 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
         }
         else if( strcmp(token1, "on") == 0)
         {
-            csg65ce02_enable_breakpoints(&cpu_ic);
+            csg65ce02_enable_breakpoints(computer.cpu_ic);
         }
         else if( strcmp(token1, "off") == 0)
         {
-            csg65ce02_disable_breakpoints(&cpu_ic);
+            csg65ce02_disable_breakpoints(computer.cpu_ic);
         }
         else if( strlen(token1) == 4)
         {
             uint16_t temp_16bit = debug_command_hex_string_to_int(token1);
-            if( cpu_ic.breakpoint_array[temp_16bit] )
+            if( computer.cpu_ic->breakpoint_array[temp_16bit] )
             {
                 snprintf(c256_string2, 256, "breakpoint at $%04x removed\n", temp_16bit);
                 debug_console_print(c256_string2);
-                csg65ce02_remove_breakpoint(&cpu_ic, temp_16bit);
+                csg65ce02_remove_breakpoint(computer.cpu_ic, temp_16bit);
             }
             else
             {
                 snprintf(c256_string2, 256, "breakpoint at $%04x added\n", temp_16bit);
                 debug_console_print(c256_string2);
-                csg65ce02_add_breakpoint(&cpu_ic, temp_16bit);
+                csg65ce02_add_breakpoint(computer.cpu_ic, temp_16bit);
             }
         }
         else
@@ -92,7 +92,7 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     {
         E64::sdl2_wait_until_enter_released();
         computer.switch_to_running();
-        cpu_ic.force_next_instruction = true;
+        computer.cpu_ic->force_next_instruction = true;
     }
     else if( strcmp(token0, "clear") == 0 )
     {
@@ -192,7 +192,7 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     {
         if( token1 == NULL )
         {
-            debug_command_memory_dump(cpu_ic.pc, 8);
+            debug_command_memory_dump(computer.cpu_ic->pc, 8);
         }
         else
         {
@@ -257,7 +257,7 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     }
     else if( strcmp(token0, "t") == 0 )
     {
-        debug_command_memory_dump(cpu_ic.sp, 1);
+        debug_command_memory_dump(computer.cpu_ic->sp, 1);
     }
     else if( strcmp(token0, "ver") == 0 )
     {
@@ -292,18 +292,18 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
 
 void E64::debug_command_dump_cpu_status()
 {
-    csg65ce02_dump_status(&cpu_ic, c256_string2);
+    csg65ce02_dump_status(computer.cpu_ic, c256_string2);
     debug_console_print(c256_string2);
     debug_console_print("\n\n");
     debug_console_print(".,");
-    csg65ce02_dasm(cpu_ic.pc, c256_string2, 256);
+    csg65ce02_dasm(computer.cpu_ic->pc, c256_string2, 256);
     debug_console_print(c256_string2);
     debug_console_putchar('\n');
 }
 
 void E64::debug_command_disassemble(uint8_t number)
 {
-    uint16_t temp_pc = cpu_ic.pc;
+    uint16_t temp_pc = computer.cpu_ic->pc;
     for(int i = 0; i<number; i++)
     {
         debug_console_print(".,");
@@ -370,7 +370,7 @@ uint32_t E64::debug_command_hex_string_to_int(const char *temp_string)
 
 void E64::debug_command_single_step_cpu()
 {
-    cpu_ic.force_next_instruction = true;
-    E64::machine_run(0);
+    computer.cpu_ic->force_next_instruction = true;
+    computer.run(0);
     computer.exception_collector_ic->update_status();
 }

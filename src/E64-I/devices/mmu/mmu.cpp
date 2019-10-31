@@ -36,15 +36,15 @@ extern "C" uint8_t csg65ce02_read_byte(uint16_t address)
     uint8_t page = (address & 0xff00) >> 8;
     if(page == IO_VICV_PAGE)
     {
-        result = vicv_ic.read_byte(address & 0x00ff);
+        result = computer.vicv_ic->read_byte(address & 0x00ff);
     }
     else if(page == IO_SID_PAGE)
     {
-        result = sound_ic.read_byte(address & 0x00ff);
+        result = computer.sound_ic->read_byte(address & 0x00ff);
     }
     else if(page == TIMER_PAGE)
     {
-        result = timer_ic.read_byte(address & 0x00ff);
+        result = computer.timer_ic->read_byte(address & 0x00ff);
     }
     else if(page == MMU_PAGE)
     {
@@ -73,15 +73,15 @@ extern "C" void csg65ce02_write_byte(uint16_t address, uint8_t byte)
     uint8_t page = (address & 0xff00) >> 8;
     if(page == IO_VICV_PAGE)
     {
-        vicv_ic.write_byte(address & 0x00ff, byte);
+        computer.vicv_ic->write_byte(address & 0x00ff, byte);
     }
     else if(page == IO_SID_PAGE)
     {
-        sound_ic.write_byte(address & 0x00ff, byte);
+        computer.sound_ic->write_byte(address & 0x00ff, byte);
     }
     else if(page == TIMER_PAGE)
     {
-        timer_ic.write_byte(address & 0x00ff, byte);
+        computer.timer_ic->write_byte(address & 0x00ff, byte);
     }
     else if(page == MMU_PAGE)
     {

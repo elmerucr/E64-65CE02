@@ -179,7 +179,7 @@ void E64::vicv::render_scanline(void) {
         // get current text column, current x divided by 8 (yields 0-63)
         int currentTextColumn = (x >> 3);
         uint8_t currentChar = ram[start_screen_buffer | (((currentTextRow << 6) | currentTextColumn))];
-        uint32_t currentCharColor = vicv_ic.color_palette[ram[start_color_buffer + (((currentTextRow << 6) | currentTextColumn))]];
+        uint32_t currentCharColor = computer.vicv_ic->color_palette[ram[start_color_buffer + (((currentTextRow << 6) | currentTextColumn))]];
         if( !(x & 7) )
         {
             // if it's the first pixel of a char position, get byte information from char_rom
@@ -248,7 +248,7 @@ void E64::vicv::render_overlay(uint16_t xpos, uint16_t ypos, char *text)
 
 uint32_t E64::vicv::borders_contrast_foreground_color(void)
 {
-    uint32_t temp_color = vicv_ic.color_palette[vicv_ic.registers[VICV_REG_BOR]];
+    uint32_t temp_color = computer.vicv_ic->color_palette[computer.vicv_ic->registers[VICV_REG_BOR]];
     uint8_t red  = (temp_color >> 16) & 0xff;
     uint8_t grn  = (temp_color >> 8) & 0xff;
     uint8_t blue = temp_color & 0xff;

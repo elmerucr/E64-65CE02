@@ -137,16 +137,8 @@ extern bool application_running;
 // some objects need to be visible at global level:
 //#include "exception_collector.hpp"
 //extern E64::exception_collector exception_collector_ic;
-#include "csg65ce02.h"
-extern csg65ce02 cpu_ic;
-#include "timer.hpp"
-extern E64::timer timer_ic;
-#include "vicv.hpp"
-extern E64::vicv vicv_ic;
 #include "sdl2_pid_delay.hpp"
 extern E64::sdl2_pid_delay frame_delay;
-#include "sound.hpp"
-extern E64::sound sound_ic;
 #include "machine.hpp"
 extern E64::machine computer;
 

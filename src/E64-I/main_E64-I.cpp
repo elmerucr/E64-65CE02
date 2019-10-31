@@ -22,19 +22,12 @@
 
 // global components of the system
 E64::machine computer;
-
-csg65ce02  cpu_ic;
-E64::timer timer_ic;
-E64::vicv  vicv_ic;
-E64::sound sound_ic;
 E64::sdl2_pid_delay frame_delay(15000.0);
 
 int main(int argc, char **argv)
 {
     printf("E64 (C)%i by elmerucr V%i.%i.%i\n", E64_YEAR, E64_MAJOR_VERSION, E64_MINOR_VERSION, E64_BUILD);
     
-    computer.exception_collector_ic->connect_device(&timer_ic.irq_pin);
-    computer.exception_collector_ic->connect_device(&vicv_ic.irq_line);
     computer.exception_collector_ic->connect_device(&cia_irq_line);        // big mistake, need to make this a class!!!
     
 //    std::cout << std::endl << "Command line arguments:" << std::endl;
@@ -47,16 +40,10 @@ int main(int argc, char **argv)
     // set up window management, audio and some other stuff
     E64::sdl2_init();
 
-    // start pla (mmu, bankswitching, etc...)
+    // start mmu (bankswitching, etc...)
     mmu_init();
 
     cia_init();
-
-    // cpu stuff
-    csg65ce02_init(&cpu_ic);
-    csg65ce02_assign_irq_pin(&cpu_ic, &computer.exception_collector_ic->irq_output_pin);
-    csg65ce02_assign_nmi_pin(&cpu_ic, &computer.exception_collector_ic->nmi_output_pin);
-    csg65ce02_reset(&cpu_ic);
 
     debug_console_init();
 
@@ -72,7 +59,7 @@ int main(int argc, char **argv)
         switch(computer.current_mode)
         {
             case E64::NORMAL_MODE:
-                switch( E64::machine_run(64) )
+                switch( computer.run(64) )
                 {
                     case E64::NOTHING:
                         break;
@@ -80,12 +67,11 @@ int main(int argc, char **argv)
                         computer.switch_to_debug();
                         break;
                 }
-                //
                 computer.exception_collector_ic->update_status();
                 // if full frame was drawn call other update functions:
-                if(vicv_ic.frame_done == true)
+                if(computer.vicv_ic->frame_done == true)
                 {
-                    vicv_ic.frame_done = false;
+                    computer.vicv_ic->frame_done = false;
                     // process events and catch a possible exit signal
                     if(E64::sdl2_process_events() == E64::QUIT_EVENT) computer.running = false;
                     // updates at 50Hz for cia is ok, it's connected to user input
@@ -126,8 +112,7 @@ int main(int argc, char **argv)
     // end of mainloop
 
     printf("detected quit event\n");
-
-    csg65ce02_cleanup(&cpu_ic);
+    
     // cleanup window management
     E64::sdl2_cleanup();
     // memory is last thing to cleanup

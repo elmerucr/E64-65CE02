@@ -22,13 +22,13 @@ void E64::debug_screen_update()
 
     // copy the relevant area of the vicv screen buffer to the bottom of the debug screen buffer
     uint8_t scanline_normalized;
-    if(vicv_ic.return_current_scanline() > 287)
+    if(computer.vicv_ic->return_current_scanline() > 287)
     {
         scanline_normalized = 255;
     }
-    else if(vicv_ic.return_current_scanline() >= 32)
+    else if(computer.vicv_ic->return_current_scanline() >= 32)
     {
-        scanline_normalized = vicv_ic.return_current_scanline() - 32;
+        scanline_normalized = computer.vicv_ic->return_current_scanline() - 32;
     }
     else
     {
@@ -36,7 +36,7 @@ void E64::debug_screen_update()
     }
     for(int i=0; i<VICV_PIXELS_PER_SCANLINE*64; i++)
     {
-        debug_screen_buffer[(256*VICV_PIXELS_PER_SCANLINE)+i] = vicv_ic.back_buffer[i+(VICV_PIXELS_PER_SCANLINE*scanline_normalized)];
+        debug_screen_buffer[(256*VICV_PIXELS_PER_SCANLINE)+i] = computer.vicv_ic->back_buffer[i+(VICV_PIXELS_PER_SCANLINE*scanline_normalized)];
     }
 }
 
@@ -68,7 +68,7 @@ inline void E64::debug_screen_render_scanline(int line_number)
             current_background_color = debug_screen_background_color_buffer[char_position];
             eight_pixels = patched_char_rom[(current_char<<3) | current_character_line];
         }
-        debug_screen_buffer[base|x] = (eight_pixels & 0x80) ? vicv_ic.color_palette[current_foreground_color] : vicv_ic.color_palette[current_background_color];
+        debug_screen_buffer[base|x] = (eight_pixels & 0x80) ? computer.vicv_ic->color_palette[current_foreground_color] : computer.vicv_ic->color_palette[current_background_color];
         // shift all bits in internal byte 1 place to the left
         eight_pixels = eight_pixels << 1;
     }

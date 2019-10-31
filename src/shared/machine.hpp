@@ -17,8 +17,6 @@
 
 namespace E64
 {
-    int machine_run(uint16_t no_of_cycles);
-    
     enum machine_mode
     {
         DEBUG_MODE,
