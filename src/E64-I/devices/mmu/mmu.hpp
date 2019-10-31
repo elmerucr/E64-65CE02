@@ -3,9 +3,9 @@
 //
 //  Copyright © 2017 elmerucr. All rights reserved.
 //
-//  The PLA is responsible for dictating the memory map of the E64 and enables
+//  The mmu is responsible for dictating the memory map of the E64 and enables
 //  the implementation of bank switching through the connected SN74LS612 unit.
-//  It also implements the memory read and write operations.
+//  It also implements the memory read and write operations (see csg65ce02 header).
 
 #ifndef MMU_HPP
 #define MMU_HPP

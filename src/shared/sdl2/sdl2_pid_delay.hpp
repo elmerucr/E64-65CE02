@@ -1,5 +1,5 @@
 //  sdl2_pid_delay.hpp
-//  C256
+//  E64
 //
 //  Copyright © 2019 elmerucr. All rights reserved.
 
@@ -8,7 +8,7 @@
 #ifndef c256_sdl2_pid_delay_hpp
 #define c256_sdl2_pid_delay_hpp
 
-namespace C256
+namespace E64
 {
     class pid_controller
     {

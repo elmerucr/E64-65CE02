@@ -10,7 +10,6 @@
 		46050A40236981B40073A85F /* common_defs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A3C236981B40073A85F /* common_defs.cpp */; };
 		46050A41236981B40073A85F /* common_defs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A3C236981B40073A85F /* common_defs.cpp */; };
 		46050A42236981B40073A85F /* machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A3E236981B40073A85F /* machine.cpp */; };
-		46050A43236981B40073A85F /* machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A3E236981B40073A85F /* machine.cpp */; };
 		46050A44236981B40073A85F /* frequency_divider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A3F236981B40073A85F /* frequency_divider.cpp */; };
 		46050A45236981B40073A85F /* frequency_divider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A3F236981B40073A85F /* frequency_divider.cpp */; };
 		46050A482369822B0073A85F /* cia.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A462369822B0073A85F /* cia.cpp */; };
@@ -566,7 +565,6 @@
 				46050A87236983B40073A85F /* sid.cc in Sources */,
 				46050A81236983B40073A85F /* wave6581__ST.cc in Sources */,
 				46050A89236983B40073A85F /* version.cc in Sources */,
-				46050A43236981B40073A85F /* machine.cpp in Sources */,
 				46D0E6B223663BC000F32578 /* main_E64-II.cpp in Sources */,
 				46050A8D236983CD0073A85F /* sound.cpp in Sources */,
 				46050A6F236983B40073A85F /* wave6581_PST.cc in Sources */,

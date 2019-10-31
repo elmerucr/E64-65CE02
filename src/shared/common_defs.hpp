@@ -10,7 +10,7 @@
 
 #define E64_MAJOR_VERSION        0
 #define E64_MINOR_VERSION        3
-#define E64_BUILD                20191030
+#define E64_BUILD                20191031
 #define E64_YEAR                 2019
 
 #define RAM_SIZE                 0x1000000    // 16mb system
@@ -144,7 +144,7 @@ extern E64::timer timer_ic;
 #include "vicv.hpp"
 extern E64::vicv vicv_ic;
 #include "sdl2_pid_delay.hpp"
-extern C256::sdl2_pid_delay frame_delay;
+extern E64::sdl2_pid_delay frame_delay;
 #include "sound.hpp"
 extern E64::sound sound_ic;
 #include "machine.hpp"

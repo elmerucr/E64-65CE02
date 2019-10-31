@@ -27,7 +27,7 @@ csg65ce02  cpu_ic;
 E64::timer timer_ic;
 E64::vicv  vicv_ic;
 E64::sound sound_ic;
-C256::sdl2_pid_delay frame_delay(15000.0);
+E64::sdl2_pid_delay frame_delay(15000.0);
 
 int main(int argc, char **argv)
 {

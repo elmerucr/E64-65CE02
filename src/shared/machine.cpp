@@ -54,6 +54,8 @@ E64::machine::machine()
     
     cpu_ic = new csg65ce02;
     csg65ce02_init(this->cpu_ic);
+    csg65ce02_assign_irq_pin(this->cpu_ic, &computer.exception_collector_ic->irq_output_pin);
+    csg65ce02_assign_nmi_pin(this->cpu_ic, &computer.exception_collector_ic->nmi_output_pin);
     csg65ce02_reset(this->cpu_ic);
     
     timer_ic = new timer();
@@ -98,9 +100,8 @@ int E64::machine::run(uint16_t no_of_cycles)
     }
     // run cycles on vicv
     vicv_ic->run(cpu_to_vicv->clock(processed_cycles));
-    // calculate no. of cycles to run on sound device
+    // calculate no. of cycles to run on sound device & start audio if buffer large enough
     sound_ic->run(cpu_to_sid->clock(processed_cycles));
-    // start audio only if buffer is large enough
     if(E64::sdl2_get_queued_audio_size() > (AUDIO_BUFFER_SIZE/2)) E64::sdl2_start_audio();
     // run cycles on timer
     timer_ic->run(cpu_to_timer->clock(processed_cycles));
@@ -111,16 +112,16 @@ int E64::machine::run(uint16_t no_of_cycles)
 void E64::machine::switch_to_running()
 {
     current_mode = NORMAL_MODE;
-    // audio starts "automatically" when buffer reaches a minimum size
     E64::sdl2_update_title();
+    // audio starts "automatically" when buffer reaches a minimum size
 }
 
 void E64::machine::switch_to_debug()
 {
     current_mode = DEBUG_MODE;
-    E64::sdl2_stop_audio();
     E64::sdl2_update_title();
-
+    E64::sdl2_stop_audio();
+    
     debug_console_putchar('\n');
     debug_console_put_prompt();
 }

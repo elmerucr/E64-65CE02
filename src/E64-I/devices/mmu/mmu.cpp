@@ -30,7 +30,7 @@ void mmu_cleanup()
 
 // Function definitions needed by lib65ce02
 // these take care of memory access by CPU
-uint8_t csg65ce02_read_byte(uint16_t address)
+extern "C" uint8_t csg65ce02_read_byte(uint16_t address)
 {
     uint8_t result;
     uint8_t page = (address & 0xff00) >> 8;
@@ -68,7 +68,7 @@ uint8_t csg65ce02_read_byte(uint16_t address)
 
 // Function definitions needed by lib65ce02
 // these take care of memory access by CPU
-void csg65ce02_write_byte(uint16_t address, uint8_t byte)
+extern "C" void csg65ce02_write_byte(uint16_t address, uint8_t byte)
 {
     uint8_t page = (address & 0xff00) >> 8;
     if(page == IO_VICV_PAGE)

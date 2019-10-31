@@ -1,5 +1,5 @@
 //  sdl2_pid_delay.cpp
-//  C256
+//  E64
 //
 //  Copyright © 2019 elmerucr. All rights reserved.
 
@@ -18,7 +18,7 @@
 #include "sdl2.hpp"
 #include "common_defs.hpp"
 
-C256::pid_controller::pid_controller(double k1, double k2, double k3, double setpoint, double initial_output)
+E64::pid_controller::pid_controller(double k1, double k2, double k3, double setpoint, double initial_output)
 {
     // pid process parameters
     this->k1 = k1;
@@ -33,12 +33,12 @@ C256::pid_controller::pid_controller(double k1, double k2, double k3, double set
     derivative = 0.0;
 }
 
-void C256::pid_controller::change_setpoint(double setpoint)
+void E64::pid_controller::change_setpoint(double setpoint)
 {
     this->setpoint = setpoint;
 }
 
-double C256::pid_controller::process(double input, double interval)
+double E64::pid_controller::process(double input, double interval)
 {
     // proportional
     error = setpoint - input;
@@ -53,7 +53,7 @@ double C256::pid_controller::process(double input, double interval)
     return output;
 }
 
-C256::sdl2_pid_delay::sdl2_pid_delay(double initial_delay) : fps_pid(-8.0, 0.0, -8.0, FPS, initial_delay), audiobuffer_pid(-0.10, 0.00, -8.00, AUDIO_BUFFER_SIZE, initial_delay)
+E64::sdl2_pid_delay::sdl2_pid_delay(double initial_delay) : fps_pid(-8.0, 0.0, -8.0, FPS, initial_delay), audiobuffer_pid(-0.10, 0.00, -8.00, AUDIO_BUFFER_SIZE, initial_delay)
 {
     current_delay = initial_delay;
     framecounter = 0;
@@ -70,7 +70,7 @@ C256::sdl2_pid_delay::sdl2_pid_delay(double initial_delay) : fps_pid(-8.0, 0.0, 
     t0 = SDL_GetTicks();
 }
 
-void C256::sdl2_pid_delay::run()
+void E64::sdl2_pid_delay::run()
 {
     framecounter++;
     if(!(framecounter & (evaluation_interval - 1) ))
@@ -114,7 +114,7 @@ void C256::sdl2_pid_delay::run()
     std::this_thread::sleep_for(std::chrono::microseconds((uint32_t)current_delay));
 }
 
-char *C256::sdl2_pid_delay::stats()
+char *E64::sdl2_pid_delay::stats()
 {
     return statistics_string;
 }
