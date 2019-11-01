@@ -16,6 +16,7 @@
 
 E64::machine::machine()
 {
+    // defaults to normal mode, but can be changed later by application
     current_mode = NORMAL_MODE;
 
     exception_collector_ic = new exception_collector();
@@ -34,6 +35,9 @@ E64::machine::machine()
     
     sound_ic = new sound();
     
+    cia_ic = new cia();
+    exception_collector_ic->connect_device(&cia_ic->irq_pin);
+    
     // init frequency dividers (make sure the right amount of cycles will run on different ic's)
     cpu_to_vicv  = new frequency_divider(CPU_CLOCK_SPEED, VICV_CLOCK_SPEED);
     cpu_to_sid   = new frequency_divider(CPU_CLOCK_SPEED, SID_CLOCK_SPEED );
@@ -46,6 +50,7 @@ E64::machine::~machine()
     delete cpu_to_sid;
     delete cpu_to_vicv;
 
+    delete cia_ic;
     delete sound_ic;
     delete vicv_ic;
     delete timer_ic;

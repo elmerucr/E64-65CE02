@@ -52,7 +52,7 @@ extern "C" uint8_t csg65ce02_read_byte(uint16_t address)
     }
     else if(page == IO_CIA_PAGE)
     {
-        result = cia_read_byte(address & 0x00ff);
+        result = computer.cia_ic->read_byte(address & 0x00ff);
     }
     else if((page & IO_E64_KERNEL_MASK) == IO_E64_KERNEL_MASK)
     {
@@ -89,7 +89,7 @@ extern "C" void csg65ce02_write_byte(uint16_t address, uint8_t byte)
     }
     else if(page == IO_CIA_PAGE)
     {
-        cia_write_byte(address & 0x00ff, byte);
+        computer.cia_ic->write_byte(address & 0x00ff, byte);
         computer.exception_collector_ic->update_status();
     }
     else

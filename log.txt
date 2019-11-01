@@ -9,11 +9,11 @@ v0.6
 - all opcodes implemented
 - multiple instructions in debug mode, and still correct scanline behaviour
 
-v0.4
-----
+v0.4 (released 2019-11-01)
+--------------------------
 v reSID integration
 v CIA chip that responds to keyboard events and raises interrupts
-- some timer interrupt integration
+v some timer interrupt integration
 
 v0.2 (released 2019-01-08)
 --------------------------
@@ -22,7 +22,8 @@ v basic pulse working (breakpoints and continue execution with correct scanlines
 
 todo / bugs
 ===========
-- debug mode needs to its own irq connection (one of the eight lines)
+- currently access is granted to sdl2 to read registers etc... from cia
+- debug mode needs to its own irq connection (one of the lines)
 - 2019-09-12 For some reason, breakpoints still trigger when "breakpoints_active" is false inside cpu
 - make next pixel to be drawn visible in debug mode
 - call stack, stack tracing, former instructions log etc...
@@ -35,6 +36,7 @@ todo / bugs
 
 2019
 ====
+2019-11-01 converted cia to a class.
 2019-10-10 started a second target E64-II (with MC68020 core in stead of CSG65CE02)
 2019-10-02 timers and irqs basic functionality implemented
 2019-09-16 "sids" renamed to "sound", moved to c++ code and left/right channel mixing enabled

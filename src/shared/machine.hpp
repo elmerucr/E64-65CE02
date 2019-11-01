@@ -11,6 +11,7 @@
 #include "timer.hpp"
 #include "vicv.hpp"
 #include "sound.hpp"
+#include "cia.hpp"
 
 #ifndef machine_hpp
 #define machine_hpp
@@ -44,15 +45,16 @@ namespace E64
         timer               *timer_ic;
         vicv                *vicv_ic;
         sound               *sound_ic;
+        cia                 *cia_ic;
 
         machine();
         ~machine();
 
-        void switch_to_running(void);
-        void switch_to_debug(void);
-        void switch_mode(void);
+        void switch_to_running();
+        void switch_to_debug();
+        void switch_mode();
         
-        void    reset(void);
+        void    reset();
         int     run(uint16_t no_of_cycles);
     };
 }

@@ -293,8 +293,8 @@
 		462600B72337FAFB00A4ED6D /* cia */ = {
 			isa = PBXGroup;
 			children = (
-				46050A462369822B0073A85F /* cia.cpp */,
 				46050A472369822B0073A85F /* cia.hpp */,
+				46050A462369822B0073A85F /* cia.cpp */,
 			);
 			name = cia;
 			sourceTree = "<group>";

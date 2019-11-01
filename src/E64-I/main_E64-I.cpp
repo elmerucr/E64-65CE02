@@ -14,7 +14,6 @@
 #include "debug_screen.hpp"
 #include "debug_status_bar.hpp"
 
-#include "cia.hpp"
 #include "mmu.hpp"
 
 // global components of the system
@@ -23,24 +22,20 @@ E64::sdl2_pid_delay frame_delay(15000.0);
 
 int main(int argc, char **argv)
 {
+    //    std::cout << std::endl << "Command line arguments:" << std::endl;
+    //    for(int i=0; i<argc ; i++)
+    //    {
+    //        std::cout << argv[i] << std::endl;
+    //    }
+    //    std::cout << std::endl;
+    
     printf("E64 (C)%i by elmerucr V%i.%i.%i\n", E64_YEAR, E64_MAJOR_VERSION, E64_MINOR_VERSION, E64_BUILD);
-    
-    computer.exception_collector_ic->connect_device(&cia_irq_line);        // big mistake, need to make this a class!!!
-    
-//    std::cout << std::endl << "Command line arguments:" << std::endl;
-//    for(int i=0; i<argc ; i++)
-//    {
-//        std::cout << argv[i] << std::endl;
-//    }
-//    std::cout << std::endl;
     
     // set up window management, audio and some other stuff
     E64::sdl2_init();
 
     // start mmu (bankswitching, etc...)
     mmu_init();
-
-    cia_init();
 
     debug_console_init();
 
@@ -72,7 +67,7 @@ int main(int argc, char **argv)
                     // process events and catch a possible exit signal
                     if(E64::sdl2_process_events() == E64::QUIT_EVENT) computer.running = false;
                     // updates at 50Hz for cia is ok, it's connected to user input
-                    cia_run();
+                    computer.cia_ic->run();
                     E64::sdl2_update_screen();
                     frame_delay.run();
                 }

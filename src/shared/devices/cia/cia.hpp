@@ -31,97 +31,116 @@
 #ifndef cia_hpp
 #define cia_hpp
 
-extern uint8_t cia_registers[];
-extern uint8_t cia_scancodes_last_known_state[];
-extern bool cia_irq_line;
-
-void cia_init(void);
-
-// unlike other components, the CIA doesn't need a specified no of cycles as argument
-void cia_run(void);
-
-void cia_push_event(uint8_t scancode);
-uint8_t cia_pop_event(void);
-
-// read and write functions to data registers of cia
-uint8_t cia_read_byte(uint8_t address);
-void cia_write_byte(uint8_t address, uint8_t byte);
-
-enum E64_scancodes
+namespace E64
 {
-    E64_SCANCODE_EMPTY = 0x00,     // 0x00
-    E64_SCANCODE_ESCAPE,
-    E64_SCANCODE_F1,
-    E64_SCANCODE_F2,
-    E64_SCANCODE_F3,
-    E64_SCANCODE_F4,
-    E64_SCANCODE_F5,
-    E64_SCANCODE_F6,
-    E64_SCANCODE_F7,               // 0x08
-    E64_SCANCODE_F8,
-    E64_SCANCODE_GRAVE,
-    E64_SCANCODE_1,
-    E64_SCANCODE_2,
-    E64_SCANCODE_3,
-    E64_SCANCODE_4,
-    E64_SCANCODE_5,
-    E64_SCANCODE_6,                // 0x10
-    E64_SCANCODE_7,
-    E64_SCANCODE_8,
-    E64_SCANCODE_9,
-    E64_SCANCODE_0,
-    E64_SCANCODE_MINUS,
-    E64_SCANCODE_EQUALS,
-    E64_SCANCODE_BACKSPACE,
-    E64_SCANCODE_TAB,              // 0x18
-    E64_SCANCODE_Q,
-    E64_SCANCODE_W,
-    E64_SCANCODE_E,
-    E64_SCANCODE_R,
-    E64_SCANCODE_T,
-    E64_SCANCODE_Y,
-    E64_SCANCODE_U,
-    E64_SCANCODE_I,               // 0x20
-    E64_SCANCODE_O,
-    E64_SCANCODE_P,
-    E64_SCANCODE_LEFTBRACKET,
-    E64_SCANCODE_RIGHTBRACKET,
-    E64_SCANCODE_RETURN,
-    E64_SCANCODE_A,
-    E64_SCANCODE_S,
-    E64_SCANCODE_D,                // 0x28
-    E64_SCANCODE_F,
-    E64_SCANCODE_G,
-    E64_SCANCODE_H,
-    E64_SCANCODE_J,
-    E64_SCANCODE_K,
-    E64_SCANCODE_L,
-    E64_SCANCODE_SEMICOLON,
-    E64_SCANCODE_APOSTROPHE,       // 0x30
-    E64_SCANCODE_BACKSLASH,
-    E64_SCANCODE_LSHIFT,
-    E64_SCANCODE_Z,
-    E64_SCANCODE_X,
-    E64_SCANCODE_C,
-    E64_SCANCODE_V,
-    E64_SCANCODE_B,
-    E64_SCANCODE_N,                // 0x38
-    E64_SCANCODE_M,
-    E64_SCANCODE_COMMA,
-    E64_SCANCODE_PERIOD,
-    E64_SCANCODE_SLASH,
-    E64_SCANCODE_RSHIFT,
-    E64_SCANCODE_LCTRL,
-    E64_SCANCODE_LALT,
-    E64_SCANCODE_LGUI,              // 0x40
-    E64_SCANCODE_SPACE,
-    E64_SCANCODE_RGUI,
-    E64_SCANCODE_RALT,
-    E64_SCANCODE_RCTRL,
-    E64_SCANCODE_LEFT,
-    E64_SCANCODE_UP,
-    E64_SCANCODE_DOWN,
-    E64_SCANCODE_RIGHT             // 0x48
-};
+    enum E64_scancodes
+    {
+        SCANCODE_EMPTY = 0x00,     // 0x00
+        SCANCODE_ESCAPE,
+        SCANCODE_F1,
+        SCANCODE_F2,
+        SCANCODE_F3,
+        SCANCODE_F4,
+        SCANCODE_F5,
+        SCANCODE_F6,
+        SCANCODE_F7,               // 0x08
+        SCANCODE_F8,
+        SCANCODE_GRAVE,
+        SCANCODE_1,
+        SCANCODE_2,
+        SCANCODE_3,
+        SCANCODE_4,
+        SCANCODE_5,
+        SCANCODE_6,                // 0x10
+        SCANCODE_7,
+        SCANCODE_8,
+        SCANCODE_9,
+        SCANCODE_0,
+        SCANCODE_MINUS,
+        SCANCODE_EQUALS,
+        SCANCODE_BACKSPACE,
+        SCANCODE_TAB,              // 0x18
+        SCANCODE_Q,
+        SCANCODE_W,
+        SCANCODE_E,
+        SCANCODE_R,
+        SCANCODE_T,
+        SCANCODE_Y,
+        SCANCODE_U,
+        SCANCODE_I,               // 0x20
+        SCANCODE_O,
+        SCANCODE_P,
+        SCANCODE_LEFTBRACKET,
+        SCANCODE_RIGHTBRACKET,
+        SCANCODE_RETURN,
+        SCANCODE_A,
+        SCANCODE_S,
+        SCANCODE_D,                // 0x28
+        SCANCODE_F,
+        SCANCODE_G,
+        SCANCODE_H,
+        SCANCODE_J,
+        SCANCODE_K,
+        SCANCODE_L,
+        SCANCODE_SEMICOLON,
+        SCANCODE_APOSTROPHE,       // 0x30
+        SCANCODE_BACKSLASH,
+        SCANCODE_LSHIFT,
+        SCANCODE_Z,
+        SCANCODE_X,
+        SCANCODE_C,
+        SCANCODE_V,
+        SCANCODE_B,
+        SCANCODE_N,                // 0x38
+        SCANCODE_M,
+        SCANCODE_COMMA,
+        SCANCODE_PERIOD,
+        SCANCODE_SLASH,
+        SCANCODE_RSHIFT,
+        SCANCODE_LCTRL,
+        SCANCODE_LALT,
+        SCANCODE_LGUI,              // 0x40
+        SCANCODE_SPACE,
+        SCANCODE_RGUI,
+        SCANCODE_RALT,
+        SCANCODE_RCTRL,
+        SCANCODE_LEFT,
+        SCANCODE_UP,
+        SCANCODE_DOWN,
+        SCANCODE_RIGHT             // 0x48
+    };
+
+    class cia
+    {
+    private:
+        void push_event(uint8_t event);
+        uint8_t pop_event();
+        // implement a fifo queue, important for key presses, you don't want them in the wrong order
+        uint8_t event_queue[256];
+        // always points to the next available location to store an item
+        uint8_t event_stack_pointer_head;
+        // always points to the currently available item
+        // if (head - tail) == 0, then no item available
+        uint8_t event_stack_pointer_tail;
+    public:
+        // constructor
+        cia();
+        // reset, also called by constructor
+        void reset();
+        // irq pin is owned by the timer
+        bool irq_pin;
+        
+        // THESE NEXT ONES SHOULD BE PRIVATE IN THE FUTURE!
+        uint8_t scancodes_last_known_state[128];
+        uint8_t registers[256];
+        //        
+        
+        // unlike other components, the CIA doesn't need a specified no. of cycles as argument
+        void run();
+        // register access functions
+        uint8_t read_byte(uint8_t address);
+        void write_byte(uint8_t address, uint8_t byte);
+    };
+}
 
 #endif
