@@ -9,16 +9,13 @@
 #include "common_defs.hpp"
 #include "sdl2.hpp"
 #include "sdl2_pid_delay.hpp"
-#include "mmu.hpp"
-#include "vicv.hpp"
-#include "csg65ce02.h"
 #include "debug_console.hpp"
 #include "machine.hpp"
 #include "debug_screen.hpp"
 #include "debug_status_bar.hpp"
+
 #include "cia.hpp"
-#include "sound.hpp"
-#include "timer.hpp"
+#include "mmu.hpp"
 
 // global components of the system
 E64::machine computer;

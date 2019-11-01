@@ -5,7 +5,6 @@
 
 #include "debug_status_bar.hpp"
 #include "common_defs.hpp"
-#include "csg65ce02.h"
 #include "csg65ce02_dasm.h"
 #include "machine.hpp"
 #include "debug_console.hpp"
