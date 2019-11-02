@@ -10,7 +10,7 @@
 
 #define E64_MAJOR_VERSION        0
 #define E64_MINOR_VERSION        4
-#define E64_BUILD                20191101
+#define E64_BUILD                20191102
 #define E64_YEAR                 2019
 
 #define RAM_SIZE                 0x1000000    // 16mb system
@@ -126,7 +126,7 @@
 #define ASCII_SPACE         0x20    // space
 #define ASCII_UNDERSCORE    0x5f    // _
 
-#include <cstdint>
+#include <stdint.h>
 
 extern const uint8_t ascii_to_screencode[];
 extern const char screencode_to_ascii[];
