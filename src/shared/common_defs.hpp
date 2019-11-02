@@ -126,7 +126,7 @@
 #define ASCII_SPACE         0x20    // space
 #define ASCII_UNDERSCORE    0x5f    // _
 
-#include <stdint.h>
+#include <cstdint>
 
 extern const uint8_t ascii_to_screencode[];
 extern const char screencode_to_ascii[];
@@ -135,8 +135,6 @@ extern char c256_string2[];
 extern bool application_running;
 
 // some objects need to be visible at global level:
-//#include "exception_collector.hpp"
-//extern E64::exception_collector exception_collector_ic;
 #include "sdl2_pid_delay.hpp"
 extern E64::sdl2_pid_delay frame_delay;
 #include "machine.hpp"

@@ -42,7 +42,7 @@
 #include "m68kcpu.h"
 
 // elmerucr
-#include "m68k_breakpoints.h"
+#include "m68kbreakpoints.h"
 // elmerucr
 
 /* ======================================================================== */
@@ -659,18 +659,18 @@ int m68k_execute(int num_cycles)
 
 		// elmerucr
 		bool e64_breakpoint = false;
-		if( m68k_breakpoints_active == true )
+		if( m68kbreakpoints_active == true )
 		{
-			if( m68k_breakpoints_array[REG_PC] == true )
+			if( m68kbreakpoints_array[REG_PC] == true )
 			{
-				if ( m68k_breakpoints_force_next_instruction == false )
+				if ( m68kbreakpoints_force_next_instruction == false )
 				{
 					// we have a breakpoint here before the loop starts
 					e64_breakpoint = true;
 				}
 			}
 		}
-		m68k_breakpoints_force_next_instruction = false;
+		m68kbreakpoints_force_next_instruction = false;
 		// elmerucr
 
 		/* Main loop.  Keep going until we run out of clock cycles */
@@ -701,7 +701,7 @@ int m68k_execute(int num_cycles)
 				m68ki_exception_if_trace(); /* auto-disable (see m68kcpu.h) */
 
 				// elmerucr addition
-				if(m68k_breakpoints_active && (m68k_breakpoints_array[REG_PC] == true) ) m68k_end_timeslice();
+				if(m68kbreakpoints_active && (m68kbreakpoints_array[REG_PC] == true) ) m68k_end_timeslice();
 				// end elmerucr addition
 			} while(GET_CYCLES() > 0);
 		// elmerucr
@@ -747,8 +747,10 @@ void m68k_modify_timeslice(int cycles)
 
 void m68k_end_timeslice(void)
 {
+    // elmerucr
 	//m68ki_initial_cycles -= GET_CYCLES();
 	m68ki_initial_cycles -= GET_CYCLES();
+    // elmerucr
 	SET_CYCLES(0);
 }
 

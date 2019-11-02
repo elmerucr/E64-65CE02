@@ -83,7 +83,7 @@
 		46AB7617236DA9E000AF2F14 /* m68kcpu.c in Sources */ = {isa = PBXBuildFile; fileRef = 46AB760F236DA9DF00AF2F14 /* m68kcpu.c */; };
 		46AB7618236DA9E000AF2F14 /* m68kopnz.c in Sources */ = {isa = PBXBuildFile; fileRef = 46AB7610236DA9DF00AF2F14 /* m68kopnz.c */; };
 		46AB7619236DA9E000AF2F14 /* m68kops.c in Sources */ = {isa = PBXBuildFile; fileRef = 46AB7611236DA9DF00AF2F14 /* m68kops.c */; };
-		46AB761A236DA9E000AF2F14 /* m68k_breakpoints.c in Sources */ = {isa = PBXBuildFile; fileRef = 46AB7612236DA9DF00AF2F14 /* m68k_breakpoints.c */; };
+		46AB761A236DA9E000AF2F14 /* m68kbreakpoints.c in Sources */ = {isa = PBXBuildFile; fileRef = 46AB7612236DA9DF00AF2F14 /* m68kbreakpoints.c */; };
 		46C069E923699BA600B1DCB4 /* patched_char_rom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46C069E823699BA600B1DCB4 /* patched_char_rom.cpp */; };
 		46D0E6B023663B8100F32578 /* main_E64-I.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46D0E6AF23663B8100F32578 /* main_E64-I.cpp */; };
 		46D0E6B223663BC000F32578 /* main_E64-II.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46D0E6B123663BC000F32578 /* main_E64-II.cpp */; };
@@ -167,11 +167,11 @@
 		46AB760B236DA9DF00AF2F14 /* m68kopdm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kopdm.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kopdm.c"; sourceTree = "<group>"; };
 		46AB760C236DA9DF00AF2F14 /* m68kopac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kopac.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kopac.c"; sourceTree = "<group>"; };
 		46AB760D236DA9DF00AF2F14 /* m68kops.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m68kops.h; path = "../../../src/E64-II/devices/cpu/Musashi/m68kops.h"; sourceTree = "<group>"; };
-		46AB760E236DA9DF00AF2F14 /* m68k_breakpoints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m68k_breakpoints.h; path = "../../../src/E64-II/devices/cpu/Musashi/m68k_breakpoints.h"; sourceTree = "<group>"; };
+		46AB760E236DA9DF00AF2F14 /* m68kbreakpoints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m68kbreakpoints.h; path = "../../../src/E64-II/devices/cpu/Musashi/m68kbreakpoints.h"; sourceTree = "<group>"; };
 		46AB760F236DA9DF00AF2F14 /* m68kcpu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kcpu.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kcpu.c"; sourceTree = "<group>"; };
 		46AB7610236DA9DF00AF2F14 /* m68kopnz.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kopnz.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kopnz.c"; sourceTree = "<group>"; };
 		46AB7611236DA9DF00AF2F14 /* m68kops.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kops.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kops.c"; sourceTree = "<group>"; };
-		46AB7612236DA9DF00AF2F14 /* m68k_breakpoints.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68k_breakpoints.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68k_breakpoints.c"; sourceTree = "<group>"; };
+		46AB7612236DA9DF00AF2F14 /* m68kbreakpoints.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kbreakpoints.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kbreakpoints.c"; sourceTree = "<group>"; };
 		46AB7613236DA9DF00AF2F14 /* m68k.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m68k.h; path = "../../../src/E64-II/devices/cpu/Musashi/m68k.h"; sourceTree = "<group>"; };
 		46C069E823699BA600B1DCB4 /* patched_char_rom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = patched_char_rom.cpp; path = ../../../src/shared/devices/char_rom/patched_char_rom.cpp; sourceTree = "<group>"; };
 		46D0E6AF23663B8100F32578 /* main_E64-I.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "main_E64-I.cpp"; path = "../../../src/E64-I/main_E64-I.cpp"; sourceTree = "<group>"; };
@@ -333,8 +333,6 @@
 		46723D3E2365E46D007ADDC2 /* Musashi */ = {
 			isa = PBXGroup;
 			children = (
-				46AB7612236DA9DF00AF2F14 /* m68k_breakpoints.c */,
-				46AB760E236DA9DF00AF2F14 /* m68k_breakpoints.h */,
 				46AB7613236DA9DF00AF2F14 /* m68k.h */,
 				46AB7609236DA9DF00AF2F14 /* m68kconf.h */,
 				46AB760F236DA9DF00AF2F14 /* m68kcpu.c */,
@@ -345,6 +343,8 @@
 				46AB7610236DA9DF00AF2F14 /* m68kopnz.c */,
 				46AB7611236DA9DF00AF2F14 /* m68kops.c */,
 				46AB760D236DA9DF00AF2F14 /* m68kops.h */,
+				46AB760E236DA9DF00AF2F14 /* m68kbreakpoints.h */,
+				46AB7612236DA9DF00AF2F14 /* m68kbreakpoints.c */,
 			);
 			name = Musashi;
 			sourceTree = "<group>";
@@ -615,7 +615,7 @@
 				46AB7607236DA7DC00AF2F14 /* cpu.cpp in Sources */,
 				4626B0D52368E8C4003C56F8 /* debug_command.cpp in Sources */,
 				4626B0D32368E8C4003C56F8 /* debug_console.cpp in Sources */,
-				46AB761A236DA9E000AF2F14 /* m68k_breakpoints.c in Sources */,
+				46AB761A236DA9E000AF2F14 /* m68kbreakpoints.c in Sources */,
 				46050A6B236983B40073A85F /* wave8580_PS_.cc in Sources */,
 				46050A9D236984270073A85F /* sdl2.cpp in Sources */,
 				46050A91236983E80073A85F /* timer.cpp in Sources */,

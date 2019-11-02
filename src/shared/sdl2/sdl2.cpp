@@ -6,16 +6,9 @@
 #include <cstdio>
 #include <thread>
 #include <chrono>
-#ifdef _WIN64
-	#include <SDL.h>
-#elseifdef _WIN32
-    #include <SDL.h>
-#else
-	#include <SDL2/SDL.h>
-#endif
+#include <SDL2/SDL.h>
 #include "common_defs.hpp"
 #include "sdl2.hpp"
-#include "vicv.hpp"
 #include "mmu.hpp"
 #include "machine.hpp"
 #include "debug_screen.hpp"

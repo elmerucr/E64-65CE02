@@ -5,8 +5,8 @@
 
 #include <cstdint>
 
-#ifndef c256_sdl2_pid_delay_hpp
-#define c256_sdl2_pid_delay_hpp
+#ifndef SDL2_PID_DELAY_HPP
+#define SDL2_PID_DELAY_HPP
 
 namespace E64
 {
@@ -61,17 +61,12 @@ namespace E64
     public:
         // constructor
         sdl2_pid_delay(double initial_delay);
-        // for correct calculation of framerates, MHz etc.:
-        // start measuring time
-        void start_time(void);
-        // stop measuring time (e.g. when in debug mode)
-        void stop_time(void);
-        // perform the delay
-        // calculate parameters (fps, mhz, buffersize)
-        // run both pid's
-        void run(void);
-        char *stats(void);
+
+        // perform the delay: calc pars (fps/mhz/buffersize) and run both pid's
+        void run();
+        
+        char *stats();
     };
 }
 
-#endif /* sdl2_pid_delay_hpp */
+#endif

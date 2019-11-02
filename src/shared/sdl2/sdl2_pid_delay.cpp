@@ -7,13 +7,7 @@
 #include <thread>
 #include <cstdint>
 #include <iostream>
-#ifdef _WIN64
-	#include <SDL.h>
-#elseifdef _WIN32
-    #include <SDL.h>
-#else
-	#include <SDL2/SDL.h>
-#endif
+#include <SDL2/SDL.h>
 #include "sdl2_pid_delay.hpp"
 #include "sdl2.hpp"
 #include "common_defs.hpp"
