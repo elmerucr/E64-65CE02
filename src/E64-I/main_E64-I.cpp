@@ -8,7 +8,7 @@
 
 #include "common_defs.hpp"
 #include "sdl2.hpp"
-#include "sdl2_pid_delay.hpp"
+#include "pid_delay.hpp"
 #include "debug_console.hpp"
 #include "machine.hpp"
 #include "debug_screen.hpp"
@@ -18,7 +18,7 @@
 
 // global components of the system
 E64::machine computer;
-E64::sdl2_pid_delay frame_delay(15000.0);
+E64::pid_delay frame_delay(15000.0);
 
 int main(int argc, char **argv)
 {

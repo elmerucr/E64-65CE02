@@ -135,8 +135,8 @@ extern char c256_string2[];
 extern bool application_running;
 
 // some objects need to be visible at global level:
-#include "sdl2_pid_delay.hpp"
-extern E64::sdl2_pid_delay frame_delay;
+#include "pid_delay.hpp"
+extern E64::pid_delay frame_delay;
 #include "machine.hpp"
 extern E64::machine computer;
 

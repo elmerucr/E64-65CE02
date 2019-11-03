@@ -1,4 +1,4 @@
-//  sdl2_pid_delay.hpp
+//  pid_delay.hpp
 //  E64
 //
 //  Copyright © 2019 elmerucr. All rights reserved.
@@ -31,7 +31,7 @@ namespace E64
         double process(double input, double interval);
     };
 
-    class sdl2_pid_delay
+    class pid_delay
     {
     private:
         double current_delay;   // delay per frame in microsec
@@ -63,7 +63,7 @@ namespace E64
 
     public:
         // constructor
-        sdl2_pid_delay(double initial_delay);
+        pid_delay(double initial_delay);
 
         // perform the delay: calc pars (fps/mhz/buffersize) and run both pid's
         void run();

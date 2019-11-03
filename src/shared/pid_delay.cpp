@@ -7,7 +7,7 @@
 #include <thread>
 #include <cstdint>
 #include <iostream>
-#include "sdl2_pid_delay.hpp"
+#include "pid_delay.hpp"
 #include "sdl2.hpp"
 #include "common_defs.hpp"
 
@@ -46,7 +46,7 @@ double E64::pid_controller::process(double input, double interval)
     return output;
 }
 
-E64::sdl2_pid_delay::sdl2_pid_delay(double initial_delay) : fps_pid(-8.0, 0.0, -8.0, FPS, initial_delay), audiobuffer_pid(-0.10, 0.00, -8.00, AUDIO_BUFFER_SIZE, initial_delay)
+E64::pid_delay::pid_delay(double initial_delay) : fps_pid(-8.0, 0.0, -8.0, FPS, initial_delay), audiobuffer_pid(-0.10, 0.00, -8.00, AUDIO_BUFFER_SIZE, initial_delay)
 {
     current_delay = initial_delay;
     framecounter = 0;
@@ -63,7 +63,7 @@ E64::sdl2_pid_delay::sdl2_pid_delay(double initial_delay) : fps_pid(-8.0, 0.0, -
     then = std::chrono::steady_clock::now();
 }
 
-void E64::sdl2_pid_delay::run()
+void E64::pid_delay::run()
 {
     framecounter++;
     if(!(framecounter & (evaluation_interval - 1) ))
@@ -106,7 +106,7 @@ void E64::sdl2_pid_delay::run()
     std::this_thread::sleep_for(std::chrono::microseconds((uint32_t)current_delay));
 }
 
-char *E64::sdl2_pid_delay::stats()
+char *E64::pid_delay::stats()
 {
     return statistics_string;
 }

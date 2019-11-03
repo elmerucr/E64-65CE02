@@ -53,8 +53,6 @@
 		46050A91236983E80073A85F /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A8E236983E80073A85F /* timer.cpp */; };
 		46050A94236984060073A85F /* vicv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A93236984060073A85F /* vicv.cpp */; };
 		46050A95236984060073A85F /* vicv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A93236984060073A85F /* vicv.cpp */; };
-		46050A9A236984270073A85F /* sdl2_pid_delay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A96236984270073A85F /* sdl2_pid_delay.cpp */; };
-		46050A9B236984270073A85F /* sdl2_pid_delay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A96236984270073A85F /* sdl2_pid_delay.cpp */; };
 		46050A9C236984270073A85F /* sdl2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A97236984270073A85F /* sdl2.cpp */; };
 		46050A9D236984270073A85F /* sdl2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A97236984270073A85F /* sdl2.cpp */; };
 		4626B0D02368E8C4003C56F8 /* debug_status_bar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4626B0C92368E8C4003C56F8 /* debug_status_bar.cpp */; };
@@ -70,6 +68,8 @@
 		46723D392365E3DB007ADDC2 /* csg65ce02.c in Sources */ = {isa = PBXBuildFile; fileRef = 46723D362365E3DB007ADDC2 /* csg65ce02.c */; };
 		46723D3A2365E3DB007ADDC2 /* csg65ce02_dasm.c in Sources */ = {isa = PBXBuildFile; fileRef = 46723D372365E3DB007ADDC2 /* csg65ce02_dasm.c */; };
 		46723D3D2365E428007ADDC2 /* exception_collector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46723D3C2365E428007ADDC2 /* exception_collector.cpp */; };
+		46757FB2236EF6A1000F0110 /* pid_delay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46757FB0236EF6A1000F0110 /* pid_delay.cpp */; };
+		46757FB3236EF6A1000F0110 /* pid_delay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46757FB0236EF6A1000F0110 /* pid_delay.cpp */; };
 		469BDFF4231D9FEC00868BBE /* SDL2.framework in Resources */ = {isa = PBXBuildFile; fileRef = 469BDFF3231D9FEC00868BBE /* SDL2.framework */; };
 		469BDFF5231DA03400868BBE /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469BDFF3231D9FEC00868BBE /* SDL2.framework */; };
 		469EBBE0234FB36B00028136 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469BDFF3231D9FEC00868BBE /* SDL2.framework */; };
@@ -130,9 +130,7 @@
 		46050A8F236983E80073A85F /* timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = timer.hpp; path = ../../../src/shared/devices/timer/timer.hpp; sourceTree = "<group>"; };
 		46050A92236984060073A85F /* vicv.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = vicv.hpp; path = ../../../src/shared/devices/vicv/vicv.hpp; sourceTree = "<group>"; };
 		46050A93236984060073A85F /* vicv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vicv.cpp; path = ../../../src/shared/devices/vicv/vicv.cpp; sourceTree = "<group>"; };
-		46050A96236984270073A85F /* sdl2_pid_delay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sdl2_pid_delay.cpp; path = ../../../src/shared/sdl2/sdl2_pid_delay.cpp; sourceTree = "<group>"; };
 		46050A97236984270073A85F /* sdl2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sdl2.cpp; path = ../../../src/shared/sdl2/sdl2.cpp; sourceTree = "<group>"; };
-		46050A98236984270073A85F /* sdl2_pid_delay.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = sdl2_pid_delay.hpp; path = ../../../src/shared/sdl2/sdl2_pid_delay.hpp; sourceTree = "<group>"; };
 		46050A99236984270073A85F /* sdl2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = sdl2.hpp; path = ../../../src/shared/sdl2/sdl2.hpp; sourceTree = "<group>"; };
 		46241B11232444A000569490 /* log.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = log.txt; path = ../../../log.txt; sourceTree = "<group>"; };
 		4626B0C82368E8C4003C56F8 /* debug_command.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = debug_command.hpp; path = ../../../src/debugger/debug_command.hpp; sourceTree = "<group>"; };
@@ -153,6 +151,8 @@
 		46723D382365E3DB007ADDC2 /* csg65ce02_dasm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = csg65ce02_dasm.h; path = "../../../src/E64-I/devices/cpu/csg65ce02_dasm.h"; sourceTree = "<group>"; };
 		46723D3B2365E428007ADDC2 /* exception_collector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = exception_collector.hpp; path = "../../../src/E64-I/devices/cpu/exception_collector.hpp"; sourceTree = "<group>"; };
 		46723D3C2365E428007ADDC2 /* exception_collector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = exception_collector.cpp; path = "../../../src/E64-I/devices/cpu/exception_collector.cpp"; sourceTree = "<group>"; };
+		46757FB0236EF6A1000F0110 /* pid_delay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pid_delay.cpp; path = ../../../src/shared/pid_delay.cpp; sourceTree = "<group>"; };
+		46757FB1236EF6A1000F0110 /* pid_delay.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = pid_delay.hpp; path = ../../../src/shared/pid_delay.hpp; sourceTree = "<group>"; };
 		469BDFF3231D9FEC00868BBE /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
 		469EBBE7234FB36B00028136 /* E64-II.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "E64-II.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		469EBBE8234FB36B00028136 /* E64 copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "E64 copy2-Info.plist"; path = "/Users/elmer/Desktop/E64/macOS/E64/E64 copy2-Info.plist"; sourceTree = "<absolute>"; };
@@ -245,8 +245,6 @@
 		46241AB12324420500569490 /* sdl2 */ = {
 			isa = PBXGroup;
 			children = (
-				46050A96236984270073A85F /* sdl2_pid_delay.cpp */,
-				46050A98236984270073A85F /* sdl2_pid_delay.hpp */,
 				46050A97236984270073A85F /* sdl2.cpp */,
 				46050A99236984270073A85F /* sdl2.hpp */,
 			);
@@ -438,6 +436,8 @@
 				46050A3F236981B40073A85F /* frequency_divider.cpp */,
 				46050A3A236981B40073A85F /* machine.hpp */,
 				46050A3E236981B40073A85F /* machine.cpp */,
+				46757FB1236EF6A1000F0110 /* pid_delay.hpp */,
+				46757FB0236EF6A1000F0110 /* pid_delay.cpp */,
 			);
 			name = shared;
 			sourceTree = "<group>";
@@ -610,9 +610,9 @@
 				46050A6F236983B40073A85F /* wave6581_PST.cc in Sources */,
 				46050A95236984060073A85F /* vicv.cpp in Sources */,
 				46AB7615236DA9E000AF2F14 /* m68kopdm.c in Sources */,
-				46050A9B236984270073A85F /* sdl2_pid_delay.cpp in Sources */,
 				46050A7F236983B40073A85F /* wave8580__ST.cc in Sources */,
 				46AB7607236DA7DC00AF2F14 /* cpu.cpp in Sources */,
+				46757FB3236EF6A1000F0110 /* pid_delay.cpp in Sources */,
 				4626B0D52368E8C4003C56F8 /* debug_command.cpp in Sources */,
 				4626B0D32368E8C4003C56F8 /* debug_console.cpp in Sources */,
 				46AB761A236DA9E000AF2F14 /* m68kbreakpoints.c in Sources */,
@@ -656,6 +656,7 @@
 				46050A6A236983B40073A85F /* wave8580_PS_.cc in Sources */,
 				4626B0D22368E8C4003C56F8 /* debug_console.cpp in Sources */,
 				46050A9C236984270073A85F /* sdl2.cpp in Sources */,
+				46757FB2236EF6A1000F0110 /* pid_delay.cpp in Sources */,
 				46050A6E236983B40073A85F /* wave6581_PST.cc in Sources */,
 				46050A482369822B0073A85F /* cia.cpp in Sources */,
 				46050A94236984060073A85F /* vicv.cpp in Sources */,
@@ -665,7 +666,6 @@
 				46050A44236981B40073A85F /* frequency_divider.cpp in Sources */,
 				46050A72236983B40073A85F /* wave.cc in Sources */,
 				46C069E923699BA600B1DCB4 /* patched_char_rom.cpp in Sources */,
-				46050A9A236984270073A85F /* sdl2_pid_delay.cpp in Sources */,
 				46050A42236981B40073A85F /* machine.cpp in Sources */,
 				46050A88236983B40073A85F /* version.cc in Sources */,
 				46050A80236983B40073A85F /* wave6581__ST.cc in Sources */,
