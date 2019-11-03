@@ -7,7 +7,6 @@
 #include <thread>
 #include <cstdint>
 #include <iostream>
-//#include <SDL2/SDL.h>
 #include "sdl2_pid_delay.hpp"
 #include "sdl2.hpp"
 #include "common_defs.hpp"
@@ -61,8 +60,6 @@ E64::sdl2_pid_delay::sdl2_pid_delay(double initial_delay) : fps_pid(-8.0, 0.0, -
 
     statistics_framecounter = 0;
 
-    //t0 = SDL_GetTicks();
-    // new
     then = std::chrono::steady_clock::now();
 }
 
@@ -71,11 +68,6 @@ void E64::sdl2_pid_delay::run()
     framecounter++;
     if(!(framecounter & (evaluation_interval - 1) ))
     {
-//        // calculate measurement parameters (y's)
-//        t1 = SDL_GetTicks();
-//        interval = t1 - t0;
-//        t0 = t1;
-        // new
         now = std::chrono::steady_clock::now();
         duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - then).count();
         then = now;
@@ -83,7 +75,6 @@ void E64::sdl2_pid_delay::run()
         audio_queue_size = E64::sdl2_get_queued_audio_size();
         smoothed_audio_queue_size = (alpha * smoothed_audio_queue_size) + ((1.0 - alpha) * audio_queue_size);
 
-        //framerate = (double)(evaluation_interval * 1000) / interval;
         framerate = (double)(evaluation_interval * 1000) / duration;
         smoothed_framerate = (alpha * smoothed_framerate) + ((1.0 - alpha) * framerate);
 
