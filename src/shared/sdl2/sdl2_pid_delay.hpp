@@ -4,6 +4,7 @@
 //  Copyright © 2019 elmerucr. All rights reserved.
 
 #include <cstdint>
+#include <chrono>
 
 #ifndef SDL2_PID_DELAY_HPP
 #define SDL2_PID_DELAY_HPP
@@ -35,9 +36,15 @@ namespace E64
     private:
         double current_delay;   // delay per frame in microsec
         double max_delay;
-        int32_t t0;             // timer, for calculation of stable fps
-        int32_t t1;             // timer, for calculation of stable fps
-        int32_t interval;       // interval in milliseconds between t0 and t1
+//        int32_t t0;             // timer, for calculation of stable fps
+//        int32_t t1;             // timer, for calculation of stable fps
+//        int32_t interval;       // interval in milliseconds between t0 and t1
+        
+        // timers, for calculation of stable fps
+        std::chrono::time_point<std::chrono::high_resolution_clock> now, then;
+        int64_t duration;
+        
+
         uint8_t framecounter;               // keeps track of no of frames since last evaluation
         uint8_t evaluation_interval;        // amount of frames between two evaluations, must be a power of 2!
 

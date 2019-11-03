@@ -10,7 +10,7 @@
 
 #define E64_MAJOR_VERSION        0
 #define E64_MINOR_VERSION        4
-#define E64_BUILD                20191102
+#define E64_BUILD                20191103
 #define E64_YEAR                 2019
 
 #define RAM_SIZE                 0x1000000    // 16mb system
