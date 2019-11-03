@@ -10,7 +10,7 @@
 #include "sdl2.hpp"
 #include "pid_delay.hpp"
 #include "debug_console.hpp"
-#include "machine.hpp"
+#include "machine_E64-I.hpp"
 #include "debug_screen.hpp"
 #include "debug_status_bar.hpp"
 

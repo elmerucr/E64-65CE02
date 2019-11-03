@@ -6,7 +6,7 @@
 #include "debug_status_bar.hpp"
 #include "common_defs.hpp"
 #include "csg65ce02_dasm.h"
-#include "machine.hpp"
+#include "machine_E64-I.hpp"
 #include "debug_console.hpp"
 #include <cstdio>
 

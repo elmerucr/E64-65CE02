@@ -6,7 +6,7 @@
 #include "debug_screen.hpp"
 #include "common_defs.hpp"
 #include "mmu.hpp"
-#include "machine.hpp"
+#include "machine_E64-I.hpp"
 
 uint32_t debug_screen_buffer[VICV_PIXELS_PER_SCANLINE * 320];
 

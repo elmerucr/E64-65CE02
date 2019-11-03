@@ -5,7 +5,7 @@
 
 #include <cstdio>
 
-#include "machine.hpp"
+#include "machine_E64-I.hpp"
 #include "common_defs.hpp"
 #include "vicv.hpp"
 #include "debug_console.hpp"

@@ -137,7 +137,7 @@ extern bool application_running;
 // some objects need to be visible at global level:
 #include "pid_delay.hpp"
 extern E64::pid_delay frame_delay;
-#include "machine.hpp"
+#include "machine_E64-I.hpp"
 extern E64::machine computer;
 
 #endif
