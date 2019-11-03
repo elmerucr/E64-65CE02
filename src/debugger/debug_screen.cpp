@@ -19,7 +19,7 @@ void E64::debug_screen_update()
     // update all 32 rows (0-31), 32x8 = 256 scanlines
     for(int i=0; i < 256; i++) debug_screen_render_scanline(i);
 
-    // copy the relevant area of the vicv screen buffer to the bottom of the debug screen buffer
+    // copy relevant area of vicv screen buffer to bottom of debug screen buffer
     uint8_t scanline_normalized;
     if(computer.vicv_ic->return_current_scanline() > 287)
     {

@@ -1,4 +1,4 @@
-//  main_E64-II.cpp
+//  main.cpp
 //  E64-II
 //
 //  Copyright © 2019 elmerucr. All rights reserved.
@@ -8,7 +8,7 @@
 
 #include "common_defs.hpp"
 #include "sdl2.hpp"
-#include "sdl2_pid_delay.hpp"
+#include "pid_delay.hpp"
 #include "mmu.hpp"
 #include "vicv.hpp"
 #include "debug_console.hpp"
