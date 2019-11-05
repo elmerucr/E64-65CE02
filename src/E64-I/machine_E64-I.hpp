@@ -1,4 +1,4 @@
-//  machine.hpp
+//  machine_E64-I.hpp
 //  E64
 //
 //  Copyright © 2018 elmerucr. All rights reserved.
@@ -13,8 +13,8 @@
 #include "sound.hpp"
 #include "cia.hpp"
 
-#ifndef machine_hpp
-#define machine_hpp
+#ifndef MACHINE_E64_I_HPP
+#define MACHINE_E64_I_HPP
 
 namespace E64
 {

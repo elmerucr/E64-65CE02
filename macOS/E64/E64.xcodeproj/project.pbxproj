@@ -62,6 +62,7 @@
 		4626B0D52368E8C4003C56F8 /* debug_command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4626B0CE2368E8C4003C56F8 /* debug_command.cpp */; };
 		4626B0D62368E8C4003C56F8 /* debug_screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4626B0CF2368E8C4003C56F8 /* debug_screen.cpp */; };
 		4626B0D72368E8C4003C56F8 /* debug_screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4626B0CF2368E8C4003C56F8 /* debug_screen.cpp */; };
+		466646AB237219D9008885D2 /* machine_E64-II.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466646A9237219D9008885D2 /* machine_E64-II.cpp */; };
 		46723D332365E397007ADDC2 /* SN74LS612.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46723D2F2365E397007ADDC2 /* SN74LS612.cpp */; };
 		46723D342365E397007ADDC2 /* mmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46723D312365E397007ADDC2 /* mmu.cpp */; };
 		46723D392365E3DB007ADDC2 /* csg65ce02.c in Sources */ = {isa = PBXBuildFile; fileRef = 46723D362365E3DB007ADDC2 /* csg65ce02.c */; };
@@ -139,6 +140,8 @@
 		4626B0CD2368E8C4003C56F8 /* debug_console.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = debug_console.hpp; path = ../../../src/debugger/debug_console.hpp; sourceTree = "<group>"; };
 		4626B0CE2368E8C4003C56F8 /* debug_command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = debug_command.cpp; path = ../../../src/debugger/debug_command.cpp; sourceTree = "<group>"; };
 		4626B0CF2368E8C4003C56F8 /* debug_screen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = debug_screen.cpp; path = ../../../src/debugger/debug_screen.cpp; sourceTree = "<group>"; };
+		466646A9237219D9008885D2 /* machine_E64-II.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "machine_E64-II.cpp"; path = "../../../src/E64-II/machine_E64-II.cpp"; sourceTree = "<group>"; };
+		466646AA237219D9008885D2 /* machine_E64-II.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = "machine_E64-II.hpp"; path = "../../../src/E64-II/machine_E64-II.hpp"; sourceTree = "<group>"; };
 		46723D2F2365E397007ADDC2 /* SN74LS612.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SN74LS612.cpp; path = "../../../src/E64-I/devices/mmu/SN74LS612.cpp"; sourceTree = "<group>"; };
 		46723D302365E397007ADDC2 /* SN74LS612.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SN74LS612.hpp; path = "../../../src/E64-I/devices/mmu/SN74LS612.hpp"; sourceTree = "<group>"; };
 		46723D312365E397007ADDC2 /* mmu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mmu.cpp; path = "../../../src/E64-I/devices/mmu/mmu.cpp"; sourceTree = "<group>"; };
@@ -370,6 +373,8 @@
 			children = (
 				469EBBB7234FB33700028136 /* devices */,
 				46D0E6B123663BC000F32578 /* main.cpp */,
+				466646AA237219D9008885D2 /* machine_E64-II.hpp */,
+				466646A9237219D9008885D2 /* machine_E64-II.cpp */,
 			);
 			name = "E64-II";
 			sourceTree = "<group>";
@@ -598,6 +603,7 @@
 				46050A83236983B40073A85F /* wave8580_P_T.cc in Sources */,
 				4626B0D12368E8C4003C56F8 /* debug_status_bar.cpp in Sources */,
 				46050A7D236983B40073A85F /* extfilt.cc in Sources */,
+				466646AB237219D9008885D2 /* machine_E64-II.cpp in Sources */,
 				4626B0D72368E8C4003C56F8 /* debug_screen.cpp in Sources */,
 				46050A87236983B40073A85F /* sid.cc in Sources */,
 				46050A81236983B40073A85F /* wave6581__ST.cc in Sources */,
