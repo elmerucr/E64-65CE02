@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		46050A40236981B40073A85F /* common_defs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A3C236981B40073A85F /* common_defs.cpp */; };
 		46050A41236981B40073A85F /* common_defs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A3C236981B40073A85F /* common_defs.cpp */; };
-		46050A42236981B40073A85F /* machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A3E236981B40073A85F /* machine.cpp */; };
 		46050A44236981B40073A85F /* frequency_divider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A3F236981B40073A85F /* frequency_divider.cpp */; };
 		46050A45236981B40073A85F /* frequency_divider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A3F236981B40073A85F /* frequency_divider.cpp */; };
 		46050A482369822B0073A85F /* cia.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A462369822B0073A85F /* cia.cpp */; };
@@ -84,17 +83,16 @@
 		46AB7618236DA9E000AF2F14 /* m68kopnz.c in Sources */ = {isa = PBXBuildFile; fileRef = 46AB7610236DA9DF00AF2F14 /* m68kopnz.c */; };
 		46AB7619236DA9E000AF2F14 /* m68kops.c in Sources */ = {isa = PBXBuildFile; fileRef = 46AB7611236DA9DF00AF2F14 /* m68kops.c */; };
 		46AB761A236DA9E000AF2F14 /* m68kbreakpoints.c in Sources */ = {isa = PBXBuildFile; fileRef = 46AB7612236DA9DF00AF2F14 /* m68kbreakpoints.c */; };
+		46B7F6F4236F5A79006D4714 /* machine_E64-I.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B7F6F2236F5A79006D4714 /* machine_E64-I.cpp */; };
 		46C069E923699BA600B1DCB4 /* patched_char_rom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46C069E823699BA600B1DCB4 /* patched_char_rom.cpp */; };
 		46D0E6B023663B8100F32578 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46D0E6AF23663B8100F32578 /* main.cpp */; };
 		46D0E6B223663BC000F32578 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46D0E6B123663BC000F32578 /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		46050A3A236981B40073A85F /* machine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = machine.hpp; path = ../../../src/shared/machine.hpp; sourceTree = "<group>"; };
 		46050A3B236981B40073A85F /* frequency_divider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = frequency_divider.hpp; path = ../../../src/shared/frequency_divider.hpp; sourceTree = "<group>"; };
 		46050A3C236981B40073A85F /* common_defs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = common_defs.cpp; path = ../../../src/shared/common_defs.cpp; sourceTree = "<group>"; };
 		46050A3D236981B40073A85F /* common_defs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = common_defs.hpp; path = ../../../src/shared/common_defs.hpp; sourceTree = "<group>"; };
-		46050A3E236981B40073A85F /* machine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = machine.cpp; path = ../../../src/shared/machine.cpp; sourceTree = "<group>"; };
 		46050A3F236981B40073A85F /* frequency_divider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = frequency_divider.cpp; path = ../../../src/shared/frequency_divider.cpp; sourceTree = "<group>"; };
 		46050A462369822B0073A85F /* cia.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cia.cpp; path = ../../../src/shared/devices/cia/cia.cpp; sourceTree = "<group>"; };
 		46050A472369822B0073A85F /* cia.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = cia.hpp; path = ../../../src/shared/devices/cia/cia.hpp; sourceTree = "<group>"; };
@@ -173,6 +171,8 @@
 		46AB7611236DA9DF00AF2F14 /* m68kops.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kops.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kops.c"; sourceTree = "<group>"; };
 		46AB7612236DA9DF00AF2F14 /* m68kbreakpoints.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kbreakpoints.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kbreakpoints.c"; sourceTree = "<group>"; };
 		46AB7613236DA9DF00AF2F14 /* m68k.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m68k.h; path = "../../../src/E64-II/devices/cpu/Musashi/m68k.h"; sourceTree = "<group>"; };
+		46B7F6F2236F5A79006D4714 /* machine_E64-I.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "machine_E64-I.cpp"; path = "../../../src/E64-I/machine_E64-I.cpp"; sourceTree = "<group>"; };
+		46B7F6F3236F5A79006D4714 /* machine_E64-I.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = "machine_E64-I.hpp"; path = "../../../src/E64-I/machine_E64-I.hpp"; sourceTree = "<group>"; };
 		46C069E823699BA600B1DCB4 /* patched_char_rom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = patched_char_rom.cpp; path = ../../../src/shared/devices/char_rom/patched_char_rom.cpp; sourceTree = "<group>"; };
 		46D0E6AF23663B8100F32578 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = "../../../src/E64-I/main.cpp"; sourceTree = "<group>"; };
 		46D0E6B123663BC000F32578 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = "../../../src/E64-II/main.cpp"; sourceTree = "<group>"; };
@@ -262,9 +262,9 @@
 		46241ACD232442B900569490 /* sound */ = {
 			isa = PBXGroup;
 			children = (
-				46050A8A236983CD0073A85F /* sound.cpp */,
-				46050A8B236983CD0073A85F /* sound.hpp */,
 				46241ACF2324430100569490 /* resid */,
+				46050A8B236983CD0073A85F /* sound.hpp */,
+				46050A8A236983CD0073A85F /* sound.cpp */,
 			);
 			name = sound;
 			sourceTree = "<group>";
@@ -359,6 +359,8 @@
 			children = (
 				469EBBB6234FB32D00028136 /* devices */,
 				46D0E6AF23663B8100F32578 /* main.cpp */,
+				46B7F6F3236F5A79006D4714 /* machine_E64-I.hpp */,
+				46B7F6F2236F5A79006D4714 /* machine_E64-I.cpp */,
 			);
 			name = "E64-I";
 			sourceTree = "<group>";
@@ -434,8 +436,6 @@
 				46050A3C236981B40073A85F /* common_defs.cpp */,
 				46050A3B236981B40073A85F /* frequency_divider.hpp */,
 				46050A3F236981B40073A85F /* frequency_divider.cpp */,
-				46050A3A236981B40073A85F /* machine.hpp */,
-				46050A3E236981B40073A85F /* machine.cpp */,
 				46757FB1236EF6A1000F0110 /* pid_delay.hpp */,
 				46757FB0236EF6A1000F0110 /* pid_delay.cpp */,
 			);
@@ -654,6 +654,7 @@
 				4626B0D62368E8C4003C56F8 /* debug_screen.cpp in Sources */,
 				46050A84236983B40073A85F /* pot.cc in Sources */,
 				46050A6A236983B40073A85F /* wave8580_PS_.cc in Sources */,
+				46B7F6F4236F5A79006D4714 /* machine_E64-I.cpp in Sources */,
 				4626B0D22368E8C4003C56F8 /* debug_console.cpp in Sources */,
 				46050A9C236984270073A85F /* sdl2.cpp in Sources */,
 				46757FB2236EF6A1000F0110 /* pid_delay.cpp in Sources */,
@@ -666,7 +667,6 @@
 				46050A44236981B40073A85F /* frequency_divider.cpp in Sources */,
 				46050A72236983B40073A85F /* wave.cc in Sources */,
 				46C069E923699BA600B1DCB4 /* patched_char_rom.cpp in Sources */,
-				46050A42236981B40073A85F /* machine.cpp in Sources */,
 				46050A88236983B40073A85F /* version.cc in Sources */,
 				46050A80236983B40073A85F /* wave6581__ST.cc in Sources */,
 				46050A86236983B40073A85F /* sid.cc in Sources */,
@@ -687,6 +687,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"E64_II=1",
 				);
 				INFOPLIST_FILE = "E64 copy2-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -711,6 +715,7 @@
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = "E64_II=1";
 				INFOPLIST_FILE = "E64 copy2-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -849,6 +854,10 @@
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"E64_I=1",
+				);
 				INFOPLIST_FILE = E64/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -872,6 +881,7 @@
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = "E64_I=1";
 				INFOPLIST_FILE = E64/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

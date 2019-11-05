@@ -11,8 +11,10 @@
 
 #include <cstdint>
 
-namespace E64 {
-    class frequency_divider {
+namespace E64
+{
+    class frequency_divider
+    {
     private:
         uint64_t clock0_frequency;
         uint64_t clock1_frequency;

@@ -12,7 +12,6 @@
 #include "mmu.hpp"
 #include "vicv.hpp"
 #include "debug_console.hpp"
-#include "machine.hpp"
 #include "debug_screen.hpp"
 #include "debug_status_bar.hpp"
 #include "cia.hpp"

@@ -10,6 +10,7 @@
 #include "SN74LS612.hpp"
 #include "cia.hpp"
 #include "sound.hpp"
+#include "common_defs.hpp"
 
 uint8_t *ram;
 

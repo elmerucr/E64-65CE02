@@ -10,8 +10,6 @@
 #ifndef MMU_HPP
 #define MMU_HPP
 
-#include "common_defs.hpp"
-
 extern uint8_t patched_char_rom[];
 extern uint8_t kernel[];
 

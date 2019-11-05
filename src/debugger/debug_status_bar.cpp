@@ -3,12 +3,12 @@
 //
 //  Copyright © 2019 elmerucr. All rights reserved.
 
-#include "debug_status_bar.hpp"
-#include "common_defs.hpp"
-#include "csg65ce02_dasm.h"
-#include "machine_E64-I.hpp"
-#include "debug_console.hpp"
 #include <cstdio>
+
+#include "common_defs.hpp"
+#include "debug_status_bar.hpp"
+#include "csg65ce02_dasm.h"
+#include "debug_console.hpp"
 
 uint8_t status_bar_chars[16*64];
 uint8_t status_bar_foreground_color_buffer[16*64];
