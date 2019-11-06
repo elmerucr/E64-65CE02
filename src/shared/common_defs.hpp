@@ -8,13 +8,18 @@
 #ifndef COMMON_DEFS_H
 #define COMMON_DEFS_H
 
-#define E64_MAJOR_VERSION        0
-#define E64_MINOR_VERSION        4
-#define E64_BUILD                20191105
-#define E64_YEAR                 2019
+#define E64_MAJOR_VERSION       0
+#define E64_MINOR_VERSION       4
+#define E64_BUILD               20191106
+#define E64_YEAR                2019
 
-#define RAM_SIZE                 0x1000000    // 16mb system
-#define CPU_CLOCK_SPEED          4096000      // 4MHz system
+#define RAM_SIZE                0x1000000    // 16mb system
+
+#ifdef E64_I
+    #define CPU_CLOCK_SPEED     4096000      // 4MHz system
+#elif E64_II
+    #define CPU_CLOCK_SPEED     8192000
+#endif
 #define FPS                      50           // "PAL" @50Hz
 
 #define VICV_PIXELS_PER_SCANLINE 512

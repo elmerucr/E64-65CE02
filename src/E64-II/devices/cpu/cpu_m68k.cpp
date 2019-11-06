@@ -1,19 +1,19 @@
-//  cpu.cpp
+//  cpu_m68k.cpp
 //  E64
 //
 //  Copyright © 2019 elmerucr. All rights reserved.
 
+#include "m68k.h"
 extern "C"
 {
-#include "m68k.h"
 #include "m68kbreakpoints.h"
 }
 
 #include <cstdlib>
-#include "cpu.hpp"
+#include "cpu_m68k.hpp"
 #include "common_defs.hpp"
 
-E64::cpu::cpu()
+E64::cpu_m68k::cpu_m68k()
 {
     // init breakpoints
     m68kbreakpoints_active = false;
@@ -26,23 +26,23 @@ E64::cpu::cpu()
     m68k_init();
 }
 
-E64::cpu::~cpu()
+E64::cpu_m68k::~cpu_m68k()
 {
     // cleanup breakpoints
     free(m68kbreakpoints_array);
 }
 
-void E64::cpu::reset()
+void E64::cpu_m68k::reset()
 {
     m68k_pulse_reset();
 }
 
-void E64::cpu::add_breakpoint(uint32_t address)
+void E64::cpu_m68k::add_breakpoint(uint32_t address)
 {
     m68kbreakpoints_array[address & (RAM_SIZE - 1)] = true;
 }
 
-void E64::cpu::remove_breakpoint(uint32_t address)
+void E64::cpu_m68k::remove_breakpoint(uint32_t address)
 {
     m68kbreakpoints_array[address & (RAM_SIZE - 1)] = false;
 }

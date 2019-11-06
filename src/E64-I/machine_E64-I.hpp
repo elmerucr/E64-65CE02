@@ -7,6 +7,7 @@
 
 #include "frequency_divider.hpp"
 #include "exception_collector.hpp"
+#include "cpu_65ce02.hpp"
 #include "csg65ce02.h"
 #include "timer.hpp"
 #include "vicv.hpp"

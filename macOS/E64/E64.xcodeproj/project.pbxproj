@@ -76,18 +76,17 @@
 		469EBBE2234FB36B00028136 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46A1F87D231D721A003982FA /* Assets.xcassets */; };
 		469EBBE3234FB36B00028136 /* SDL2.framework in Resources */ = {isa = PBXBuildFile; fileRef = 469BDFF3231D9FEC00868BBE /* SDL2.framework */; };
 		46A1F87E231D721A003982FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46A1F87D231D721A003982FA /* Assets.xcassets */; };
-		46AB7607236DA7DC00AF2F14 /* cpu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46AB7606236DA7DC00AF2F14 /* cpu.cpp */; };
-		46AB7614236DA9E000AF2F14 /* m68kdasm.c in Sources */ = {isa = PBXBuildFile; fileRef = 46AB760A236DA9DF00AF2F14 /* m68kdasm.c */; };
-		46AB7615236DA9E000AF2F14 /* m68kopdm.c in Sources */ = {isa = PBXBuildFile; fileRef = 46AB760B236DA9DF00AF2F14 /* m68kopdm.c */; };
-		46AB7616236DA9E000AF2F14 /* m68kopac.c in Sources */ = {isa = PBXBuildFile; fileRef = 46AB760C236DA9DF00AF2F14 /* m68kopac.c */; };
-		46AB7617236DA9E000AF2F14 /* m68kcpu.c in Sources */ = {isa = PBXBuildFile; fileRef = 46AB760F236DA9DF00AF2F14 /* m68kcpu.c */; };
-		46AB7618236DA9E000AF2F14 /* m68kopnz.c in Sources */ = {isa = PBXBuildFile; fileRef = 46AB7610236DA9DF00AF2F14 /* m68kopnz.c */; };
-		46AB7619236DA9E000AF2F14 /* m68kops.c in Sources */ = {isa = PBXBuildFile; fileRef = 46AB7611236DA9DF00AF2F14 /* m68kops.c */; };
+		46AB7607236DA7DC00AF2F14 /* cpu_m68k.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46AB7606236DA7DC00AF2F14 /* cpu_m68k.cpp */; };
 		46AB761A236DA9E000AF2F14 /* m68kbreakpoints.c in Sources */ = {isa = PBXBuildFile; fileRef = 46AB7612236DA9DF00AF2F14 /* m68kbreakpoints.c */; };
 		46B7F6F4236F5A79006D4714 /* machine_E64-I.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B7F6F2236F5A79006D4714 /* machine_E64-I.cpp */; };
+		46BE91A2237305080071210B /* m68kcpu.c in Sources */ = {isa = PBXBuildFile; fileRef = 46BE919A237305080071210B /* m68kcpu.c */; };
+		46BE91A3237305080071210B /* m68kfpu.c in Sources */ = {isa = PBXBuildFile; fileRef = 46BE919C237305080071210B /* m68kfpu.c */; };
+		46BE91A4237305080071210B /* m68kdasm.c in Sources */ = {isa = PBXBuildFile; fileRef = 46BE919D237305080071210B /* m68kdasm.c */; };
+		46BE91A5237305080071210B /* m68kops.c in Sources */ = {isa = PBXBuildFile; fileRef = 46BE919E237305080071210B /* m68kops.c */; };
 		46C069E923699BA600B1DCB4 /* patched_char_rom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46C069E823699BA600B1DCB4 /* patched_char_rom.cpp */; };
 		46D0E6B023663B8100F32578 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46D0E6AF23663B8100F32578 /* main.cpp */; };
 		46D0E6B223663BC000F32578 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46D0E6B123663BC000F32578 /* main.cpp */; };
+		46E4BE8023732A0D00891698 /* cpu_65ce02.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46E4BE7E23732A0D00891698 /* cpu_65ce02.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -160,25 +159,25 @@
 		46A1F878231D7218003982FA /* E64.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = E64.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46A1F87D231D721A003982FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		46A1F882231D721A003982FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		46AB7605236DA7DC00AF2F14 /* cpu.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = cpu.hpp; path = "../../../src/E64-II/devices/cpu/cpu.hpp"; sourceTree = "<group>"; };
-		46AB7606236DA7DC00AF2F14 /* cpu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cpu.cpp; path = "../../../src/E64-II/devices/cpu/cpu.cpp"; sourceTree = "<group>"; };
-		46AB7608236DA9DF00AF2F14 /* m68kcpu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m68kcpu.h; path = "../../../src/E64-II/devices/cpu/Musashi/m68kcpu.h"; sourceTree = "<group>"; };
-		46AB7609236DA9DF00AF2F14 /* m68kconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m68kconf.h; path = "../../../src/E64-II/devices/cpu/Musashi/m68kconf.h"; sourceTree = "<group>"; };
-		46AB760A236DA9DF00AF2F14 /* m68kdasm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kdasm.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kdasm.c"; sourceTree = "<group>"; };
-		46AB760B236DA9DF00AF2F14 /* m68kopdm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kopdm.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kopdm.c"; sourceTree = "<group>"; };
-		46AB760C236DA9DF00AF2F14 /* m68kopac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kopac.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kopac.c"; sourceTree = "<group>"; };
-		46AB760D236DA9DF00AF2F14 /* m68kops.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m68kops.h; path = "../../../src/E64-II/devices/cpu/Musashi/m68kops.h"; sourceTree = "<group>"; };
+		46AB7605236DA7DC00AF2F14 /* cpu_m68k.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = cpu_m68k.hpp; path = "../../../src/E64-II/devices/cpu/cpu_m68k.hpp"; sourceTree = "<group>"; };
+		46AB7606236DA7DC00AF2F14 /* cpu_m68k.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cpu_m68k.cpp; path = "../../../src/E64-II/devices/cpu/cpu_m68k.cpp"; sourceTree = "<group>"; };
 		46AB760E236DA9DF00AF2F14 /* m68kbreakpoints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m68kbreakpoints.h; path = "../../../src/E64-II/devices/cpu/Musashi/m68kbreakpoints.h"; sourceTree = "<group>"; };
-		46AB760F236DA9DF00AF2F14 /* m68kcpu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kcpu.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kcpu.c"; sourceTree = "<group>"; };
-		46AB7610236DA9DF00AF2F14 /* m68kopnz.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kopnz.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kopnz.c"; sourceTree = "<group>"; };
-		46AB7611236DA9DF00AF2F14 /* m68kops.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kops.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kops.c"; sourceTree = "<group>"; };
 		46AB7612236DA9DF00AF2F14 /* m68kbreakpoints.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kbreakpoints.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kbreakpoints.c"; sourceTree = "<group>"; };
-		46AB7613236DA9DF00AF2F14 /* m68k.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m68k.h; path = "../../../src/E64-II/devices/cpu/Musashi/m68k.h"; sourceTree = "<group>"; };
 		46B7F6F2236F5A79006D4714 /* machine_E64-I.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "machine_E64-I.cpp"; path = "../../../src/E64-I/machine_E64-I.cpp"; sourceTree = "<group>"; };
 		46B7F6F3236F5A79006D4714 /* machine_E64-I.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = "machine_E64-I.hpp"; path = "../../../src/E64-I/machine_E64-I.hpp"; sourceTree = "<group>"; };
+		46BE919A237305080071210B /* m68kcpu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kcpu.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kcpu.c"; sourceTree = "<group>"; };
+		46BE919B237305080071210B /* m68kcpu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m68kcpu.h; path = "../../../src/E64-II/devices/cpu/Musashi/m68kcpu.h"; sourceTree = "<group>"; };
+		46BE919C237305080071210B /* m68kfpu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kfpu.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kfpu.c"; sourceTree = "<group>"; };
+		46BE919D237305080071210B /* m68kdasm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kdasm.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kdasm.c"; sourceTree = "<group>"; };
+		46BE919E237305080071210B /* m68kops.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kops.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kops.c"; sourceTree = "<group>"; };
+		46BE919F237305080071210B /* m68kops.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m68kops.h; path = "../../../src/E64-II/devices/cpu/Musashi/m68kops.h"; sourceTree = "<group>"; };
+		46BE91A0237305080071210B /* m68kconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m68kconf.h; path = "../../../src/E64-II/devices/cpu/Musashi/m68kconf.h"; sourceTree = "<group>"; };
+		46BE91A1237305080071210B /* m68k.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m68k.h; path = "../../../src/E64-II/devices/cpu/Musashi/m68k.h"; sourceTree = "<group>"; };
 		46C069E823699BA600B1DCB4 /* patched_char_rom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = patched_char_rom.cpp; path = ../../../src/shared/devices/char_rom/patched_char_rom.cpp; sourceTree = "<group>"; };
 		46D0E6AF23663B8100F32578 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = "../../../src/E64-I/main.cpp"; sourceTree = "<group>"; };
 		46D0E6B123663BC000F32578 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = "../../../src/E64-II/main.cpp"; sourceTree = "<group>"; };
+		46E4BE7E23732A0D00891698 /* cpu_65ce02.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cpu_65ce02.cpp; path = "../../../src/E64-I/devices/cpu/cpu_65ce02.cpp"; sourceTree = "<group>"; };
+		46E4BE7F23732A0D00891698 /* cpu_65ce02.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = cpu_65ce02.hpp; path = "../../../src/E64-I/devices/cpu/cpu_65ce02.hpp"; sourceTree = "<group>"; };
 		46F5DE3A234A2BAA0053A401 /* E64 copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "E64 copy-Info.plist"; path = "/Users/elmer/Desktop/E64/macOS/E64/E64 copy-Info.plist"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -334,16 +333,14 @@
 		46723D3E2365E46D007ADDC2 /* Musashi */ = {
 			isa = PBXGroup;
 			children = (
-				46AB7613236DA9DF00AF2F14 /* m68k.h */,
-				46AB7609236DA9DF00AF2F14 /* m68kconf.h */,
-				46AB760F236DA9DF00AF2F14 /* m68kcpu.c */,
-				46AB7608236DA9DF00AF2F14 /* m68kcpu.h */,
-				46AB760A236DA9DF00AF2F14 /* m68kdasm.c */,
-				46AB760C236DA9DF00AF2F14 /* m68kopac.c */,
-				46AB760B236DA9DF00AF2F14 /* m68kopdm.c */,
-				46AB7610236DA9DF00AF2F14 /* m68kopnz.c */,
-				46AB7611236DA9DF00AF2F14 /* m68kops.c */,
-				46AB760D236DA9DF00AF2F14 /* m68kops.h */,
+				46BE91A1237305080071210B /* m68k.h */,
+				46BE91A0237305080071210B /* m68kconf.h */,
+				46BE919A237305080071210B /* m68kcpu.c */,
+				46BE919B237305080071210B /* m68kcpu.h */,
+				46BE919D237305080071210B /* m68kdasm.c */,
+				46BE919C237305080071210B /* m68kfpu.c */,
+				46BE919E237305080071210B /* m68kops.c */,
+				46BE919F237305080071210B /* m68kops.h */,
 				46AB760E236DA9DF00AF2F14 /* m68kbreakpoints.h */,
 				46AB7612236DA9DF00AF2F14 /* m68kbreakpoints.c */,
 			);
@@ -459,6 +456,8 @@
 			isa = PBXGroup;
 			children = (
 				46ED0028234FBDF800B43B56 /* lib65ce02 */,
+				46E4BE7F23732A0D00891698 /* cpu_65ce02.hpp */,
+				46E4BE7E23732A0D00891698 /* cpu_65ce02.cpp */,
 				46723D3B2365E428007ADDC2 /* exception_collector.hpp */,
 				46723D3C2365E428007ADDC2 /* exception_collector.cpp */,
 			);
@@ -469,8 +468,8 @@
 			isa = PBXGroup;
 			children = (
 				46723D3E2365E46D007ADDC2 /* Musashi */,
-				46AB7605236DA7DC00AF2F14 /* cpu.hpp */,
-				46AB7606236DA7DC00AF2F14 /* cpu.cpp */,
+				46AB7605236DA7DC00AF2F14 /* cpu_m68k.hpp */,
+				46AB7606236DA7DC00AF2F14 /* cpu_m68k.cpp */,
 			);
 			name = cpu;
 			sourceTree = "<group>";
@@ -597,8 +596,8 @@
 				46050A6D236983B40073A85F /* voice.cc in Sources */,
 				46050A71236983B40073A85F /* filter.cc in Sources */,
 				46050A85236983B40073A85F /* pot.cc in Sources */,
+				46BE91A4237305080071210B /* m68kdasm.c in Sources */,
 				46050A77236983B40073A85F /* wave8580_PST.cc in Sources */,
-				46AB7617236DA9E000AF2F14 /* m68kcpu.c in Sources */,
 				46050A492369822B0073A85F /* cia.cpp in Sources */,
 				46050A83236983B40073A85F /* wave8580_P_T.cc in Sources */,
 				4626B0D12368E8C4003C56F8 /* debug_status_bar.cpp in Sources */,
@@ -608,29 +607,27 @@
 				46050A87236983B40073A85F /* sid.cc in Sources */,
 				46050A81236983B40073A85F /* wave6581__ST.cc in Sources */,
 				46050A89236983B40073A85F /* version.cc in Sources */,
-				46AB7618236DA9E000AF2F14 /* m68kopnz.c in Sources */,
 				46D0E6B223663BC000F32578 /* main.cpp in Sources */,
 				46050A8D236983CD0073A85F /* sound.cpp in Sources */,
-				46AB7616236DA9E000AF2F14 /* m68kopac.c in Sources */,
-				46AB7614236DA9E000AF2F14 /* m68kdasm.c in Sources */,
 				46050A6F236983B40073A85F /* wave6581_PST.cc in Sources */,
 				46050A95236984060073A85F /* vicv.cpp in Sources */,
-				46AB7615236DA9E000AF2F14 /* m68kopdm.c in Sources */,
 				46050A7F236983B40073A85F /* wave8580__ST.cc in Sources */,
-				46AB7607236DA7DC00AF2F14 /* cpu.cpp in Sources */,
+				46AB7607236DA7DC00AF2F14 /* cpu_m68k.cpp in Sources */,
 				46757FB3236EF6A1000F0110 /* pid_delay.cpp in Sources */,
 				4626B0D52368E8C4003C56F8 /* debug_command.cpp in Sources */,
 				4626B0D32368E8C4003C56F8 /* debug_console.cpp in Sources */,
 				46AB761A236DA9E000AF2F14 /* m68kbreakpoints.c in Sources */,
 				46050A6B236983B40073A85F /* wave8580_PS_.cc in Sources */,
 				46050A9D236984270073A85F /* sdl2.cpp in Sources */,
+				46BE91A2237305080071210B /* m68kcpu.c in Sources */,
 				46050A91236983E80073A85F /* timer.cpp in Sources */,
 				46050A41236981B40073A85F /* common_defs.cpp in Sources */,
 				46050A45236981B40073A85F /* frequency_divider.cpp in Sources */,
+				46BE91A3237305080071210B /* m68kfpu.c in Sources */,
 				46050A79236983B40073A85F /* wave6581_PS_.cc in Sources */,
 				46050A73236983B40073A85F /* wave.cc in Sources */,
 				46050A7B236983B40073A85F /* envelope.cc in Sources */,
-				46AB7619236DA9E000AF2F14 /* m68kops.c in Sources */,
+				46BE91A5237305080071210B /* m68kops.c in Sources */,
 				46050A75236983B40073A85F /* wave6581_P_T.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -642,6 +639,7 @@
 				46050A502369837B0073A85F /* kernel.cpp in Sources */,
 				46050A82236983B40073A85F /* wave8580_P_T.cc in Sources */,
 				46723D3D2365E428007ADDC2 /* exception_collector.cpp in Sources */,
+				46E4BE8023732A0D00891698 /* cpu_65ce02.cpp in Sources */,
 				46D0E6B023663B8100F32578 /* main.cpp in Sources */,
 				46723D332365E397007ADDC2 /* SN74LS612.cpp in Sources */,
 				4626B0D42368E8C4003C56F8 /* debug_command.cpp in Sources */,
