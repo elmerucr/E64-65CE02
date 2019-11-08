@@ -61,7 +61,7 @@ int main(int argc, char **argv)
                         break;
                 }
                 //
-                computer.exception_collector_ic->update_status();
+                //computer.exception_collector_ic->update_status();
                 // if full frame was drawn call other update functions:
                 if(computer.vicv_ic->frame_done == true)
                 {

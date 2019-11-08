@@ -3,6 +3,8 @@
 //
 //  Copyright © 2018 elmerucr. All rights reserved.
 
+#include <cstdint>
+
 #ifndef debug_console_hpp
 #define debug_console_hpp
 

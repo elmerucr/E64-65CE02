@@ -5,6 +5,9 @@
 
 #include <cstdint>
 
+#ifndef CPU_M68K_HPP
+#define CPU_M68K_HPP
+
 namespace E64
 {
     class cpu_m68k
@@ -18,5 +21,8 @@ namespace E64
         void reset();
         void add_breakpoint(uint32_t address);
         void remove_breakpoint(uint32_t address);
+        void force_next_instruction();
     };
 }
+
+#endif

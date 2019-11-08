@@ -7,7 +7,7 @@
 
 #include "vicv.hpp"
 #include "common_defs.hpp"
-#include "mmu.hpp"
+#include "mmu_E64_I.hpp"
 
 E64::vicv::vicv()
 {
@@ -178,8 +178,8 @@ void E64::vicv::render_scanline(void) {
         back_buffer[ base | x ] = background_color;
         // get current text column, current x divided by 8 (yields 0-63)
         int currentTextColumn = (x >> 3);
-        uint8_t currentChar = ram[start_screen_buffer | (((currentTextRow << 6) | currentTextColumn))];
-        uint32_t currentCharColor = computer.vicv_ic->color_palette[ram[start_color_buffer + (((currentTextRow << 6) | currentTextColumn))]];
+        uint8_t currentChar = computer.mmu_ic->ram[start_screen_buffer | (((currentTextRow << 6) | currentTextColumn))];
+        uint32_t currentCharColor = computer.vicv_ic->color_palette[computer.mmu_ic->ram[start_color_buffer + (((currentTextRow << 6) | currentTextColumn))]];
         if( !(x & 7) )
         {
             // if it's the first pixel of a char position, get byte information from char_rom

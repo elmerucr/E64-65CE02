@@ -1,18 +1,18 @@
-//  machine_E64-I.hpp
+//  machine_E64_I.hpp
 //  E64
 //
 //  Copyright © 2018 elmerucr. All rights reserved.
 
 #include <cstdint>
 
-#include "frequency_divider.hpp"
-#include "exception_collector.hpp"
-#include "cpu_65ce02.hpp"
+#include "cia.hpp"
 #include "csg65ce02.h"
+#include "exception_collector.hpp"
+#include "frequency_divider.hpp"
+#include "mmu_E64_I.hpp"
+#include "sound.hpp"
 #include "timer.hpp"
 #include "vicv.hpp"
-#include "sound.hpp"
-#include "cia.hpp"
 
 #ifndef MACHINE_E64_I_HPP
 #define MACHINE_E64_I_HPP
@@ -41,6 +41,7 @@ namespace E64
         enum machine_mode   current_mode;
         bool running;
 
+        mmu                 *mmu_ic;
         exception_collector *exception_collector_ic;
         csg65ce02           *cpu_ic;
         timer               *timer_ic;
@@ -50,6 +51,8 @@ namespace E64
 
         machine();
         ~machine();
+        
+        void force_next_instruction();
 
         void switch_to_running();
         void switch_to_debug();

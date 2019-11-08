@@ -5,33 +5,29 @@
 
 #include <cstdint>
 
-#include "mmu.hpp"
+#include "mmu_E64_I.hpp"
+#include "common_defs.hpp"
 #include "vicv.hpp"
 #include "SN74LS612.hpp"
 #include "cia.hpp"
 #include "sound.hpp"
-#include "common_defs.hpp"
 
-uint8_t *ram;
-
-void mmu_init()
+E64::mmu::mmu()
 {
-    E64::SN74LS612_init();
+    SN74LS612_ic.reset();
     // allocate main ram and fill with a pattern
     ram = new uint8_t[RAM_SIZE * sizeof(uint8_t)];
     // fill alternating blocks with 0x00 and 0x80
     for(int i=0; i< RAM_SIZE; i++) ram[i] = (i & 64) ? 0x80 : 0x00;
 }
 
-void mmu_cleanup()
+E64::mmu::~mmu()
 {
     delete [] ram;
     ram = nullptr;
 }
 
-// Function definitions needed by lib65ce02
-// these take care of memory access by CPU
-extern "C" uint8_t csg65ce02_read_byte(uint16_t address)
+uint8_t E64::mmu::read_byte(uint16_t address)
 {
     uint8_t result;
     uint8_t page = (address & 0xff00) >> 8;
@@ -49,7 +45,7 @@ extern "C" uint8_t csg65ce02_read_byte(uint16_t address)
     }
     else if(page == MMU_PAGE)
     {
-        result = E64::SN74LS612_read_byte(address & 0x00ff);
+        result = SN74LS612_ic.read_byte(address & 0x00ff);
     }
     else if(page == IO_CIA_PAGE)
     {
@@ -62,14 +58,12 @@ extern "C" uint8_t csg65ce02_read_byte(uint16_t address)
     else
     {
         // "normal" memory access
-        result = ram[E64::SN74LS612_logical_to_physical(address)];
+        result = ram[SN74LS612_ic.logical_to_physical(address)];
     }
     return result;
 }
 
-// Function definitions needed by lib65ce02
-// these take care of memory access by CPU
-extern "C" void csg65ce02_write_byte(uint16_t address, uint8_t byte)
+void E64::mmu::write_byte(uint16_t address, uint8_t byte)
 {
     uint8_t page = (address & 0xff00) >> 8;
     if(page == IO_VICV_PAGE)
@@ -86,7 +80,7 @@ extern "C" void csg65ce02_write_byte(uint16_t address, uint8_t byte)
     }
     else if(page == MMU_PAGE)
     {
-        E64::SN74LS612_write_byte(address & 0x00ff, byte);
+        SN74LS612_ic.write_byte(address & 0x00ff, byte);
     }
     else if(page == IO_CIA_PAGE)
     {
@@ -96,6 +90,6 @@ extern "C" void csg65ce02_write_byte(uint16_t address, uint8_t byte)
     else
     {
         // "normal" memory access
-        ram[E64::SN74LS612_logical_to_physical(address)] = byte;
+        ram[SN74LS612_ic.logical_to_physical(address)] = byte;
     }
 }

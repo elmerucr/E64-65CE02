@@ -46,3 +46,8 @@ void E64::cpu_m68k::remove_breakpoint(uint32_t address)
 {
     m68kbreakpoints_array[address & (RAM_SIZE - 1)] = false;
 }
+
+void E64::cpu_m68k::force_next_instruction()
+{
+    m68kbreakpoints_force_next_instruction = true;
+}

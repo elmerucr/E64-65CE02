@@ -9,7 +9,7 @@
 #include <SDL2/SDL.h>
 #include "common_defs.hpp"
 #include "sdl2.hpp"
-#include "mmu.hpp"
+#include "mmu_E64_I.hpp"
 #include "debug_screen.hpp"
 #include "debug_console.hpp"
 #include "debug_command.hpp"
@@ -188,7 +188,7 @@ int E64::sdl2_process_events()
                 {
                     E64::sdl2_wait_until_f9_released();
                     computer.switch_mode();
-                    computer.cpu_ic->force_next_instruction = true;
+                    computer.force_next_instruction();
                 }
                 else if(computer.current_mode == NORMAL_MODE)
                 {
@@ -491,10 +491,10 @@ void E64::sdl2_update_title(void)
     switch(computer.current_mode)
     {
         case NORMAL_MODE:
-            SDL_SetWindowTitle(context0.window, "E64");
+            SDL_SetWindowTitle(context0.window, WINDOW_TITLE_RUNNING);
             break;
         case DEBUG_MODE:
-            SDL_SetWindowTitle(context0.window, "E64 debugger");
+            SDL_SetWindowTitle(context0.window, WINDOW_TITLE_DEBUGGER);
             break;
     }
 }

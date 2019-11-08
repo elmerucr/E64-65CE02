@@ -1,11 +1,11 @@
-//  machine_E64-I.cpp
+//  machine_E64_I.cpp
 //  E64
 //
 //  Copyright © 2018 elmerucr. All rights reserved.
 
 #include <cstdio>
 
-#include "machine_E64-I.hpp"
+#include "machine_E64_I.hpp"
 #include "common_defs.hpp"
 #include "vicv.hpp"
 #include "debug_console.hpp"
@@ -18,6 +18,8 @@ E64::machine::machine()
 {
     // defaults to normal mode, but can be changed later by application
     current_mode = NORMAL_MODE;
+    
+    mmu_ic = new mmu();
 
     exception_collector_ic = new exception_collector();
     
@@ -58,6 +60,8 @@ E64::machine::~machine()
     csg65ce02_cleanup(this->cpu_ic);
     
     delete exception_collector_ic;
+    
+    delete mmu_ic;
 }
 
 int E64::machine::run(uint16_t no_of_cycles)
@@ -81,6 +85,11 @@ int E64::machine::run(uint16_t no_of_cycles)
     timer_ic->run(cpu_to_timer->clock(processed_cycles));
     
     return exit_code;
+}
+
+void E64::machine::force_next_instruction()
+{
+    cpu_ic->force_next_instruction = true;
 }
 
 void E64::machine::switch_to_running()

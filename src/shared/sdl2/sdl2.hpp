@@ -6,6 +6,14 @@
 #ifndef sdl2_hpp
 #define sdl2_hpp
 
+#ifdef E64_I
+    #define WINDOW_TITLE_RUNNING    "E64"
+    #define WINDOW_TITLE_DEBUGGER   "E64 debugger"
+#elif E64_II
+    #define WINDOW_TITLE_RUNNING    "E64-II"
+    #define WINDOW_TITLE_DEBUGGER   "E64-II debugger"
+#endif
+
 namespace E64
 {
     enum events_output_state

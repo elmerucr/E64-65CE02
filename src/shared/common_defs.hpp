@@ -10,7 +10,7 @@
 
 #define E64_MAJOR_VERSION       0
 #define E64_MINOR_VERSION       4
-#define E64_BUILD               20191106
+#define E64_BUILD               20191108
 #define E64_YEAR                2019
 
 #define RAM_SIZE                0x1000000    // 16mb system
@@ -142,9 +142,9 @@ extern bool application_running;
 
 #include "pid_delay.hpp"
 #ifdef E64_I
-    #include "machine_E64-I.hpp"
+    #include "machine_E64_I.hpp"
 #elif E64_II
-    #include "machine_E64-II.hpp"
+    #include "machine_E64_II.hpp"
 #endif
 
 // some objects need to be visible at global level:

@@ -1,4 +1,4 @@
-//  machine_E64-II.hpp
+//  machine_E64_II.hpp
 //  E64
 //
 //  Copyright © 2019 elmerucr. All rights reserved.
@@ -36,12 +36,22 @@ namespace E64
     public:
         enum machine_mode   current_mode;
         bool running;
-
+        
         cpu_m68k            *cpu_ic;
         timer               *timer_ic;
         vicv                *vicv_ic;
         sound               *sound_ic;
         cia                 *cia_ic;
+
+        machine();
+        ~machine();
+        
+        void force_next_instruction();
+        int  run(uint16_t no_of_cycles);
+        
+        void switch_to_running();
+        void switch_to_debug();
+        void switch_mode();
     };
 }
 
