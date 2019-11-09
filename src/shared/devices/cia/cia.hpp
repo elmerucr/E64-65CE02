@@ -33,7 +33,7 @@
 
 namespace E64
 {
-    enum E64_scancodes
+    enum scancodes
     {
         SCANCODE_EMPTY = 0x00,     // 0x00
         SCANCODE_ESCAPE,

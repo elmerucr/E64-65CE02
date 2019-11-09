@@ -7,7 +7,6 @@
 
 #include "vicv.hpp"
 #include "common_defs.hpp"
-#include "mmu_E64_I.hpp"
 
 E64::vicv::vicv()
 {

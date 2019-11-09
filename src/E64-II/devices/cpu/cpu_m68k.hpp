@@ -1,5 +1,5 @@
 //  cpu_m68k.hpp
-//  E64
+//  E64-II
 //
 //  Copyright © 2019 elmerucr. All rights reserved.
 

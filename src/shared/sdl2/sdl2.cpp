@@ -9,10 +9,9 @@
 #include <SDL2/SDL.h>
 #include "common_defs.hpp"
 #include "sdl2.hpp"
-#include "mmu_E64_I.hpp"
 #include "debug_screen.hpp"
 #include "debug_console.hpp"
-#include "debug_command.hpp"
+#include "debug_command_E64_I.hpp"
 
 struct window_size
 {

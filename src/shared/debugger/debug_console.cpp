@@ -8,8 +8,8 @@
 #include "common_defs.hpp"
 #include "debug_console.hpp"
 #include "debug_screen.hpp"
-#include "debug_command.hpp"
-#include "debug_status_bar.hpp"
+#include "debug_command_E64_I.hpp"
+#include "debug_status_bar_E64_I.hpp"
 
 debug_console_struct debug_console;
 
@@ -20,9 +20,9 @@ void debug_console_init(void)
     // 55 is blink speed in xcode :-) 32 is c64
     debug_console.cursor_blink_time = 32;
     // C64_GRN_07
-    debug_console.current_foreground_color = 0x26;
+    debug_console.current_foreground_color = DEBUGGER_FOREGROUND_COLOR;
     // C64_GRN_02
-    debug_console.current_background_color = 0x22;
+    debug_console.current_background_color = DEBUGGER_BACKGROUND_COLOR;
     for(int i=0; i<1024*64; i++)
     {
         debug_console.console_character_buffer[i] = ascii_to_screencode[ASCII_SPACE];

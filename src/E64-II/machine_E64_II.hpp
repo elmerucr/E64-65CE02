@@ -6,6 +6,7 @@
 #ifndef MACHINE_E64_II_HPP
 #define MACHINE_E64_II_HPP
 
+#include "mmu_E64_II.hpp"
 #include "cia.hpp"
 #include "cpu_m68k.hpp"
 #include "frequency_divider.hpp"
@@ -37,6 +38,7 @@ namespace E64
         enum machine_mode   current_mode;
         bool running;
         
+        mmu                 *mmu_ic;
         cpu_m68k            *cpu_ic;
         timer               *timer_ic;
         vicv                *vicv_ic;

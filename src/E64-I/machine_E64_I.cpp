@@ -12,7 +12,7 @@
 #include "sound.hpp"
 #include "frequency_divider.hpp"
 #include "sdl2.hpp"
-#include "debug_status_bar.hpp"
+#include "debug_status_bar_E64_I.hpp"
 
 E64::machine::machine()
 {

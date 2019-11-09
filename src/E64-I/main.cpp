@@ -11,7 +11,7 @@
 #include "pid_delay.hpp"
 #include "debug_console.hpp"
 #include "debug_screen.hpp"
-#include "debug_status_bar.hpp"
+#include "debug_status_bar_E64_I.hpp"
 
 // global components of the system
 E64::machine computer;

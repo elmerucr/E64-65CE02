@@ -6,6 +6,37 @@
 #include "debug_console.hpp"
 #include "machine_E64_II.hpp"
 #include "sdl2.hpp"
+#include "common_defs.hpp"
+
+E64::machine::machine()
+{
+    // defaults to normal mode, but can be changed later by application
+    current_mode = NORMAL_MODE;
+    
+    mmu_ic = new mmu();
+    
+    vicv_ic = new vicv();
+    
+    cia_ic = new cia();
+    
+    // init frequency dividers (make sure the right amount of cycles will run on different ic's)
+    cpu_m68k_to_vicv  = new frequency_divider(CPU_CLOCK_SPEED, VICV_CLOCK_SPEED);
+    cpu_m68k_to_sid   = new frequency_divider(CPU_CLOCK_SPEED, SID_CLOCK_SPEED );
+    cpu_m68k_to_timer = new frequency_divider(CPU_CLOCK_SPEED, CPU_CLOCK_SPEED );
+}
+
+E64::machine::~machine()
+{
+    delete cpu_m68k_to_timer;
+    delete cpu_m68k_to_sid;
+    delete cpu_m68k_to_vicv;
+    
+    delete cia_ic;
+    
+    delete vicv_ic;
+    
+    delete mmu_ic;
+}
 
 void E64::machine::switch_to_running()
 {
@@ -40,4 +71,10 @@ void E64::machine::switch_mode()
 void E64::machine::force_next_instruction()
 {
     cpu_ic->force_next_instruction();
+}
+
+int E64::machine::run(uint16_t no_of_cycles)
+{
+    //
+    return 0;
 }

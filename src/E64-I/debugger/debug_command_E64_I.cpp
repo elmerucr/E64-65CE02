@@ -7,11 +7,11 @@
 #include <cstring>
 
 #include "common_defs.hpp"
-#include "debug_command.hpp"
+#include "debug_command_E64_I.hpp"
 #include "debug_console.hpp"
 #include "sdl2.hpp"
 #include "csg65ce02_dasm.h"
-#include "debug_status_bar.hpp"
+#include "debug_status_bar_E64_I.hpp"
 
 void E64::debug_command_execute(char *string_to_parse_and_exec)
 {

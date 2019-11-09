@@ -10,16 +10,18 @@
 
 #define E64_MAJOR_VERSION       0
 #define E64_MINOR_VERSION       4
-#define E64_BUILD               20191108
+#define E64_BUILD               20191109
 #define E64_YEAR                2019
 
 #define RAM_SIZE                0x1000000    // 16mb system
 
+// cpu speed
 #ifdef E64_I
-    #define CPU_CLOCK_SPEED     4096000      // 4MHz system
+    #define CPU_CLOCK_SPEED     4096000     // 4MHz system
 #elif E64_II
-    #define CPU_CLOCK_SPEED     8192000
+    #define CPU_CLOCK_SPEED     8192000     // 8MHz system
 #endif
+
 #define FPS                      50           // "PAL" @50Hz
 
 #define VICV_PIXELS_PER_SCANLINE 512
@@ -125,6 +127,15 @@
 #define C64_BRWN_13 0xffdda573      // text
 #define C64_BRWN_14 0xffeeb27c
 #define C64_BRWN_15 0xffffbf85
+
+// debugger colors
+#ifdef E64_I
+    #define DEBUGGER_FOREGROUND_COLOR 0x26
+    #define DEBUGGER_BACKGROUND_COLOR 0x22
+#elif E64_II
+    #define DEBUGGER_FOREGROUND_COLOR 0x36
+    #define DEBUGGER_BACKGROUND_COLOR 0x32
+#endif
 
 #define ASCII_NULL          0x00    // null
 #define ASCII_LF            0x0a    // linefeed

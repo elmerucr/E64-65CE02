@@ -9,17 +9,17 @@
 #include "common_defs.hpp"
 #include "sdl2.hpp"
 #include "pid_delay.hpp"
-#include "mmu.hpp"
 #include "vicv.hpp"
 #include "debug_console.hpp"
 #include "debug_screen.hpp"
-#include "debug_status_bar.hpp"
+#include "debug_status_bar_E64_II.hpp"
 #include "cia.hpp"
 #include "sound.hpp"
 #include "timer.hpp"
 
 // global components of the system
 E64::machine computer;
+E64::pid_delay frame_delay(15000.0);
 
 int main(int argc, char **argv)
 {
@@ -34,9 +34,6 @@ int main(int argc, char **argv)
 
     // set up window management, audio and some other stuff
     E64::sdl2_init();
-
-    // start pla (mmu, bankswitching, etc...)
-    mmu_init();
 
     debug_console_init();
 
@@ -109,8 +106,6 @@ int main(int argc, char **argv)
 
     // cleanup window management
     E64::sdl2_cleanup();
-    // memory is last thing to cleanup
-    mmu_cleanup();
 
     printf("closing E64\n");
 
