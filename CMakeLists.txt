@@ -33,9 +33,10 @@ add_subdirectory(src/)
 add_executable(
     E64
     src/E64-I/main.cpp
-    src/E64-I/machine_E64-I.cpp
+    src/E64-I/machine_E64_I.cpp
     src/shared/common_defs.cpp
     src/shared/frequency_divider.cpp
     src/shared/pid_delay.cpp)
 
 target_link_libraries(E64 char_rom cia cpu debugger E64_sdl2 kernel mmu resid sound timer vicv ${SDL2_LIBRARIES})
+target_compile_definitions(E64 PRIVATE E64_I=1)
