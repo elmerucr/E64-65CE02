@@ -14,20 +14,20 @@
 
 void E64::debug_command_execute(char *string_to_parse_and_exec)
 {
-//    // use temporary pointer
-//    char *clean_start = string_to_parse_and_exec;
-//    // if present, remove the dot
-//    if(*clean_start == '.') clean_start++;
-//    // get tokens, if commands could take more arguments, make more ....
-//    char *token0, *token1, *token2, *token3;
-//    token0 = strtok( clean_start, " ");
-//    token1 = strtok( NULL, " ");
-//    token2 = strtok( NULL, " ");
-//    token3 = strtok( NULL, " ");
-//    if(token0 == NULL)
-//    {
-//        // do nothing
-//    }
+    // use temporary pointer
+    char *clean_start = string_to_parse_and_exec;
+    // if present, remove the dot
+    if(*clean_start == '.') clean_start++;
+    // get tokens, if commands could take more arguments, make more ....
+    char *token0, *token1, *token2, *token3;
+    token0 = strtok( clean_start, " ");
+    token1 = strtok( NULL, " ");
+    token2 = strtok( NULL, " ");
+    token3 = strtok( NULL, " ");
+    if(token0 == NULL)
+    {
+        // do nothing
+    }
 //    else if( strcmp(token0, "b") == 0 )
 //    {
 //        if(token1 == NULL)
@@ -82,20 +82,20 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
 //            debug_console_print(c256_string2);
 //        }
 //    }
-//    else if( strcmp(token0, "bar") == 0 )
-//    {
-//        debug_console_toggle_status_bar();
-//    }
+    else if( strcmp(token0, "bar") == 0 )
+    {
+        debug_console_toggle_status_bar();
+    }
 //    else if( strcmp(token0, "c") == 0 )
 //    {
 //        E64::sdl2_wait_until_enter_released();
 //        computer.switch_to_running();
 //        computer.cpu_ic->force_next_instruction = true;
 //    }
-//    else if( strcmp(token0, "clear") == 0 )
-//    {
-//        debug_console_clear();
-//    }
+    else if( strcmp(token0, "clear") == 0 )
+    {
+        debug_console_clear();
+    }
 //    else if( strcmp(token0, "d") == 0 )
 //    {
 //        if(token1 == NULL)
@@ -107,15 +107,15 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
 //            debug_console_print("missing functionality: argument takes no. of instr to disassemble\n");
 //        }
 //    }
-//    else if( strcmp(token0, "exit") == 0 )
-//    {
-//        E64::sdl2_wait_until_enter_released();
-//        computer.running = false;
-//    }
-//    else if( strcmp(token0, "full") == 0 )
-//    {
-//        E64::sdl2_toggle_fullscreen();
-//    }
+    else if( strcmp(token0, "exit") == 0 )
+    {
+        E64::sdl2_wait_until_enter_released();
+        computer.running = false;
+    }
+    else if( strcmp(token0, "full") == 0 )
+    {
+        E64::sdl2_toggle_fullscreen();
+    }
 //    else if( strcmp(token0, "help") == 0 )
 //    {
 //        if(token1 == NULL)
@@ -257,35 +257,35 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
 //    {
 //        debug_command_memory_dump(computer.cpu_ic->sp, 1);
 //    }
-//    else if( strcmp(token0, "ver") == 0 )
-//    {
-//        debug_console_version();
-//    }
-//    else if( strcmp(token0, "win") == 0 )
-//    {
-//        if(token1 == NULL)
-//        {
-//            E64::sdl2_reset_window_size();
-//        }
-//        else if( strcmp(token1, "+") == 0 )
-//        {
-//            E64::sdl2_increase_window_size();
-//        }
-//        else if( strcmp(token1, "-") == 0 )
-//        {
-//            E64::sdl2_decrease_window_size();
-//        }
-//        else
-//        {
-//            snprintf(c256_string2, 256, "error: unknown argument '%s'\n", token1);
-//            debug_console_print(c256_string2);
-//        }
-//    }
-//    else
-//    {
-//        snprintf(c256_string2, 256, "error: unknown command '%s'\n", token0);
-//        debug_console_print(c256_string2);
-//    }
+    else if( strcmp(token0, "ver") == 0 )
+    {
+        debug_console_version();
+    }
+    else if( strcmp(token0, "win") == 0 )
+    {
+        if(token1 == NULL)
+        {
+            E64::sdl2_reset_window_size();
+        }
+        else if( strcmp(token1, "+") == 0 )
+        {
+            E64::sdl2_increase_window_size();
+        }
+        else if( strcmp(token1, "-") == 0 )
+        {
+            E64::sdl2_decrease_window_size();
+        }
+        else
+        {
+            snprintf(c256_string2, 256, "error: unknown argument '%s'\n", token1);
+            debug_console_print(c256_string2);
+        }
+    }
+    else
+    {
+        snprintf(c256_string2, 256, "error: unknown command '%s'\n", token0);
+        debug_console_print(c256_string2);
+    }
 }
 
 //void E64::debug_command_dump_cpu_status()

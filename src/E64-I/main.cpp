@@ -103,7 +103,7 @@ int main(int argc, char **argv)
     // cleanup window management
     E64::sdl2_cleanup();
 
-    printf("closing application\n");
+    printf("closing E64\n");
 
     return 0;
 }

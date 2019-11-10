@@ -13,6 +13,12 @@
 #define E64_BUILD               20191109
 #define E64_YEAR                2019
 
+#ifdef E64_I
+    #define APPLICATION_NAME    "E64"
+#elif E64_II
+    #define APPLICATION_NAME    "E64-II"
+#endif
+
 #define RAM_SIZE                0x1000000    // 16mb system
 
 // cpu speed

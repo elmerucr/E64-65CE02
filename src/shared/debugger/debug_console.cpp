@@ -46,7 +46,7 @@ void debug_console_init(void)
 
 void debug_console_version()
 {
-    snprintf(c256_string,256,"E64 (C)%i by elmerucr V%i.%i.%i\n", E64_YEAR, E64_MAJOR_VERSION, E64_MINOR_VERSION, E64_BUILD);
+    snprintf(c256_string,256,"%s (C)%i by elmerucr V%i.%i.%i\n", APPLICATION_NAME, E64_YEAR, E64_MAJOR_VERSION, E64_MINOR_VERSION, E64_BUILD);
     debug_console_print(c256_string);
 }
 
