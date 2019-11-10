@@ -249,10 +249,10 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
 //            debug_console_print("error: argument must be 0 or 1\n");
 //        }
 //    }
-//    else if( strcmp(token0, "r") == 0 )
-//    {
-//        debug_command_dump_cpu_status();
-//    }
+    else if( strcmp(token0, "r") == 0 )
+    {
+        debug_command_dump_cpu_status();
+    }
 //    else if( strcmp(token0, "t") == 0 )
 //    {
 //        debug_command_memory_dump(computer.cpu_ic->sp, 1);
@@ -288,17 +288,18 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     }
 }
 
-//void E64::debug_command_dump_cpu_status()
-//{
-//    csg65ce02_dump_status(computer.cpu_ic, c256_string2);
-//    debug_console_print(c256_string2);
+void E64::debug_command_dump_cpu_status()
+{
+    computer.cpu_ic->dump_status(c256_string2);
+    //csg65ce02_dump_status(computer.cpu_ic, c256_string2);
+    debug_console_print(c256_string2);
 //    debug_console_print("\n\n");
 //    debug_console_print(".,");
 //    csg65ce02_dasm(computer.cpu_ic->pc, c256_string2, 256);
 //    debug_console_print(c256_string2);
-//    debug_console_putchar('\n');
-//}
-//
+    debug_console_putchar('\n');
+}
+
 //void E64::debug_command_disassemble(uint8_t number)
 //{
 //    uint16_t temp_pc = computer.cpu_ic->pc;

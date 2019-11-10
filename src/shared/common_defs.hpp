@@ -10,7 +10,7 @@
 
 #define E64_MAJOR_VERSION       0
 #define E64_MINOR_VERSION       4
-#define E64_BUILD               20191109
+#define E64_BUILD               20191110
 #define E64_YEAR                2019
 
 #ifdef E64_I

@@ -22,6 +22,7 @@ namespace E64
         void add_breakpoint(uint32_t address);
         void remove_breakpoint(uint32_t address);
         void force_next_instruction();
+        void dump_status(char *temp_string);
     };
 }
 

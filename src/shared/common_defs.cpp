@@ -271,5 +271,5 @@ const char screencode_to_ascii[128] =
     0x40        // 0x7f - dummy @
 };
 
-char c256_string[256];
-char c256_string2[256];
+char c256_string[2048];
+char c256_string2[2048];

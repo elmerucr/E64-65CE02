@@ -18,21 +18,21 @@ void debug_status_bar_clear()
     for(int i=0; i<(debug_console.status_bar_rows * 64); i++)
     {
         status_bar_chars[i] = ascii_to_screencode[ASCII_SPACE];
-        status_bar_foreground_color_buffer[i] = 0x28;
-        status_bar_background_color_buffer[i] = 0x24;
+        status_bar_foreground_color_buffer[i] = 0x38;
+        status_bar_background_color_buffer[i] = 0x34;
     }
     debug_console.status_bar_cursor_pos = 0;
-    debug_console.status_bar_foreground_color = 0x28;  // default value
-    debug_console.status_bar_background_color = 0x24;  // default value
+    debug_console.status_bar_foreground_color = 0x38;  // default value
+    debug_console.status_bar_background_color = 0x34;  // default value
 }
 
 void debug_status_bar_refresh()
 {
-//    debug_status_bar_clear();
-//    // print cpu status in default colours
-//    csg65ce02_dump_status(computer.cpu_ic, c256_string2);
-//    debug_status_bar_set_cursor_pos(64);
-//    debug_status_bar_print(c256_string2);
+    debug_status_bar_clear();
+    // print cpu status in default colours
+    computer.cpu_ic->dump_status(c256_string2);
+    debug_status_bar_set_cursor_pos(65);
+    debug_status_bar_print(c256_string2);
 //    // cpu cycles
 //    snprintf(c256_string2, 256, "last: %4u", computer.cpu_ic->cycles_last_executed_instruction);
 //    debug_status_bar_set_cursor_pos(320);
@@ -71,13 +71,13 @@ void debug_status_bar_refresh()
 //    debug_status_bar_set_cursor_pos(771);
 //    debug_status_bar_print(c256_string2);
 //    
-//    // set accent colors for titles etc...
-//    debug_console.status_bar_foreground_color = 0x2b;
-//    debug_console.status_bar_background_color = 0x26;
-//
-//    snprintf(c256_string2, 256, "       cpu internal status       ");
-//    debug_status_bar_set_cursor_pos(0);
-//    debug_status_bar_print(c256_string2);
+    // set accent colors for titles etc...
+    debug_console.status_bar_foreground_color = 0x3b;
+    debug_console.status_bar_background_color = 0x36;
+
+    snprintf(c256_string2, 256, "                       cpu internal status                      ");
+    debug_status_bar_set_cursor_pos(0);
+    debug_status_bar_print(c256_string2);
 //
 //    snprintf(c256_string2, 256, "        disassembly         ");
 //    debug_status_bar_set_cursor_pos(34);
@@ -100,40 +100,40 @@ void debug_status_bar_refresh()
 //    debug_status_bar_print(c256_string2);
 }
 
-//void debug_status_bar_set_cursor_pos(uint16_t pos)
-//{
-//    // confine cursor
-//    debug_console.status_bar_cursor_pos = pos & (debug_console.status_bar_total_chars - 1);
-//    debug_console.status_bar_base_pos = debug_console.status_bar_cursor_pos & (64 - 1);
-//}
-//
-//void debug_status_bar_putchar(char character)
-//{
-//    character = character & 0x7f;
-//    switch(character)
-//    {
-//        case ASCII_LF:
-//            debug_console.status_bar_cursor_pos += 64;
-//            debug_console.status_bar_cursor_pos &= 0xffc0;
-//            debug_console.status_bar_cursor_pos += debug_console.status_bar_base_pos;
-//            debug_console.status_bar_cursor_pos &= debug_console.status_bar_total_chars - 1;
-//            break;
-//        default:
-//            status_bar_chars[debug_console.status_bar_cursor_pos] = ascii_to_screencode[character];
-//            status_bar_foreground_color_buffer[debug_console.status_bar_cursor_pos] = debug_console.status_bar_foreground_color;
-//            status_bar_background_color_buffer[debug_console.status_bar_cursor_pos] = debug_console.status_bar_background_color;
-//            debug_console.status_bar_cursor_pos++;
-//            debug_console.status_bar_cursor_pos &= debug_console.status_bar_total_chars - 1;
-//            break;
-//    }
-//}
-//
-//void debug_status_bar_print(const char *string_to_print)
-//{
-//    char *temp_char = (char *)string_to_print;
-//    while(*temp_char != ASCII_NULL)
-//    {
-//        debug_status_bar_putchar(*temp_char);
-//        temp_char++;
-//    }
-//}
+void debug_status_bar_set_cursor_pos(uint16_t pos)
+{
+    // confine cursor
+    debug_console.status_bar_cursor_pos = pos & (debug_console.status_bar_total_chars - 1);
+    debug_console.status_bar_base_pos = debug_console.status_bar_cursor_pos & (64 - 1);
+}
+
+void debug_status_bar_putchar(char character)
+{
+    character = character & 0x7f;
+    switch(character)
+    {
+        case ASCII_LF:
+            debug_console.status_bar_cursor_pos += 64;
+            debug_console.status_bar_cursor_pos &= 0xffc0;
+            debug_console.status_bar_cursor_pos += debug_console.status_bar_base_pos;
+            debug_console.status_bar_cursor_pos &= debug_console.status_bar_total_chars - 1;
+            break;
+        default:
+            status_bar_chars[debug_console.status_bar_cursor_pos] = ascii_to_screencode[character];
+            status_bar_foreground_color_buffer[debug_console.status_bar_cursor_pos] = debug_console.status_bar_foreground_color;
+            status_bar_background_color_buffer[debug_console.status_bar_cursor_pos] = debug_console.status_bar_background_color;
+            debug_console.status_bar_cursor_pos++;
+            debug_console.status_bar_cursor_pos &= debug_console.status_bar_total_chars - 1;
+            break;
+    }
+}
+
+void debug_status_bar_print(const char *string_to_print)
+{
+    char *temp_char = (char *)string_to_print;
+    while(*temp_char != ASCII_NULL)
+    {
+        debug_status_bar_putchar(*temp_char);
+        temp_char++;
+    }
+}
