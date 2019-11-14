@@ -33,6 +33,11 @@ void debug_status_bar_refresh()
     computer.cpu_ic->dump_status(c256_string2);
     debug_status_bar_set_cursor_pos(65);
     debug_status_bar_print(c256_string2);
+    
+    computer.cpu_ic->disassemble_next_instruction(c256_string2);
+    debug_status_bar_set_cursor_pos(576+65);
+    debug_status_bar_print(c256_string2);
+    
 //    // cpu cycles
 //    snprintf(c256_string2, 256, "last: %4u", computer.cpu_ic->cycles_last_executed_instruction);
 //    debug_status_bar_set_cursor_pos(320);

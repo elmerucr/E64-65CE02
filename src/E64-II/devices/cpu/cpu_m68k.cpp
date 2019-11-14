@@ -96,3 +96,14 @@ void E64::cpu_m68k::dump_status(char *temp_string)
         temp_sr = temp_sr << 1;
     }
 }
+
+int E64::cpu_m68k::run(int no_of_cycles)
+{
+    unsigned int n = m68k_execute(no_of_cycles);
+    return n;
+}
+
+void E64::cpu_m68k::disassemble_next_instruction(char *temp_string)
+{
+    m68k_disassemble(temp_string, m68k_get_reg(NULL, M68K_REG_PC), M68K_CPU_TYPE_68020);
+}

@@ -87,7 +87,7 @@ cold_start
 	sta VICV_BG
 	lda #$00	; black for border
 	sta VICV_BO
-	lda #$0c	; grey for text color
+	lda #$0e	; light blue for text color
 	sta CURR_TEXT_COLOR
 
 	lda #$00

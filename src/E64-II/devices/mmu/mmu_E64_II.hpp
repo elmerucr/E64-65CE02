@@ -14,7 +14,7 @@ namespace E64
 {
     class mmu
     {
-    private:
+    private:        
     public:
         mmu();
         ~mmu();

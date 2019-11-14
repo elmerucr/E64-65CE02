@@ -128,6 +128,7 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
             debug_console_print("c     continue execution\n");
             debug_console_print("d     disassemble\n");
             debug_console_print("m     memory dump\n");
+            debug_console_print("n     next cpu instruction\n");
             debug_console_print("r     cpu registers\n");
             debug_console_print("t     show top of the stack\n");
             debug_console_print("bar   debug status bar on/off\n");
@@ -224,6 +225,11 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
                     debug_console_print(c256_string2);
             }
         }
+    }
+    else if( strcmp(token0, "n") == 0 )
+    {
+        debug_command_single_step_cpu();
+        debug_command_dump_cpu_status();
     }
     else if( strcmp(token0, "nmi") == 0 )
     {

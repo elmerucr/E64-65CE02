@@ -6,6 +6,8 @@
 #include "mmu_E64_II.hpp"
 #include "common_defs.hpp"
 
+extern uint8_t kernel[];
+
 E64::mmu::mmu()
 {
     // allocate main ram and fill with a pattern
@@ -22,16 +24,24 @@ E64::mmu::~mmu()
 
 unsigned int E64::mmu::read_memory_8(unsigned int address)
 {
-    return ram[address & (RAM_SIZE - 1)];
+    // quick hack
+    if(address < 32768)
+    {
+        return kernel[address & 0x7fff];
+    }
+    else
+    {
+        return ram[address & (RAM_SIZE - 1)];
+    }
 }
-
+    
 unsigned int E64::mmu::read_memory_16(unsigned int address)
 {
     unsigned int result;
     uint32_t temp_address = address;
-    result = ram[temp_address & (RAM_SIZE - 1)];
+    result = read_memory_8(temp_address);
     temp_address++;
-    result = ram[temp_address & (RAM_SIZE - 1)] | (result << 8);
+    result = read_memory_8(temp_address) | (result << 8);
     return result;
 }
 
@@ -39,66 +49,52 @@ unsigned int E64::mmu::read_memory_32(unsigned int address)
 {
     unsigned int result;
     uint32_t temp_address = address;
-    result = ram[temp_address & (RAM_SIZE - 1)];
+    result = read_memory_8(temp_address);
     temp_address++;
-    result = ram[temp_address & (RAM_SIZE - 1)] | (result << 8);
+    result = read_memory_8(temp_address) | (result << 8);
     temp_address++;
-    result = ram[temp_address & (RAM_SIZE - 1)] | (result << 8);
+    result = read_memory_8(temp_address) | (result << 8);
     temp_address++;
-    result = ram[temp_address & (RAM_SIZE - 1)] | (result << 8);
+    result = read_memory_8(temp_address) | (result << 8);
     return result;
 }
 
 unsigned int E64::mmu::read_disassembler_8(unsigned int address)
 {
-    return ram[address & (RAM_SIZE - 1)];
+    return read_memory_8(address);
 }
 
 unsigned int E64::mmu::read_disassembler_16(unsigned int address)
 {
-    unsigned int result;
-    uint32_t temp_address = address;
-    result = ram[temp_address & (RAM_SIZE - 1)];
-    temp_address++;
-    result = ram[temp_address & (RAM_SIZE - 1)] | (result << 8);
-    return result;
+    return read_memory_16(address);
 }
 
 unsigned int E64::mmu::read_disassembler_32(unsigned int address)
 {
-    unsigned int result;
-    uint32_t temp_address = address;
-    result = ram[temp_address & (RAM_SIZE - 1)];
-    temp_address++;
-    result = ram[temp_address & (RAM_SIZE - 1)] | (result << 8);
-    temp_address++;
-    result = ram[temp_address & (RAM_SIZE - 1)] | (result << 8);
-    temp_address++;
-    result = ram[temp_address & (RAM_SIZE - 1)] | (result << 8);
-    return result;
+    return read_memory_32(address);
 }
 
 void E64::mmu::write_memory_8(unsigned int address, unsigned int value)
 {
-    ram[address & (RAM_SIZE - 1)] = value;
+    ram[address & (RAM_SIZE - 1)] = value & 0xff;
 }
 
 void E64::mmu::write_memory_16(unsigned int address, unsigned int value)
 {
     uint32_t temp_address = address;
-    ram[temp_address & (RAM_SIZE - 1)] = value >> 8;
+    write_memory_8(temp_address, value >> 8);
     temp_address++;
-    ram[temp_address & (RAM_SIZE - 1)] = value & 0xff;
+    write_memory_8(temp_address, value & 0xff);
 }
 
 void E64::mmu::write_memory_32(unsigned int address, unsigned int value)
 {
     uint32_t temp_address = address;
-    ram[temp_address & (RAM_SIZE - 1)] = (value >> 24) & 0xff;
+    write_memory_8(temp_address, (value >> 24) & 0xff);
     temp_address++;
-    ram[temp_address & (RAM_SIZE - 1)] = (value >> 16) & 0xff;
+    write_memory_8(temp_address, (value >> 16) & 0xff);
     temp_address++;
-    ram[temp_address & (RAM_SIZE - 1)] = (value >> 8) & 0xff;
+    write_memory_8(temp_address, (value >> 8) & 0xff);
     temp_address++;
-    ram[temp_address & (RAM_SIZE - 1)] = value & 0xff;
+    write_memory_8(temp_address, value & 0xff);
 }

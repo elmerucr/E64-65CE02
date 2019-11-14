@@ -1,7 +1,7 @@
 
 ; 64tass Turbo Assembler Macro V1.54.1900 listing file
 ; 64tass -b -C -L E64_kernel.lst -o E64_kernel.bin E64_kernel.asm
-; Wed Oct 30 09:35:58 2019
+; Thu Nov 14 14:04:01 2019
 
 ;Offset	;Hex		;Monitor	;Source
 
@@ -124,7 +124,7 @@
 .e082	8d 01 04	sta $0401		sta VICV_BG
 .e085	a9 00		lda #$00		lda #$00	; black for border
 .e087	8d 00 04	sta $0400		sta VICV_BO
-.e08a	a9 0c		lda #$0c		lda #$0c	; grey for text color
+.e08a	a9 0e		lda #$0e		lda #$0e	; light blue for text color
 .e08c	8d 0c 08	sta $080c		sta CURR_TEXT_COLOR
 .e08f	a9 00		lda #$00		lda #$00
 .e091	8d 03 04	sta $0403		sta VICV_TSH	; point vicv to text and color screen

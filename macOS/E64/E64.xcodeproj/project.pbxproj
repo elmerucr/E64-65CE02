@@ -70,6 +70,7 @@
 		468023002376E1FB00F59C91 /* debug_status_bar_E64_II.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468022FD2376E1FB00F59C91 /* debug_status_bar_E64_II.cpp */; };
 		469BDFF4231D9FEC00868BBE /* SDL2.framework in Resources */ = {isa = PBXBuildFile; fileRef = 469BDFF3231D9FEC00868BBE /* SDL2.framework */; };
 		469BDFF5231DA03400868BBE /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469BDFF3231D9FEC00868BBE /* SDL2.framework */; };
+		469DBF33237D90D8005DAD03 /* kernel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 469DBF32237D90D8005DAD03 /* kernel.cpp */; };
 		469EBBE0234FB36B00028136 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469BDFF3231D9FEC00868BBE /* SDL2.framework */; };
 		469EBBE2234FB36B00028136 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46A1F87D231D721A003982FA /* Assets.xcassets */; };
 		469EBBE3234FB36B00028136 /* SDL2.framework in Resources */ = {isa = PBXBuildFile; fileRef = 469BDFF3231D9FEC00868BBE /* SDL2.framework */; };
@@ -157,6 +158,7 @@
 		468022FD2376E1FB00F59C91 /* debug_status_bar_E64_II.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = debug_status_bar_E64_II.cpp; path = "../../../src/E64-II/debugger/debug_status_bar_E64_II.cpp"; sourceTree = "<group>"; };
 		468022FE2376E1FB00F59C91 /* debug_status_bar_E64_II.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = debug_status_bar_E64_II.hpp; path = "../../../src/E64-II/debugger/debug_status_bar_E64_II.hpp"; sourceTree = "<group>"; };
 		469BDFF3231D9FEC00868BBE /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		469DBF32237D90D8005DAD03 /* kernel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = kernel.cpp; path = "../../../src/E64-II/devices/rom/kernel/kernel.cpp"; sourceTree = "<group>"; };
 		469EBBE7234FB36B00028136 /* E64-II.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "E64-II.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		469EBBE8234FB36B00028136 /* E64 copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "E64 copy2-Info.plist"; path = "/Users/elmer/Desktop/E64/macOS/E64/E64 copy2-Info.plist"; sourceTree = "<absolute>"; };
 		46A1F878231D7218003982FA /* E64.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = E64.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -370,6 +372,22 @@
 			name = debugger;
 			sourceTree = "<group>";
 		};
+		469DBF30237D909C005DAD03 /* rom */ = {
+			isa = PBXGroup;
+			children = (
+				469DBF31237D90B6005DAD03 /* kernel */,
+			);
+			name = rom;
+			sourceTree = "<group>";
+		};
+		469DBF31237D90B6005DAD03 /* kernel */ = {
+			isa = PBXGroup;
+			children = (
+				469DBF32237D90D8005DAD03 /* kernel.cpp */,
+			);
+			name = kernel;
+			sourceTree = "<group>";
+		};
 		469EBBB4234FB2F800028136 /* E64_I */ = {
 			isa = PBXGroup;
 			children = (
@@ -409,6 +427,7 @@
 			children = (
 				46ED0027234FBD8E00B43B56 /* cpu */,
 				46723D3F2365E66B007ADDC2 /* mmu */,
+				469DBF30237D909C005DAD03 /* rom */,
 			);
 			name = devices;
 			sourceTree = "<group>";
@@ -660,6 +679,7 @@
 				468022F92376DB8E00F59C91 /* patched_char_rom.cpp in Sources */,
 				46050A73236983B40073A85F /* wave.cc in Sources */,
 				46050A7B236983B40073A85F /* envelope.cc in Sources */,
+				469DBF33237D90D8005DAD03 /* kernel.cpp in Sources */,
 				468022F52376D46E00F59C91 /* cpu_mmu_bridge.cpp in Sources */,
 				46BE91A5237305080071210B /* m68kops.c in Sources */,
 				46050A75236983B40073A85F /* wave6581_P_T.cc in Sources */,

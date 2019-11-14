@@ -369,7 +369,7 @@ void E64::debug_command_dump_cpu_status()
 
 void E64::debug_command_single_step_cpu()
 {
-//    computer.cpu_ic->force_next_instruction = true;
-//    computer.run(0);
+    computer.cpu_ic->force_next_instruction();
+    computer.run(0);
 //    computer.exception_collector_ic->update_status();
 }

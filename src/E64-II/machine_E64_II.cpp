@@ -15,6 +15,8 @@ E64::machine::machine()
     
     mmu_ic = new mmu();
     
+    cpu_ic = new cpu_m68k();
+    
     vicv_ic = new vicv();
     
     cia_ic = new cia();
@@ -23,6 +25,8 @@ E64::machine::machine()
     cpu_m68k_to_vicv  = new frequency_divider(CPU_CLOCK_SPEED, VICV_CLOCK_SPEED);
     cpu_m68k_to_sid   = new frequency_divider(CPU_CLOCK_SPEED, SID_CLOCK_SPEED );
     cpu_m68k_to_timer = new frequency_divider(CPU_CLOCK_SPEED, CPU_CLOCK_SPEED );
+    
+    cpu_ic->reset();
 }
 
 E64::machine::~machine()
@@ -32,9 +36,8 @@ E64::machine::~machine()
     delete cpu_m68k_to_vicv;
     
     delete cia_ic;
-    
     delete vicv_ic;
-    
+    delete cpu_ic;
     delete mmu_ic;
 }
 
@@ -75,6 +78,15 @@ void E64::machine::force_next_instruction()
 
 int E64::machine::run(uint16_t no_of_cycles)
 {
-    //
-    return 0;
+    // default exit_code of the function is 0, no breakpoints have occurred
+    int exit_code = NOTHING;
+    unsigned int processed_cycles = computer.cpu_ic->run(no_of_cycles);
+//    if( this->cpu_ic->exit_code_run_function == 1 )
+//    {
+//        // cpu breakpoint encountered
+//        snprintf(c256_string2, 256, "\ncpu breakpoint occurred at $%04x\n.", cpu_ic->pc);
+//        debug_console_print(c256_string2);
+//        exit_code = CPU_BREAKPOINT;
+//    }
+    return exit_code;
 }
