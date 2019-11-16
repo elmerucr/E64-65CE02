@@ -30,18 +30,18 @@ void debug_status_bar_refresh()
 {
     debug_status_bar_clear();
     // print cpu status in default colours
-    computer.cpu_ic->dump_status(c256_string2);
+    computer.cpu_ic->dump_registers(c256_string2);
     debug_status_bar_set_cursor_pos(65);
+    debug_status_bar_print(c256_string2);
+    
+    computer.cpu_ic->dump_status_register(c256_string2);
+    debug_status_bar_set_cursor_pos(44);
     debug_status_bar_print(c256_string2);
     
     computer.cpu_ic->disassemble_next_instruction(c256_string2);
     debug_status_bar_set_cursor_pos(576+65);
     debug_status_bar_print(c256_string2);
     
-//    // cpu cycles
-//    snprintf(c256_string2, 256, "last: %4u", computer.cpu_ic->cycles_last_executed_instruction);
-//    debug_status_bar_set_cursor_pos(320);
-//    debug_status_bar_print(c256_string2);
 //    // interrupt pins
 //    snprintf(c256_string2, 256, "irq  : %1u\nnmi  : %1u(%1u)",computer.exception_collector_ic->irq_output_pin ? 1 : 0, computer.exception_collector_ic->nmi_output_pin ? 1 : 0, computer.cpu_ic->nmi_pin_previous_state);
 //    debug_status_bar_set_cursor_pos(332);

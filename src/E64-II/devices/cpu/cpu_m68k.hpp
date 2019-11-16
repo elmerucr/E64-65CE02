@@ -24,7 +24,8 @@ namespace E64
         void force_next_instruction();
         int run(int no_of_cycles);
         void disassemble_next_instruction(char *temp_string);
-        void dump_status(char *temp_string);
+        void dump_registers(char *temp_string);
+        void dump_status_register(char *temp_string);
     };
 }
 

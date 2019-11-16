@@ -290,9 +290,12 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
 
 void E64::debug_command_dump_cpu_status()
 {
-    computer.cpu_ic->dump_status(c256_string2);
-    //csg65ce02_dump_status(computer.cpu_ic, c256_string2);
+    computer.cpu_ic->dump_registers(c256_string2);
     debug_console_print(c256_string2);
+    
+    computer.cpu_ic->dump_status_register(c256_string2);
+    debug_console_print(c256_string2);
+    
 //    debug_console_print("\n\n");
 //    debug_console_print(".,");
 //    csg65ce02_dasm(computer.cpu_ic->pc, c256_string2, 256);
