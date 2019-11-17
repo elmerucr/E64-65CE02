@@ -38,10 +38,14 @@ void debug_status_bar_refresh()
     debug_status_bar_set_cursor_pos(44);
     debug_status_bar_print(c256_string2);
     
-    computer.cpu_ic->disassemble_next_instruction(c256_string2);
     debug_status_bar_set_cursor_pos(576+65);
-    debug_status_bar_print(c256_string2);
-    
+    uint32_t temp_pc = computer.cpu_ic->get_pc();
+    for(int i= 0; i<6; i++ )
+    {
+        temp_pc += computer.cpu_ic->disassemble(c256_string2, temp_pc);
+        debug_status_bar_print(c256_string2);
+        debug_status_bar_putchar('\n');
+    }
 //    // interrupt pins
 //    snprintf(c256_string2, 256, "irq  : %1u\nnmi  : %1u(%1u)",computer.exception_collector_ic->irq_output_pin ? 1 : 0, computer.exception_collector_ic->nmi_output_pin ? 1 : 0, computer.cpu_ic->nmi_pin_previous_state);
 //    debug_status_bar_set_cursor_pos(332);
@@ -82,6 +86,9 @@ void debug_status_bar_refresh()
 
     snprintf(c256_string2, 256, "                       cpu internal status                      ");
     debug_status_bar_set_cursor_pos(0);
+    debug_status_bar_print(c256_string2);
+    snprintf(c256_string2, 256, "                           disassembly                          ");
+    debug_status_bar_set_cursor_pos(576);
     debug_status_bar_print(c256_string2);
 //
 //    snprintf(c256_string2, 256, "        disassembly         ");

@@ -23,9 +23,11 @@ namespace E64
         void remove_breakpoint(uint32_t address);
         void force_next_instruction();
         int run(int no_of_cycles);
+        int disassemble(char *temp_string, uint32_t pc);            // returns no of bytes for instruction
         void disassemble_next_instruction(char *temp_string);
         void dump_registers(char *temp_string);
         void dump_status_register(char *temp_string);
+        uint32_t get_pc();
     };
 }
 

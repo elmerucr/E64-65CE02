@@ -86,7 +86,7 @@ void E64::cpu_m68k::dump_status_register(char *temp_string)
 {
     int n;
     int max = 2048;
-    n = snprintf(temp_string,max,"\nTTSM-III---XNZVC\n");
+    n = snprintf(temp_string,max,"\nttsm-ipl---xnzvc\n");
     temp_string += n;
     max -= n;
     uint16_t temp_sr = m68k_get_reg(NULL, M68K_REG_SR);
@@ -105,9 +105,20 @@ int E64::cpu_m68k::run(int no_of_cycles)
     return n;
 }
 
-void E64::cpu_m68k::disassemble_next_instruction(char *temp_string)
+int E64::cpu_m68k::disassemble(char *temp_string, uint32_t pc)
 {
     char instruction[256];
-    m68k_disassemble(instruction, m68k_get_reg(NULL, M68K_REG_PC), M68K_CPU_TYPE_68020);
-    snprintf(temp_string, 256, "%08x %s", m68k_get_reg(NULL, M68K_REG_PC), instruction);
+    int n = m68k_disassemble(instruction, pc, M68K_CPU_TYPE_68020);
+    snprintf(temp_string, 256, "%08x %s", pc, instruction);
+    return n;
+}
+
+void E64::cpu_m68k::disassemble_next_instruction(char *temp_string)
+{
+    disassemble(temp_string, m68k_get_reg(NULL, M68K_REG_PC));
+}
+
+uint32_t E64::cpu_m68k::get_pc()
+{
+    return m68k_get_reg(NULL, M68K_REG_PC);
 }

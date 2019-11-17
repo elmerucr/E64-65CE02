@@ -54,6 +54,7 @@
 		46050A95236984060073A85F /* vicv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A93236984060073A85F /* vicv.cpp */; };
 		46050A9C236984270073A85F /* sdl2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A97236984270073A85F /* sdl2.cpp */; };
 		46050A9D236984270073A85F /* sdl2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A97236984270073A85F /* sdl2.cpp */; };
+		46130D7923814A9100FAE3F4 /* TTL74LS148.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46130D7723814A9100FAE3F4 /* TTL74LS148.cpp */; };
 		466646AB237219D9008885D2 /* machine_E64_II.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466646A9237219D9008885D2 /* machine_E64_II.cpp */; };
 		4666C62F23760A6B00458CD7 /* cpu_mmu_bridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4666C62E23760A6B00458CD7 /* cpu_mmu_bridge.cpp */; };
 		46723D332365E397007ADDC2 /* SN74LS612.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46723D2F2365E397007ADDC2 /* SN74LS612.cpp */; };
@@ -134,6 +135,8 @@
 		46050A93236984060073A85F /* vicv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vicv.cpp; path = ../../../src/shared/devices/vicv/vicv.cpp; sourceTree = "<group>"; };
 		46050A97236984270073A85F /* sdl2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sdl2.cpp; path = ../../../src/shared/sdl2/sdl2.cpp; sourceTree = "<group>"; };
 		46050A99236984270073A85F /* sdl2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = sdl2.hpp; path = ../../../src/shared/sdl2/sdl2.hpp; sourceTree = "<group>"; };
+		46130D7723814A9100FAE3F4 /* TTL74LS148.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTL74LS148.cpp; path = "../../../src/E64-II/devices/TTL74LS148/TTL74LS148.cpp"; sourceTree = "<group>"; };
+		46130D7823814A9100FAE3F4 /* TTL74LS148.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TTL74LS148.hpp; path = "../../../src/E64-II/devices/TTL74LS148/TTL74LS148.hpp"; sourceTree = "<group>"; };
 		46241B11232444A000569490 /* log.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = log.txt; path = ../../../log.txt; sourceTree = "<group>"; };
 		466646A9237219D9008885D2 /* machine_E64_II.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = machine_E64_II.cpp; path = "../../../src/E64-II/machine_E64_II.cpp"; sourceTree = "<group>"; };
 		466646AA237219D9008885D2 /* machine_E64_II.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = machine_E64_II.hpp; path = "../../../src/E64-II/machine_E64_II.hpp"; sourceTree = "<group>"; };
@@ -226,6 +229,15 @@
 				46050A4F2369837B0073A85F /* kernel.cpp */,
 			);
 			name = kernel;
+			sourceTree = "<group>";
+		};
+		46130D7623814A0C00FAE3F4 /* TTL74LS148 */ = {
+			isa = PBXGroup;
+			children = (
+				46130D7823814A9100FAE3F4 /* TTL74LS148.hpp */,
+				46130D7723814A9100FAE3F4 /* TTL74LS148.cpp */,
+			);
+			name = TTL74LS148;
 			sourceTree = "<group>";
 		};
 		46241AA12324412200569490 /* debugger */ = {
@@ -428,6 +440,7 @@
 				46ED0027234FBD8E00B43B56 /* cpu */,
 				46723D3F2365E66B007ADDC2 /* mmu */,
 				469DBF30237D909C005DAD03 /* rom */,
+				46130D7623814A0C00FAE3F4 /* TTL74LS148 */,
 			);
 			name = devices;
 			sourceTree = "<group>";
@@ -665,6 +678,7 @@
 				46050A6F236983B40073A85F /* wave6581_PST.cc in Sources */,
 				46050A95236984060073A85F /* vicv.cpp in Sources */,
 				46050A7F236983B40073A85F /* wave8580__ST.cc in Sources */,
+				46130D7923814A9100FAE3F4 /* TTL74LS148.cpp in Sources */,
 				46AB7607236DA7DC00AF2F14 /* cpu_m68k.cpp in Sources */,
 				46757FB3236EF6A1000F0110 /* pid_delay.cpp in Sources */,
 				46050A6B236983B40073A85F /* wave8580_PS_.cc in Sources */,

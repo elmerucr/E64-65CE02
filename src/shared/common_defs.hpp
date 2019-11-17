@@ -10,9 +10,10 @@
 
 #define E64_MAJOR_VERSION       0
 #define E64_MINOR_VERSION       4
-#define E64_BUILD               20191116
+#define E64_BUILD               20191117
 #define E64_YEAR                2019
 
+// E64_I or E64_II must be defined by build system
 #ifdef E64_I
     #define APPLICATION_NAME    "E64"
 #elif E64_II
