@@ -16,10 +16,12 @@ Technical specifications (not yet complete and a work in progress):
 ## Motivation
 todo
 ## Screenshots
-Running in normal mode:
+E64 running in normal mode:
 ![E64 normal mode](./docs/E64_2019-09-23.png)
-Debugger:
+E64 debugger:
 ![E64 debugger](./docs/E64_debug_2019-09-23.png)
+E64-II debugger:
+![E64-II debugger](./docs/E64-II_debug_2019-11-17.png)
 ## Compiling
 ### Core application
 #### macOS

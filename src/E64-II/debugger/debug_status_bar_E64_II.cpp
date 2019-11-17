@@ -46,6 +46,12 @@ void debug_status_bar_refresh()
         debug_status_bar_print(c256_string2);
         debug_status_bar_putchar('\n');
     }
+    
+    // cpu scanlines
+    snprintf(c256_string2, 256, "line: %3u\npix : %3u", computer.vicv_ic->return_current_scanline(), computer.vicv_ic->return_current_pixel() );
+    debug_status_bar_set_cursor_pos(360);
+    debug_status_bar_print(c256_string2);
+    
 //    // interrupt pins
 //    snprintf(c256_string2, 256, "irq  : %1u\nnmi  : %1u(%1u)",computer.exception_collector_ic->irq_output_pin ? 1 : 0, computer.exception_collector_ic->nmi_output_pin ? 1 : 0, computer.cpu_ic->nmi_pin_previous_state);
 //    debug_status_bar_set_cursor_pos(332);
@@ -89,6 +95,9 @@ void debug_status_bar_refresh()
     debug_status_bar_print(c256_string2);
     snprintf(c256_string2, 256, "                           disassembly                          ");
     debug_status_bar_set_cursor_pos(576);
+    debug_status_bar_print(c256_string2);
+    snprintf(c256_string2, 256, "  vic v  ");
+    debug_status_bar_set_cursor_pos(296);
     debug_status_bar_print(c256_string2);
 //
 //    snprintf(c256_string2, 256, "        disassembly         ");
