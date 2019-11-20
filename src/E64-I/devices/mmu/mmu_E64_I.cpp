@@ -35,15 +35,15 @@ uint8_t E64::mmu::read_byte(uint16_t address)
     {
         result = computer.vicv_ic->read_byte(address & 0x00ff);
     }
-    else if(page == IO_SID_PAGE)
+    else if(page == IO_SND_PAGE)
     {
         result = computer.sound_ic->read_byte(address & 0x00ff);
     }
-    else if(page == TIMER_PAGE)
+    else if(page == IO_TIMER_PAGE)
     {
         result = computer.timer_ic->read_byte(address & 0x00ff);
     }
-    else if(page == MMU_PAGE)
+    else if(page == IO_MMU_PAGE)
     {
         result = SN74LS612_ic.read_byte(address & 0x00ff);
     }
@@ -51,7 +51,7 @@ uint8_t E64::mmu::read_byte(uint16_t address)
     {
         result = computer.cia_ic->read_byte(address & 0x00ff);
     }
-    else if((page & IO_E64_KERNEL_MASK) == IO_E64_KERNEL_MASK)
+    else if((page & IO_KERNEL_MASK) == IO_KERNEL_MASK)
     {
         result = kernel[address & 0x1fff];
     }
@@ -70,15 +70,15 @@ void E64::mmu::write_byte(uint16_t address, uint8_t byte)
     {
         computer.vicv_ic->write_byte(address & 0x00ff, byte);
     }
-    else if(page == IO_SID_PAGE)
+    else if(page == IO_SND_PAGE)
     {
         computer.sound_ic->write_byte(address & 0x00ff, byte);
     }
-    else if(page == TIMER_PAGE)
+    else if(page == IO_TIMER_PAGE)
     {
         computer.timer_ic->write_byte(address & 0x00ff, byte);
     }
-    else if(page == MMU_PAGE)
+    else if(page == IO_MMU_PAGE)
     {
         SN74LS612_ic.write_byte(address & 0x00ff, byte);
     }

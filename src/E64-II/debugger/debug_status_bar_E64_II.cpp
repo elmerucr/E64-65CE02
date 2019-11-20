@@ -29,16 +29,16 @@ void debug_status_bar_clear()
 void debug_status_bar_refresh()
 {
     debug_status_bar_clear();
-    // print cpu status in default colours
+
     computer.cpu_ic->dump_registers(c256_string2);
-    debug_status_bar_set_cursor_pos(65);
+    debug_status_bar_set_cursor_pos( 1*64 +  0);
     debug_status_bar_print(c256_string2);
     
     computer.cpu_ic->dump_status_register(c256_string2);
-    debug_status_bar_set_cursor_pos(44);
+    debug_status_bar_set_cursor_pos( 1*64 + 40);
     debug_status_bar_print(c256_string2);
     
-    debug_status_bar_set_cursor_pos(576+65);
+    debug_status_bar_set_cursor_pos(10*64 +  0);
     uint32_t temp_pc = computer.cpu_ic->get_pc();
     for(int i= 0; i<6; i++ )
     {

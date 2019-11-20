@@ -10,7 +10,7 @@
 
 #define E64_MAJOR_VERSION       0
 #define E64_MINOR_VERSION       4
-#define E64_BUILD               20191117
+#define E64_BUILD               20191120
 #define E64_YEAR                2019
 
 // E64_I or E64_II must be defined by build system
@@ -39,13 +39,18 @@
 //#define NO_OF_SIDS               4
 #define AUDIO_BUFFER_SIZE        8192.0
 
-#define MMU_PAGE            0x02
-#define IO_CIA_PAGE         0x03
-#define IO_VICV_PAGE        0x04
-#define IO_SID_PAGE         0x05
-#define TIMER_PAGE          0x06
-
-#define IO_E64_KERNEL_MASK  0xE0
+#ifdef E64_I
+    #define IO_MMU_PAGE         0x02
+    #define IO_CIA_PAGE         0x03
+    #define IO_VICV_PAGE        0x04
+    #define IO_SND_PAGE         0x05
+    #define IO_TIMER_PAGE       0x06
+    #define IO_KERNEL_MASK      0xe0
+#elif E64_II
+    #define IO_VICV_PAGE        0xffff04
+    #define IO_SND_PAGE         0xffff05
+    #define IO_TIMER_PAGE       0xffff06
+#endif
 
 // E64 elmerucr colors
 //#define C64_BLACK       0xff000000  // color 0 - argb8888

@@ -86,12 +86,12 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     {
         debug_console_toggle_status_bar();
     }
-//    else if( strcmp(token0, "c") == 0 )
-//    {
-//        E64::sdl2_wait_until_enter_released();
-//        computer.switch_to_running();
-//        computer.cpu_ic->force_next_instruction = true;
-//    }
+    else if( strcmp(token0, "c") == 0 )
+    {
+        E64::sdl2_wait_until_enter_released();
+        computer.switch_to_running();
+        computer.cpu_ic->force_next_instruction();
+    }
     else if( strcmp(token0, "clear") == 0 )
     {
         debug_console_clear();

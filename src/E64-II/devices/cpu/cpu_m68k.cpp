@@ -56,22 +56,22 @@ void E64::cpu_m68k::dump_registers(char *temp_string)
 {
     int n;
     int max = 2048;
-    n = snprintf(temp_string,max,"d0:%08x a0:%08x   pc:%08x\n", m68k_get_reg(NULL, M68K_REG_D0), m68k_get_reg(NULL, M68K_REG_A0), m68k_get_reg(NULL, M68K_REG_PC));
+    n = snprintf(temp_string,max,"d0:%08x a0:%08x  pc:%08x\n", m68k_get_reg(NULL, M68K_REG_D0), m68k_get_reg(NULL, M68K_REG_A0), m68k_get_reg(NULL, M68K_REG_PC));
     temp_string += n;
     max -= n;
-    n = snprintf(temp_string,max,"d1:%08x a1:%08x  usp:%08x\n", m68k_get_reg(NULL, M68K_REG_D1), m68k_get_reg(NULL, M68K_REG_A1), m68k_get_reg(NULL, M68K_REG_USP));
+    n = snprintf(temp_string,max,"d1:%08x a1:%08x usp:%08x\n", m68k_get_reg(NULL, M68K_REG_D1), m68k_get_reg(NULL, M68K_REG_A1), m68k_get_reg(NULL, M68K_REG_USP));
     temp_string += n;
     max -= n;
-    n = snprintf(temp_string,max,"d2:%08x a2:%08x  isp:%08x\n", m68k_get_reg(NULL, M68K_REG_D2), m68k_get_reg(NULL, M68K_REG_A2), m68k_get_reg(NULL, M68K_REG_ISP));
+    n = snprintf(temp_string,max,"d2:%08x a2:%08x isp:%08x\n", m68k_get_reg(NULL, M68K_REG_D2), m68k_get_reg(NULL, M68K_REG_A2), m68k_get_reg(NULL, M68K_REG_ISP));
     temp_string += n;
     max -= n;
-    n = snprintf(temp_string,max,"d3:%08x a3:%08x  msp:%08x\n", m68k_get_reg(NULL, M68K_REG_D3), m68k_get_reg(NULL, M68K_REG_A3), m68k_get_reg(NULL, M68K_REG_MSP));
+    n = snprintf(temp_string,max,"d3:%08x a3:%08x msp:%08x\n", m68k_get_reg(NULL, M68K_REG_D3), m68k_get_reg(NULL, M68K_REG_A3), m68k_get_reg(NULL, M68K_REG_MSP));
     temp_string += n;
     max -= n;
-    n = snprintf(temp_string,max,"d4:%08x a4:%08x  vbr:%08x\n", m68k_get_reg(NULL, M68K_REG_D4), m68k_get_reg(NULL, M68K_REG_A4), m68k_get_reg(NULL, M68K_REG_VBR));
+    n = snprintf(temp_string,max,"d4:%08x a4:%08x vbr:%08x\n", m68k_get_reg(NULL, M68K_REG_D4), m68k_get_reg(NULL, M68K_REG_A4), m68k_get_reg(NULL, M68K_REG_VBR));
     temp_string += n;
     max -= n;
-    n = snprintf(temp_string,max,"d5:%08x a5:%08x   sr:    %04x\n", m68k_get_reg(NULL, M68K_REG_D5), m68k_get_reg(NULL, M68K_REG_A5), m68k_get_reg(NULL, M68K_REG_SR));
+    n = snprintf(temp_string,max,"d5:%08x a5:%08x  sr:    %04x\n", m68k_get_reg(NULL, M68K_REG_D5), m68k_get_reg(NULL, M68K_REG_A5), m68k_get_reg(NULL, M68K_REG_SR));
     temp_string += n;
     max -= n;
     n = snprintf(temp_string,max,"d6:%08x a6:%08x\n", m68k_get_reg(NULL, M68K_REG_D6), m68k_get_reg(NULL, M68K_REG_A6));
@@ -86,7 +86,7 @@ void E64::cpu_m68k::dump_status_register(char *temp_string)
 {
     int n;
     int max = 2048;
-    n = snprintf(temp_string,max,"\nttsm-ipl---xnzvc\n");
+    n = snprintf(temp_string,max,"ttsm-ipl---xnzvc\n");
     temp_string += n;
     max -= n;
     uint16_t temp_sr = m68k_get_reg(NULL, M68K_REG_SR);
