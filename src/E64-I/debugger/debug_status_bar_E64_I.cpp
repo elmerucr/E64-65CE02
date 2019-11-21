@@ -19,12 +19,12 @@ void debug_status_bar_clear()
     for(int i=0; i<(debug_console.status_bar_rows * 64); i++)
     {
         status_bar_chars[i] = ascii_to_screencode[ASCII_SPACE];
-        status_bar_foreground_color_buffer[i] = 0x28;
-        status_bar_background_color_buffer[i] = 0x24;
+        status_bar_foreground_color_buffer[i] = 0x38;
+        status_bar_background_color_buffer[i] = 0x34;
     }
     debug_console.status_bar_cursor_pos = 0;
-    debug_console.status_bar_foreground_color = 0x28;  // default value
-    debug_console.status_bar_background_color = 0x24;  // default value
+    debug_console.status_bar_foreground_color = 0x38;  // default value
+    debug_console.status_bar_background_color = 0x34;  // default value
 }
 
 void debug_status_bar_refresh()
@@ -42,9 +42,9 @@ void debug_status_bar_refresh()
     snprintf(c256_string2, 256, "irq  : %1u\nnmi  : %1u(%1u)",computer.exception_collector_ic->irq_output_pin ? 1 : 0, computer.exception_collector_ic->nmi_output_pin ? 1 : 0, computer.cpu_ic->nmi_pin_previous_state);
     debug_status_bar_set_cursor_pos(332);
     debug_status_bar_print(c256_string2);
-    status_bar_foreground_color_buffer[404] = 0x26;
-    status_bar_foreground_color_buffer[405] = 0x26;
-    status_bar_foreground_color_buffer[406] = 0x26;
+    status_bar_foreground_color_buffer[404] = 0x36;
+    status_bar_foreground_color_buffer[405] = 0x36;
+    status_bar_foreground_color_buffer[406] = 0x36;
     // cpu scanlines
     snprintf(c256_string2, 256, "line: %3u\npix : %3u", computer.vicv_ic->return_current_scanline(), computer.vicv_ic->return_current_pixel() );
     debug_status_bar_set_cursor_pos(344);
@@ -73,8 +73,8 @@ void debug_status_bar_refresh()
     debug_status_bar_print(c256_string2);
     
     // set accent colors for titles etc...
-    debug_console.status_bar_foreground_color = 0x2b;
-    debug_console.status_bar_background_color = 0x26;
+    debug_console.status_bar_foreground_color = 0x3b;
+    debug_console.status_bar_background_color = 0x36;
 
     snprintf(c256_string2, 256, "       cpu internal status       ");
     debug_status_bar_set_cursor_pos(0);

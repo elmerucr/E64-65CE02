@@ -1,10 +1,10 @@
-; c256 definitions - 2018-01-20 elmerucr
+; c256 definitions - 2019-11-21 elmerucr
 
 ; ascii definitions
 NULL	equ	$00
 LF		equ	$0a
 ; register definitions
-VICV_R00	equ	$00008000 	; address background color
+VICV_BASE	equ	$ffff0400 	; vicv base register
 ; c64 color table argb8888
 C64_BLACK	equ	$ff000000	; color 0
 C64_WHITE   equ	$ffffffff	; color 1

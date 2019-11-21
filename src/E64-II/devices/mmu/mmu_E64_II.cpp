@@ -24,14 +24,31 @@ E64::mmu::~mmu()
 
 unsigned int E64::mmu::read_memory_8(unsigned int address)
 {
-    // quick hack
-    if(address < 32768)
+    uint32_t page = address >> 8;
+    if( page == IO_VICV_PAGE )
     {
-        return kernel[address & 0x7fff];
+        return computer.vicv_ic->read_byte(address & 0x000000ff);
+    }
+    else if( page == IO_SND_PAGE )
+    {
+        return computer.sound_ic->read_byte(address & 0x000000ff);
+    }
+    else if( page == IO_TIMER_PAGE )
+    {
+        return computer.timer_ic->read_byte(address & 0x000000ff);
+    }
+    else if( page == IO_CIA_PAGE )
+    {
+        return computer.cia_ic->read_byte(address & 0x000000ff);
+    }
+    else if( (page & IO_KERNEL_MASK) == 0 )
+    {
+        return kernel[address & 0x00007fff];
     }
     else
     {
-        return ram[address & (RAM_SIZE - 1)];
+        // normal memory access
+        return ram[address & 0x00ffffff];
     }
 }
     
@@ -76,7 +93,28 @@ unsigned int E64::mmu::read_disassembler_32(unsigned int address)
 
 void E64::mmu::write_memory_8(unsigned int address, unsigned int value)
 {
-    ram[address & (RAM_SIZE - 1)] = value & 0xff;
+    uint32_t page = address >> 8;
+    if( page == IO_VICV_PAGE )
+    {
+        computer.vicv_ic->write_byte(address & 0x000000ff, value & 0x000000ff);
+    }
+    else if( page == IO_SND_PAGE )
+    {
+        computer.sound_ic->write_byte(address & 0x000000ff, value & 0x000000ff);
+    }
+    else if( page == IO_TIMER_PAGE )
+    {
+        computer.timer_ic->write_byte(address & 0x000000ff, value & 0x000000ff);
+    }
+    else if( page == IO_CIA_PAGE )
+    {
+        computer.cia_ic->write_byte(address & 0x000000ff, value & 0x000000ff);
+    }
+    else
+    {
+        // normal memory access
+        ram[address & 0x00ffffff] = value & 0x000000ff;
+    }
 }
 
 void E64::mmu::write_memory_16(unsigned int address, unsigned int value)

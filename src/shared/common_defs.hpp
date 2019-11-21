@@ -47,9 +47,11 @@
     #define IO_TIMER_PAGE       0x06
     #define IO_KERNEL_MASK      0xe0
 #elif E64_II
+    #define IO_CIA_PAGE         0xffff03
     #define IO_VICV_PAGE        0xffff04
     #define IO_SND_PAGE         0xffff05
     #define IO_TIMER_PAGE       0xffff06
+    #define IO_KERNEL_MASK      0xffff80
 #endif
 
 // E64 elmerucr colors
@@ -142,11 +144,11 @@
 
 // debugger colors
 #ifdef E64_I
-    #define DEBUGGER_FOREGROUND_COLOR 0x26
-    #define DEBUGGER_BACKGROUND_COLOR 0x22
-#elif E64_II
     #define DEBUGGER_FOREGROUND_COLOR 0x36
     #define DEBUGGER_BACKGROUND_COLOR 0x32
+#elif E64_II
+    #define DEBUGGER_FOREGROUND_COLOR 0x26
+    #define DEBUGGER_BACKGROUND_COLOR 0x22
 #endif
 
 #define ASCII_NULL          0x00    // null

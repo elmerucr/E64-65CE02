@@ -1,86 +1,115 @@
 F00:0001       ; elmerucr - 6/10/2019
 F00:0002       ; compiles with vasmm68k_mot
 F00:0003       
-F00:0004       	org $00000000
-F00:0005       	dc.l	$fff0					; vector 0 - supervisor stackpointer
+F00:0004       	include 'E64-II_kernel_definitions.asm'
+F01:0001       ; c256 definitions - 2019-11-21 elmerucr
+F01:0002       
+F01:0003       ; ascii definitions
+F01:0004       NULL	equ	$00
+F01:0005       LF		equ	$0a
+F01:0006       ; register definitions
+F01:0007       VICV_BASE	equ	$ffff0400 	; vicv base register
+F01:0008       ; c64 color table argb8888
+F01:0009       C64_BLACK	equ	$ff000000	; color 0
+F01:0010       C64_WHITE   equ	$ffffffff	; color 1
+F01:0011       C64_RED		equ	$ff965247	; color 2
+F01:0012       C64_CYAN	equ	$ff80bfc7	; color 3
+F01:0013       C64_PURPLE	equ	$ff985aa1	; color 4
+F01:0014       C64_GREEN	equ	$ff70ab67	; color 5
+F01:0015       C64_BLUE	equ	$ff50449c	; color 6
+F01:0016       C64_YELLOW	equ	$ffcdd592	; color 7
+F01:0017       C64_ORANGE	equ	$ff9a6b42	; color 8
+F01:0018       C64_BROWN	equ	$ff6a551d	; color 9
+F01:0019       C64_L_RED	equ	$ffc18279	; color 10
+F01:0020       C64_D_GREY	equ	$ff636363	; color 11
+F01:0021       C64_GREY	equ	$ff8b8b8b	; color 12
+F01:0022       C64_L_GREEN	equ	$ffabe2a4	; color 13
+F01:0023       C64_L_BLUE	equ	$ff8a7fce	; color 14
+F01:0024       C64_L_GREY	equ	$ffafafaf	; color 15
+F01:0025       
+F00:0005       
+F00:0006       	org $00000000
+F00:0007       	dc.l	$fff0					; vector 0 - supervisor stackpointer
                S01:00000000:  00 00 FF F0
-F00:0006       	dc.l	kernel_main				; vector 1 - reset vector
+F00:0008       	dc.l	kernel_main				; vector 1 - reset vector
                S01:00000004:  00 00 78 00
-F00:0007       	org $00000010
-F00:0008       	dc.l	exception_handler		; vector 4 - illegal instruction
+F00:0009       	org $00000010
+F00:0010       	dc.l	exception_handler		; vector 4 - illegal instruction
                S02:00000010:  00 00 04 00
-F00:0009       	org $00000028
-F00:0010       	dc.l	exception_handler		; vector 10 - unimpl instruction
+F00:0011       	org $00000028
+F00:0012       	dc.l	exception_handler		; vector 10 - unimpl instruction
                S03:00000028:  00 00 04 00
-F00:0011       	dc.l	exception_handler		; vector 11 - unimpl instruction
+F00:0013       	dc.l	exception_handler		; vector 11 - unimpl instruction
                S03:0000002C:  00 00 04 00
-F00:0012       	org $0000007c
-F00:0013       	dc.l	interrupt_autovector	; vector 31 - level 7 interrupt autovector
+F00:0014       	org $0000007c
+F00:0015       	dc.l	interrupt_autovector	; vector 31 - level 7 interrupt autovector
                S04:0000007C:  00 00 05 00
-F00:0014       
-F00:0015       ; fake exception handler
-F00:0016       	org $00000400
-F00:0017       exception_handler
-F00:0018       	move.l #$deadbeef,d0
+F00:0016       
+F00:0017       ; fake exception handler
+F00:0018       	org $00000400
+F00:0019       exception_handler
+F00:0020       	move.l #$deadbeef,d0
                S05:00000400:  20 3C DE AD BE EF
-F00:0019       	rte
+F00:0021       	rte
                S05:00000406:  4E 73
-F00:0020       
-F00:0021       ; level 7 interrupt autovector
-F00:0022       	org $00000500
-F00:0023       interrupt_autovector
-F00:0024       	rte
+F00:0022       
+F00:0023       ; level 7 interrupt autovector
+F00:0024       	org $00000500
+F00:0025       interrupt_autovector
+F00:0026       	rte
                S06:00000500:  4E 73
-F00:0025       
-F00:0026       	org $00007000
-F00:0027       aap
-F00:0028       	dc.b	$fe
+F00:0027       
+F00:0028       	org $00007000
+F00:0029       aap
+F00:0030       	dc.b	$fe
                S07:00007000:  FE
-F00:0029       
-F00:0030       ; start of main kernel code
-F00:0031       	org	$7800
-F00:0032       kernel_main
-F00:0033       	lea		$00c00000,a0
-               S08:00007800:  41 F9 00 C0 00 00
-F00:0034       	movec	a0,msp
-               S08:00007806:  4E 7B 88 03
-F00:0035       	ori.w	#$1000,sr
-               S08:0000780A:  00 7C 10 00
-F00:0036       	movea.l	#$00d00000,a0
-               S08:0000780E:  20 7C 00 D0 00 00
-F00:0037       	move	a0,usp
-               S08:00007814:  4E 60
-F00:0038       	move.l	#$ff50449c,d0		; load blue color value into register d0
-               S08:00007816:  20 3C FF 50 44 9C
-F00:0039       	move.b	d0,d1
-               S08:0000781C:  12 00
-F00:0040       	lea		$00008000,a0		; load address of background color register into a0
-               S08:0000781E:  41 F9 00 00 80 00
-F00:0041       	move.l	d0,(a0)
-               S08:00007824:  20 80
-F00:0042       	move.l	d0,-(a7)			; put on stack
-               S08:00007826:  2F 00
-F00:0043       	move.b	aap(pc),d1
-               S08:00007828:  12 3A F7 D6
-F00:0044       	bra.s	kernel_main
-               S08:0000782C:  60 D2
-F00:0045       	move.w	sr,d0
-               S08:0000782E:  40 C0
-F00:0046       	andi.w	#%1111100011111111,d0
-               S08:00007830:  02 40 F8 FF
-F00:0047       	ori.w	#%0000001100000000,d0
-               S08:00007834:  00 40 03 00
-F00:0048       	move.w	d0,sr
-               S08:00007838:  46 C0
-F00:0049       	move.w	$3000.l,$30b0.l
-               S08:0000783A:  33 F9 00 00 30 00 00 00 30 B0
-F00:0050       	addq	#$01,d3
-               S08:00007844:  52 43
-F00:0051       	jmp		kernel_main
-               S08:00007846:  4E F8 78 00
-F00:0052       
-F00:0053       	org $00007ffc
-F00:0054       	dc.l	$deadbeef
+F00:0031       
+F00:0032       ; start of main kernel code
+F00:0033       	org	$7800
+F00:0034       kernel_main
+F00:0035       	move.b	#$02,VICV_BASE
+               S08:00007800:  13 FC 00 02 FF FF 04 00
+F00:0036       	lea		$00c00000,a0
+               S08:00007808:  41 F9 00 C0 00 00
+F00:0037       	movec	a0,msp
+               S08:0000780E:  4E 7B 88 03
+F00:0038       	ori.w	#$1000,sr
+               S08:00007812:  00 7C 10 00
+F00:0039       	movea.l	#$00d00000,a0
+               S08:00007816:  20 7C 00 D0 00 00
+F00:0040       	move	a0,usp
+               S08:0000781C:  4E 60
+F00:0041       	move.l	#$ff50449c,d0		; load blue color value into register d0
+               S08:0000781E:  20 3C FF 50 44 9C
+F00:0042       	move.b	d0,d1
+               S08:00007824:  12 00
+F00:0043       	lea		$00008000,a0		; load address of background color register into a0
+               S08:00007826:  41 F9 00 00 80 00
+F00:0044       	move.l	d0,(a0)
+               S08:0000782C:  20 80
+F00:0045       	move.l	d0,-(a7)			; put on stack
+               S08:0000782E:  2F 00
+F00:0046       	move.b	aap(pc),d1
+               S08:00007830:  12 3A F7 CE
+F00:0047       	bra.s	kernel_main
+               S08:00007834:  60 CA
+F00:0048       	move.w	sr,d0
+               S08:00007836:  40 C0
+F00:0049       	andi.w	#%1111100011111111,d0
+               S08:00007838:  02 40 F8 FF
+F00:0050       	ori.w	#%0000001100000000,d0
+               S08:0000783C:  00 40 03 00
+F00:0051       	move.w	d0,sr
+               S08:00007840:  46 C0
+F00:0052       	move.w	$3000.l,$30b0.l
+               S08:00007842:  33 F9 00 00 30 00 00 00 30 B0
+F00:0053       	addq	#$01,d3
+               S08:0000784C:  52 43
+F00:0054       	jmp		kernel_main
+               S08:0000784E:  4E F8 78 00
+F00:0055       
+F00:0056       	org $00007ffc
+F00:0057       	dc.l	$deadbeef
                S09:00007FFC:  DE AD BE EF
 
 
@@ -98,6 +127,7 @@ S09  seg7ffc
 
 Sources:
 F00  E64-II_kernel.asm
+F01  E64-II_kernel_definitions.asm
 
 
 Symbols:
@@ -105,7 +135,26 @@ aap EXPR(28672=0x7000) ABS
 interrupt_autovector EXPR(1280=0x500) ABS 
 exception_handler EXPR(1024=0x400) ABS 
 kernel_main EXPR(30720=0x7800) ABS 
-__LINE__ EXPR(54=0x36) INTERNAL 
+C64_L_GREY EXPR(-5263441=0xffafafaf) UNUSED EQU 
+C64_L_BLUE EXPR(-7700530=0xff8a7fce) UNUSED EQU 
+C64_L_GREEN EXPR(-5512540=0xffabe2a4) UNUSED EQU 
+C64_GREY EXPR(-7631989=0xff8b8b8b) UNUSED EQU 
+C64_D_GREY EXPR(-10263709=0xff636363) UNUSED EQU 
+C64_L_RED EXPR(-4095367=0xffc18279) UNUSED EQU 
+C64_BROWN EXPR(-9808611=0xff6a551d) UNUSED EQU 
+C64_ORANGE EXPR(-6657214=0xff9a6b42) UNUSED EQU 
+C64_YELLOW EXPR(-3287662=0xffcdd592) UNUSED EQU 
+C64_BLUE EXPR(-11516772=0xff50449c) UNUSED EQU 
+C64_GREEN EXPR(-9393305=0xff70ab67) UNUSED EQU 
+C64_PURPLE EXPR(-6792543=0xff985aa1) UNUSED EQU 
+C64_CYAN EXPR(-8339513=0xff80bfc7) UNUSED EQU 
+C64_RED EXPR(-6925753=0xff965247) UNUSED EQU 
+C64_WHITE EXPR(-1=0xffffffff) UNUSED EQU 
+C64_BLACK EXPR(-16777216=0xff000000) UNUSED EQU 
+VICV_BASE EXPR(-64512=0xffff0400) EQU 
+LF EXPR(10=0xa) UNUSED EQU 
+NULL EXPR(0=0x0) UNUSED EQU 
+__LINE__ EXPR(57=0x39) INTERNAL 
 __FO EXPR(0=0x0) INTERNAL 
 __RS EXPR(0=0x0) INTERNAL 
 REPTN EXPR(-1=0xffffffff) INTERNAL 

@@ -1,6 +1,8 @@
 ; elmerucr - 6/10/2019
 ; compiles with vasmm68k_mot
 
+	include 'E64-II_kernel_definitions.asm'
+
 	org $00000000
 	dc.l	$fff0					; vector 0 - supervisor stackpointer
 	dc.l	kernel_main				; vector 1 - reset vector
@@ -30,6 +32,7 @@ aap
 ; start of main kernel code
 	org	$7800
 kernel_main
+	move.b	#$02,VICV_BASE
 	lea		$00c00000,a0
 	movec	a0,msp
 	ori.w	#$1000,sr
