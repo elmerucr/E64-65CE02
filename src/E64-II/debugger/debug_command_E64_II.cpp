@@ -320,25 +320,25 @@ void E64::debug_command_memory_dump(uint32_t address, int rows)
     for(int i=0; i<rows; i++ )
     {
         uint16_t temp_address = address;
-        snprintf(c256_string2, 256, ".:%08x ", temp_address);
+        snprintf(c256_string2, 256, ".:%08x", temp_address);
         debug_console_print(c256_string2);
-        for(int i=0; i<8; i++)
+        for(int i=0; i<16; i++)
         {
-            //snprintf(c256_string2, 256, "%02x ", csg65ce02_read_byte(temp_address));
-            snprintf(c256_string2, 256, "%02x ", computer.mmu_ic->read_memory_8(temp_address));
+            if((i & 3) == 0) debug_console_print(" ");
+            snprintf(c256_string2, 256, "%02x", computer.mmu_ic->read_memory_8(temp_address));
             debug_console_print(c256_string2);
             temp_address++;
         }
+        debug_console_print(" ");
         temp_address = address;
-        for(int i=0; i<8; i++)
+        for(int i=0; i<16; i++)
         {
             uint8_t temp_byte = computer.mmu_ic->read_memory_8(temp_address);
-            //uint8_t temp_byte = csg65ce02_read_byte(temp_address);
             if( temp_byte == ASCII_LF ) temp_byte = 0x80;
             debug_console_putchar( temp_byte );
             temp_address++;
         }
-        address += 8;
+        address += 16;
         debug_console_print("\n");
     }
 }
