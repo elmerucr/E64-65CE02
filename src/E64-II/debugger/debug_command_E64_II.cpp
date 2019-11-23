@@ -186,14 +186,14 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
 //            debug_console_print("error: argument must be 0 or 1\n");
 //        }
 //    }
-//    else if( strcmp(token0, "m") == 0 )
-//    {
-//        if( token1 == NULL )
-//        {
-//            debug_command_memory_dump(computer.cpu_ic->pc, 8);
-//        }
-//        else
-//        {
+    else if( strcmp(token0, "m") == 0 )
+    {
+        if( token1 == NULL )
+        {
+            debug_command_memory_dump(computer.cpu_ic->get_pc(), 8);
+        }
+        else
+        {
 //            uint8_t temp_8bit;
 //            uint16_t temp_16bit;
 //            switch(strlen(token1))
@@ -222,8 +222,8 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
 //                    snprintf(c256_string2, 256, "error: invalid argument '%s'\n", token1);
 //                    debug_console_print(c256_string2);
 //            }
-//        }
-//    }
+        }
+    }
 //    else if( strcmp(token0, "nmi") == 0 )
 //    {
 //        if( token1 == NULL )
@@ -315,32 +315,34 @@ void E64::debug_command_dump_cpu_status()
 //    }
 //}
 //
-//void E64::debug_command_memory_dump(uint16_t address, int rows)
-//{
-//    for(int i=0; i<rows; i++ )
-//    {
-//        uint16_t temp_address = address;
-//        snprintf(c256_string2, 256, ".:%04x ", temp_address);
-//        debug_console_print(c256_string2);
-//        for(int i=0; i<8; i++)
-//        {
-//            snprintf(c256_string2, 256, "%02x ", csg65ce02_read_byte(temp_address));
-//            debug_console_print(c256_string2);
-//            temp_address++;
-//        }
-//        temp_address = address;
-//        for(int i=0; i<8; i++)
-//        {
-//            uint8_t temp_byte = csg65ce02_read_byte(temp_address);
-//            if( temp_byte == ASCII_LF ) temp_byte = 0x80;
-//            debug_console_putchar( temp_byte );
-//            temp_address++;
-//        }
-//        address += 8;
-//        debug_console_print("\n");
-//    }
-//}
-//
+void E64::debug_command_memory_dump(uint32_t address, int rows)
+{
+    for(int i=0; i<rows; i++ )
+    {
+        uint16_t temp_address = address;
+        snprintf(c256_string2, 256, ".:%08x ", temp_address);
+        debug_console_print(c256_string2);
+        for(int i=0; i<8; i++)
+        {
+            //snprintf(c256_string2, 256, "%02x ", csg65ce02_read_byte(temp_address));
+            snprintf(c256_string2, 256, "%02x ", computer.mmu_ic->read_memory_8(temp_address));
+            debug_console_print(c256_string2);
+            temp_address++;
+        }
+        temp_address = address;
+        for(int i=0; i<8; i++)
+        {
+            uint8_t temp_byte = computer.mmu_ic->read_memory_8(temp_address);
+            //uint8_t temp_byte = csg65ce02_read_byte(temp_address);
+            if( temp_byte == ASCII_LF ) temp_byte = 0x80;
+            debug_console_putchar( temp_byte );
+            temp_address++;
+        }
+        address += 8;
+        debug_console_print("\n");
+    }
+}
+
 //// hex2int
 //// take a hex string and convert it to a 32bit number (max 8 hex digits)
 //// from: https://stackoverflow.com/questions/10156409/convert-hex-string-char-to-int

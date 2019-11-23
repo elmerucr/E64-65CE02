@@ -1,7 +1,7 @@
 
 ; 64tass Turbo Assembler Macro V1.54.1900 listing file
 ; 64tass -b -C -L E64_kernel.lst -o E64_kernel.bin E64_kernel.asm
-; Thu Nov 21 21:58:19 2019
+; Sat Nov 23 12:58:53 2019
 
 ;Offset	;Hex		;Monitor	;Source
 
@@ -136,7 +136,7 @@
 .e0a1	20 8f e1	jsr $e18f		jsr clear_screen
 .e0a4	f4 ef e1	phw #$e1ef		phw #welc1		; first welcome message
 .e0a7	20 e1 e1	jsr $e1e1		jsr put_string
-.e0aa	f4 04 e2	phw #$e204		phw #welc2		; second part of message
+.e0aa	f4 fb e1	phw #$e1fb		phw #welc2		; second part of message
 .e0ad	20 e1 e1	jsr $e1e1		jsr put_string
 .e0b0	a9 82		lda #$82		lda #$82
 .e0b2	8d 01 05	sta $0501		sta SID0_BASE+$01	; frequency of voice 1 (high byte)
@@ -311,10 +311,10 @@
 .e1ea	c8		iny			inc y
 .e1eb	80 f6		bra $e1e3		bra -
 .e1ed	62 02		rts #$02	+	rtn #$02
->e1ef	45 36 34 20 6b 65 72 6e		welc1	.text "E64 kernel V20191002",ASCII_NULL
->e1f7	65 6c 20 56 32 30 31 39 31 30 30 32 00
->e204	20 28 43 29 32 30 31 39		welc2	.text " (C)2019 elmerucr",ASCII_NULL
->e20c	20 65 6c 6d 65 72 75 63 72 00
+>e1ef	45 36 34 20 28 43 29 32		welc1	.text "E64 (C)2019",ASCII_NULL
+>e1f7	30 31 39 00
+>e1fb	20 6b 65 72 6e 65 6c 20		welc2	.text " kernel V0.1.20191123",ASCII_NULL
+>e203	56 30 2e 31 2e 32 30 31 39 31 31 32 33 00
 
 ;******  Processing file: E64_kernel_rom_tables.asm
 

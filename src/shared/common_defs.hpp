@@ -10,7 +10,7 @@
 
 #define E64_MAJOR_VERSION       0
 #define E64_MINOR_VERSION       4
-#define E64_BUILD               20191120
+#define E64_BUILD               20191123
 #define E64_YEAR                2019
 
 // E64_I or E64_II must be defined by build system
@@ -144,11 +144,11 @@
 
 // debugger colors
 #ifdef E64_I
-    #define DEBUGGER_FOREGROUND_COLOR 0x36
-    #define DEBUGGER_BACKGROUND_COLOR 0x32
-#elif E64_II
     #define DEBUGGER_FOREGROUND_COLOR 0x26
     #define DEBUGGER_BACKGROUND_COLOR 0x22
+#elif E64_II
+    #define DEBUGGER_FOREGROUND_COLOR 0x36
+    #define DEBUGGER_BACKGROUND_COLOR 0x32
 #endif
 
 #define ASCII_NULL          0x00    // null

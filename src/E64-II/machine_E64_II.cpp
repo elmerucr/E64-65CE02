@@ -17,6 +17,8 @@ E64::machine::machine()
     
     cpu_ic = new cpu_m68k();
     
+    timer_ic = new timer();
+    
     vicv_ic = new vicv();
     
     sound_ic = new sound();
@@ -40,6 +42,7 @@ E64::machine::~machine()
     delete cia_ic;
     delete sound_ic;
     delete vicv_ic;
+    delete timer_ic;
     delete cpu_ic;
     delete mmu_ic;
 }
