@@ -12,6 +12,8 @@
 #include "sdl2.hpp"
 #include "debug_status_bar_E64_II.hpp"
 
+char command_help_string[2048];
+
 void E64::debug_command_execute(char *string_to_parse_and_exec)
 {
     // use temporary pointer
@@ -195,15 +197,15 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
         else
         {
 //            uint8_t temp_8bit;
-//            uint16_t temp_16bit;
+            uint32_t temp_32bit;
 //            switch(strlen(token1))
 //            {
-//                case 4:
-//                    temp_16bit = debug_command_hex_string_to_int(token1);
-//                    if( token2 == NULL)
-//                    {
-//                        debug_command_memory_dump(temp_16bit, 8);
-//                    }
+//                case 8:
+                    temp_32bit = debug_command_hex_string_to_int(token1);
+                    if( token2 == NULL)
+                    {
+                        debug_command_memory_dump(temp_32bit, 8);
+                    }
 //                    else
 //                    {
 //                        switch(strlen(token2))
@@ -277,24 +279,24 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
         }
         else
         {
-            snprintf(c256_string2, 256, "error: unknown argument '%s'\n", token1);
-            debug_console_print(c256_string2);
+            snprintf(command_help_string, 256, "error: unknown argument '%s'\n", token1);
+            debug_console_print(command_help_string);
         }
     }
     else
     {
-        snprintf(c256_string2, 256, "error: unknown command '%s'\n", token0);
-        debug_console_print(c256_string2);
+        snprintf(command_help_string, 256, "error: unknown command '%s'\n", token0);
+        debug_console_print(command_help_string);
     }
 }
 
 void E64::debug_command_dump_cpu_status()
 {
-    computer.cpu_ic->dump_registers(c256_string2);
-    debug_console_print(c256_string2);
+    computer.cpu_ic->dump_registers(command_help_string);
+    debug_console_print(command_help_string);
     
-    computer.cpu_ic->dump_status_register(c256_string2);
-    debug_console_print(c256_string2);
+    computer.cpu_ic->dump_status_register(command_help_string);
+    debug_console_print(command_help_string);
     
 //    debug_console_print("\n\n");
 //    debug_console_print(".,");
@@ -319,14 +321,14 @@ void E64::debug_command_memory_dump(uint32_t address, int rows)
 {
     for(int i=0; i<rows; i++ )
     {
-        uint16_t temp_address = address;
-        snprintf(c256_string2, 256, ".:%08x", temp_address);
-        debug_console_print(c256_string2);
+        uint32_t temp_address = address;
+        snprintf(command_help_string, 256, ".:%08x", temp_address);
+        debug_console_print(command_help_string);
         for(int i=0; i<16; i++)
         {
             if((i & 3) == 0) debug_console_print(" ");
-            snprintf(c256_string2, 256, "%02x", computer.mmu_ic->read_memory_8(temp_address));
-            debug_console_print(c256_string2);
+            snprintf(command_help_string, 256, "%02x", computer.mmu_ic->read_memory_8(temp_address));
+            debug_console_print(command_help_string);
             temp_address++;
         }
         debug_console_print(" ");
@@ -343,34 +345,34 @@ void E64::debug_command_memory_dump(uint32_t address, int rows)
     }
 }
 
-//// hex2int
-//// take a hex string and convert it to a 32bit number (max 8 hex digits)
-//// from: https://stackoverflow.com/questions/10156409/convert-hex-string-char-to-int
-//uint32_t E64::debug_command_hex_string_to_int(const char *temp_string)
-//{
-//    uint32_t val = 0;
-//    while (*temp_string)
-//    {
-//        // get current character then increment
-//        uint8_t byte = *temp_string++;
-//        // transform hex character to the 4bit equivalent number, using the ascii table indexes
-//        if (byte >= '0' && byte <= '9')
-//        {
-//            byte = byte - '0';
-//        }
-//        else if (byte >= 'a' && byte <='f')
-//        {
-//            byte = byte - 'a' + 10;
-//        }
-//        else if (byte >= 'A' && byte <='F')
-//        {
-//            byte = byte - 'A' + 10;
-//        }
-//        // shift 4 to make space for new digit, and add the 4 bits of the new digit
-//        val = (val << 4) | (byte & 0xF);
-//    }
-//    return val;
-//}
+// hex2int
+// take a hex string and convert it to a 32bit number (max 8 hex digits)
+// from: https://stackoverflow.com/questions/10156409/convert-hex-string-char-to-int
+uint32_t E64::debug_command_hex_string_to_int(const char *temp_string)
+{
+    uint32_t val = 0;
+    while (*temp_string)
+    {
+        // get current character then increment
+        uint8_t byte = *temp_string++;
+        // transform hex character to the 4bit equivalent number, using the ascii table indexes
+        if (byte >= '0' && byte <= '9')
+        {
+            byte = byte - '0';
+        }
+        else if (byte >= 'a' && byte <='f')
+        {
+            byte = byte - 'a' + 10;
+        }
+        else if (byte >= 'A' && byte <='F')
+        {
+            byte = byte - 'A' + 10;
+        }
+        // shift 4 to make space for new digit, and add the 4 bits of the new digit
+        val = (val << 4) | (byte & 0xF);
+    }
+    return val;
+}
 
 void E64::debug_command_single_step_cpu()
 {

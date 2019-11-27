@@ -64,34 +64,6 @@ E64::machine::~machine()
     delete mmu_ic;
 }
 
-int E64::machine::run(uint16_t no_of_cycles)
-{
-    // default exit_code of the function is 0, no breakpoints have occurred
-    int exit_code = NOTHING;
-    unsigned int processed_cycles = csg65ce02_run(this->cpu_ic, no_of_cycles);
-    if( this->cpu_ic->exit_code_run_function == 1 )
-    {
-        // cpu breakpoint encountered
-        snprintf(c256_string2, 256, "\ncpu breakpoint occurred at $%04x\n.", cpu_ic->pc);
-        debug_console_print(c256_string2);
-        exit_code = CPU_BREAKPOINT;
-    }
-    // run cycles on vicv
-    vicv_ic->run(cpu_to_vicv->clock(processed_cycles));
-    // calculate no. of cycles to run on sound device & start audio if buffer large enough
-    sound_ic->run(cpu_to_sid->clock(processed_cycles));
-    if(E64::sdl2_get_queued_audio_size() > (AUDIO_BUFFER_SIZE/2)) E64::sdl2_start_audio();
-    // run cycles on timer
-    timer_ic->run(cpu_to_timer->clock(processed_cycles));
-    
-    return exit_code;
-}
-
-void E64::machine::force_next_instruction()
-{
-    cpu_ic->force_next_instruction = true;
-}
-
 void E64::machine::switch_to_running()
 {
     current_mode = NORMAL_MODE;
@@ -120,4 +92,32 @@ void E64::machine::switch_mode()
             switch_to_running();
             break;
     }
+}
+
+void E64::machine::force_next_instruction()
+{
+    cpu_ic->force_next_instruction = true;
+}
+
+int E64::machine::run(uint16_t no_of_cycles)
+{
+    // default exit_code of the function is 0, no breakpoints have occurred
+    int exit_code = NOTHING;
+    unsigned int processed_cycles = csg65ce02_run(this->cpu_ic, no_of_cycles);
+    if( this->cpu_ic->exit_code_run_function == 1 )
+    {
+        // cpu breakpoint encountered
+        snprintf(machine_help_string, 256, "\ncpu breakpoint occurred at $%04x\n.", cpu_ic->pc);
+        debug_console_print(machine_help_string);
+        exit_code = CPU_BREAKPOINT;
+    }
+    // run cycles on vicv
+    vicv_ic->run(cpu_to_vicv->clock(processed_cycles));
+    // calculate no. of cycles to run on sound device & start audio if buffer large enough
+    sound_ic->run(cpu_to_sid->clock(processed_cycles));
+    if(E64::sdl2_get_queued_audio_size() > (AUDIO_BUFFER_SIZE/2)) E64::sdl2_start_audio();
+    // run cycles on timer
+    timer_ic->run(cpu_to_timer->clock(processed_cycles));
+    
+    return exit_code;
 }

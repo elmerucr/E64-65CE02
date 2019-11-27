@@ -13,6 +13,8 @@ uint8_t status_bar_chars[16*64];
 uint8_t status_bar_foreground_color_buffer[16*64];
 uint8_t status_bar_background_color_buffer[16*64];
 
+char status_bar_help_string[2048];
+
 void debug_status_bar_clear()
 {
     for(int i=0; i<(debug_console.status_bar_rows * 64); i++)
@@ -30,27 +32,27 @@ void debug_status_bar_refresh()
 {
     debug_status_bar_clear();
 
-    computer.cpu_ic->dump_registers(c256_string2);
+    computer.cpu_ic->dump_registers(status_bar_help_string);
     debug_status_bar_set_cursor_pos( 1*64 +  0);
-    debug_status_bar_print(c256_string2);
+    debug_status_bar_print(status_bar_help_string);
     
-    computer.cpu_ic->dump_status_register(c256_string2);
+    computer.cpu_ic->dump_status_register(status_bar_help_string);
     debug_status_bar_set_cursor_pos( 1*64 + 40);
-    debug_status_bar_print(c256_string2);
+    debug_status_bar_print(status_bar_help_string);
     
     debug_status_bar_set_cursor_pos(10*64 +  0);
     uint32_t temp_pc = computer.cpu_ic->get_pc();
     for(int i= 0; i<6; i++ )
     {
-        temp_pc += computer.cpu_ic->disassemble(c256_string2, temp_pc);
-        debug_status_bar_print(c256_string2);
+        temp_pc += computer.cpu_ic->disassemble(status_bar_help_string, temp_pc);
+        debug_status_bar_print(status_bar_help_string);
         debug_status_bar_putchar('\n');
     }
     
     // cpu scanlines
-    snprintf(c256_string2, 256, "line: %3u\npix : %3u", computer.vicv_ic->return_current_scanline(), computer.vicv_ic->return_current_pixel() );
+    snprintf(status_bar_help_string, 256, "line: %3u\npix : %3u", computer.vicv_ic->return_current_scanline(), computer.vicv_ic->return_current_pixel() );
     debug_status_bar_set_cursor_pos(360);
-    debug_status_bar_print(c256_string2);
+    debug_status_bar_print(status_bar_help_string);
     
 //    // interrupt pins
 //    snprintf(c256_string2, 256, "irq  : %1u\nnmi  : %1u(%1u)",computer.exception_collector_ic->irq_output_pin ? 1 : 0, computer.exception_collector_ic->nmi_output_pin ? 1 : 0, computer.cpu_ic->nmi_pin_previous_state);
@@ -90,15 +92,15 @@ void debug_status_bar_refresh()
     debug_console.status_bar_foreground_color = 0x3b;
     debug_console.status_bar_background_color = 0x36;
 
-    snprintf(c256_string2, 256, "                       cpu internal status                      ");
+    snprintf(status_bar_help_string, 256, "                       cpu internal status                      ");
     debug_status_bar_set_cursor_pos(0);
-    debug_status_bar_print(c256_string2);
-    snprintf(c256_string2, 256, "                           disassembly                          ");
+    debug_status_bar_print(status_bar_help_string);
+    snprintf(status_bar_help_string, 256, "                           disassembly                          ");
     debug_status_bar_set_cursor_pos(576);
-    debug_status_bar_print(c256_string2);
-    snprintf(c256_string2, 256, "  vic v  ");
+    debug_status_bar_print(status_bar_help_string);
+    snprintf(status_bar_help_string, 256, "  vic v  ");
     debug_status_bar_set_cursor_pos(296);
-    debug_status_bar_print(c256_string2);
+    debug_status_bar_print(status_bar_help_string);
 //
 //    snprintf(c256_string2, 256, "        disassembly         ");
 //    debug_status_bar_set_cursor_pos(34);

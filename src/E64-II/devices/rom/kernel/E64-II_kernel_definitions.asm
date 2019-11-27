@@ -6,6 +6,13 @@ LF		equ	$0a
 
 ; register definitions
 VICV_BASE	equ	$ffff0400 	; vicv base register
-SID0_BASE	equ	$ffff0500	; sound base register
-SID0_LEFT	equ $ffff0580
-SID0_RGHT	equ $ffff0581
+
+; sound
+SOUND_BASE	equ $ffff0500	; sound base register
+SID0_BASE	equ	SOUND_BASE
+SID1_BASE	equ	SOUND_BASE+$20
+; sound indices
+SID0_LEFT	equ $80
+SID0_RGHT	equ $81
+
+CURR_TEXT_COLOR	equ $00008000

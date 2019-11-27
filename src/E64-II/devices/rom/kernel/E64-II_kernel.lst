@@ -10,10 +10,16 @@ F01:0005       LF		equ	$0a
 F01:0006       
 F01:0007       ; register definitions
 F01:0008       VICV_BASE	equ	$ffff0400 	; vicv base register
-F01:0009       SID0_BASE	equ	$ffff0500	; sound base register
-F01:0010       SID0_LEFT	equ $ffff0580
-F01:0011       SID0_RGHT	equ $ffff0581
-F01:0012       
+F01:0009       
+F01:0010       ; sound
+F01:0011       SOUND_BASE	equ $ffff0500	; sound base register
+F01:0012       SID0_BASE	equ	SOUND_BASE
+F01:0013       SID1_BASE	equ	SOUND_BASE+$20
+F01:0014       ; sound indices
+F01:0015       SID0_LEFT	equ $80
+F01:0016       SID0_RGHT	equ $81
+F01:0017       
+F01:0018       CURR_TEXT_COLOR	equ $00008000
 F00:0005       
 F00:0006       	org $00000000
 F00:0007       	dc.l	$00d00000				; vector 0 - supervisor stackpointer
@@ -59,73 +65,80 @@ F00:0036       	move.b	#$0c,VICV_BASE
                S08:00007800:  13 FC 00 0C FF FF 04 00
 F00:0037       	move.b	#$06,VICV_BASE+1
                S08:00007808:  13 FC 00 06 FF FF 04 01
-F00:0038       
-F00:0039       	; play a welcome sound
-F00:0040       	;
-F00:0041       	; frequency of voice 1 (high byte)
-F00:0042       	move.b	#$82,SID0_BASE+$01
-               S08:00007810:  13 FC 00 82 FF FF 05 01
-F00:0043       	; attack and decay of voice 1
-F00:0044       	move.b	#$09,SID0_BASE+$05
-               S08:00007818:  13 FC 00 09 FF FF 05 05
-F00:0045       	; freq of voice 3
-F00:0046       	move.b	#$1e,SID0_BASE+$0f
-               S08:00007820:  13 FC 00 1E FF FF 05 0F
-F00:0047       	; max volume
-F00:0048       	move.b	#$0f,SID0_BASE+$18
-               S08:00007828:  13 FC 00 0F FF FF 05 18
-F00:0049       	; left channel mix
-F00:0050       	move.b	#$ff,SID0_LEFT
-               S08:00007830:  13 FC 00 FF FF FF 05 80
-F00:0051       	; right channel mix
-F00:0052       	move.b	#$10,SID0_RGHT
-               S08:00007838:  13 FC 00 10 FF FF 05 81
-F00:0053       	; play bell by opening gate on bit0 register #4
-F00:0054       	; bit 4 is for a triangle wave form
-F00:0055           ; bit 2 is for a ring modulation connected to voice 3
-F00:0056       	move.b	#%10000101,SID0_BASE+$04
-               S08:00007840:  13 FC 00 85 FF FF 05 04
-F00:0057       
-F00:0058       
-F00:0059       	;lea		$00c00000,a0
-F00:0060       	;movec	a0,msp
-F00:0061       	;ori.w	#$1000,sr			; activate msp
-F00:0062       start_of_loop
-F00:0063       	movea.l	#$00d00000,a0
+F00:0038       	; set text color
+F00:0039       	move.b	#$0c,CURR_TEXT_COLOR
+               S08:00007810:  13 FC 00 0C 00 00 80 00
+F00:0040       
+F00:0041       
+F00:0042       
+F00:0043       	; play a welcome sound on SID0
+F00:0044       	;
+F00:0045       	lea		SID0_BASE,a0
+               S08:00007818:  41 F9 FF FF 05 00
+F00:0046       	; frequency of voice 1 (high byte)
+F00:0047       	move.b	#$82,($01,a0)
+               S08:0000781E:  11 7C 00 82 00 01
+F00:0048       	; attack and decay of voice 1
+F00:0049       	move.b	#$09,($05,a0)
+               S08:00007824:  11 7C 00 09 00 05
+F00:0050       	; freq of voice 3
+F00:0051       	move.b	#$1e,($0f,a0)
+               S08:0000782A:  11 7C 00 1E 00 0F
+F00:0052       	; max volume
+F00:0053       	move.b	#$0f,($18,a0)
+               S08:00007830:  11 7C 00 0F 00 18
+F00:0054       	; left channel mix
+F00:0055       	move.b	#$ff,(SID0_LEFT,a0)
+               S08:00007836:  11 7C 00 FF 00 80
+F00:0056       	; right channel mix
+F00:0057       	move.b	#$10,(SID0_RGHT,a0)
+               S08:0000783C:  11 7C 00 10 00 81
+F00:0058       	; play bell by opening gate on bit0 register #4
+F00:0059       	; bit 4 is for a triangle wave form
+F00:0060           ; bit 2 is for a ring modulation connected to voice 3
+F00:0061       	move.b	#%10000101,($04,a0)
+               S08:00007842:  11 7C 00 85 00 04
+F00:0062       
+F00:0063       
+F00:0064       	;lea		$00c00000,a0
+F00:0065       	;movec	a0,msp
+F00:0066       	;ori.w	#$1000,sr			; activate msp
+F00:0067       start_of_loop
+F00:0068       	movea.l	#$00d00000,a0
                S08:00007848:  20 7C 00 D0 00 00
-F00:0064       	move	a0,usp
+F00:0069       	move	a0,usp
                S08:0000784E:  4E 60
-F00:0065       	move.l	#$ff50449c,d0		; load blue color value into register d0
+F00:0070       	move.l	#$ff50449c,d0		; load blue color value into register d0
                S08:00007850:  20 3C FF 50 44 9C
-F00:0066       	move.b	d0,d1
+F00:0071       	move.b	d0,d1
                S08:00007856:  12 00
-F00:0067       	lea		$00008000,a0		; load address of background color register into a0
+F00:0072       	lea		$00008000,a0		; load address of background color register into a0
                S08:00007858:  41 F9 00 00 80 00
-F00:0068       	move.l	d0,(a0)
+F00:0073       	move.l	d0,(a0)
                S08:0000785E:  20 80
-F00:0069       	move.l	d0,-(a7)			; put on stack
+F00:0074       	move.l	d0,-(a7)			; put on stack
                S08:00007860:  2F 00
-F00:0070       	move.b	aap(pc),d1
+F00:0075       	move.b	aap(pc),d1
                S08:00007862:  12 3A F7 9C
-F00:0071       	bra.s	start_of_loop
+F00:0076       	bra.s	start_of_loop
                S08:00007866:  60 E0
-F00:0072       	move.w	sr,d0
+F00:0077       	move.w	sr,d0
                S08:00007868:  40 C0
-F00:0073       	andi.w	#%1111100011111111,d0
+F00:0078       	andi.w	#%1111100011111111,d0
                S08:0000786A:  02 40 F8 FF
-F00:0074       	ori.w	#%0000001100000000,d0
+F00:0079       	ori.w	#%0000001100000000,d0
                S08:0000786E:  00 40 03 00
-F00:0075       	move.w	d0,sr
+F00:0080       	move.w	d0,sr
                S08:00007872:  46 C0
-F00:0076       	move.w	$3000.l,$30b0.l
+F00:0081       	move.w	$3000.l,$30b0.l
                S08:00007874:  33 F9 00 00 30 00 00 00 30 B0
-F00:0077       	addq	#$01,d3
+F00:0082       	addq	#$01,d3
                S08:0000787E:  52 43
-F00:0078       	jmp		kernel_main
+F00:0083       	jmp		kernel_main
                S08:00007880:  4E F8 78 00
-F00:0079       
-F00:0080       	org $00007ffc
-F00:0081       	dc.l	$deadbeef
+F00:0084       
+F00:0085       	org		$00007ffc
+F00:0086       	dc.l	$deadbeef
                S09:00007FFC:  DE AD BE EF
 
 
@@ -152,13 +165,16 @@ aap EXPR(28672=0x7000) ABS
 interrupt_autovector EXPR(1280=0x500) ABS 
 exception_handler EXPR(1024=0x400) ABS 
 kernel_main EXPR(30720=0x7800) ABS 
-SID0_RGHT EXPR(-64127=0xffff0581) EQU 
-SID0_LEFT EXPR(-64128=0xffff0580) EQU 
+CURR_TEXT_COLOR EXPR(32768=0x8000) EQU 
+SID0_RGHT EXPR(129=0x81) EQU 
+SID0_LEFT EXPR(128=0x80) EQU 
+SID1_BASE EXPR(-64224=0xffff0520) UNUSED EQU 
 SID0_BASE EXPR(-64256=0xffff0500) EQU 
+SOUND_BASE EXPR(-64256=0xffff0500) EQU 
 VICV_BASE EXPR(-64512=0xffff0400) EQU 
 LF EXPR(10=0xa) UNUSED EQU 
 NULL EXPR(0=0x0) UNUSED EQU 
-__LINE__ EXPR(81=0x51) INTERNAL 
+__LINE__ EXPR(86=0x56) INTERNAL 
 __FO EXPR(0=0x0) INTERNAL 
 __RS EXPR(0=0x0) INTERNAL 
 REPTN EXPR(-1=0xffffffff) INTERNAL 

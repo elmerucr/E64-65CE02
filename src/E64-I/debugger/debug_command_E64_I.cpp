@@ -13,6 +13,8 @@
 #include "csg65ce02_dasm.h"
 #include "debug_status_bar_E64_I.hpp"
 
+char command_help_string[2048];
+
 void E64::debug_command_execute(char *string_to_parse_and_exec)
 {
     // use temporary pointer
@@ -47,8 +49,8 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
                 if( computer.cpu_ic->breakpoint_array[i] == true )
                 {
                     count++;
-                    snprintf(c256_string2, 256, "$%04x\n", i);
-                    debug_console_print(c256_string2);
+                    snprintf(command_help_string, 256, "$%04x\n", i);
+                    debug_console_print(command_help_string);
                 }
             }
             if( count == 0 ) debug_console_print("no breakpoints defined\n");
@@ -66,21 +68,21 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
             uint16_t temp_16bit = debug_command_hex_string_to_int(token1);
             if( computer.cpu_ic->breakpoint_array[temp_16bit] )
             {
-                snprintf(c256_string2, 256, "breakpoint at $%04x removed\n", temp_16bit);
-                debug_console_print(c256_string2);
+                snprintf(command_help_string, 256, "breakpoint at $%04x removed\n", temp_16bit);
+                debug_console_print(command_help_string);
                 csg65ce02_remove_breakpoint(computer.cpu_ic, temp_16bit);
             }
             else
             {
-                snprintf(c256_string2, 256, "breakpoint at $%04x added\n", temp_16bit);
-                debug_console_print(c256_string2);
+                snprintf(command_help_string, 256, "breakpoint at $%04x added\n", temp_16bit);
+                debug_console_print(command_help_string);
                 csg65ce02_add_breakpoint(computer.cpu_ic, temp_16bit);
             }
         }
         else
         {
-            snprintf(c256_string2, 256, "error: invalid argument '%s'\n", token1);
-            debug_console_print(c256_string2);
+            snprintf(command_help_string, 256, "error: invalid argument '%s'\n", token1);
+            debug_console_print(command_help_string);
         }
     }
     else if( strcmp(token0, "bar") == 0 )
@@ -160,28 +162,28 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
         }
         else
         {
-            snprintf(c256_string2, 256, "error: unrecognized option '%s'\n", token1);
-            debug_console_print(c256_string2);
+            snprintf(command_help_string, 256, "error: unrecognized option '%s'\n", token1);
+            debug_console_print(command_help_string);
         }
     }
     else if( strcmp(token0, "irq") == 0 )
     {
         if( token1 == NULL )
         {
-            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", computer.exception_collector_ic->irq_output_pin ? 1 : 0);
-            debug_console_print(c256_string2);
+            snprintf(command_help_string, 256, "Current status of irq pin is %1u\n", computer.exception_collector_ic->irq_output_pin ? 1 : 0);
+            debug_console_print(command_help_string);
         }
         else if( strcmp(token1, "0") == 0)
         {
             computer.exception_collector_ic->irq_output_pin = false;
-            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", computer.exception_collector_ic->irq_output_pin ? 1 : 0);
-            debug_console_print(c256_string2);
+            snprintf(command_help_string, 256, "Current status of irq pin is %1u\n", computer.exception_collector_ic->irq_output_pin ? 1 : 0);
+            debug_console_print(command_help_string);
         }
         else if( strcmp(token1, "1") == 0)
         {
             computer.exception_collector_ic->irq_output_pin = true;
-            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", computer.exception_collector_ic->irq_output_pin ? 1 : 0);
-            debug_console_print(c256_string2);
+            snprintf(command_help_string, 256, "Current status of irq pin is %1u\n", computer.exception_collector_ic->irq_output_pin ? 1 : 0);
+            debug_console_print(command_help_string);
         }
         else
         {
@@ -215,14 +217,14 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
                                 csg65ce02_write_byte(temp_16bit, temp_8bit);
                                 break;
                             default:
-                                snprintf(c256_string2, 256, "error: invalid argument '%s'\n", token2);
-                                debug_console_print(c256_string2);
+                                snprintf(command_help_string, 256, "error: invalid argument '%s'\n", token2);
+                                debug_console_print(command_help_string);
                         }
                     }
                     break;
                 default:
-                    snprintf(c256_string2, 256, "error: invalid argument '%s'\n", token1);
-                    debug_console_print(c256_string2);
+                    snprintf(command_help_string, 256, "error: invalid argument '%s'\n", token1);
+                    debug_console_print(command_help_string);
             }
         }
     }
@@ -235,21 +237,21 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     {
         if( token1 == NULL )
         {
-            snprintf(c256_string2, 256, "Current status of nmi pin is %1u\n", computer.exception_collector_ic->nmi_output_pin ? 1 : 0);
-            debug_console_print(c256_string2);
+            snprintf(command_help_string, 256, "Current status of nmi pin is %1u\n", computer.exception_collector_ic->nmi_output_pin ? 1 : 0);
+            debug_console_print(command_help_string);
         }
         else if( strcmp(token1, "0") == 0)
         {
             computer.exception_collector_ic->nmi_output_pin = false;
             //csg65ce02_set_nmi(&cpu_ic, false);
-            snprintf(c256_string2, 256, "Current status of nmi pin is %1u\n", computer.exception_collector_ic->nmi_output_pin ? 1 : 0);
-            debug_console_print(c256_string2);
+            snprintf(command_help_string, 256, "Current status of nmi pin is %1u\n", computer.exception_collector_ic->nmi_output_pin ? 1 : 0);
+            debug_console_print(command_help_string);
         }
         else if( strcmp(token1, "1") == 0)
         {
             computer.exception_collector_ic->nmi_output_pin = true;
-            snprintf(c256_string2, 256, "Current status of nmi pin is %1u\n", computer.exception_collector_ic->nmi_output_pin ? 1 : 0);
-            debug_console_print(c256_string2);
+            snprintf(command_help_string, 256, "Current status of nmi pin is %1u\n", computer.exception_collector_ic->nmi_output_pin ? 1 : 0);
+            debug_console_print(command_help_string);
         }
         else
         {
@@ -284,25 +286,25 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
         }
         else
         {
-            snprintf(c256_string2, 256, "error: unknown argument '%s'\n", token1);
-            debug_console_print(c256_string2);
+            snprintf(command_help_string, 256, "error: unknown argument '%s'\n", token1);
+            debug_console_print(command_help_string);
         }
     }
     else
     {
-        snprintf(c256_string2, 256, "error: unknown command '%s'\n", token0);
-        debug_console_print(c256_string2);
+        snprintf(command_help_string, 256, "error: unknown command '%s'\n", token0);
+        debug_console_print(command_help_string);
     }
 }
 
 void E64::debug_command_dump_cpu_status()
 {
-    csg65ce02_dump_status(computer.cpu_ic, c256_string2);
-    debug_console_print(c256_string2);
+    csg65ce02_dump_status(computer.cpu_ic, command_help_string);
+    debug_console_print(command_help_string);
     debug_console_print("\n\n");
     debug_console_print(".,");
-    csg65ce02_dasm(computer.cpu_ic->pc, c256_string2, 256);
-    debug_console_print(c256_string2);
+    csg65ce02_dasm(computer.cpu_ic->pc, command_help_string, 256);
+    debug_console_print(command_help_string);
     debug_console_putchar('\n');
 }
 
@@ -312,8 +314,8 @@ void E64::debug_command_disassemble(uint8_t number)
     for(int i = 0; i<number; i++)
     {
         debug_console_print(".,");
-        temp_pc += csg65ce02_dasm(temp_pc, c256_string2, 256);
-        debug_console_print(c256_string2);
+        temp_pc += csg65ce02_dasm(temp_pc, command_help_string, 256);
+        debug_console_print(command_help_string);
         debug_console_putchar('\n');
     }
 }
@@ -323,23 +325,25 @@ void E64::debug_command_memory_dump(uint16_t address, int rows)
     for(int i=0; i<rows; i++ )
     {
         uint16_t temp_address = address;
-        snprintf(c256_string2, 256, ".:%04x ", temp_address);
-        debug_console_print(c256_string2);
-        for(int i=0; i<8; i++)
+        snprintf(command_help_string, 256, ".:%04x", temp_address);
+        debug_console_print(command_help_string);
+        for(int i=0; i<16; i++)
         {
-            snprintf(c256_string2, 256, "%02x ", csg65ce02_read_byte(temp_address));
-            debug_console_print(c256_string2);
+            if((i & 3) == 0) debug_console_print(" ");
+            snprintf(command_help_string, 256, "%02x", computer.mmu_ic->read_byte(temp_address));
+            debug_console_print(command_help_string);
             temp_address++;
         }
+        debug_console_print(" ");
         temp_address = address;
-        for(int i=0; i<8; i++)
+        for(int i=0; i<16; i++)
         {
-            uint8_t temp_byte = csg65ce02_read_byte(temp_address);
+            uint8_t temp_byte = computer.mmu_ic->read_byte(temp_address);
             if( temp_byte == ASCII_LF ) temp_byte = 0x80;
             debug_console_putchar( temp_byte );
             temp_address++;
         }
-        address += 8;
+        address += 16;
         debug_console_print("\n");
     }
 }

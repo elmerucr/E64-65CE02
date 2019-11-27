@@ -1,9 +1,7 @@
-//
 //  common_defs.c
 //  E64
 //
 //  Copyright © 2018 elmerucr. All rights reserved.
-//
 
 #include "common_defs.hpp"
 
@@ -270,6 +268,3 @@ const char screencode_to_ascii[128] =
     0x40,       // 0x7e - dummy @
     0x40        // 0x7f - dummy @
 };
-
-char c256_string[2048];
-char c256_string2[2048];

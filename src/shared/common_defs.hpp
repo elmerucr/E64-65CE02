@@ -8,51 +8,55 @@
 #ifndef COMMON_DEFS_H
 #define COMMON_DEFS_H
 
+#include <cstdint>
+#include "pid_delay.hpp"
+
 #define E64_MAJOR_VERSION       0
 #define E64_MINOR_VERSION       4
-#define E64_BUILD               20191123
+#define E64_BUILD               20191127
 #define E64_YEAR                2019
 
-// E64_I or E64_II must be defined by build system
+// E64_I or E64_II must be defined externally by the build system
 #ifdef E64_I
+    #include "machine_E64_I.hpp"
     #define APPLICATION_NAME    "E64"
-#elif E64_II
-    #define APPLICATION_NAME    "E64-II"
-#endif
-
-#define RAM_SIZE                0x1000000    // 16mb system
-
-// cpu speed
-#ifdef E64_I
     #define CPU_CLOCK_SPEED     4096000     // 4MHz system
-#elif E64_II
-    #define CPU_CLOCK_SPEED     8192000     // 8MHz system
-#endif
-
-#define FPS                      50           // "PAL" @50Hz
-
-#define VICV_PIXELS_PER_SCANLINE 512
-#define VICV_CLOCK_SPEED         VICV_PIXELS_PER_SCANLINE*320*FPS  // = pixelclock
-#define CPU_CYCLES_PER_SCANLINE  (CPU_CLOCK_SPEED/(320*FPS))
-#define SID_CLOCK_SPEED          985248
-#define SAMPLE_RATE              44100
-//#define NO_OF_SIDS               4
-#define AUDIO_BUFFER_SIZE        8192.0
-
-#ifdef E64_I
     #define IO_MMU_PAGE         0x02
     #define IO_CIA_PAGE         0x03
     #define IO_VICV_PAGE        0x04
     #define IO_SND_PAGE         0x05
     #define IO_TIMER_PAGE       0x06
     #define IO_KERNEL_MASK      0xe0
+    #define DEBUGGER_FOREGROUND_COLOR 0x26
+    #define DEBUGGER_BACKGROUND_COLOR 0x22
 #elif E64_II
+    #include "machine_E64_II.hpp"
+    #define APPLICATION_NAME    "E64-II"
+    #define CPU_CLOCK_SPEED     8192000     // 8MHz system
     #define IO_CIA_PAGE         0xffff03
     #define IO_VICV_PAGE        0xffff04
     #define IO_SND_PAGE         0xffff05
     #define IO_TIMER_PAGE       0xffff06
     #define IO_KERNEL_MASK      0xffff80
+    #define DEBUGGER_FOREGROUND_COLOR 0x36
+    #define DEBUGGER_BACKGROUND_COLOR 0x32
 #endif
+
+// some objects need to be visible at global level:
+extern E64::pid_delay frame_delay;
+extern E64::machine computer;
+extern const uint8_t ascii_to_screencode[];
+extern const char screencode_to_ascii[];
+
+#define RAM_SIZE                    0x1000000                           // 16mb system
+#define FPS                         50                                  // "PAL" @50Hz
+#define VICV_PIXELS_PER_SCANLINE    512
+#define VICV_CLOCK_SPEED            VICV_PIXELS_PER_SCANLINE*320*FPS    // pixelclock speed
+#define CPU_CYCLES_PER_SCANLINE     (CPU_CLOCK_SPEED/(320*FPS))
+#define SID_CLOCK_SPEED             985248
+#define SAMPLE_RATE                 44100
+//#define NO_OF_SIDS               4
+#define AUDIO_BUFFER_SIZE           8192.0
 
 // E64 elmerucr colors
 //#define C64_BLACK       0xff000000  // color 0 - argb8888
@@ -142,38 +146,9 @@
 #define C64_BRWN_14 0xffeeb27c
 #define C64_BRWN_15 0xffffbf85
 
-// debugger colors
-#ifdef E64_I
-    #define DEBUGGER_FOREGROUND_COLOR 0x26
-    #define DEBUGGER_BACKGROUND_COLOR 0x22
-#elif E64_II
-    #define DEBUGGER_FOREGROUND_COLOR 0x36
-    #define DEBUGGER_BACKGROUND_COLOR 0x32
-#endif
-
 #define ASCII_NULL          0x00    // null
 #define ASCII_LF            0x0a    // linefeed
 #define ASCII_SPACE         0x20    // space
 #define ASCII_UNDERSCORE    0x5f    // _
-
-#include <cstdint>
-
-extern const uint8_t ascii_to_screencode[];
-extern const char screencode_to_ascii[];
-extern char c256_string[];
-extern char c256_string2[];
-extern bool application_running;
-
-
-#include "pid_delay.hpp"
-#ifdef E64_I
-    #include "machine_E64_I.hpp"
-#elif E64_II
-    #include "machine_E64_II.hpp"
-#endif
-
-// some objects need to be visible at global level:
-extern E64::pid_delay frame_delay;
-extern E64::machine computer;
 
 #endif

@@ -36,7 +36,8 @@ namespace E64
     private:
         frequency_divider *cpu_to_vicv;
         frequency_divider *cpu_to_sid;
-        frequency_divider *cpu_to_timer;        
+        frequency_divider *cpu_to_timer;
+        char machine_help_string[2048];
     public:
         enum machine_mode   current_mode;
         bool running;

@@ -35,25 +35,30 @@ kernel_main
 	; set screen colors
 	move.b	#$0c,VICV_BASE
 	move.b	#$06,VICV_BASE+1
+	; set text color
+	move.b	#$0c,CURR_TEXT_COLOR
 
-	; play a welcome sound
+
+
+	; play a welcome sound on SID0
 	;
+	lea		SID0_BASE,a0
 	; frequency of voice 1 (high byte)
-	move.b	#$82,SID0_BASE+$01
+	move.b	#$82,($01,a0)
 	; attack and decay of voice 1
-	move.b	#$09,SID0_BASE+$05
+	move.b	#$09,($05,a0)
 	; freq of voice 3
-	move.b	#$1e,SID0_BASE+$0f
+	move.b	#$1e,($0f,a0)
 	; max volume
-	move.b	#$0f,SID0_BASE+$18
+	move.b	#$0f,($18,a0)
 	; left channel mix
-	move.b	#$ff,SID0_LEFT
+	move.b	#$ff,(SID0_LEFT,a0)
 	; right channel mix
-	move.b	#$10,SID0_RGHT
+	move.b	#$10,(SID0_RGHT,a0)
 	; play bell by opening gate on bit0 register #4
 	; bit 4 is for a triangle wave form
     ; bit 2 is for a ring modulation connected to voice 3
-	move.b	#%10000101,SID0_BASE+$04
+	move.b	#%10000101,($04,a0)
 
 
 	;lea		$00c00000,a0
@@ -77,5 +82,5 @@ start_of_loop
 	addq	#$01,d3
 	jmp		kernel_main
 
-	org $00007ffc
+	org		$00007ffc
 	dc.l	$deadbeef

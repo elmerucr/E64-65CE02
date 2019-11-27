@@ -13,6 +13,8 @@
 
 debug_console_struct debug_console;
 
+char console_help_string[2048];
+
 void debug_console_init(void)
 {
     debug_console.current_base = 0;
@@ -46,8 +48,8 @@ void debug_console_init(void)
 
 void debug_console_version()
 {
-    snprintf(c256_string,256,"%s (C)%i by elmerucr V%i.%i.%i\n", APPLICATION_NAME, E64_YEAR, E64_MAJOR_VERSION, E64_MINOR_VERSION, E64_BUILD);
-    debug_console_print(c256_string);
+    snprintf(console_help_string,256,"%s (C)%i by elmerucr V%i.%i.%i\n", APPLICATION_NAME, E64_YEAR, E64_MAJOR_VERSION, E64_MINOR_VERSION, E64_BUILD);
+    debug_console_print(console_help_string);
 }
 
 void debug_console_welcome()
@@ -240,11 +242,11 @@ void debug_console_enter()
     uint16_t start_of_row = debug_console.cursor_pos & 0xffc0;
     for(int i=0; i<64; i++)
     {
-        c256_string[i] = screencode_to_ascii[ (debug_console.console_character_buffer[start_of_row + i]) & 0x7f ];
+        console_help_string[i] = screencode_to_ascii[ (debug_console.console_character_buffer[start_of_row + i]) & 0x7f ];
     }
-    c256_string[64] = ASCII_NULL;
+    console_help_string[64] = ASCII_NULL;
     debug_console_putchar('\n');
-    E64::debug_command_execute(c256_string);
+    E64::debug_command_execute(console_help_string);
     debug_console_put_prompt();
 }
 
