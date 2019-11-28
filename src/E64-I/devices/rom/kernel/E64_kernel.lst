@@ -1,7 +1,7 @@
 
 ; 64tass Turbo Assembler Macro V1.54.1900 listing file
 ; 64tass -b -C -L E64_kernel.lst -o E64_kernel.bin E64_kernel.asm
-; Sat Nov 23 12:58:53 2019
+; Thu Nov 28 21:06:19 2019
 
 ;Offset	;Hex		;Monitor	;Source
 
@@ -45,10 +45,8 @@
 =$0400						VICV_BASE = $0400
 =1024						VICV_BO = VICV_BASE + $00
 =1025						VICV_BG = VICV_BASE + $01
-=1026						VICV_TSL = VICV_BASE + $02
-=1027						VICV_TSH = VICV_BASE + $03
-=1028						VICV_CSL = VICV_BASE + $04
-=1029						VICV_CSH = VICV_BASE + $05
+=1026						VICV_TXT = VICV_BASE + $02
+=1030						VICV_COL = VICV_BASE + $06
 =$0500						SID0_BASE = $0500
 =$0580						SID0_LEFT = $0580
 =$0581						SID0_RGHT = $0581
@@ -79,7 +77,7 @@
 .e013	8d 03 06	sta $0603		sta TIMER_BASE+3
 .e016	a9 01		lda #$01		lda #%00000001		; turn on interrupt generation by clock0
 .e018	0c 01 06	tsb $0601		tsb TIMER_BASE+1
-.e01b	a9 0e		lda #$0e		lda #<timer0_irq_handler_continued
+.e01b	a9 1a		lda #$1a		lda #<timer0_irq_handler_continued
 .e01d	8d 00 08	sta $0800		sta TIMER0_VECTOR
 .e020	a9 e1		lda #$e1		lda #>timer0_irq_handler_continued
 .e022	8d 01 08	sta $0801		sta TIMER0_VECTOR+1
@@ -89,7 +87,7 @@
 .e02c	8d 03 06	sta $0603		sta TIMER_BASE+3
 .e02f	a9 02		lda #$02		lda #%00000010
 .e031	0c 01 06	tsb $0601		tsb TIMER_BASE+1
-.e034	a9 25		lda #$25		lda #<timer1_irq_handler_continued
+.e034	a9 31		lda #$31		lda #<timer1_irq_handler_continued
 .e036	8d 02 08	sta $0802		sta TIMER1_VECTOR
 .e039	a9 e1		lda #$e1		lda #>timer1_irq_handler_continued
 .e03b	8d 03 08	sta $0803		sta TIMER1_VECTOR+1
@@ -99,7 +97,7 @@
 .e045	8d 03 06	sta $0603		sta TIMER_BASE+3
 .e048	a9 04		lda #$04		lda #%00000100
 .e04a	0c 01 06	tsb $0601		tsb TIMER_BASE+1
-.e04d	a9 3c		lda #$3c		lda #<timer2_irq_handler_continued
+.e04d	a9 48		lda #$48		lda #<timer2_irq_handler_continued
 .e04f	8d 04 08	sta $0804		sta TIMER2_VECTOR
 .e052	a9 e1		lda #$e1		lda #>timer2_irq_handler_continued
 .e054	8d 05 08	sta $0805		sta TIMER2_VECTOR+1
@@ -109,13 +107,13 @@
 .e05e	8d 03 06	sta $0603		sta TIMER_BASE+3
 .e061	a9 08		lda #$08		lda #%00001000
 .e063	0c 01 06	tsb $0601		tsb TIMER_BASE+1
-.e066	a9 50		lda #$50		lda #<timer3_irq_handler_continued
+.e066	a9 5c		lda #$5c		lda #<timer3_irq_handler_continued
 .e068	8d 06 08	sta $0806		sta TIMER3_VECTOR
 .e06b	a9 e1		lda #$e1		lda #>timer3_irq_handler_continued
 .e06d	8d 07 08	sta $0807		sta TIMER3_VECTOR+1
 .e070	a9 01		lda #$01		lda #%00000001	; set bit 0 in accumulator
 .e072	0c 01 03	tsb $0301		tsb CIA_BASE+1	; turn on keyboard interrupt generation by CIA
-.e075	a9 69		lda #$69		lda #<cia_irq_handler_continued
+.e075	a9 75		lda #$75		lda #<cia_irq_handler_continued
 .e077	8d 08 08	sta $0808		sta CIA_VECTOR
 .e07a	a9 e1		lda #$e1		lda #>cia_irq_handler_continued
 .e07c	8d 09 08	sta $0809		sta CIA_VECTOR+1
@@ -126,195 +124,199 @@
 .e087	8d 00 04	sta $0400		sta VICV_BO
 .e08a	a9 0e		lda #$0e		lda #$0e	; light blue for text color
 .e08c	8d 0c 08	sta $080c		sta CURR_TEXT_COLOR
-.e08f	a9 00		lda #$00		lda #$00
-.e091	8d 03 04	sta $0403		sta VICV_TSH	; point vicv to text and color screen
-.e094	8d 05 04	sta $0405		sta VICV_CSH
-.e097	a9 18		lda #$18		lda #$18
-.e099	8d 02 04	sta $0402		sta VICV_TSL
-.e09c	a9 19		lda #$19		lda #$19
-.e09e	8d 04 04	sta $0404		sta VICV_CSL
-.e0a1	20 8f e1	jsr $e18f		jsr clear_screen
-.e0a4	f4 ef e1	phw #$e1ef		phw #welc1		; first welcome message
-.e0a7	20 e1 e1	jsr $e1e1		jsr put_string
-.e0aa	f4 fb e1	phw #$e1fb		phw #welc2		; second part of message
-.e0ad	20 e1 e1	jsr $e1e1		jsr put_string
-.e0b0	a9 82		lda #$82		lda #$82
-.e0b2	8d 01 05	sta $0501		sta SID0_BASE+$01	; frequency of voice 1 (high byte)
-.e0b5	a9 09		lda #$09		lda #$09
-.e0b7	8d 05 05	sta $0505		sta SID0_BASE+$05	; attack and decay of voice 1
-.e0ba	a9 1e		lda #$1e		lda #$1e
-.e0bc	8d 0f 05	sta $050f		sta SID0_BASE+$0f	; freq of voice 3
-.e0bf	a9 0f		lda #$0f		lda #$0f
-.e0c1	8d 18 05	sta $0518		sta SID0_BASE+$18	; max volume
-.e0c4	a9 ff		lda #$ff		lda #$ff
-.e0c6	8d 80 05	sta $0580		sta SID0_LEFT		; left channel mix
-.e0c9	a9 10		lda #$10		lda #$10
-.e0cb	8d 81 05	sta $0581		sta SID0_RGHT		; right channel mix
-.e0ce	a9 85		lda #$85		lda #$85
-.e0d0	8d 04 05	sta $0504		sta SID0_BASE+$04	; play bell by opening gate on bit0 register #4
-.e0d3	ee 00 c2	inc $c200	-	inc $c200	; increase a char in screen memory
-.e0d6	a2 00		ldx #$00		ldx #$00	; init counter to 0
-.e0d8	bd 80 03	lda $0380,x	-	lda $0380,x	; load key state
-.e0db	9d 00 c4	sta $c400,x		sta $c400,x	; store it somewhere on screen
-.e0de	e8		inx			inc x
-.e0df	e0 49		cpx #$49		cpx #$49	; last key?
-.e0e1	d0 f5		bne $e0d8		bne -
-.e0e3	80 ee		bra $e0d3		bra --
-.e0e5					exception_handler
-.e0e5	48		pha			pha		; save processor state
-.e0e6	da		phx			phx
-.e0e7	5a		phy			phy
-.e0e8	db		phz			phz
-.e0e9	ba		tsx			tsx		; load sl into x
-.e0ea	0b		tsy			tsy		; load sh into y
-.e0eb	86 e0		stx $e0			stx IP0L	; store sp into pointer register IP0
-.e0ed	84 e1		sty $e1			sty IP0H
-.e0ef	a0 05		ldy #$05		ldy #$05	; index is $5
-.e0f1	b1 e0		lda ($e0),y		lda (IP0L),y	; load the pushed status byte into accumulator
-.e0f3	29 10		and #$10		and #%00010000	; was break "flag" present on stack?
-.e0f5	f0 05		beq $e0fc		beq irq_handler	; no, branch to irq handler
-.e0f7					brk_handler
-.e0f7	ea		nop			nop		; blabla
-.e0f8	ea		nop			nop		; blabla
-.e0f9	83 86 00	bra $e181		bra exception_cleanup
-.e0fc					irq_handler
-.e0fc					timer_irq_handler
-.e0fc	ad 00 06	lda $0600		lda TIMER_BASE			; load ISR status
-.e0ff	10 5b		bpl $e15c		bpl cia_irq_handler		; did timer cause interrupt? No: (bit 7 = 0), skip to cia irq handler
-.e101					timer0_irq_handler
-.e101	85 e8		sta $e8			sta IP4L				; No: store acc in basepage
-.e103	0f e8 14	bbr 0,$e8,$e11a		bbr 0,IP4L,timer1_irq_handler
-.e106	a9 01		lda #$01		lda #%00000001
-.e108	8d 00 06	sta $0600		sta TIMER_BASE			; acknowledge
-.e10b	6c 00 08	jmp ($0800)		jmp (TIMER0_VECTOR)
-.e10e					timer0_irq_handler_continued
-.e10e	ad 00 c8	lda $c800		lda $c800
-.e111	1a		inc a			inc a
-.e112	29 0f		and #$0f		and #%00001111
-.e114	8d 00 c8	sta $c800		sta $c800
-.e117	4c 81 e1	jmp $e181		jmp exception_cleanup
-.e11a					timer1_irq_handler
-.e11a	1f e8 14	bbr 1,$e8,$e131		bbr 1,IP4L,timer2_irq_handler
-.e11d	a9 02		lda #$02		lda #%00000010
-.e11f	8d 00 06	sta $0600		sta TIMER_BASE		; acknowledge
-.e122	6c 02 08	jmp ($0802)		jmp (TIMER1_VECTOR)
-.e125					timer1_irq_handler_continued
-.e125	ad 01 c8	lda $c801		lda $c801
-.e128	1a		inc a			inc a
-.e129	29 0f		and #$0f		and #%00001111
-.e12b	8d 01 c8	sta $c801		sta $c801
-.e12e	4c 81 e1	jmp $e181		jmp exception_cleanup
-.e131					timer2_irq_handler
-.e131	2f e8 14	bbr 2,$e8,$e148		bbr 2,IP4L,timer3_irq_handler
-.e134	a9 04		lda #$04		lda #%00000100
-.e136	8d 00 06	sta $0600		sta TIMER_BASE		; acknowledge
-.e139	6c 04 08	jmp ($0804)		jmp (TIMER2_VECTOR)
-.e13c					timer2_irq_handler_continued
-.e13c	ad 02 c8	lda $c802		lda $c802
-.e13f	1a		inc a			inc a
-.e140	29 0f		and #$0f		and #%00001111
-.e142	8d 02 c8	sta $c802		sta $c802
-.e145	4c 81 e1	jmp $e181		jmp exception_cleanup
-.e148					timer3_irq_handler
-.e148	a9 08		lda #$08		lda #%00001000
-.e14a	8d 00 06	sta $0600		sta TIMER_BASE		; acknowledge
-.e14d	6c 06 08	jmp ($0806)		jmp (TIMER3_VECTOR)
-.e150					timer3_irq_handler_continued
-.e150	ad 04 c8	lda $c804		lda $c804
-.e153	1a		inc a			inc a
-.e154	29 0f		and #$0f		and #%00001111
-.e156	8d 04 c8	sta $c804		sta $c804
-.e159	4c 81 e1	jmp $e181		jmp exception_cleanup
-.e15c					cia_irq_handler
-.e15c	ad 00 03	lda $0300		lda CIA_BASE		; load ISR status
-.e15f	10 20		bpl $e181		bpl exception_cleanup	; did CIA cause the interrupt? No (bit 7 = 0), skip to cleanup
-.e161	a9 01		lda #$01		lda #%00000001	; acknowledge the interrupt
-.e163	8d 00 03	sta $0300		sta CIA_BASE
-.e166	6c 08 08	jmp ($0808)		jmp (CIA_VECTOR)	; jmp
-.e169					cia_irq_handler_continued
-.e169	ad 00 03	lda $0300		lda CIA_BASE		; if bit 0 is on, a keyboard event is waiting
-.e16c	29 01		and #$01		and #%00000001
-.e16e	f0 11		beq $e181		beq exception_cleanup	; no, skip the next part
-.e170	ad 02 03	lda $0302		lda CIA_BASE+2		; read a scancode
-.e173	30 f4		bmi $e169		bmi cia_irq_handler_continued	; if bit 7 is set, check for a next event
-.e175	aa		tax			tax			; move scancode into x register
-.e176	bd 80 ff	lda $ff80,x		lda scancode_to_ascii,x	; lookup corresponding ascii value in table
-.e179	20 b6 e1	jsr $e1b6		jsr put_char
-.e17c	80 eb		bra $e169		bra cia_irq_handler_continued
-.e17e	4c 81 e1	jmp $e181		jmp exception_cleanup
-.e181					exception_cleanup
-.e181	fb		plz			plz		; cleanup stuff of the exception handler
-.e182	7a		ply			ply		; restore processor state
-.e183	fa		plx			plx
-.e184	68		pla			pla
-.e185	40		rti			rti		; return from interrupt
-.e186					nmi_handler
-.e186	48		pha			pha
-.e187	da		phx			phx
-.e188	5a		phy			phy
-.e189	db		phz			phz
-.e18a	fb		plz			plz
-.e18b	7a		ply			ply
-.e18c	fa		plx			plx
-.e18d	68		pla			pla
-.e18e	40		rti			rti
-.e18f					clear_screen
-.e18f	a9 00		lda #$00		lda #$00
-.e191	85 f0		sta $f0			sta P0
-.e193	85 f2		sta $f2			sta P1
-.e195	a9 c0		lda #$c0		lda #$c0
-.e197	85 f1		sta $f1			sta P0+1
-.e199	a9 c8		lda #$c8		lda #$c8
-.e19b	85 f3		sta $f3			sta P1+1
-.e19d	a0 00		ldy #$00		ldy #$00
-.e19f	a9 20		lda #$20	-	lda #ASCII_SPACE
-.e1a1	91 f0		sta ($f0),y		sta (P0),y
-.e1a3	ad 0c 08	lda $080c		lda CURR_TEXT_COLOR	; load current text color from ram
-.e1a6	91 f2		sta ($f2),y		sta (P1),y
-.e1a8	c8		iny			inc y
-.e1a9	d0 f4		bne $e19f		bne -
-.e1ab	e6 f1		inc $f1			inc P0+1
-.e1ad	e6 f3		inc $f3			inc P1+1
-.e1af	a6 f1		ldx $f1			ldx P0+1
-.e1b1	e0 c8		cpx #$c8		cpx #$c8
-.e1b3	d0 ea		bne $e19f		bne -
-.e1b5	60		rts			rts
-.e1b6					put_char
-.e1b6	da		phx			phx
-.e1b7	5a		phy			phy
-.e1b8	c9 0a		cmp #$0a		cmp #ASCII_LF
-.e1ba	f0 17		beq $e1d3		beq +
-.e1bc	aa		tax			tax
-.e1bd	bd 00 ff	lda $ff00,x		lda ascii_to_screencode,x
-.e1c0	ac 0a 08	ldy $080a		ldy CURSOR_POS
-.e1c3	99 00 c0	sta $c000,y		sta $c000,y
-.e1c6	ad 0c 08	lda $080c		lda CURR_TEXT_COLOR
-.e1c9	99 00 c8	sta $c800,y		sta $c800,y
-.e1cc	c8		iny			inc y
-.e1cd	8c 0a 08	sty $080a		sty CURSOR_POS
-.e1d0	7a		ply			ply
-.e1d1	fa		plx			plx
-.e1d2	60		rts			rts
-.e1d3	ad 0a 08	lda $080a	+	lda CURSOR_POS		; print LF
-.e1d6	18		clc			clc
-.e1d7	69 40		adc #$40		adc #$40		; add 64 chars to current position
-.e1d9	29 c0		and #$c0		and #%11000000		; move to the first char of the line
-.e1db	8d 0a 08	sta $080a		sta CURSOR_POS
-.e1de	7a		ply			ply
-.e1df	fa		plx			plx
-.e1e0	60		rts			rts
-.e1e1					put_string
-.e1e1	a0 00		ldy #$00		ldy #$00
-.e1e3	e2 03		lda ($03,s),y	-	lda (#$03,s),y
-.e1e5	f0 06		beq $e1ed		beq +
-.e1e7	20 b6 e1	jsr $e1b6		jsr put_char
-.e1ea	c8		iny			inc y
-.e1eb	80 f6		bra $e1e3		bra -
-.e1ed	62 02		rts #$02	+	rtn #$02
->e1ef	45 36 34 20 28 43 29 32		welc1	.text "E64 (C)2019",ASCII_NULL
->e1f7	30 31 39 00
->e1fb	20 6b 65 72 6e 65 6c 20		welc2	.text " kernel V0.1.20191123",ASCII_NULL
->e203	56 30 2e 31 2e 32 30 31 39 31 31 32 33 00
+.e08f	a9 00		lda #$00		lda #$00			; store $0000c000 in TXT pointer vicv, and $0000c800 in COL
+.e091	8d 02 04	sta $0402		sta VICV_TXT
+.e094	8d 03 04	sta $0403		sta VICV_TXT+1
+.e097	8d 05 04	sta $0405		sta VICV_TXT+3
+.e09a	8d 06 04	sta $0406		sta VICV_COL
+.e09d	8d 07 04	sta $0407		sta VICV_COL+1
+.e0a0	8d 09 04	sta $0409		sta VICV_COL+3
+.e0a3	a9 c0		lda #$c0		lda #$c0
+.e0a5	8d 04 04	sta $0404		sta VICV_TXT+2
+.e0a8	a9 c8		lda #$c8		lda #$c8
+.e0aa	8d 08 04	sta $0408		sta VICV_COL+2
+.e0ad	20 9b e1	jsr $e19b		jsr clear_screen
+.e0b0	f4 fb e1	phw #$e1fb		phw #welc1		; first welcome message
+.e0b3	20 ed e1	jsr $e1ed		jsr put_string
+.e0b6	f4 07 e2	phw #$e207		phw #welc2		; second part of message
+.e0b9	20 ed e1	jsr $e1ed		jsr put_string
+.e0bc	a9 82		lda #$82		lda #$82
+.e0be	8d 01 05	sta $0501		sta SID0_BASE+$01	; frequency of voice 1 (high byte)
+.e0c1	a9 09		lda #$09		lda #$09
+.e0c3	8d 05 05	sta $0505		sta SID0_BASE+$05	; attack and decay of voice 1
+.e0c6	a9 1e		lda #$1e		lda #$1e
+.e0c8	8d 0f 05	sta $050f		sta SID0_BASE+$0f	; freq of voice 3
+.e0cb	a9 0f		lda #$0f		lda #$0f
+.e0cd	8d 18 05	sta $0518		sta SID0_BASE+$18	; max volume
+.e0d0	a9 ff		lda #$ff		lda #$ff
+.e0d2	8d 80 05	sta $0580		sta SID0_LEFT		; left channel mix
+.e0d5	a9 10		lda #$10		lda #$10
+.e0d7	8d 81 05	sta $0581		sta SID0_RGHT		; right channel mix
+.e0da	a9 85		lda #$85		lda #$85
+.e0dc	8d 04 05	sta $0504		sta SID0_BASE+$04	; play bell by opening gate on bit0 register #4
+.e0df	ee 00 c2	inc $c200	-	inc $c200	; increase a char in screen memory
+.e0e2	a2 00		ldx #$00		ldx #$00	; init counter to 0
+.e0e4	bd 80 03	lda $0380,x	-	lda $0380,x	; load key state
+.e0e7	9d 00 c4	sta $c400,x		sta $c400,x	; store it somewhere on screen
+.e0ea	e8		inx			inc x
+.e0eb	e0 49		cpx #$49		cpx #$49	; last key?
+.e0ed	d0 f5		bne $e0e4		bne -
+.e0ef	80 ee		bra $e0df		bra --
+.e0f1					exception_handler
+.e0f1	48		pha			pha		; save processor state
+.e0f2	da		phx			phx
+.e0f3	5a		phy			phy
+.e0f4	db		phz			phz
+.e0f5	ba		tsx			tsx		; load sl into x
+.e0f6	0b		tsy			tsy		; load sh into y
+.e0f7	86 e0		stx $e0			stx IP0L	; store sp into pointer register IP0
+.e0f9	84 e1		sty $e1			sty IP0H
+.e0fb	a0 05		ldy #$05		ldy #$05	; index is $5
+.e0fd	b1 e0		lda ($e0),y		lda (IP0L),y	; load the pushed status byte into accumulator
+.e0ff	29 10		and #$10		and #%00010000	; was break "flag" present on stack?
+.e101	f0 05		beq $e108		beq irq_handler	; no, branch to irq handler
+.e103					brk_handler
+.e103	ea		nop			nop		; blabla
+.e104	ea		nop			nop		; blabla
+.e105	83 86 00	bra $e18d		bra exception_cleanup
+.e108					irq_handler
+.e108					timer_irq_handler
+.e108	ad 00 06	lda $0600		lda TIMER_BASE			; load ISR status
+.e10b	10 5b		bpl $e168		bpl cia_irq_handler		; did timer cause interrupt? No: (bit 7 = 0), skip to cia irq handler
+.e10d					timer0_irq_handler
+.e10d	85 e8		sta $e8			sta IP4L				; No: store acc in basepage
+.e10f	0f e8 14	bbr 0,$e8,$e126		bbr 0,IP4L,timer1_irq_handler
+.e112	a9 01		lda #$01		lda #%00000001
+.e114	8d 00 06	sta $0600		sta TIMER_BASE			; acknowledge
+.e117	6c 00 08	jmp ($0800)		jmp (TIMER0_VECTOR)
+.e11a					timer0_irq_handler_continued
+.e11a	ad 00 c8	lda $c800		lda $c800
+.e11d	1a		inc a			inc a
+.e11e	29 0f		and #$0f		and #%00001111
+.e120	8d 00 c8	sta $c800		sta $c800
+.e123	4c 8d e1	jmp $e18d		jmp exception_cleanup
+.e126					timer1_irq_handler
+.e126	1f e8 14	bbr 1,$e8,$e13d		bbr 1,IP4L,timer2_irq_handler
+.e129	a9 02		lda #$02		lda #%00000010
+.e12b	8d 00 06	sta $0600		sta TIMER_BASE		; acknowledge
+.e12e	6c 02 08	jmp ($0802)		jmp (TIMER1_VECTOR)
+.e131					timer1_irq_handler_continued
+.e131	ad 01 c8	lda $c801		lda $c801
+.e134	1a		inc a			inc a
+.e135	29 0f		and #$0f		and #%00001111
+.e137	8d 01 c8	sta $c801		sta $c801
+.e13a	4c 8d e1	jmp $e18d		jmp exception_cleanup
+.e13d					timer2_irq_handler
+.e13d	2f e8 14	bbr 2,$e8,$e154		bbr 2,IP4L,timer3_irq_handler
+.e140	a9 04		lda #$04		lda #%00000100
+.e142	8d 00 06	sta $0600		sta TIMER_BASE		; acknowledge
+.e145	6c 04 08	jmp ($0804)		jmp (TIMER2_VECTOR)
+.e148					timer2_irq_handler_continued
+.e148	ad 02 c8	lda $c802		lda $c802
+.e14b	1a		inc a			inc a
+.e14c	29 0f		and #$0f		and #%00001111
+.e14e	8d 02 c8	sta $c802		sta $c802
+.e151	4c 8d e1	jmp $e18d		jmp exception_cleanup
+.e154					timer3_irq_handler
+.e154	a9 08		lda #$08		lda #%00001000
+.e156	8d 00 06	sta $0600		sta TIMER_BASE		; acknowledge
+.e159	6c 06 08	jmp ($0806)		jmp (TIMER3_VECTOR)
+.e15c					timer3_irq_handler_continued
+.e15c	ad 04 c8	lda $c804		lda $c804
+.e15f	1a		inc a			inc a
+.e160	29 0f		and #$0f		and #%00001111
+.e162	8d 04 c8	sta $c804		sta $c804
+.e165	4c 8d e1	jmp $e18d		jmp exception_cleanup
+.e168					cia_irq_handler
+.e168	ad 00 03	lda $0300		lda CIA_BASE		; load ISR status
+.e16b	10 20		bpl $e18d		bpl exception_cleanup	; did CIA cause the interrupt? No (bit 7 = 0), skip to cleanup
+.e16d	a9 01		lda #$01		lda #%00000001	; acknowledge the interrupt
+.e16f	8d 00 03	sta $0300		sta CIA_BASE
+.e172	6c 08 08	jmp ($0808)		jmp (CIA_VECTOR)	; jmp
+.e175					cia_irq_handler_continued
+.e175	ad 00 03	lda $0300		lda CIA_BASE		; if bit 0 is on, a keyboard event is waiting
+.e178	29 01		and #$01		and #%00000001
+.e17a	f0 11		beq $e18d		beq exception_cleanup	; no, skip the next part
+.e17c	ad 02 03	lda $0302		lda CIA_BASE+2		; read a scancode
+.e17f	30 f4		bmi $e175		bmi cia_irq_handler_continued	; if bit 7 is set, check for a next event
+.e181	aa		tax			tax			; move scancode into x register
+.e182	bd 80 ff	lda $ff80,x		lda scancode_to_ascii,x	; lookup corresponding ascii value in table
+.e185	20 c2 e1	jsr $e1c2		jsr put_char
+.e188	80 eb		bra $e175		bra cia_irq_handler_continued
+.e18a	4c 8d e1	jmp $e18d		jmp exception_cleanup
+.e18d					exception_cleanup
+.e18d	fb		plz			plz		; cleanup stuff of the exception handler
+.e18e	7a		ply			ply		; restore processor state
+.e18f	fa		plx			plx
+.e190	68		pla			pla
+.e191	40		rti			rti		; return from interrupt
+.e192					nmi_handler
+.e192	48		pha			pha
+.e193	da		phx			phx
+.e194	5a		phy			phy
+.e195	db		phz			phz
+.e196	fb		plz			plz
+.e197	7a		ply			ply
+.e198	fa		plx			plx
+.e199	68		pla			pla
+.e19a	40		rti			rti
+.e19b					clear_screen
+.e19b	a9 00		lda #$00		lda #$00
+.e19d	85 f0		sta $f0			sta P0
+.e19f	85 f2		sta $f2			sta P1
+.e1a1	a9 c0		lda #$c0		lda #$c0
+.e1a3	85 f1		sta $f1			sta P0+1
+.e1a5	a9 c8		lda #$c8		lda #$c8
+.e1a7	85 f3		sta $f3			sta P1+1
+.e1a9	a0 00		ldy #$00		ldy #$00
+.e1ab	a9 20		lda #$20	-	lda #ASCII_SPACE
+.e1ad	91 f0		sta ($f0),y		sta (P0),y
+.e1af	ad 0c 08	lda $080c		lda CURR_TEXT_COLOR	; load current text color from ram
+.e1b2	91 f2		sta ($f2),y		sta (P1),y
+.e1b4	c8		iny			inc y
+.e1b5	d0 f4		bne $e1ab		bne -
+.e1b7	e6 f1		inc $f1			inc P0+1
+.e1b9	e6 f3		inc $f3			inc P1+1
+.e1bb	a6 f1		ldx $f1			ldx P0+1
+.e1bd	e0 c8		cpx #$c8		cpx #$c8
+.e1bf	d0 ea		bne $e1ab		bne -
+.e1c1	60		rts			rts
+.e1c2					put_char
+.e1c2	da		phx			phx
+.e1c3	5a		phy			phy
+.e1c4	c9 0a		cmp #$0a		cmp #ASCII_LF
+.e1c6	f0 17		beq $e1df		beq +
+.e1c8	aa		tax			tax
+.e1c9	bd 00 ff	lda $ff00,x		lda ascii_to_screencode,x
+.e1cc	ac 0a 08	ldy $080a		ldy CURSOR_POS
+.e1cf	99 00 c0	sta $c000,y		sta $c000,y
+.e1d2	ad 0c 08	lda $080c		lda CURR_TEXT_COLOR
+.e1d5	99 00 c8	sta $c800,y		sta $c800,y
+.e1d8	c8		iny			inc y
+.e1d9	8c 0a 08	sty $080a		sty CURSOR_POS
+.e1dc	7a		ply			ply
+.e1dd	fa		plx			plx
+.e1de	60		rts			rts
+.e1df	ad 0a 08	lda $080a	+	lda CURSOR_POS		; print LF
+.e1e2	18		clc			clc
+.e1e3	69 40		adc #$40		adc #$40		; add 64 chars to current position
+.e1e5	29 c0		and #$c0		and #%11000000		; move to the first char of the line
+.e1e7	8d 0a 08	sta $080a		sta CURSOR_POS
+.e1ea	7a		ply			ply
+.e1eb	fa		plx			plx
+.e1ec	60		rts			rts
+.e1ed					put_string
+.e1ed	a0 00		ldy #$00		ldy #$00
+.e1ef	e2 03		lda ($03,s),y	-	lda (#$03,s),y
+.e1f1	f0 06		beq $e1f9		beq +
+.e1f3	20 c2 e1	jsr $e1c2		jsr put_char
+.e1f6	c8		iny			inc y
+.e1f7	80 f6		bra $e1ef		bra -
+.e1f9	62 02		rts #$02	+	rtn #$02
+>e1fb	45 36 34 20 28 43 29 32		welc1	.text "E64 (C)2019",ASCII_NULL
+>e203	30 31 39 00
+>e207	20 6b 65 72 6e 65 6c 20		welc2	.text " kernel V0.1.20191123",ASCII_NULL
+>e20f	56 30 2e 31 2e 32 30 31 39 31 31 32 33 00
 
 ;******  Processing file: E64_kernel_rom_tables.asm
 
@@ -503,10 +505,10 @@
 ;******  Return to file: E64_kernel.asm
 
 .fffa					nmi_vector
->fffa	86 e1					.word nmi_handler
+>fffa	92 e1					.word nmi_handler
 .fffc					reset_vector
 >fffc	00 e0					.word cold_start
 .fffe					brk_vector
->fffe	e5 e0					.word exception_handler
+>fffe	f1 e0					.word exception_handler
 
 ;******  End of listing

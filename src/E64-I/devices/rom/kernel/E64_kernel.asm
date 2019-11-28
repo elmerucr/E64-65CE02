@@ -90,13 +90,17 @@ cold_start
 	lda #$0e	; light blue for text color
 	sta CURR_TEXT_COLOR
 
-	lda #$00
-	sta VICV_TSH	; point vicv to text and color screen
-	sta VICV_CSH
-	lda #$18
-	sta VICV_TSL
-	lda #$19
-	sta VICV_CSL
+	lda #$00			; store $0000c000 in TXT pointer vicv, and $0000c800 in COL
+	sta VICV_TXT
+	sta VICV_TXT+1
+	sta VICV_TXT+3
+	sta VICV_COL
+	sta VICV_COL+1
+	sta VICV_COL+3
+	lda #$c0
+	sta VICV_TXT+2
+	lda #$c8
+	sta VICV_COL+2
 
 	jsr clear_screen
 

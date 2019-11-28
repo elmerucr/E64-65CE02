@@ -6,6 +6,8 @@ LF		equ	$0a
 
 ; register definitions
 VICV_BASE	equ	$ffff0400 	; vicv base register
+VICV_TXT	equ VICV_BASE+$02
+VICV_COL	equ VICV_BASE+$06
 
 ; sound
 SOUND_BASE	equ $ffff0500	; sound base register

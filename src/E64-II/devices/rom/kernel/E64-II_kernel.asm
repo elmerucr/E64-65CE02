@@ -38,7 +38,12 @@ kernel_main
 	; set text color
 	move.b	#$0c,CURR_TEXT_COLOR
 
+	; set txt pointer
+	move.l	#$00f00000,VICV_TXT
+	move.l	#$00f00800,VICV_COL
 
+	; clear screen
+	jsr		clear_screen
 
 	; play a welcome sound on SID0
 	;
@@ -60,27 +65,32 @@ kernel_main
     ; bit 2 is for a ring modulation connected to voice 3
 	move.b	#%10000101,($04,a0)
 
-
-	;lea		$00c00000,a0
-	;movec	a0,msp
-	;ori.w	#$1000,sr			; activate msp
 start_of_loop
 	movea.l	#$00d00000,a0
 	move	a0,usp
-	move.l	#$ff50449c,d0		; load blue color value into register d0
-	move.b	d0,d1
-	lea		$00008000,a0		; load address of background color register into a0
 	move.l	d0,(a0)
-	move.l	d0,-(a7)			; put on stack
 	move.b	aap(pc),d1
+	addq.b	#$1,$00f00000
 	bra.s	start_of_loop
-	move.w	sr,d0
-	andi.w	#%1111100011111111,d0
-	ori.w	#%0000001100000000,d0
-	move.w	d0,sr
-	move.w	$3000.l,$30b0.l
-	addq	#$01,d3
-	jmp		kernel_main
+
+clear_screen
+	movem.l	d0-d2/a0-a1,-(a7)
+	movea.l	VICV_TXT,a0
+	movea.l	VICV_COL,a1
+	move.l	#$0,d0
+	move.b	ascii_to_screencode+' ',d1
+	move.b	(CURR_TEXT_COLOR),d2
+s1
+	move.b	d1,(a0,d0)
+	move.b	d2,(a1,d0)
+	addq	#$1,d0
+	cmp.w	#$800,d0
+	bne		s1
+	movem.l	(a7)+,d0-d2/a0-a1
+	rts
+
+	align 1
+	include "E64-II_kernel_tables.asm"
 
 	org		$00007ffc
 	dc.l	$deadbeef

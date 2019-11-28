@@ -168,8 +168,10 @@ void E64::vicv::render_scanline(void) {
 
     uint32_t background_color = color_palette[registers[VICV_REG_BKG]];
 
-    uint32_t start_screen_buffer = (registers[VICV_REG_TSL] | (registers[VICV_REG_TSH] << 8)) << 11;
-    uint32_t start_color_buffer = (registers[VICV_REG_CSL] | (registers[VICV_REG_CSH] << 8)) << 11;
+    uint32_t start_screen_buffer = (registers[VICV_REG_TXT] << 24) + (registers[VICV_REG_TXT+1] << 16) + (registers[VICV_REG_TXT+2] << 8) + registers[VICV_REG_TXT+3];
+    //uint32_t start_screen_buffer = (registers[VICV_REG_TSL] | (registers[VICV_REG_TSH] << 8)) << 11;
+    uint32_t start_color_buffer = (registers[VICV_REG_COL] << 24) + (registers[VICV_REG_COL+1] << 16) + (registers[VICV_REG_COL+2] << 8) + registers[VICV_REG_COL+3];
+    //uint32_t start_color_buffer = (registers[VICV_REG_CSL] | (registers[VICV_REG_CSH] << 8)) << 11;
 
     for(int x=0; x<VICV_PIXELS_PER_SCANLINE; x++)
     {
@@ -177,8 +179,8 @@ void E64::vicv::render_scanline(void) {
         back_buffer[ base | x ] = background_color;
         // get current text column, current x divided by 8 (yields 0-63)
         int currentTextColumn = (x >> 3);
-        uint8_t currentChar = computer.mmu_ic->ram[start_screen_buffer | (((currentTextRow << 6) | currentTextColumn))];
-        uint32_t currentCharColor = computer.vicv_ic->color_palette[computer.mmu_ic->ram[start_color_buffer + (((currentTextRow << 6) | currentTextColumn))]];
+        uint8_t currentChar = computer.mmu_ic->ram[(start_screen_buffer | (((currentTextRow << 6) | currentTextColumn))) & 0x00ffffff];
+        uint32_t currentCharColor = computer.vicv_ic->color_palette[computer.mmu_ic->ram[(start_color_buffer + (((currentTextRow << 6) | currentTextColumn))) & 0x00ffffff] ];
         if( !(x & 7) )
         {
             // if it's the first pixel of a char position, get byte information from char_rom

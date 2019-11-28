@@ -11,14 +11,10 @@
 // internal vicv registers (appear at a different base address in main memory)
 #define VICV_REG_BOR    0x00    // reg00 - Border color register
 #define VICV_REG_BKG    0x01    // reg01 - Background color register
-// reg02/03 combined are a 13 bit pointer for the location of the default text screen
-// 13 bits: 0 - 8191. multiplied with 2048 this results in max 16mb.
-#define VICV_REG_TSL    0x02    // reg02 - Textscreen pointer low byte
-#define VICV_REG_TSH    0x03    // reg03 - Textscreen pointer high byte
-// reg04/05 combined are a 13 bit pointer for the location of default color screen
-// 13 bits: 0 - 8191. multiplied with 2048 this results in max 16mb.
-#define VICV_REG_CSL    0x04    // reg04 - Textscreen pointer low byte
-#define VICV_REG_CSH    0x05    // reg05 - Textscreen pointer high byte
+// reg02-05 combined are a 32 bit pointer for the location of the default text screen (2k), big endian
+#define VICV_REG_TXT    0x02    // reg02 - Textscreen pointer
+// reg06-09 combined are a 32 bit pointer for the location of the default color screen (2k), big endian
+#define VICV_REG_COL    0x06    // reg06 - Colorscreen pointer
 
 namespace E64
 {

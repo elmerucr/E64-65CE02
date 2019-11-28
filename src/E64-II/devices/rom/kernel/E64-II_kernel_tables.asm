@@ -1,8 +1,6 @@
-; rom tables at end of rom
+; rom tables
 
-	org	$0000fe00
-
-asciiToScreenCode
+ascii_to_screencode
 	dc.b	$80		; 0x00 - NUL	non printable character
 	dc.b	$80		; 0x01 - SOH	non printable character
 	dc.b	$80		; 0x02 - STX	non printable character
