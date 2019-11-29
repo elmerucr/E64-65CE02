@@ -3,19 +3,19 @@
 
 	include 'E64-II_kernel_definitions.asm'
 
-	org $00000000
+	org		$00000000
 	dc.l	$00d00000				; vector 0 - supervisor stackpointer
 	dc.l	kernel_main				; vector 1 - reset vector
-	org $00000010
+	org		$00000010
 	dc.l	exception_handler		; vector 4 - illegal instruction
-	org $00000028
+	org		$00000028
 	dc.l	exception_handler		; vector 10 - unimpl instruction
 	dc.l	exception_handler		; vector 11 - unimpl instruction
-	org $0000007c
+	org		$0000007c
 	dc.l	interrupt_autovector	; vector 31 - level 7 interrupt autovector
 
 ; fake exception handler
-	org $00000400
+	org		$00000400
 exception_handler
 	move.l #$deadbeef,d0
 	rte
@@ -46,7 +46,6 @@ kernel_main
 	jsr		clear_screen
 
 	; play a welcome sound on SID0
-	;
 	lea		SID0_BASE,a0
 	; frequency of voice 1 (high byte)
 	move.b	#$82,($01,a0)
@@ -79,13 +78,12 @@ clear_screen
 	movea.l	VICV_COL,a1
 	move.l	#$0,d0
 	move.b	ascii_to_screencode+' ',d1
-	move.b	(CURR_TEXT_COLOR),d2
-s1
-	move.b	d1,(a0,d0)
+	move.b	CURR_TEXT_COLOR,d2
+.1	move.b	d1,(a0,d0)
 	move.b	d2,(a1,d0)
 	addq	#$1,d0
 	cmp.w	#$800,d0
-	bne		s1
+	bne		.1
 	movem.l	(a7)+,d0-d2/a0-a1
 	rts
 

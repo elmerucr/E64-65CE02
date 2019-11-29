@@ -24,25 +24,25 @@ F01:0019
 F01:0020       CURR_TEXT_COLOR	equ $00008000
 F01:0021       
 F00:0005       
-F00:0006       	org $00000000
+F00:0006       	org		$00000000
 F00:0007       	dc.l	$00d00000				; vector 0 - supervisor stackpointer
                S01:00000000:  00 D0 00 00
 F00:0008       	dc.l	kernel_main				; vector 1 - reset vector
                S01:00000004:  00 00 78 00
-F00:0009       	org $00000010
+F00:0009       	org		$00000010
 F00:0010       	dc.l	exception_handler		; vector 4 - illegal instruction
                S02:00000010:  00 00 04 00
-F00:0011       	org $00000028
+F00:0011       	org		$00000028
 F00:0012       	dc.l	exception_handler		; vector 10 - unimpl instruction
                S03:00000028:  00 00 04 00
 F00:0013       	dc.l	exception_handler		; vector 11 - unimpl instruction
                S03:0000002C:  00 00 04 00
-F00:0014       	org $0000007c
+F00:0014       	org		$0000007c
 F00:0015       	dc.l	interrupt_autovector	; vector 31 - level 7 interrupt autovector
                S04:0000007C:  00 00 05 00
 F00:0016       
 F00:0017       ; fake exception handler
-F00:0018       	org $00000400
+F00:0018       	org		$00000400
 F00:0019       exception_handler
 F00:0020       	move.l #$deadbeef,d0
                S05:00000400:  20 3C DE AD BE EF
@@ -83,78 +83,76 @@ F00:0046       	jsr		clear_screen
                S08:0000782C:  4E B8 78 76
 F00:0047       
 F00:0048       	; play a welcome sound on SID0
-F00:0049       	;
-F00:0050       	lea		SID0_BASE,a0
+F00:0049       	lea		SID0_BASE,a0
                S08:00007830:  41 F9 FF FF 05 00
-F00:0051       	; frequency of voice 1 (high byte)
-F00:0052       	move.b	#$82,($01,a0)
+F00:0050       	; frequency of voice 1 (high byte)
+F00:0051       	move.b	#$82,($01,a0)
                S08:00007836:  11 7C 00 82 00 01
-F00:0053       	; attack and decay of voice 1
-F00:0054       	move.b	#$09,($05,a0)
+F00:0052       	; attack and decay of voice 1
+F00:0053       	move.b	#$09,($05,a0)
                S08:0000783C:  11 7C 00 09 00 05
-F00:0055       	; freq of voice 3
-F00:0056       	move.b	#$1e,($0f,a0)
+F00:0054       	; freq of voice 3
+F00:0055       	move.b	#$1e,($0f,a0)
                S08:00007842:  11 7C 00 1E 00 0F
-F00:0057       	; max volume
-F00:0058       	move.b	#$0f,($18,a0)
+F00:0056       	; max volume
+F00:0057       	move.b	#$0f,($18,a0)
                S08:00007848:  11 7C 00 0F 00 18
-F00:0059       	; left channel mix
-F00:0060       	move.b	#$ff,(SID0_LEFT,a0)
+F00:0058       	; left channel mix
+F00:0059       	move.b	#$ff,(SID0_LEFT,a0)
                S08:0000784E:  11 7C 00 FF 00 80
-F00:0061       	; right channel mix
-F00:0062       	move.b	#$10,(SID0_RGHT,a0)
+F00:0060       	; right channel mix
+F00:0061       	move.b	#$10,(SID0_RGHT,a0)
                S08:00007854:  11 7C 00 10 00 81
-F00:0063       	; play bell by opening gate on bit0 register #4
-F00:0064       	; bit 4 is for a triangle wave form
-F00:0065           ; bit 2 is for a ring modulation connected to voice 3
-F00:0066       	move.b	#%10000101,($04,a0)
+F00:0062       	; play bell by opening gate on bit0 register #4
+F00:0063       	; bit 4 is for a triangle wave form
+F00:0064           ; bit 2 is for a ring modulation connected to voice 3
+F00:0065       	move.b	#%10000101,($04,a0)
                S08:0000785A:  11 7C 00 85 00 04
-F00:0067       
-F00:0068       start_of_loop
-F00:0069       	movea.l	#$00d00000,a0
+F00:0066       
+F00:0067       start_of_loop
+F00:0068       	movea.l	#$00d00000,a0
                S08:00007860:  20 7C 00 D0 00 00
-F00:0070       	move	a0,usp
+F00:0069       	move	a0,usp
                S08:00007866:  4E 60
-F00:0071       	move.l	d0,(a0)
+F00:0070       	move.l	d0,(a0)
                S08:00007868:  20 80
-F00:0072       	move.b	aap(pc),d1
+F00:0071       	move.b	aap(pc),d1
                S08:0000786A:  12 3A F7 94
-F00:0073       	addq.b	#$1,$00f00000
+F00:0072       	addq.b	#$1,$00f00000
                S08:0000786E:  52 39 00 F0 00 00
-F00:0074       	bra.s	start_of_loop
+F00:0073       	bra.s	start_of_loop
                S08:00007874:  60 EA
-F00:0075       
-F00:0076       clear_screen
-F00:0077       	movem.l	d0-d2/a0-a1,-(a7)
+F00:0074       
+F00:0075       clear_screen
+F00:0076       	movem.l	d0-d2/a0-a1,-(a7)
                S08:00007876:  48 E7 E0 C0
-F00:0078       	movea.l	VICV_TXT,a0
+F00:0077       	movea.l	VICV_TXT,a0
                S08:0000787A:  20 79 FF FF 04 02
-F00:0079       	movea.l	VICV_COL,a1
+F00:0078       	movea.l	VICV_COL,a1
                S08:00007880:  22 79 FF FF 04 06
-F00:0080       	move.l	#$0,d0
+F00:0079       	move.l	#$0,d0
                S08:00007886:  70 00
-F00:0081       	move.b	ascii_to_screencode+' ',d1
+F00:0080       	move.b	ascii_to_screencode+' ',d1
                S08:00007888:  12 38 78 C8
-F00:0082       	move.b	(CURR_TEXT_COLOR),d2
+F00:0081       	move.b	CURR_TEXT_COLOR,d2
                S08:0000788C:  14 39 00 00 80 00
-F00:0083       s1
-F00:0084       	move.b	d1,(a0,d0)
+F00:0082       .1	move.b	d1,(a0,d0)
                S08:00007892:  11 81 00 00
-F00:0085       	move.b	d2,(a1,d0)
+F00:0083       	move.b	d2,(a1,d0)
                S08:00007896:  13 82 00 00
-F00:0086       	addq	#$1,d0
+F00:0084       	addq	#$1,d0
                S08:0000789A:  52 40
-F00:0087       	cmp.w	#$800,d0
+F00:0085       	cmp.w	#$800,d0
                S08:0000789C:  B0 7C 08 00
-F00:0088       	bne		s1
+F00:0086       	bne		.1
                S08:000078A0:  66 F0
-F00:0089       	movem.l	(a7)+,d0-d2/a0-a1
+F00:0087       	movem.l	(a7)+,d0-d2/a0-a1
                S08:000078A2:  4C DF 03 07
-F00:0090       	rts
+F00:0088       	rts
                S08:000078A6:  4E 75
-F00:0091       
-F00:0092       	align 1
-F00:0093       	include "E64-II_kernel_tables.asm"
+F00:0089       
+F00:0090       	align 1
+F00:0091       	include "E64-II_kernel_tables.asm"
 F02:0001       ; rom tables
 F02:0002       
 F02:0003       ascii_to_screencode
@@ -419,9 +417,9 @@ F02:0133       hexTable
 F02:0134       	dc.b	'0123456789abcdef'
                S08:00007928:  30 31 32 33 34 35 36 37 38 39 61 62 63 64 65 66
 F02:0135       
-F00:0094       
-F00:0095       	org		$00007ffc
-F00:0096       	dc.l	$deadbeef
+F00:0092       
+F00:0093       	org		$00007ffc
+F00:0094       	dc.l	$deadbeef
                S09:00007FFC:  DE AD BE EF
 
 
@@ -445,7 +443,7 @@ F02  E64-II_kernel_tables.asm
 
 Symbols:
 hexTable EXPR(31016=0x7928) UNUSED ABS 
-s1 EXPR(30866=0x7892) ABS 
+ clear_screen .1 EXPR(30866=0x7892) ABS 
 ascii_to_screencode EXPR(30888=0x78a8) ABS 
 start_of_loop EXPR(30816=0x7860) ABS 
 clear_screen EXPR(30838=0x7876) ABS 
@@ -464,7 +462,7 @@ VICV_TXT EXPR(-64510=0xffff0402) EQU
 VICV_BASE EXPR(-64512=0xffff0400) EQU 
 LF EXPR(10=0xa) UNUSED EQU 
 NULL EXPR(0=0x0) UNUSED EQU 
-__LINE__ EXPR(96=0x60) INTERNAL 
+__LINE__ EXPR(94=0x5e) INTERNAL 
 __FO EXPR(0=0x0) INTERNAL 
 __RS EXPR(0=0x0) INTERNAL 
 REPTN EXPR(-1=0xffffffff) INTERNAL 
