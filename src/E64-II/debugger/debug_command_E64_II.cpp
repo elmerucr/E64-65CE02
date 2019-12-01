@@ -30,60 +30,55 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     {
         // do nothing
     }
-//    else if( strcmp(token0, "b") == 0 )
-//    {
-//        if(token1 == NULL)
-//        {
-//            if( computer.cpu_ic->breakpoints_active )
-//            {
-//                debug_console_print("system responds to breakpoints\n");
-//            }
-//            else
-//            {
-//                debug_console_print("system neglects breakpoints\n");
-//            }
-//            int count = 0;
-//            for(int i = 0; i<65536; i++)
-//            {
-//                if( computer.cpu_ic->breakpoint_array[i] == true )
-//                {
-//                    count++;
-//                    snprintf(c256_string2, 256, "$%04x\n", i);
-//                    debug_console_print(c256_string2);
-//                }
-//            }
-//            if( count == 0 ) debug_console_print("no breakpoints defined\n");
-//        }
-//        else if( strcmp(token1, "on") == 0)
-//        {
-//            csg65ce02_enable_breakpoints(computer.cpu_ic);
-//        }
-//        else if( strcmp(token1, "off") == 0)
-//        {
-//            csg65ce02_disable_breakpoints(computer.cpu_ic);
-//        }
-//        else if( strlen(token1) == 4)
-//        {
-//            uint16_t temp_16bit = debug_command_hex_string_to_int(token1);
-//            if( computer.cpu_ic->breakpoint_array[temp_16bit] )
-//            {
-//                snprintf(c256_string2, 256, "breakpoint at $%04x removed\n", temp_16bit);
-//                debug_console_print(c256_string2);
-//                csg65ce02_remove_breakpoint(computer.cpu_ic, temp_16bit);
-//            }
-//            else
-//            {
-//                snprintf(c256_string2, 256, "breakpoint at $%04x added\n", temp_16bit);
-//                debug_console_print(c256_string2);
-//                csg65ce02_add_breakpoint(computer.cpu_ic, temp_16bit);
-//            }
-//        }
-//        else
-//        {
-//            snprintf(c256_string2, 256, "error: invalid argument '%s'\n", token1);
-//            debug_console_print(c256_string2);
-//        }
-//    }
+    else if( strcmp(token0, "b") == 0 )
+    {
+        if(token1 == NULL)
+        {
+            if( computer.cpu_ic->breakpoints_active() )
+            {
+                debug_console_print("system responds to breakpoints\n");
+            }
+            else
+            {
+                debug_console_print("system neglects breakpoints\n");
+            }
+            int count = 0;
+            for(int i = 0; i< RAM_SIZE; i++)
+            {
+                if( computer.cpu_ic->is_breakpoint(i) == true )
+                {
+                    count++;
+                    snprintf(command_help_string, 256, "$%08x\n", i);
+                    debug_console_print(command_help_string);
+                }
+            }
+            if( count == 0 ) debug_console_print("no breakpoints defined\n");
+        }
+        else if( strcmp(token1, "on") == 0)
+        {
+            computer.cpu_ic->activate_breakpoints();
+        }
+        else if( strcmp(token1, "off") == 0)
+        {
+            computer.cpu_ic->disable_breakpoints();
+        }
+        else
+        {
+            uint32_t temp_32bit = debug_command_hex_string_to_int(token1) & (RAM_SIZE - 1);
+            if( computer.cpu_ic->is_breakpoint(temp_32bit) )
+            {
+                snprintf(command_help_string, 256, "breakpoint at $%08x removed\n", temp_32bit);
+                debug_console_print(command_help_string);
+                computer.cpu_ic->remove_breakpoint(temp_32bit);
+            }
+            else
+            {
+                snprintf(command_help_string, 256, "breakpoint at $%08x added\n", temp_32bit);
+                debug_console_print(command_help_string);
+                computer.cpu_ic->add_breakpoint(temp_32bit);
+            }
+        }
+    }
     else if( strcmp(token0, "bar") == 0 )
     {
         debug_console_toggle_status_bar();

@@ -34,6 +34,8 @@ namespace E64
         frequency_divider *cpu_m68k_to_vicv;
         frequency_divider *cpu_m68k_to_sid;
         frequency_divider *cpu_m68k_to_timer;
+        
+        char machine_help_string[2048];
     public:
         enum machine_mode   current_mode;
         bool running;

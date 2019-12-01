@@ -8,21 +8,24 @@ F01:0003       ; ascii definitions
 F01:0004       NULL	equ	$00
 F01:0005       LF		equ	$0a
 F01:0006       
-F01:0007       ; register definitions
-F01:0008       VICV_BASE	equ	$ffff0400 	; vicv base register
-F01:0009       VICV_TXT	equ VICV_BASE+$02
-F01:0010       VICV_COL	equ VICV_BASE+$06
-F01:0011       
-F01:0012       ; sound
-F01:0013       SOUND_BASE	equ $ffff0500	; sound base register
-F01:0014       SID0_BASE	equ	SOUND_BASE
-F01:0015       SID1_BASE	equ	SOUND_BASE+$20
-F01:0016       ; sound indices
-F01:0017       SID0_LEFT	equ $80
-F01:0018       SID0_RGHT	equ $81
-F01:0019       
-F01:0020       CURR_TEXT_COLOR	equ $00008000
-F01:0021       
+F01:0007       ; cia
+F01:0008       CIA_BASE	equ	$ffff0300
+F01:0009       
+F01:0010       ; vicv
+F01:0011       VICV_BASE	equ	$ffff0400 	; vicv base register
+F01:0012       VICV_TXT	equ VICV_BASE+$02
+F01:0013       VICV_COL	equ VICV_BASE+$06
+F01:0014       
+F01:0015       ; sound
+F01:0016       SOUND_BASE	equ $ffff0500	; sound base register
+F01:0017       SID0_BASE	equ	SOUND_BASE
+F01:0018       SID1_BASE	equ	SOUND_BASE+$20
+F01:0019       ; sound indices
+F01:0020       SID0_LEFT	equ $80
+F01:0021       SID0_RGHT	equ $81
+F01:0022       
+F01:0023       CURR_TEXT_COLOR	equ $00008000
+F01:0024       
 F00:0005       
 F00:0006       	org		$00000000
 F00:0007       	dc.l	$00d00000				; vector 0 - supervisor stackpointer
@@ -55,372 +58,397 @@ F00:0025       interrupt_autovector
 F00:0026       	rte
                S06:00000500:  4E 73
 F00:0027       
-F00:0028       	org $00007000
-F00:0029       aap
-F00:0030       	dc.b	$fe
-               S07:00007000:  FE
-F00:0031       
-F00:0032       ; start of main kernel code
-F00:0033       	org	$7800
-F00:0034       kernel_main
-F00:0035       	; set screen colors
-F00:0036       	move.b	#$0c,VICV_BASE
-               S08:00007800:  13 FC 00 0C FF FF 04 00
-F00:0037       	move.b	#$06,VICV_BASE+1
-               S08:00007808:  13 FC 00 06 FF FF 04 01
-F00:0038       	; set text color
-F00:0039       	move.b	#$0c,CURR_TEXT_COLOR
-               S08:00007810:  13 FC 00 0C 00 00 80 00
+F00:0028       ; start of main kernel code
+F00:0029       	org	$7800
+F00:0030       kernel_main
+F00:0031       	; set screen colors
+F00:0032       	move.b	#$0c,VICV_BASE
+               S07:00007800:  13 FC 00 0C FF FF 04 00
+F00:0033       	move.b	#$06,VICV_BASE+1
+               S07:00007808:  13 FC 00 06 FF FF 04 01
+F00:0034       	; set text color
+F00:0035       	move.b	#$0c,CURR_TEXT_COLOR
+               S07:00007810:  13 FC 00 0C 00 00 80 00
+F00:0036       
+F00:0037       	; set txt pointer
+F00:0038       	move.l	#$00f00000,VICV_TXT
+               S07:00007818:  23 FC 00 F0 00 00 FF FF 04 02
+F00:0039       	move.l	#$00f00800,VICV_COL
+               S07:00007822:  23 FC 00 F0 08 00 FF FF 04 06
 F00:0040       
-F00:0041       	; set txt pointer
-F00:0042       	move.l	#$00f00000,VICV_TXT
-               S08:00007818:  23 FC 00 F0 00 00 FF FF 04 02
-F00:0043       	move.l	#$00f00800,VICV_COL
-               S08:00007822:  23 FC 00 F0 08 00 FF FF 04 06
-F00:0044       
-F00:0045       	; clear screen
-F00:0046       	jsr		clear_screen
-               S08:0000782C:  4E B8 78 76
-F00:0047       
-F00:0048       	; play a welcome sound on SID0
-F00:0049       	lea		SID0_BASE,a0
-               S08:00007830:  41 F9 FF FF 05 00
-F00:0050       	; frequency of voice 1 (high byte)
-F00:0051       	move.b	#$82,($01,a0)
-               S08:00007836:  11 7C 00 82 00 01
-F00:0052       	; attack and decay of voice 1
-F00:0053       	move.b	#$09,($05,a0)
-               S08:0000783C:  11 7C 00 09 00 05
-F00:0054       	; freq of voice 3
-F00:0055       	move.b	#$1e,($0f,a0)
-               S08:00007842:  11 7C 00 1E 00 0F
-F00:0056       	; max volume
-F00:0057       	move.b	#$0f,($18,a0)
-               S08:00007848:  11 7C 00 0F 00 18
-F00:0058       	; left channel mix
-F00:0059       	move.b	#$ff,(SID0_LEFT,a0)
-               S08:0000784E:  11 7C 00 FF 00 80
-F00:0060       	; right channel mix
-F00:0061       	move.b	#$10,(SID0_RGHT,a0)
-               S08:00007854:  11 7C 00 10 00 81
-F00:0062       	; play bell by opening gate on bit0 register #4
-F00:0063       	; bit 4 is for a triangle wave form
-F00:0064           ; bit 2 is for a ring modulation connected to voice 3
-F00:0065       	move.b	#%10000101,($04,a0)
-               S08:0000785A:  11 7C 00 85 00 04
-F00:0066       
-F00:0067       start_of_loop
-F00:0068       	movea.l	#$00d00000,a0
-               S08:00007860:  20 7C 00 D0 00 00
-F00:0069       	move	a0,usp
-               S08:00007866:  4E 60
-F00:0070       	move.l	d0,(a0)
-               S08:00007868:  20 80
-F00:0071       	move.b	aap(pc),d1
-               S08:0000786A:  12 3A F7 94
-F00:0072       	addq.b	#$1,$00f00000
-               S08:0000786E:  52 39 00 F0 00 00
-F00:0073       	bra.s	start_of_loop
-               S08:00007874:  60 EA
-F00:0074       
-F00:0075       clear_screen
-F00:0076       	movem.l	d0-d2/a0-a1,-(a7)
-               S08:00007876:  48 E7 E0 C0
-F00:0077       	movea.l	VICV_TXT,a0
-               S08:0000787A:  20 79 FF FF 04 02
-F00:0078       	movea.l	VICV_COL,a1
-               S08:00007880:  22 79 FF FF 04 06
-F00:0079       	move.l	#$0,d0
-               S08:00007886:  70 00
-F00:0080       	move.b	ascii_to_screencode+' ',d1
-               S08:00007888:  12 38 78 C8
-F00:0081       	move.b	CURR_TEXT_COLOR,d2
-               S08:0000788C:  14 39 00 00 80 00
-F00:0082       .1	move.b	d1,(a0,d0)
-               S08:00007892:  11 81 00 00
-F00:0083       	move.b	d2,(a1,d0)
-               S08:00007896:  13 82 00 00
-F00:0084       	addq	#$1,d0
-               S08:0000789A:  52 40
-F00:0085       	cmp.w	#$800,d0
-               S08:0000789C:  B0 7C 08 00
-F00:0086       	bne		.1
-               S08:000078A0:  66 F0
-F00:0087       	movem.l	(a7)+,d0-d2/a0-a1
-               S08:000078A2:  4C DF 03 07
-F00:0088       	rts
-               S08:000078A6:  4E 75
-F00:0089       
-F00:0090       	align 1
-F00:0091       	include "E64-II_kernel_tables.asm"
+F00:0041       	; clear screen
+F00:0042       	jsr		clear_screen
+               S07:0000782C:  4E B8 78 8E
+F00:0043       
+F00:0044       	; play a welcome sound on SID0
+F00:0045       	lea		SID0_BASE,a0
+               S07:00007830:  41 F9 FF FF 05 00
+F00:0046       	; frequency of voice 1 (high byte)
+F00:0047       	move.b	#$82,($01,a0)
+               S07:00007836:  11 7C 00 82 00 01
+F00:0048       	; attack and decay of voice 1
+F00:0049       	move.b	#$09,($05,a0)
+               S07:0000783C:  11 7C 00 09 00 05
+F00:0050       	; freq of voice 3
+F00:0051       	move.b	#$1e,($0f,a0)
+               S07:00007842:  11 7C 00 1E 00 0F
+F00:0052       	; max volume
+F00:0053       	move.b	#$0f,($18,a0)
+               S07:00007848:  11 7C 00 0F 00 18
+F00:0054       	; left channel mix
+F00:0055       	move.b	#$ff,(SID0_LEFT,a0)
+               S07:0000784E:  11 7C 00 FF 00 80
+F00:0056       	; right channel mix
+F00:0057       	move.b	#$10,(SID0_RGHT,a0)
+               S07:00007854:  11 7C 00 10 00 81
+F00:0058       	; play bell by opening gate on bit0 register #4
+F00:0059       	; bit 4 is for a triangle wave form
+F00:0060           ; bit 2 is for a ring modulation connected to voice 3
+F00:0061       	move.b	#%10000101,($04,a0)
+               S07:0000785A:  11 7C 00 85 00 04
+F00:0062       
+F00:0063       mainloop
+F00:0064       	; put something in the usp
+F00:0065       	movea.l	#$00d00000,a0
+               S07:00007860:  20 7C 00 D0 00 00
+F00:0066       	move	a0,usp
+               S07:00007866:  4E 60
+F00:0067       
+F00:0068       	; copy keyboard state in to screen
+F00:0069       	moveq	#$0,d0
+               S07:00007868:  70 00
+F00:0070       	movea.l	VICV_TXT,a0
+               S07:0000786A:  20 79 FF FF 04 02
+F00:0071       	lea		$200(a0),a0
+               S07:00007870:  41 E8 02 00
+F00:0072       .1	move.l	(CIA_BASE+$80,d0),(a0,d0)
+               S07:00007874:  21 B0 01 B0 FF FF 03 80 00 00
+F00:0073       	addq	#$1,d0
+               S07:0000787E:  52 40
+F00:0074       	cmp.b	#$20,d0
+               S07:00007880:  B0 3C 00 20
+F00:0075       	bne		.1
+               S07:00007884:  66 EE
+F00:0076       
+F00:0077       	addq.b	#$1,$00f00000
+               S07:00007886:  52 39 00 F0 00 00
+F00:0078       	bra.s	mainloop
+               S07:0000788C:  60 D2
+F00:0079       
+F00:0080       clear_screen
+F00:0081       	movem.l	d0-d1/a0-a2,-(a7)
+               S07:0000788E:  48 E7 C0 E0
+F00:0082       	movea.l	(VICV_TXT),a0
+               S07:00007892:  20 79 FF FF 04 02
+F00:0083       	movea.l	(VICV_COL),a1
+               S07:00007898:  22 79 FF FF 04 06
+F00:0084       	movea.l	a0,a2
+               S07:0000789E:  24 48
+F00:0085       	lea		$800(a2),a2
+               S07:000078A0:  45 EA 08 00
+F00:0086       	move.l	#$20202020,d0
+               S07:000078A4:  20 3C 20 20 20 20
+F00:0087       	moveq	#$00,d1
+               S07:000078AA:  72 00
+F00:0088       	move.b	CURR_TEXT_COLOR,d1
+               S07:000078AC:  12 39 00 00 80 00
+F00:0089       	lsl.l	#$8,d1
+               S07:000078B2:  E1 89
+F00:0090       	move.b	CURR_TEXT_COLOR,d1
+               S07:000078B4:  12 39 00 00 80 00
+F00:0091       	lsl.l	#$8,d1
+               S07:000078BA:  E1 89
+F00:0092       	move.b	CURR_TEXT_COLOR,d1
+               S07:000078BC:  12 39 00 00 80 00
+F00:0093       	lsl.l	#$8,d1
+               S07:000078C2:  E1 89
+F00:0094       	move.b	CURR_TEXT_COLOR,d1
+               S07:000078C4:  12 39 00 00 80 00
+F00:0095       .1	move.l	d0,(a0)+
+               S07:000078CA:  20 C0
+F00:0096       	move.l	d1,(a1)+
+               S07:000078CC:  22 C1
+F00:0097       	cmp.l	a0,a2
+               S07:000078CE:  B5 C8
+F00:0098       	bne		.1
+               S07:000078D0:  66 F8
+F00:0099       	movem.l	(a7)+,d0-d1/a0-a2
+               S07:000078D2:  4C DF 07 03
+F00:0100       	rts
+               S07:000078D6:  4E 75
+F00:0101       
+F00:0102       
+F00:0103       
+F00:0104       	align 1
+F00:0105       	include "E64-II_kernel_tables.asm"
 F02:0001       ; rom tables
 F02:0002       
 F02:0003       ascii_to_screencode
 F02:0004       	dc.b	$80		; 0x00 - NUL	non printable character
-               S08:000078A8:  80
+               S07:000078D8:  80
 F02:0005       	dc.b	$80		; 0x01 - SOH	non printable character
-               S08:000078A9:  80
+               S07:000078D9:  80
 F02:0006       	dc.b	$80		; 0x02 - STX	non printable character
-               S08:000078AA:  80
+               S07:000078DA:  80
 F02:0007       	dc.b	$80		; 0x03 - ETX	non printable character
-               S08:000078AB:  80
+               S07:000078DB:  80
 F02:0008       	dc.b	$80		; 0x04 - EOT	non printable character
-               S08:000078AC:  80
+               S07:000078DC:  80
 F02:0009       	dc.b	$80		; 0x05 - ENQ	non printable character
-               S08:000078AD:  80
+               S07:000078DD:  80
 F02:0010       	dc.b	$80		; 0x06 - ACK	non printable character
-               S08:000078AE:  80
+               S07:000078DE:  80
 F02:0011       	dc.b	$80		; 0x07 - BEL	non printable character
-               S08:000078AF:  80
+               S07:000078DF:  80
 F02:0012       	dc.b	$80		; 0x08 - BS	non printable character
-               S08:000078B0:  80
+               S07:000078E0:  80
 F02:0013       	dc.b	$80		; 0x09 - TAB	non printable character
-               S08:000078B1:  80
+               S07:000078E1:  80
 F02:0014       	dc.b	$80		; 0x0a - LF	non printable character
-               S08:000078B2:  80
+               S07:000078E2:  80
 F02:0015       	dc.b	$80		; 0x0b - VT	non printable character
-               S08:000078B3:  80
+               S07:000078E3:  80
 F02:0016       	dc.b	$80		; 0x0c - FF	non printable character
-               S08:000078B4:  80
+               S07:000078E4:  80
 F02:0017       	dc.b	$80		; 0x0d - CR	non printable character
-               S08:000078B5:  80
+               S07:000078E5:  80
 F02:0018       	dc.b	$80		; 0x0e - SO	non printable character
-               S08:000078B6:  80
+               S07:000078E6:  80
 F02:0019       	dc.b	$80		; 0x0f - SI	non printable character
-               S08:000078B7:  80
+               S07:000078E7:  80
 F02:0020       	dc.b	$80		; 0x10 - DLE	non printable character
-               S08:000078B8:  80
+               S07:000078E8:  80
 F02:0021       	dc.b	$80		; 0x11 - DC1	non printable character
-               S08:000078B9:  80
+               S07:000078E9:  80
 F02:0022       	dc.b	$80		; 0x12 - DC2	non printable character
-               S08:000078BA:  80
+               S07:000078EA:  80
 F02:0023       	dc.b	$80		; 0x13 - DC3	non printable character
-               S08:000078BB:  80
+               S07:000078EB:  80
 F02:0024       	dc.b	$80		; 0x14 - DC4	non printable character
-               S08:000078BC:  80
+               S07:000078EC:  80
 F02:0025       	dc.b	$80		; 0x15 - NAC	non printable character
-               S08:000078BD:  80
+               S07:000078ED:  80
 F02:0026       	dc.b	$80		; 0x16 - SYN	non printable character
-               S08:000078BE:  80
+               S07:000078EE:  80
 F02:0027       	dc.b	$80		; 0x17 - ETB	non printable character
-               S08:000078BF:  80
+               S07:000078EF:  80
 F02:0028       	dc.b	$80		; 0x18 - CAN	non printable character
-               S08:000078C0:  80
+               S07:000078F0:  80
 F02:0029       	dc.b	$80		; 0x19 - EM	non printable character
-               S08:000078C1:  80
+               S07:000078F1:  80
 F02:0030       	dc.b	$80		; 0x1a - SUB	non printable character
-               S08:000078C2:  80
+               S07:000078F2:  80
 F02:0031       	dc.b	$80		; 0x1b - ESC	non printable character
-               S08:000078C3:  80
+               S07:000078F3:  80
 F02:0032       	dc.b	$80		; 0x1c - FS	non printable character
-               S08:000078C4:  80
+               S07:000078F4:  80
 F02:0033       	dc.b	$80		; 0x1d - GS	non printable character
-               S08:000078C5:  80
+               S07:000078F5:  80
 F02:0034       	dc.b	$80		; 0x1e - RS	non printable character
-               S08:000078C6:  80
+               S07:000078F6:  80
 F02:0035       	dc.b	$80		; 0x1f - US	non printable character
-               S08:000078C7:  80
+               S07:000078F7:  80
 F02:0036       	dc.b	$20		; 0x20 - (space)
-               S08:000078C8:  20
+               S07:000078F8:  20
 F02:0037       	dc.b	$21		; 0x21 - !
-               S08:000078C9:  21
+               S07:000078F9:  21
 F02:0038       	dc.b	$22		; 0x22 - "
-               S08:000078CA:  22
+               S07:000078FA:  22
 F02:0039       	dc.b	$23		; 0x23 - #
-               S08:000078CB:  23
+               S07:000078FB:  23
 F02:0040       	dc.b	$24		; 0x24 - $
-               S08:000078CC:  24
+               S07:000078FC:  24
 F02:0041       	dc.b	$25		; 0x25 - %
-               S08:000078CD:  25
+               S07:000078FD:  25
 F02:0042       	dc.b	$26		; 0x26 - &
-               S08:000078CE:  26
+               S07:000078FE:  26
 F02:0043       	dc.b	$27		; 0x27 - '
-               S08:000078CF:  27
+               S07:000078FF:  27
 F02:0044       	dc.b	$28		; 0x28 - (
-               S08:000078D0:  28
+               S07:00007900:  28
 F02:0045       	dc.b	$29		; 0x29 - )
-               S08:000078D1:  29
+               S07:00007901:  29
 F02:0046       	dc.b	$2a		; 0x2a - *
-               S08:000078D2:  2A
+               S07:00007902:  2A
 F02:0047       	dc.b	$2b		; 0x2b - +
-               S08:000078D3:  2B
+               S07:00007903:  2B
 F02:0048       	dc.b	$2c		; 0x2c - ,
-               S08:000078D4:  2C
+               S07:00007904:  2C
 F02:0049       	dc.b	$2d		; 0x2d - -
-               S08:000078D5:  2D
+               S07:00007905:  2D
 F02:0050       	dc.b	$2e		; 0x2e - .
-               S08:000078D6:  2E
+               S07:00007906:  2E
 F02:0051       	dc.b	$2f		; 0x2f - /
-               S08:000078D7:  2F
+               S07:00007907:  2F
 F02:0052       	dc.b	$30		; 0x30 - 0
-               S08:000078D8:  30
+               S07:00007908:  30
 F02:0053       	dc.b	$31		; 0x31 - 1
-               S08:000078D9:  31
+               S07:00007909:  31
 F02:0054       	dc.b	$32		; 0x32 - 2
-               S08:000078DA:  32
+               S07:0000790A:  32
 F02:0055       	dc.b	$33		; 0x33 - 3
-               S08:000078DB:  33
+               S07:0000790B:  33
 F02:0056       	dc.b	$34		; 0x34 - 4
-               S08:000078DC:  34
+               S07:0000790C:  34
 F02:0057       	dc.b	$35		; 0x35 - 5
-               S08:000078DD:  35
+               S07:0000790D:  35
 F02:0058       	dc.b	$36		; 0x36 - 6
-               S08:000078DE:  36
+               S07:0000790E:  36
 F02:0059       	dc.b	$37		; 0x37 - 7
-               S08:000078DF:  37
+               S07:0000790F:  37
 F02:0060       	dc.b	$38		; 0x38 - 8
-               S08:000078E0:  38
+               S07:00007910:  38
 F02:0061       	dc.b	$39		; 0x39 - 9
-               S08:000078E1:  39
+               S07:00007911:  39
 F02:0062       	dc.b	$3a		; 0x3a - :
-               S08:000078E2:  3A
+               S07:00007912:  3A
 F02:0063       	dc.b	$3b		; 0x3b - ;
-               S08:000078E3:  3B
+               S07:00007913:  3B
 F02:0064       	dc.b	$3c		; 0x3c - <
-               S08:000078E4:  3C
+               S07:00007914:  3C
 F02:0065       	dc.b	$3d		; 0x3d - =
-               S08:000078E5:  3D
+               S07:00007915:  3D
 F02:0066       	dc.b	$3e		; 0x3e - >
-               S08:000078E6:  3E
+               S07:00007916:  3E
 F02:0067       	dc.b	$3f		; 0x3f - ?
-               S08:000078E7:  3F
+               S07:00007917:  3F
 F02:0068       	dc.b	$00		; 0x40 - @
-               S08:000078E8:  00
+               S07:00007918:  00
 F02:0069       	dc.b	$41		; 0x41 - A
-               S08:000078E9:  41
+               S07:00007919:  41
 F02:0070       	dc.b	$42		; 0x42 - B
-               S08:000078EA:  42
+               S07:0000791A:  42
 F02:0071       	dc.b	$43		; 0x43 - C
-               S08:000078EB:  43
+               S07:0000791B:  43
 F02:0072       	dc.b	$44		; 0x44 - D
-               S08:000078EC:  44
+               S07:0000791C:  44
 F02:0073       	dc.b	$45		; 0x45 - E
-               S08:000078ED:  45
+               S07:0000791D:  45
 F02:0074       	dc.b	$46		; 0x46 - F
-               S08:000078EE:  46
+               S07:0000791E:  46
 F02:0075       	dc.b	$47		; 0x47 - G
-               S08:000078EF:  47
+               S07:0000791F:  47
 F02:0076       	dc.b	$48		; 0x48 - H
-               S08:000078F0:  48
+               S07:00007920:  48
 F02:0077       	dc.b	$49		; 0x49 - I
-               S08:000078F1:  49
+               S07:00007921:  49
 F02:0078       	dc.b	$4a		; 0x4a - J
-               S08:000078F2:  4A
+               S07:00007922:  4A
 F02:0079       	dc.b	$4b		; 0x4b - K
-               S08:000078F3:  4B
+               S07:00007923:  4B
 F02:0080       	dc.b	$4c		; 0x4c - L
-               S08:000078F4:  4C
+               S07:00007924:  4C
 F02:0081       	dc.b	$4d		; 0x4d - M
-               S08:000078F5:  4D
+               S07:00007925:  4D
 F02:0082       	dc.b	$4e		; 0x4e - N
-               S08:000078F6:  4E
+               S07:00007926:  4E
 F02:0083       	dc.b	$4f		; 0x4f - O
-               S08:000078F7:  4F
+               S07:00007927:  4F
 F02:0084       	dc.b	$50		; 0x50 - P
-               S08:000078F8:  50
+               S07:00007928:  50
 F02:0085       	dc.b	$51		; 0x51 - Q
-               S08:000078F9:  51
+               S07:00007929:  51
 F02:0086       	dc.b	$52		; 0x52 - R
-               S08:000078FA:  52
+               S07:0000792A:  52
 F02:0087       	dc.b	$53		; 0x53 - S
-               S08:000078FB:  53
+               S07:0000792B:  53
 F02:0088       	dc.b	$54		; 0x54 - T
-               S08:000078FC:  54
+               S07:0000792C:  54
 F02:0089       	dc.b	$55		; 0x55 - U
-               S08:000078FD:  55
+               S07:0000792D:  55
 F02:0090       	dc.b	$56		; 0x56 - V
-               S08:000078FE:  56
+               S07:0000792E:  56
 F02:0091       	dc.b	$57		; 0x57 - W
-               S08:000078FF:  57
+               S07:0000792F:  57
 F02:0092       	dc.b	$58		; 0x58 - X
-               S08:00007900:  58
+               S07:00007930:  58
 F02:0093       	dc.b	$59		; 0x59 - Y
-               S08:00007901:  59
+               S07:00007931:  59
 F02:0094       	dc.b	$5a		; 0x5a - Z
-               S08:00007902:  5A
+               S07:00007932:  5A
 F02:0095       	dc.b	$1b		; 0x5b - [
-               S08:00007903:  1B
+               S07:00007933:  1B
 F02:0096       	dc.b	$5c		; 0x5c - \	patched
-               S08:00007904:  5C
+               S07:00007934:  5C
 F02:0097       	dc.b	$1d		; 0x5d - ]
-               S08:00007905:  1D
+               S07:00007935:  1D
 F02:0098       	dc.b	$5e		; 0x5e - ^	patched
-               S08:00007906:  5E
+               S07:00007936:  5E
 F02:0099       	dc.b	$5f		; 0x5f - _	patched
-               S08:00007907:  5F
+               S07:00007937:  5F
 F02:0100       	dc.b	$63		; 0x60 - `	patched
-               S08:00007908:  63
+               S07:00007938:  63
 F02:0101       	dc.b	$01		; 0x61 - a
-               S08:00007909:  01
+               S07:00007939:  01
 F02:0102       	dc.b	$02		; 0x62 - b
-               S08:0000790A:  02
+               S07:0000793A:  02
 F02:0103       	dc.b	$03		; 0x63 - c
-               S08:0000790B:  03
+               S07:0000793B:  03
 F02:0104       	dc.b	$04		; 0x64 - d
-               S08:0000790C:  04
+               S07:0000793C:  04
 F02:0105       	dc.b	$05		; 0x65 - e
-               S08:0000790D:  05
+               S07:0000793D:  05
 F02:0106       	dc.b	$06		; 0x66 - f
-               S08:0000790E:  06
+               S07:0000793E:  06
 F02:0107       	dc.b	$07		; 0x67 - g
-               S08:0000790F:  07
+               S07:0000793F:  07
 F02:0108       	dc.b	$08		; 0x68 - h
-               S08:00007910:  08
+               S07:00007940:  08
 F02:0109       	dc.b	$09		; 0x69 - i
-               S08:00007911:  09
+               S07:00007941:  09
 F02:0110       	dc.b	$0a		; 0x6a - j
-               S08:00007912:  0A
+               S07:00007942:  0A
 F02:0111       	dc.b	$0b		; 0x6b - k
-               S08:00007913:  0B
+               S07:00007943:  0B
 F02:0112       	dc.b	$0c		; 0x6c - l
-               S08:00007914:  0C
+               S07:00007944:  0C
 F02:0113       	dc.b	$0d		; 0x6d - m
-               S08:00007915:  0D
+               S07:00007945:  0D
 F02:0114       	dc.b	$0e		; 0x6e - n
-               S08:00007916:  0E
+               S07:00007946:  0E
 F02:0115       	dc.b	$0f		; 0x6f - o
-               S08:00007917:  0F
+               S07:00007947:  0F
 F02:0116       	dc.b	$10		; 0x70 - p
-               S08:00007918:  10
+               S07:00007948:  10
 F02:0117       	dc.b	$11		; 0x71 - q
-               S08:00007919:  11
+               S07:00007949:  11
 F02:0118       	dc.b	$12		; 0x72 - r
-               S08:0000791A:  12
+               S07:0000794A:  12
 F02:0119       	dc.b	$13		; 0x73 - s
-               S08:0000791B:  13
+               S07:0000794B:  13
 F02:0120       	dc.b	$14		; 0x74 - t
-               S08:0000791C:  14
+               S07:0000794C:  14
 F02:0121       	dc.b	$15		; 0x75 - u
-               S08:0000791D:  15
+               S07:0000794D:  15
 F02:0122       	dc.b	$16		; 0x76 - v
-               S08:0000791E:  16
+               S07:0000794E:  16
 F02:0123       	dc.b	$17		; 0x77 - w
-               S08:0000791F:  17
+               S07:0000794F:  17
 F02:0124       	dc.b	$18		; 0x78 - x
-               S08:00007920:  18
+               S07:00007950:  18
 F02:0125       	dc.b	$19		; 0x79 - y
-               S08:00007921:  19
+               S07:00007951:  19
 F02:0126       	dc.b	$1a		; 0x7a - z
-               S08:00007922:  1A
+               S07:00007952:  1A
 F02:0127       	dc.b	$64		; 0x7b - {	patched
-               S08:00007923:  64
+               S07:00007953:  64
 F02:0128       	dc.b	$65		; 0x7c - |	patched
-               S08:00007924:  65
+               S07:00007954:  65
 F02:0129       	dc.b	$66		; 0x7d - }	patched
-               S08:00007925:  66
+               S07:00007955:  66
 F02:0130       	dc.b	$67		; 0x7e - ~	patched
-               S08:00007926:  67
+               S07:00007956:  67
 F02:0131       	dc.b	$80		; 0x7f - DEL	non printable character
-               S08:00007927:  80
+               S07:00007957:  80
 F02:0132       
 F02:0133       hexTable
 F02:0134       	dc.b	'0123456789abcdef'
-               S08:00007928:  30 31 32 33 34 35 36 37 38 39 61 62 63 64 65 66
+               S07:00007958:  30 31 32 33 34 35 36 37 38 39 61 62 63 64 65 66
 F02:0135       
-F00:0092       
-F00:0093       	org		$00007ffc
-F00:0094       	dc.l	$deadbeef
-               S09:00007FFC:  DE AD BE EF
+F00:0106       
+F00:0107       	org		$00007ffc
+F00:0108       	dc.l	$deadbeef
+               S08:00007FFC:  DE AD BE EF
 
 
 Sections:
@@ -430,9 +458,8 @@ S03  seg28
 S04  seg7c
 S05  seg400
 S06  seg500
-S07  seg7000
-S08  seg7800
-S09  seg7ffc
+S07  seg7800
+S08  seg7ffc
 
 
 Sources:
@@ -442,12 +469,12 @@ F02  E64-II_kernel_tables.asm
 
 
 Symbols:
-hexTable EXPR(31016=0x7928) UNUSED ABS 
- clear_screen .1 EXPR(30866=0x7892) ABS 
-ascii_to_screencode EXPR(30888=0x78a8) ABS 
-start_of_loop EXPR(30816=0x7860) ABS 
-clear_screen EXPR(30838=0x7876) ABS 
-aap EXPR(28672=0x7000) ABS 
+hexTable EXPR(31064=0x7958) UNUSED ABS 
+ascii_to_screencode EXPR(30936=0x78d8) UNUSED ABS 
+ clear_screen .1 EXPR(30922=0x78ca) ABS 
+ mainloop .1 EXPR(30836=0x7874) ABS 
+mainloop EXPR(30816=0x7860) ABS 
+clear_screen EXPR(30862=0x788e) ABS 
 interrupt_autovector EXPR(1280=0x500) ABS 
 exception_handler EXPR(1024=0x400) ABS 
 kernel_main EXPR(30720=0x7800) ABS 
@@ -460,9 +487,10 @@ SOUND_BASE EXPR(-64256=0xffff0500) EQU
 VICV_COL EXPR(-64506=0xffff0406) EQU 
 VICV_TXT EXPR(-64510=0xffff0402) EQU 
 VICV_BASE EXPR(-64512=0xffff0400) EQU 
+CIA_BASE EXPR(-64768=0xffff0300) EQU 
 LF EXPR(10=0xa) UNUSED EQU 
 NULL EXPR(0=0x0) UNUSED EQU 
-__LINE__ EXPR(94=0x5e) INTERNAL 
+__LINE__ EXPR(108=0x6c) INTERNAL 
 __FO EXPR(0=0x0) INTERNAL 
 __RS EXPR(0=0x0) INTERNAL 
 REPTN EXPR(-1=0xffffffff) INTERNAL 

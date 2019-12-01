@@ -4,7 +4,10 @@
 NULL	equ	$00
 LF		equ	$0a
 
-; register definitions
+; cia
+CIA_BASE	equ	$ffff0300
+
+; vicv
 VICV_BASE	equ	$ffff0400 	; vicv base register
 VICV_TXT	equ VICV_BASE+$02
 VICV_COL	equ VICV_BASE+$06

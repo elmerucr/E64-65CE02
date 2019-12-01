@@ -87,13 +87,13 @@ int E64::machine::run(uint16_t no_of_cycles)
     // default exit_code of the function is 0, no breakpoints have occurred
     int exit_code = NOTHING;
     unsigned int processed_cycles = computer.cpu_ic->run(no_of_cycles);
-//    if( this->cpu_ic->exit_code_run_function == 1 )
-//    {
-//        // cpu breakpoint encountered
-//        snprintf(c256_string2, 256, "\ncpu breakpoint occurred at $%04x\n.", cpu_ic->pc);
-//        debug_console_print(c256_string2);
-//        exit_code = CPU_BREAKPOINT;
-//    }
+    if( this->cpu_ic->exit_code_run_function == 1 )
+    {
+        // cpu breakpoint encountered
+        snprintf(machine_help_string, 256, "\ncpu breakpoint occurred at $%08x\n.", cpu_ic->get_pc());
+        debug_console_print(machine_help_string);
+        exit_code = CPU_BREAKPOINT;
+    }
     // run cycles on vicv
     vicv_ic->run(cpu_m68k_to_vicv->clock(processed_cycles));
     // calculate no. of cycles to run on sound device & start audio if buffer large enough

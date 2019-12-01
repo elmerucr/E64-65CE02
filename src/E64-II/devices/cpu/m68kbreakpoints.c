@@ -4,6 +4,7 @@
 
 #include "m68kbreakpoints.h"
 
+bool m68kbreakpoint;
 bool m68kbreakpoints_active;
 bool *m68kbreakpoints_array;
 bool m68kbreakpoints_force_next_instruction;

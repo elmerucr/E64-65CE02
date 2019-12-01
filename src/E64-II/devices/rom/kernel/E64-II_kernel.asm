@@ -25,10 +25,6 @@ exception_handler
 interrupt_autovector
 	rte
 
-	org $00007000
-aap
-	dc.b	$fe
-
 ; start of main kernel code
 	org	$7800
 kernel_main
@@ -64,28 +60,46 @@ kernel_main
     ; bit 2 is for a ring modulation connected to voice 3
 	move.b	#%10000101,($04,a0)
 
-start_of_loop
+mainloop
+	; put something in the usp
 	movea.l	#$00d00000,a0
 	move	a0,usp
-	move.l	d0,(a0)
-	move.b	aap(pc),d1
+
+	; copy keyboard state in to screen
+	moveq	#$0,d0
+	movea.l	VICV_TXT,a0
+	lea		$200(a0),a0
+.1	move.l	(CIA_BASE+$80,d0),(a0,d0)
+	addq	#$1,d0
+	cmp.b	#$20,d0
+	bne		.1
+
 	addq.b	#$1,$00f00000
-	bra.s	start_of_loop
+	bra.s	mainloop
 
 clear_screen
-	movem.l	d0-d2/a0-a1,-(a7)
-	movea.l	VICV_TXT,a0
-	movea.l	VICV_COL,a1
-	move.l	#$0,d0
-	move.b	ascii_to_screencode+' ',d1
-	move.b	CURR_TEXT_COLOR,d2
-.1	move.b	d1,(a0,d0)
-	move.b	d2,(a1,d0)
-	addq	#$1,d0
-	cmp.w	#$800,d0
+	movem.l	d0-d1/a0-a2,-(a7)
+	movea.l	(VICV_TXT),a0
+	movea.l	(VICV_COL),a1
+	movea.l	a0,a2
+	lea		$800(a2),a2
+	move.l	#$20202020,d0
+	moveq	#$00,d1
+	move.b	CURR_TEXT_COLOR,d1
+	lsl.l	#$8,d1
+	move.b	CURR_TEXT_COLOR,d1
+	lsl.l	#$8,d1
+	move.b	CURR_TEXT_COLOR,d1
+	lsl.l	#$8,d1
+	move.b	CURR_TEXT_COLOR,d1
+.1	move.l	d0,(a0)+
+	move.l	d1,(a1)+
+	cmp.l	a0,a2
 	bne		.1
-	movem.l	(a7)+,d0-d2/a0-a1
+	movem.l	(a7)+,d0-d1/a0-a2
 	rts
+
+
 
 	align 1
 	include "E64-II_kernel_tables.asm"

@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+extern bool m68kbreakpoint;
 extern bool m68kbreakpoints_active;
 extern bool *m68kbreakpoints_array;
 extern bool m68kbreakpoints_force_next_instruction;

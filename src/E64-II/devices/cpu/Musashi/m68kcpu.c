@@ -798,7 +798,7 @@ int m68k_execute(int num_cycles)
 		m68ki_set_address_error_trap(); /* auto-disable (see m68kcpu.h) */
 
 		// elmerucr
-		bool e64_breakpoint = false;
+		m68kbreakpoint = false;
 		if( m68kbreakpoints_active == true )
 		{
 			if( m68kbreakpoints_array[REG_PC] == true )
@@ -806,7 +806,7 @@ int m68k_execute(int num_cycles)
 				if ( m68kbreakpoints_force_next_instruction == false )
 				{
 					// we have a breakpoint here before the loop starts
-					e64_breakpoint = true;
+					m68kbreakpoint = true;
 				}
 			}
 		}
@@ -815,7 +815,7 @@ int m68k_execute(int num_cycles)
 
 		/* Main loop.  Keep going until we run out of clock cycles */
 		// elmerucr
-		if( !e64_breakpoint )
+		if( !m68kbreakpoint )
 		{
 		// elmerucr
 			do

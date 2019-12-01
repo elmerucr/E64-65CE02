@@ -16,11 +16,10 @@ extern "C"
 E64::cpu_m68k::cpu_m68k()
 {
     // init breakpoints
-    m68kbreakpoints_active = false;
     m68kbreakpoints_array = (bool *)malloc(RAM_SIZE * sizeof(bool));
     for(int i=0; i<RAM_SIZE; i++) m68kbreakpoints_array[i] = false;
+    disable_breakpoints();
     m68kbreakpoints_force_next_instruction = false;
-    
     // init cpu
     m68k_set_cpu_type(M68K_CPU_TYPE_68020);
     m68k_init();
@@ -35,6 +34,33 @@ E64::cpu_m68k::~cpu_m68k()
 void E64::cpu_m68k::reset()
 {
     m68k_pulse_reset();
+}
+
+bool E64::cpu_m68k::breakpoints_active()
+{
+    return m68kbreakpoints_active;
+}
+
+bool E64::cpu_m68k::is_breakpoint(uint32_t address)
+{
+    if(m68kbreakpoints_array[address & (RAM_SIZE - 1)] == true)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void E64::cpu_m68k::activate_breakpoints()
+{
+    m68kbreakpoints_active = true;
+}
+
+void E64::cpu_m68k::disable_breakpoints()
+{
+    m68kbreakpoints_active = false;
 }
 
 void E64::cpu_m68k::add_breakpoint(uint32_t address)
@@ -101,7 +127,9 @@ void E64::cpu_m68k::dump_status_register(char *temp_string)
 
 int E64::cpu_m68k::run(int no_of_cycles)
 {
+    exit_code_run_function = 0;
     unsigned int n = m68k_execute(no_of_cycles);
+    if(m68kbreakpoint == true) exit_code_run_function = 1;
     return n;
 }
 
