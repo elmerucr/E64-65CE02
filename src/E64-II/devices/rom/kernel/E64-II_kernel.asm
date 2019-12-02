@@ -29,17 +29,17 @@ interrupt_autovector
 	org	$7800
 kernel_main
 	; set screen colors
-	move.b	#$0c,VICV_BASE
-	move.b	#$06,VICV_BASE+1
+	move.b	#$00,VICV_BASE			; c64 black
+	move.b	#$06,VICV_BASE+1		; c64 blue
 	; set text color
-	move.b	#$0c,CURR_TEXT_COLOR
+	move.b	#$0e,CURR_TEXT_COLOR	; c64 light blue
 
 	; set txt pointer
 	move.l	#$00f00000,VICV_TXT
 	move.l	#$00f00800,VICV_COL
 
 	; clear screen
-	jsr		clear_screen
+	bsr		clear_screen
 
 	; play a welcome sound on SID0
 	lea		SID0_BASE,a0
@@ -68,10 +68,12 @@ mainloop
 	; copy keyboard state in to screen
 	moveq	#$0,d0
 	movea.l	VICV_TXT,a0
-	lea		$200(a0),a0
-.1	move.l	(CIA_BASE+$80,d0),(a0,d0)
+	lea		$400(a0),a0
+	lea		CIA_BASE,a1
+	lea		$80(a1),a1
+.1	move.b	(a1,d0),(a0,d0)
 	addq	#$1,d0
-	cmp.b	#$20,d0
+	cmp.b	#$49,d0
 	bne		.1
 
 	addq.b	#$1,$00f00000
