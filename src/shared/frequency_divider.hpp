@@ -18,8 +18,8 @@ namespace E64
     private:
         uint64_t clock0_frequency;
         uint64_t clock1_frequency;
-        uint64_t clock0_cumulative;
-        uint64_t clock1_cumulative;
+        uint64_t clock0_cycle_counter;
+        uint64_t clock1_cycle_counter;
 
         uint64_t mult;
         uint64_t mod;
@@ -27,6 +27,7 @@ namespace E64
     public:
         frequency_divider(uint32_t clock0_freq, uint32_t clock1_freq);
         uint32_t clock(uint32_t delta_clock0);
+        void reset_cycle_counter();
     };
 }
 
