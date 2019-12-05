@@ -373,5 +373,5 @@ void E64::debug_command_single_step_cpu()
 {
     computer.cpu_ic->force_next_instruction();
     computer.run(0);
-//    computer.exception_collector_ic->update_status();
+    computer.TTL74LS148_ic->update_interrupt_level();
 }

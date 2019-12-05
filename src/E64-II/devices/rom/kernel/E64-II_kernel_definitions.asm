@@ -7,6 +7,9 @@ LF		equ	$0a
 ; cia
 CIA_BASE	equ	$ffff0300
 
+; timer
+TIMER_BASE	equ $ffff0600
+
 ; vicv
 VICV_BASE	equ	$ffff0400 	; vicv base register
 VICV_TXT	equ VICV_BASE+$02

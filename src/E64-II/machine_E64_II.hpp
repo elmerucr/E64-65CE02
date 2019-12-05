@@ -6,12 +6,13 @@
 #ifndef MACHINE_E64_II_HPP
 #define MACHINE_E64_II_HPP
 
-#include "mmu_E64_II.hpp"
 #include "cia.hpp"
 #include "cpu_m68k.hpp"
 #include "frequency_divider.hpp"
+#include "mmu_E64_II.hpp"
 #include "sound.hpp"
 #include "timer.hpp"
+#include "TTL74LS148.hpp"
 #include "vicv.hpp"
 
 namespace E64
@@ -42,6 +43,7 @@ namespace E64
         
         mmu                 *mmu_ic;
         cpu_m68k            *cpu_ic;
+        TTL74LS148          *TTL74LS148_ic;
         timer               *timer_ic;
         vicv                *vicv_ic;
         sound               *sound_ic;

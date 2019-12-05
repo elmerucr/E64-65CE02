@@ -19,14 +19,14 @@ void E64::timer::reset()
     registers[1] = 0x00;        // all interrupt times turned off
     
     // load register with value 1 bpm
-    registers[2] = 0x01;    // lo
-    registers[3] = 0x00;    // hi
+    registers[2] = 0x00;    // hi
+    registers[3] = 0x01;    // lo
     
     // may never be zero
-    timer0_bpm = registers[2] | (registers[3] << 8);
-    timer1_bpm = registers[2] | (registers[3] << 8);
-    timer2_bpm = registers[2] | (registers[3] << 8);
-    timer3_bpm = registers[2] | (registers[3] << 8);
+    timer0_bpm = (registers[2] << 8) | registers[3];
+    timer1_bpm = (registers[2] << 8) | registers[3];
+    timer2_bpm = (registers[2] << 8) | registers[3];
+    timer3_bpm = (registers[2] << 8) | registers[3];
 
     timer0_clock_interval = bpm_to_clock_interval(timer0_bpm);
     timer1_clock_interval = bpm_to_clock_interval(timer1_bpm);
@@ -111,28 +111,28 @@ void E64::timer::write_byte(uint8_t address, uint8_t byte)
             uint8_t turned_on = byte & (~registers[1]);
             if( turned_on & 0x01 )
             {
-                timer0_bpm = registers[2] | (uint16_t)(registers[3] << 8);
+                timer0_bpm = (uint16_t)(registers[2] << 8) | registers[3];
                 if(timer0_bpm == 0) timer0_bpm = 1;
                 timer0_clock_interval = bpm_to_clock_interval(timer0_bpm);
                 timer0_counter = 0;
             }
             if( turned_on & 0x02 )
             {
-                timer1_bpm = registers[2] | (uint16_t)(registers[3] << 8);
+                timer1_bpm = (uint16_t)(registers[2] << 8) | registers[3];
                 if(timer1_bpm == 0) timer1_bpm = 1;
                 timer1_clock_interval = bpm_to_clock_interval(timer1_bpm);
                 timer1_counter = 0;
             }
             if( turned_on & 0x04 )
             {
-                timer2_bpm = registers[2] | (uint16_t)(registers[3] << 8);
+                timer2_bpm = (uint16_t)(registers[2] << 8) | registers[3];
                 if(timer2_bpm == 0) timer2_bpm = 1;
                 timer2_clock_interval = bpm_to_clock_interval(timer2_bpm);
                 timer2_counter = 0;
             }
             if( turned_on & 0x08 )
             {
-                timer3_bpm = registers[2] | (uint16_t)(registers[3] << 8);
+                timer3_bpm = (uint16_t)(registers[2] << 8) | registers[3];
                 if(timer3_bpm == 0) timer3_bpm = 1;
                 timer3_clock_interval = bpm_to_clock_interval(timer3_bpm);
                 timer3_counter = 0;

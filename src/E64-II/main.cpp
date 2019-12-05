@@ -57,8 +57,7 @@ int main(int argc, char **argv)
                         computer.switch_to_debug();
                         break;
                 }
-                //
-                //computer.exception_collector_ic->update_status();
+                computer.TTL74LS148_ic->update_interrupt_level();
                 // if full frame was drawn call other update functions:
                 if(computer.vicv_ic->frame_done == true)
                 {

@@ -12,12 +12,15 @@ E64::machine::machine()
 {
     // defaults to normal mode, but can be changed later by application
     current_mode = NORMAL_MODE;
+
+    TTL74LS148_ic = new TTL74LS148();
     
     mmu_ic = new mmu();
     
     cpu_ic = new cpu_m68k();
     
     timer_ic = new timer();
+    TTL74LS148_ic->connect_device(&timer_ic->irq_pin, 2);
     
     vicv_ic = new vicv();
     
@@ -45,6 +48,7 @@ E64::machine::~machine()
     delete timer_ic;
     delete cpu_ic;
     delete mmu_ic;
+    delete TTL74LS148_ic;
 }
 
 void E64::machine::switch_to_running()
@@ -96,6 +100,8 @@ int E64::machine::run(uint16_t no_of_cycles)
     }
     // run cycles on vicv
     vicv_ic->run(cpu_m68k_to_vicv->clock(processed_cycles));
+    // run cycles on timer
+    timer_ic->run(cpu_m68k_to_timer->clock(processed_cycles));
     // calculate no. of cycles to run on sound device & start audio if buffer large enough
     sound_ic->run(cpu_m68k_to_sid->clock(processed_cycles));
     if(E64::sdl2_get_queued_audio_size() > (AUDIO_BUFFER_SIZE/2)) E64::sdl2_start_audio();

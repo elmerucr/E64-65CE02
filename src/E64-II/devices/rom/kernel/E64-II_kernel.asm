@@ -11,8 +11,11 @@
 	org		$00000028
 	dc.l	exception_handler		; vector 10 - unimpl instruction
 	dc.l	exception_handler		; vector 11 - unimpl instruction
-	org		$0000007c
-	dc.l	interrupt_autovector	; vector 31 - level 7 interrupt autovector
+	org		$00000068
+	dc.l	interrupt_2_autovector
+	org		$00000078
+	dc.l	interrupt_6_autovector	; vector 30 - level 6 interrupt autovector
+	dc.l	interrupt_7_autovector	; vector 31 - level 7 interrupt autovector
 
 ; fake exception handler
 	org		$00000400
@@ -20,14 +23,17 @@ exception_handler
 	move.l #$deadbeef,d0
 	rte
 
-; level 7 interrupt autovector
-	org $00000500
-interrupt_autovector
-	rte
-
 ; start of main kernel code
 	org	$7800
 kernel_main
+	; set up timer0 interrupt
+	move.w	#$0bb8,TIMER_BASE+2		; load value 3000 ($0bb8 = 3000bpm = 50Hz) into high and low bytes
+	ori.b	#%00000001,TIMER_BASE+1	; turn on interrupt generation by clock0
+	;lda #<timer0_irq_handler_continued
+	;sta TIMER0_VECTOR
+	;lda #>timer0_irq_handler_continued
+	;sta TIMER0_VECTOR+1
+
 	; set screen colors
 	move.b	#$00,VICV_BASE			; c64 black
 	move.b	#$06,VICV_BASE+1		; c64 blue
@@ -40,6 +46,12 @@ kernel_main
 
 	; clear screen
 	bsr		clear_screen
+
+	; set ipl to level 1
+	move.w	sr,d0
+	andi.w	#%1111100011111111,d0
+	ori.w	#%0000000100000000,d0
+	move.w	d0,sr
 
 	; play a welcome sound on SID0
 	lea		SID0_BASE,a0
@@ -101,6 +113,24 @@ clear_screen
 	movem.l	(a7)+,d0-d1/a0-a2
 	rts
 
+; level 2 interrupt autovector
+interrupt_2_autovector
+	; acknowledge intterupt
+	ori.b	#%00000001,TIMER_BASE
+	movea.l	a0,-(a7)
+	movea.l	VICV_COL,a0
+	addq.b	#$1,(a0)
+	andi.b	#%00001111,(a0)
+	movea.l	(a7)+,a0
+	rte
+
+; level 6 interrupt autovector
+interrupt_6_autovector
+	rte
+
+; level 7 interrupt autovector
+interrupt_7_autovector
+	rte
 
 
 	align 1

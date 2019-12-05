@@ -20,14 +20,30 @@ namespace E64
         
         void reset();
         
+        // this function returns true if breakpoints in Musashi are activated
+        // and false if not
         bool breakpoints_active();
+        
+        // this will activate breakpoints, if any are defined
         void activate_breakpoints();
+        
+        // this will disable any activated breakpoints
         void disable_breakpoints();
+        
         void add_breakpoint(uint32_t address);
+        
         void remove_breakpoint(uint32_t address);
+        
+        // returns true if address is a breakpoint, otherwise false
         bool is_breakpoint(uint32_t address);
         
+        // force next instruction must be called to make sure it is possible to
+        // continue execution from debugger mode, after the system encountered
+        // a breakpoint
         void force_next_instruction();
+        
+        void set_irq(unsigned int level);
+        
         int exit_code_run_function;
         int run(int no_of_cycles);
         int disassemble(char *temp_string, uint32_t pc);            // returns no of bytes for instruction

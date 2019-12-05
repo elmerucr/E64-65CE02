@@ -343,8 +343,8 @@
 		462600B82337FB2100A4ED6D /* timer */ = {
 			isa = PBXGroup;
 			children = (
-				46050A8E236983E80073A85F /* timer.cpp */,
 				46050A8F236983E80073A85F /* timer.hpp */,
+				46050A8E236983E80073A85F /* timer.cpp */,
 			);
 			name = timer;
 			sourceTree = "<group>";

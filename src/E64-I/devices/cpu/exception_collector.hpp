@@ -16,11 +16,11 @@ namespace E64
         uint8_t next_available_device;
         bool default_device = true;
     public:
-        exception_collector(void);
+        exception_collector();
         bool irq_output_pin;
         bool nmi_output_pin;
-        void connect_device(bool *device);
-        void update_status(void);
+        void connect_device(bool *device_pin);
+        void update_status();
     };
 }
 

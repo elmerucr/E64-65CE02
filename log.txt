@@ -36,6 +36,8 @@ todo / bugs
 
 2019
 ====
+2019-12-05 timer works in big endian mode, to prepare for m68k
+2019-12-04 lots of things changed.
 2019-11-01 converted cia to a class.
 2019-10-10 started a second target E64-II (with MC68020 core in stead of CSG65CE02)
 2019-10-02 timers and irqs basic functionality implemented

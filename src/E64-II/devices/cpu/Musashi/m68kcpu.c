@@ -798,24 +798,23 @@ int m68k_execute(int num_cycles)
 		m68ki_set_address_error_trap(); /* auto-disable (see m68kcpu.h) */
 
 		// elmerucr
-		m68kbreakpoint = false;
-		if( m68kbreakpoints_active == true )
+		m68kbreakpoint_condition = false;                   // this is the default state
+		if( m68kbreakpoints_active == true )                // are we checking for breakpoints at all?
 		{
-			if( m68kbreakpoints_array[REG_PC] == true )
+			if( m68kbreakpoints_array[REG_PC] == true )     // do we have a breakpoint at the current pc?
 			{
-				if ( m68kbreakpoints_force_next_instruction == false )
+				if ( m68kbreakpoints_force_next_instruction == false )  // make sure we don't want to force the next instr
 				{
-					// we have a breakpoint here before the loop starts
-					m68kbreakpoint = true;
+					m68kbreakpoint_condition = true;        // we have a breakpoint here before the loop starts
 				}
 			}
 		}
-		m68kbreakpoints_force_next_instruction = false;
+		m68kbreakpoints_force_next_instruction = false;     // make sure, for a next instruction, we're able to stop on a breakpoint again
 		// elmerucr
 
 		/* Main loop.  Keep going until we run out of clock cycles */
 		// elmerucr
-		if( !m68kbreakpoint )
+		if( !m68kbreakpoint_condition )
 		{
 		// elmerucr
 			do

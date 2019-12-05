@@ -20,9 +20,9 @@ cold_start
 	sta TIMER_BASE
 
 	; set up timer0 interrupt
-	lda #$b8			; load value 3000 ($0bb8 = 3000bpm = 50Hz) into low and high bytes
+	lda #$0b			; load value 3000 ($0bb8 = 3000bpm = 50Hz) into high and low bytes
 	sta TIMER_BASE+2
-	lda #$0b
+	lda #$b8
 	sta TIMER_BASE+3
 	lda #%00000001		; turn on interrupt generation by clock0
 	tsb TIMER_BASE+1
@@ -33,9 +33,9 @@ cold_start
 	sta TIMER0_VECTOR+1
 
 	; set up timer1 interrupt
-	lda #$85
-	sta TIMER_BASE+2
 	lda #$01
+	sta TIMER_BASE+2
+	lda #$85
 	sta TIMER_BASE+3
 	lda #%00000010
 	tsb TIMER_BASE+1
@@ -46,9 +46,9 @@ cold_start
 	sta TIMER1_VECTOR+1
 
 	; set up timer2 interrupt
-	lda #$3c
-	sta TIMER_BASE+2
 	lda #$00
+	sta TIMER_BASE+2
+	lda #$3c
 	sta TIMER_BASE+3
 	lda #%00000100
 	tsb TIMER_BASE+1
@@ -59,9 +59,9 @@ cold_start
 	sta TIMER2_VECTOR+1
 
 	; set up timer3 interrupt
-	lda #$42
-	sta TIMER_BASE+2
 	lda #$01
+	sta TIMER_BASE+2
+	lda #$42
 	sta TIMER_BASE+3
 	lda #%00001000
 	tsb TIMER_BASE+1
@@ -326,7 +326,7 @@ put_string
 
 ; strings
 welc1	.text "E64 (C)2019",ASCII_NULL
-welc2	.text " kernel V0.1.20191123",ASCII_NULL
+welc2	.text " kernel V0.1.20191205",ASCII_NULL
 
 	* = $ff00
 	.include "E64_kernel_rom_tables.asm"

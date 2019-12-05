@@ -129,7 +129,7 @@ int E64::cpu_m68k::run(int no_of_cycles)
 {
     exit_code_run_function = 0;
     unsigned int n = m68k_execute(no_of_cycles);
-    if(m68kbreakpoint == true) exit_code_run_function = 1;
+    if(m68kbreakpoint_condition == true) exit_code_run_function = 1;
     return n;
 }
 
@@ -149,4 +149,9 @@ void E64::cpu_m68k::disassemble_next_instruction(char *temp_string)
 uint32_t E64::cpu_m68k::get_pc()
 {
     return m68k_get_reg(NULL, M68K_REG_PC);
+}
+
+void E64::cpu_m68k::set_irq(unsigned int level)
+{
+    m68k_set_irq(level);
 }

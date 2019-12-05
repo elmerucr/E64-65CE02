@@ -14,9 +14,9 @@ E64::exception_collector::exception_collector()
     nmi_output_pin = true;
 }
 
-void E64::exception_collector::connect_device(bool *device)
+void E64::exception_collector::connect_device(bool *device_pin)
 {
-    irq_input_pins[next_available_device] = device;
+    irq_input_pins[next_available_device] = device_pin;
     next_available_device++;
     next_available_device &= 7;
 }
