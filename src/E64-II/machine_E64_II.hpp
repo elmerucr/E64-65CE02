@@ -55,6 +55,8 @@ namespace E64
         void force_next_instruction();
         int  run(uint16_t no_of_cycles);
         
+        void reset();
+        
         void switch_to_running();
         void switch_to_debug();
         void switch_mode();

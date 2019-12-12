@@ -107,3 +107,10 @@ int E64::machine::run(uint16_t no_of_cycles)
     if(E64::sdl2_get_queued_audio_size() > (AUDIO_BUFFER_SIZE/2)) E64::sdl2_start_audio();
     return exit_code;
 }
+
+void E64::machine::reset()
+{
+    cpu_ic->reset();
+    sound_ic->reset();
+    vicv_ic->reset();
+}

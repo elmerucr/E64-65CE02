@@ -44,8 +44,14 @@ kernel_main
 	move.l	#$00f00000,VICV_TXT
 	move.l	#$00f00800,VICV_COL
 
+	; reset cursor position
+	move.w	#$0,CURSOR_POS
+
 	; clear screen
 	bsr		clear_screen
+
+	move.b	#'E',d0
+	bsr		put_char
 
 	; set ipl to level 1
 	move.w	sr,d0
@@ -88,7 +94,7 @@ mainloop
 	cmp.b	#$49,d0
 	bne		.1
 
-	addq.b	#$1,$00f00000
+	addq.b	#$1,$00f00001
 	bra.s	mainloop
 
 clear_screen
@@ -113,11 +119,27 @@ clear_screen
 	movem.l	(a7)+,d0-d1/a0-a2
 	rts
 
-; level 2 interrupt autovector
+
+; put_char expects an ascii value (byte in d0)
+put_char
+	movem.l	d1-d2/a0-a2,-(a7)
+	move.w	CURSOR_POS,d1
+	move.b	CURR_TEXT_COLOR,d2
+	movea.l	VICV_TXT,a0
+	movea.l	VICV_COL,a1
+	lea		ascii_to_screencode,a2
+	move.b	(a2,d0),d0
+	move.b	d0,(a0,d1)
+	move.b	d2,(a1,d1)
+	movem.l	(a7)+,d1-d2/a0-a2
+	rts
+
+
+; level 2 interrupt autovector (timer)
 interrupt_2_autovector
 	; acknowledge intterupt
 	ori.b	#%00000001,TIMER_BASE
-	movea.l	a0,-(a7)
+	move.l	a0,-(a7)
 	movea.l	VICV_COL,a0
 	addq.b	#$1,(a0)
 	andi.b	#%00001111,(a0)
@@ -131,7 +153,6 @@ interrupt_6_autovector
 ; level 7 interrupt autovector
 interrupt_7_autovector
 	rte
-
 
 	align 1
 	include "E64-II_kernel_tables.asm"
