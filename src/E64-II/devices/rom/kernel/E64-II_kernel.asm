@@ -61,12 +61,12 @@ kernel_main
 
 	; play a welcome sound on SID0
 	lea		SID0_BASE,a0
-	; frequency of voice 1 (high byte)
-	move.b	#$82,($01,a0)
+	; frequency of voice 1
+	move.w	#$099f,(a0)
 	; attack and decay of voice 1
-	move.b	#$09,($05,a0)
+	move.b	#%00001001,($05,a0)
 	; freq of voice 3
-	move.b	#$1e,($0f,a0)
+	move.w	#$1e00,($0e,a0)
 	; max volume
 	move.b	#$0f,($18,a0)
 	; left channel mix
@@ -76,7 +76,26 @@ kernel_main
 	; play bell by opening gate on bit0 register #4
 	; bit 4 is for a triangle wave form
     ; bit 2 is for a ring modulation connected to voice 3
-	move.b	#%10000101,($04,a0)
+	move.b	#%00100001,($04,a0)
+
+	; play a welcome sound on SID1
+	lea		SID1_BASE,a0
+	; frequency of voice 1
+	move.w	#$0e6b,(a0)
+	; attack and decay of voice 1
+	move.b	#%00001001,($05,a0)
+	; freq of voice 3
+	move.w	#$1e00,($0e,a0)
+	; max volume
+	move.b	#$0f,($18,a0)
+	; left channel mix
+	move.b	#$10,(SID1_LEFT,a0)
+	; right channel mix
+	move.b	#$ff,(SID1_RGHT,a0)
+	; play bell by opening gate on bit0 register #4
+	; bit 4 is for a triangle wave form
+    ; bit 2 is for a ring modulation connected to voice 3
+	move.b	#%00100001,($04,a0)
 
 mainloop
 	; put something in the usp

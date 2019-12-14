@@ -24,7 +24,7 @@ E64::machine::machine()
     
     vicv_ic = new vicv();
     
-    sound_ic = new sound();
+    sound_ic = new sound(big_endian);
     
     cia_ic = new cia();
     

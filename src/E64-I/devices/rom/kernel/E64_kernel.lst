@@ -1,7 +1,7 @@
 
 ; 64tass Turbo Assembler Macro V1.54.1900 listing file
 ; 64tass -b -C -L E64_kernel.lst -o E64_kernel.bin E64_kernel.asm
-; Thu Dec  5 10:08:47 2019
+; Sat Dec 14 12:54:56 2019
 
 ;Offset	;Hex		;Monitor	;Source
 
@@ -152,7 +152,7 @@
 .e0d2	8d 80 05	sta $0580		sta SID0_LEFT		; left channel mix
 .e0d5	a9 10		lda #$10		lda #$10
 .e0d7	8d 81 05	sta $0581		sta SID0_RGHT		; right channel mix
-.e0da	a9 85		lda #$85		lda #$85
+.e0da	a9 15		lda #$15		lda #$15
 .e0dc	8d 04 05	sta $0504		sta SID0_BASE+$04	; play bell by opening gate on bit0 register #4
 .e0df	ee 00 c2	inc $c200	-	inc $c200	; increase a char in screen memory
 .e0e2	a2 00		ldx #$00		ldx #$00	; init counter to 0

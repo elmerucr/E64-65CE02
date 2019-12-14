@@ -35,7 +35,7 @@ E64::machine::machine()
     vicv_ic = new vicv();
     exception_collector_ic->connect_device(&vicv_ic->irq_line);
     
-    sound_ic = new sound();
+    sound_ic = new sound(little_endian);
     
     cia_ic = new cia();
     exception_collector_ic->connect_device(&cia_ic->irq_pin);

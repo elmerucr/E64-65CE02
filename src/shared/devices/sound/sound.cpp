@@ -7,8 +7,37 @@
 #include "sdl2.hpp"
 #include "common_defs.hpp"
 
-E64::sound::sound()
+E64::sound::sound(enum endianness endian)
 {
+    for(int i=0; i<32; i++) register_index[i] = i;
+    if( endian == big_endian)
+    {
+        // voice 1
+        register_index[0] = 1;      // freq
+        register_index[1] = 0;
+
+        register_index[2] = 3;      // pulse width
+        register_index[3] = 2;
+
+        // voice 2
+        register_index[7] = 8;      // freq
+        register_index[8] = 7;
+        
+        register_index[9] = 10;     // pulse width
+        register_index[10] = 9;
+        
+        // voice 3
+        register_index[14] = 15;    // freq
+        register_index[15] = 14;
+        
+        register_index[16] = 17;    // pulse width
+        register_index[17] = 16;
+        
+        // filter
+        register_index[21] = 22;    // fc
+        register_index[22] = 21;
+    }
+    
     for(int i = 0; i<4; i++)
     {
         // set chip model
@@ -23,8 +52,9 @@ E64::sound::sound()
         sid[i].enable_filter(true);
         sid[i].reset();
         
-        // reset cycle counter
-        delta_t = 0;
+        // reset cycle counters
+        delta_t_sid0 = 0;
+        delta_t_sid1 = 0;
         
         // sid 0 balance reset;
         balance_registers[0] = 0x00;    // left
@@ -54,7 +84,7 @@ uint8_t E64::sound::read_byte(uint8_t address)
     }
     else
     {
-        return sid[(address & 0x60) >> 5].read(address & 0x1f); // NEEDS CHECKING!!!
+        return sid[(address & 0x60) >> 5].read( register_index[address & 0x1f] ); // NEEDS CHECKING!!!
     }
 }
 
@@ -70,25 +100,30 @@ void E64::sound::write_byte(uint8_t address, uint8_t byte)
     }
     else
     {
-        sid[(address & 0x60) >> 5].write(address & 0x1f, byte); // NEEDS CHECKING!!!
+        sid[(address & 0x60) >> 5].write( register_index[address & 0x1f], byte); // NEEDS CHECKING!!!
     }
 }
 
 void E64::sound::run(uint32_t number_of_cycles)
 {
-    delta_t += number_of_cycles;
+    delta_t_sid0 += number_of_cycles;
+    delta_t_sid1 = delta_t_sid0;
     // clock(delta_t, buf, maxNoOfSamples) function:
     //   This function returns the number of samples written by the SID chip.
     //   delta_t is a REFERENCE to the number of cycles to be processed
     //   buf is the memory area in which data should be written
     //   maxNoOfSamples (internal size of the presented buffer)
-    int n = sid[0].clock(delta_t, sample_buffer_mono, 65536);
+    int n = sid[0].clock(delta_t_sid0, sample_buffer_mono_sid0, 65536);
+    sid[1].clock(delta_t_sid1, sample_buffer_mono_sid1, 65536);
+    
     for(int i=0; i<n; i++)
     {
         // left channel
-        sample_buffer_stereo[2*i] = (sample_buffer_mono[i] * balance_registers[0]) / 255;
+        sample_buffer_stereo[2*i] = (sample_buffer_mono_sid0[i] * balance_registers[0]) / 255;
+        sample_buffer_stereo[2*i] += (sample_buffer_mono_sid1[i] * balance_registers[2]) / 255;
         // right channel
-        sample_buffer_stereo[(2*i)+1] = (sample_buffer_mono[i] * balance_registers[1]) / 255;
+        sample_buffer_stereo[(2*i)+1] = (sample_buffer_mono_sid0[i] * balance_registers[1]) / 255;
+        sample_buffer_stereo[(2*i)+1] += (sample_buffer_mono_sid1[i] * balance_registers[3]) / 255;
     }
     E64::sdl2_queue_audio((void *)sample_buffer_stereo, 2 * n * sizeof(int16_t));
 }

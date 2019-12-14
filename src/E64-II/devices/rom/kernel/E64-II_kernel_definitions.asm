@@ -22,6 +22,8 @@ SID1_BASE	equ	SOUND_BASE+$20
 ; sound indices
 SID0_LEFT	equ $80
 SID0_RGHT	equ $81
+SID1_LEFT	equ $82
+SID1_RGHT	equ	$83
 
 CURR_TEXT_COLOR	equ $00008000	; byte
 CURSOR_POS		equ	$00008002	; word

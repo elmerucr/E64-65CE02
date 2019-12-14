@@ -14,15 +14,26 @@
 
 namespace E64
 {
+    enum endianness
+    {
+        little_endian,
+        big_endian
+    };
+
     class sound
     {
         SID sid[4];
         uint8_t balance_registers[8];
-        cycle_count delta_t;
-        int16_t sample_buffer_mono[65536];
+        cycle_count delta_t_sid0;
+        int16_t sample_buffer_mono_sid0[65536];
+        cycle_count delta_t_sid1;
+        int16_t sample_buffer_mono_sid1[65536];
         int16_t sample_buffer_stereo[131072];
+
+        // used to exchange freq lo/hi registers for big_endian system
+        uint8_t register_index[32];
     public:
-        sound();
+        sound(enum endianness endian);
         ~sound();
         // read and write functions to data registers of sid array and mixer
         uint8_t read_byte(uint8_t address);

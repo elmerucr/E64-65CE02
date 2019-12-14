@@ -122,7 +122,7 @@ cold_start
 	sta SID0_LEFT		; left channel mix
 	lda #$10
 	sta SID0_RGHT		; right channel mix
-	lda #$85
+	lda #$15
 	sta SID0_BASE+$04	; play bell by opening gate on bit0 register #4
                                 ; bit 4 is for a triangle wave form
                                 ; bit 2 is for a ring modulation connected to voice 3
