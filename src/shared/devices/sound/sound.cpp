@@ -7,10 +7,10 @@
 #include "sdl2.hpp"
 #include "common_defs.hpp"
 
-E64::sound::sound(enum endianness endian)
+E64::sound::sound(bool big_endian)
 {
     for(int i=0; i<32; i++) register_index[i] = i;
-    if( endian == big_endian)
+    if( big_endian == true )
     {
         // voice 1
         register_index[0] = 1;      // freq

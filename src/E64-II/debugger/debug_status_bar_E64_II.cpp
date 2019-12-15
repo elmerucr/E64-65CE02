@@ -20,12 +20,12 @@ void debug_status_bar_clear()
     for(int i=0; i<(debug_console.status_bar_rows * 64); i++)
     {
         status_bar_chars[i] = ascii_to_screencode[ASCII_SPACE];
-        status_bar_foreground_color_buffer[i] = 0x38;
-        status_bar_background_color_buffer[i] = 0x34;
+        status_bar_foreground_color_buffer[i] = 0x3b;
+        status_bar_background_color_buffer[i] = 0x36;
     }
     debug_console.status_bar_cursor_pos = 0;
-    debug_console.status_bar_foreground_color = 0x38;  // default value
-    debug_console.status_bar_background_color = 0x34;  // default value
+    debug_console.status_bar_foreground_color = 0x3b;  // default value
+    debug_console.status_bar_background_color = 0x36;  // default value
 }
 
 void debug_status_bar_refresh()
@@ -89,8 +89,8 @@ void debug_status_bar_refresh()
 //    debug_status_bar_print(c256_string2);
 //    
     // set accent colors for titles etc...
-    debug_console.status_bar_foreground_color = 0x3b;
-    debug_console.status_bar_background_color = 0x36;
+    debug_console.status_bar_foreground_color = 0x3f;
+    debug_console.status_bar_background_color = 0x39;
 
     snprintf(status_bar_help_string, 256, "                       cpu internal status                      ");
     debug_status_bar_set_cursor_pos(0);

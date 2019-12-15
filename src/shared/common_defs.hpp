@@ -13,7 +13,7 @@
 
 #define E64_MAJOR_VERSION       0
 #define E64_MINOR_VERSION       4
-#define E64_BUILD               20191214
+#define E64_BUILD               20191215
 #define E64_YEAR                2019
 
 // E64_I or E64_II must be defined externally by the build system
@@ -38,8 +38,8 @@
     #define IO_SND_PAGE         0xffff05
     #define IO_TIMER_PAGE       0xffff06
     #define IO_KERNEL_MASK      0xffff80
-    #define DEBUGGER_FOREGROUND_COLOR 0x36
-    #define DEBUGGER_BACKGROUND_COLOR 0x32
+    #define DEBUGGER_FOREGROUND_COLOR 0x39
+    #define DEBUGGER_BACKGROUND_COLOR 0x34
 #endif
 
 // some objects need to be visible at global level:
@@ -128,6 +128,23 @@ extern const char screencode_to_ascii[];
 #define C64_GRN_13  0xff90dd85
 #define C64_GRN_14  0xff9bee8f
 #define C64_GRN_15  0xffa7ff99
+
+#define C64_COBALT_00  0xff000000
+#define C64_COBALT_01  0xff070811
+#define C64_COBALT_02  0xff0e1022
+#define C64_COBALT_03  0xff151833
+#define C64_COBALT_04  0xff1c2044
+#define C64_COBALT_05  0xff232855
+#define C64_COBALT_06  0xff2a3066
+#define C64_COBALT_07  0xff313877
+#define C64_COBALT_08  0xff384088
+#define C64_COBALT_09  0xff3f4899
+#define C64_COBALT_10  0xff4650aa
+#define C64_COBALT_11  0xff4d58bb
+#define C64_COBALT_12  0xff5460cc
+#define C64_COBALT_13  0xff5b68dd
+#define C64_COBALT_14  0xff6270ee
+#define C64_COBALT_15  0xff6978ff
 
 #define C64_BRWN_00 0xff000000      // kimbie dark from Visual Studio Code
 #define C64_BRWN_01 0xff110c08

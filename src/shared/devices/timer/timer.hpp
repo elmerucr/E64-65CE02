@@ -42,6 +42,12 @@
 
 namespace E64
 {
+//    enum endianness
+//    {
+//        little_endian,
+//        big_endian
+//    };
+
     class timer
     {
     private:

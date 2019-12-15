@@ -14,12 +14,6 @@
 
 namespace E64
 {
-    enum endianness
-    {
-        little_endian,
-        big_endian
-    };
-
     class sound
     {
         SID sid[4];
@@ -33,7 +27,7 @@ namespace E64
         // used to exchange freq lo/hi registers for big_endian system
         uint8_t register_index[32];
     public:
-        sound(enum endianness endian);
+        sound(bool big_endian);
         ~sound();
         // read and write functions to data registers of sid array and mixer
         uint8_t read_byte(uint8_t address);

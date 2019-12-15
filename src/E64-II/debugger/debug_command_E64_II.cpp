@@ -256,7 +256,6 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
 //    }
     else if( strcmp(token0, "reset") == 0)
     {
-        sdl2_wait_until_enter_released();
         computer.reset();
     }
     else if( strcmp(token0, "ver") == 0 )

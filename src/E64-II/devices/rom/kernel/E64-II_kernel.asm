@@ -52,6 +52,8 @@ kernel_main
 
 	move.b	#'E',d0
 	bsr		put_char
+	move.b	#'l',d0
+	bsr		put_char
 
 	; set ipl to level 1
 	move.w	sr,d0
@@ -113,7 +115,7 @@ mainloop
 	cmp.b	#$49,d0
 	bne		.1
 
-	addq.b	#$1,$00f00001
+	addq.b	#$1,$00f00080
 	bra.s	mainloop
 
 clear_screen
@@ -139,18 +141,20 @@ clear_screen
 	rts
 
 
-; put_char expects an ascii value (byte in d0)
+; put_char expects an ascii value in d0
 put_char
-	movem.l	d1-d2/a0-a2,-(a7)
-	move.w	CURSOR_POS,d1
-	move.b	CURR_TEXT_COLOR,d2
+	movem.l	d1-d2/a0-a2,-(a7)			; save registers
+	move.w	CURSOR_POS,d1				; load current cursor position into d1
+	move.b	CURR_TEXT_COLOR,d2			; load current text colour into d2
 	movea.l	VICV_TXT,a0
 	movea.l	VICV_COL,a1
-	lea		ascii_to_screencode,a2
-	move.b	(a2,d0),d0
+	lea		ascii_to_screencode,a2		; a2 now points to ascii-screencode table
+	move.b	(a2,d0),d0					; change the ascii value to a screencode value
 	move.b	d0,(a0,d1)
 	move.b	d2,(a1,d1)
-	movem.l	(a7)+,d1-d2/a0-a2
+	addq	#$1,CURSOR_POS
+	andi.w	#$07ff,CURSOR_POS
+	movem.l	(a7)+,d1-d2/a0-a2			; restore registers
 	rts
 
 

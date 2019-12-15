@@ -82,28 +82,45 @@ void E64::vicv::reset()
     color_palette[0x2d] = C64_GRN_13;
     color_palette[0x2e] = C64_GRN_14;
     color_palette[0x2f] = C64_GRN_15;
-    
-    // 16 brown tones from 0x30-0x3f 
 
-    color_palette[0x30] = C64_BRWN_00;
-    color_palette[0x31] = C64_BRWN_01;
-    color_palette[0x32] = C64_BRWN_02;
-    color_palette[0x33] = C64_BRWN_03;
-    color_palette[0x34] = C64_BRWN_04;
-    color_palette[0x35] = C64_BRWN_05;
-    color_palette[0x36] = C64_BRWN_06;
-    color_palette[0x37] = C64_BRWN_07;
-    color_palette[0x38] = C64_BRWN_08;
-    color_palette[0x39] = C64_BRWN_09;
-    color_palette[0x3a] = C64_BRWN_10;
-    color_palette[0x3b] = C64_BRWN_11;
-    color_palette[0x3c] = C64_BRWN_12;
-    color_palette[0x3d] = C64_BRWN_13;
-    color_palette[0x3e] = C64_BRWN_14;
-    color_palette[0x3f] = C64_BRWN_15;
+    // 16 blue tones from 0x30-0x3f
+    color_palette[0x30] = C64_COBALT_00;
+    color_palette[0x31] = C64_COBALT_01;
+    color_palette[0x32] = C64_COBALT_02;
+    color_palette[0x33] = C64_COBALT_03;
+    color_palette[0x34] = C64_COBALT_04;
+    color_palette[0x35] = C64_COBALT_05;
+    color_palette[0x36] = C64_COBALT_06;
+    color_palette[0x37] = C64_COBALT_07;
+    color_palette[0x38] = C64_COBALT_08;
+    color_palette[0x39] = C64_COBALT_09;
+    color_palette[0x3a] = C64_COBALT_10;
+    color_palette[0x3b] = C64_COBALT_11;
+    color_palette[0x3c] = C64_COBALT_12;
+    color_palette[0x3d] = C64_COBALT_13;
+    color_palette[0x3e] = C64_COBALT_14;
+    color_palette[0x3f] = C64_COBALT_15;
     
-    // the rest (0x40-0xff) is C64_BLUE
-    for(int i = 0x40; i < 0x100; i++) color_palette[i] = C64_BLUE;
+    // 16 brown tones from 0x40-0x4f
+    color_palette[0x40] = C64_BRWN_00;
+    color_palette[0x41] = C64_BRWN_01;
+    color_palette[0x42] = C64_BRWN_02;
+    color_palette[0x43] = C64_BRWN_03;
+    color_palette[0x44] = C64_BRWN_04;
+    color_palette[0x45] = C64_BRWN_05;
+    color_palette[0x46] = C64_BRWN_06;
+    color_palette[0x47] = C64_BRWN_07;
+    color_palette[0x48] = C64_BRWN_08;
+    color_palette[0x49] = C64_BRWN_09;
+    color_palette[0x4a] = C64_BRWN_10;
+    color_palette[0x4b] = C64_BRWN_11;
+    color_palette[0x4c] = C64_BRWN_12;
+    color_palette[0x4d] = C64_BRWN_13;
+    color_palette[0x4e] = C64_BRWN_14;
+    color_palette[0x4f] = C64_BRWN_15;
+    
+    // the rest (0x50-0xff) is C64_BLUE
+    for(int i = 0x50; i < 0x100; i++) color_palette[i] = C64_BLUE;
 
     // set irq line
     irq_line = true;
