@@ -37,7 +37,7 @@ todo / bugs
 2019
 ====
 2019-12-15 debugger in E64-II defaults to cobalt colors
-2019-12-14 distinction between little en big endian in sound module
+2019-12-14 distinction between little en big endian in sound module (some sid lo/hi registers will be swapped)
 2019-12-05 timer works in big endian mode, to prepare for m68k
 2019-12-04 lots of things changed.
 2019-11-01 converted cia to a class.

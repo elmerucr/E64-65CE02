@@ -20,7 +20,7 @@ cold_start
 	sta TIMER_BASE
 
 	; set up timer0 interrupt
-	lda #$0b			; load value 3000 ($0bb8 = 3000bpm = 50Hz) into high and low bytes
+	lda #$0b			; load value 3000 ($0bb8 = 3000bpm = 50Hz) into high and low bytes (big endian)
 	sta TIMER_BASE+2
 	lda #$b8
 	sta TIMER_BASE+3

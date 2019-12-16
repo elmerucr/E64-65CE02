@@ -27,7 +27,8 @@ exception_handler
 	org	$7800
 kernel_main
 	; set up timer0 interrupt
-	move.w	#$0bb8,TIMER_BASE+2		; load value 3000 ($0bb8 = 3000bpm = 50Hz) into high and low bytes
+	;move.w	#$0bb8,TIMER_BASE+2		; load value 3000 ($0bb8 = 3000bpm = 50Hz) into high and low bytes
+	move.w	#$003c,TIMER_BASE+2		; load value 60 ($003c = 60bpm = 1Hz) into high and low bytes
 	ori.b	#%00000001,TIMER_BASE+1	; turn on interrupt generation by clock0
 	;lda #<timer0_irq_handler_continued
 	;sta TIMER0_VECTOR

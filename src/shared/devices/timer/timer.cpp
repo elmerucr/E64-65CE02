@@ -80,7 +80,7 @@ uint32_t E64::timer::bpm_to_clock_interval(uint16_t bpm)
 
 uint8_t E64::timer::read_byte(uint8_t address)
 {
-    return registers[address & 0x03];
+    return registers[ address & 0x03 ];
 }
 
 void E64::timer::write_byte(uint8_t address, uint8_t byte)
@@ -141,7 +141,7 @@ void E64::timer::write_byte(uint8_t address, uint8_t byte)
             break;
         }
         default:
-            registers[address & 0x03] = byte;
+            registers[ address & 0x03 ] = byte;
             break;
     }
 }

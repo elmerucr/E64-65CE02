@@ -32,8 +32,8 @@
 //    bit 2: Timer2 interrupts 1=on, 0=off
 //    bit 3: Timer3 interrupts 1=on, 0=off
 //    .
-//    register 2 and 3 are respectively the lo and hi byte
-//    of an unsigned 16bit value
+//    register 2 and 3 are respectively the hi and lo byte
+//    of an unsigned 16bit value (big endian format!)
 
 #ifndef timer_hpp
 #define timer_hpp
@@ -69,10 +69,9 @@ namespace E64
         uint64_t timer3_counter;
 
         uint32_t bpm_to_clock_interval(uint16_t bpm);
-
     public:
         // constructor
-        timer(void);
+        timer();
         // reset, called by constructor
         void reset(void);
         // irq pin is owned by the timer

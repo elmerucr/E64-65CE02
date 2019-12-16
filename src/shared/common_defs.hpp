@@ -13,7 +13,7 @@
 
 #define E64_MAJOR_VERSION       0
 #define E64_MINOR_VERSION       4
-#define E64_BUILD               20191215
+#define E64_BUILD               20191216
 #define E64_YEAR                2019
 
 // E64_I or E64_II must be defined externally by the build system

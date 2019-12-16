@@ -17,7 +17,7 @@
 //    .
 //    .
 //
-//  register 1 os Interrupt Control Register
+//  register 1 is Interrupt Control Register
 //  READ and WRITE:
 //    bit 0: 1=Keyboard generates interrupts on key press or release events, 0=off
 //    .
