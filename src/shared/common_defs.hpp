@@ -13,7 +13,7 @@
 
 #define E64_MAJOR_VERSION       0
 #define E64_MINOR_VERSION       4
-#define E64_BUILD               20191216
+#define E64_BUILD               20191218
 #define E64_YEAR                2019
 
 // E64_I or E64_II must be defined externally by the build system
@@ -31,15 +31,16 @@
     #define DEBUGGER_BACKGROUND_COLOR 0x22
 #elif E64_II
     #include "machine_E64_II.hpp"
-    #define APPLICATION_NAME    "E64-II"
-    #define CPU_CLOCK_SPEED     8192000     // 8MHz system
-    #define IO_CIA_PAGE         0xffff03
-    #define IO_VICV_PAGE        0xffff04
-    #define IO_SND_PAGE         0xffff05
-    #define IO_TIMER_PAGE       0xffff06
-    #define IO_KERNEL_MASK      0xffff80
-    #define DEBUGGER_FOREGROUND_COLOR 0x39
-    #define DEBUGGER_BACKGROUND_COLOR 0x34
+    #define APPLICATION_NAME            "E64-II"
+    #define CPU_CLOCK_SPEED             8192000     // 8MHz system
+    #define IO_CIA_PAGE                 0xffff03
+    #define IO_VICV_PAGE                0xffff04
+    #define IO_SND_PAGE                 0xffff05
+    #define IO_TIMER_PAGE               0xffff06
+    #define IO_RESET_VECTOR_MASK        0xfffffff8
+    #define IO_KERNEL_MASK              0xfffe
+    #define DEBUGGER_FOREGROUND_COLOR   0x39
+    #define DEBUGGER_BACKGROUND_COLOR   0x34
 #endif
 
 // some objects need to be visible at global level:

@@ -1,39 +1,35 @@
-; elmerucr - 6/10/2019
+; elmerucr - 18/12/2019
 ; compiles with vasmm68k_mot
 
 	include 'E64-II_kernel_definitions.asm'
 
-	org		$00000000
+	org		KERNEL_LOC
+
 	dc.l	$00d00000				; vector 0 - supervisor stackpointer
 	dc.l	kernel_main				; vector 1 - reset vector
-	org		$00000010
-	dc.l	exception_handler		; vector 4 - illegal instruction
-	org		$00000028
-	dc.l	exception_handler		; vector 10 - unimpl instruction
-	dc.l	exception_handler		; vector 11 - unimpl instruction
-	org		$00000068
-	dc.l	interrupt_2_autovector
-	org		$00000078
-	dc.l	interrupt_6_autovector	; vector 30 - level 6 interrupt autovector
-	dc.l	interrupt_7_autovector	; vector 31 - level 7 interrupt autovector
 
 ; fake exception handler
-	org		$00000400
 exception_handler
 	move.l #$deadbeef,d0
 	rte
 
 ; start of main kernel code
-	org	$7800
 kernel_main
+	lea		exception_handler,a0
+	move.l	a0,VEC_04_ILLEGAL_INSTRUCTION
+	move.l	a0,VEC_10_UNIMPL_INSTRUCTION
+	move.l	a0,VEC_11_UNIMPL_INSTRUCTION
+	lea		interrupt_2_autovector,a0
+	move.l	a0,VEC_26_LEVEL2_IRQ_AUTOVECT
+	lea		interrupt_6_autovector,a0
+	move.l	a0,VEC_30_LEVEL6_IRQ_AUTOVECT
+	lea		interrupt_7_autovector,a0
+	move.l	a0,VEC_31_LEVEL7_IRQ_AUTOVECT
+
 	; set up timer0 interrupt
 	;move.w	#$0bb8,TIMER_BASE+2		; load value 3000 ($0bb8 = 3000bpm = 50Hz) into high and low bytes
 	move.w	#$003c,TIMER_BASE+2		; load value 60 ($003c = 60bpm = 1Hz) into high and low bytes
 	ori.b	#%00000001,TIMER_BASE+1	; turn on interrupt generation by clock0
-	;lda #<timer0_irq_handler_continued
-	;sta TIMER0_VECTOR
-	;lda #>timer0_irq_handler_continued
-	;sta TIMER0_VECTOR+1
 
 	; set screen colors
 	move.b	#$00,VICV_BASE			; c64 black
@@ -181,5 +177,5 @@ interrupt_7_autovector
 	align 1
 	include "E64-II_kernel_tables.asm"
 
-	org		$00007ffc
+	org		KERNEL_LOC+$fffc
 	dc.l	$deadbeef

@@ -41,9 +41,13 @@ unsigned int E64::mmu::read_memory_8(unsigned int address)
     {
         return computer.cia_ic->read_byte(address & 0x000000ff);
     }
-    else if( (page & IO_KERNEL_MASK) == 0 )
+    else if( (address >> 16) == IO_KERNEL_MASK )
     {
-        return kernel[address & 0x00007fff];
+        return kernel[address & 0x0000ffff];
+    }
+    else if( (address & IO_RESET_VECTOR_MASK) == 0 )
+    {
+        return kernel[address & 0x0000ffff];
     }
     else
     {
