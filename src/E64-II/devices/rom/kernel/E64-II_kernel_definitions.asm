@@ -1,6 +1,6 @@
 ; c256 definitions - 2019-11-21 elmerucr
 
-KERNEL_LOC	equ	$fffe0000
+KERNEL_LOC	equ	$01fe0000
 VEC_04_ILLEGAL_INSTRUCTION		equ	$00000010
 VEC_10_UNIMPL_INSTRUCTION		equ	$00000028
 VEC_11_UNIMPL_INSTRUCTION		equ	$0000002c
@@ -12,22 +12,22 @@ VEC_30_LEVEL6_IRQ_AUTOVECT		equ	$00000078
 VEC_31_LEVEL7_IRQ_AUTOVECT		equ	$0000007c
 
 ; ascii definitions
-NULL	equ	$00
-LF		equ	$0a
+ASCII_NULL	equ	$00
+ASCII_LF	equ	$0a
 
 ; cia
-CIA_BASE	equ	$ffff0300
+CIA_BASE	equ	$01ff0300
 
 ; timer
-TIMER_BASE	equ $ffff0600
+TIMER_BASE	equ $01ff0600
 
 ; vicv
-VICV_BASE	equ	$ffff0400 	; vicv base register
+VICV_BASE	equ	$01ff0400 	; vicv base register
 VICV_TXT	equ VICV_BASE+$02
 VICV_COL	equ VICV_BASE+$06
 
 ; sound
-SOUND_BASE	equ $ffff0500	; sound base register
+SOUND_BASE	equ $01ff0500	; sound base register
 SID0_BASE	equ	SOUND_BASE
 SID1_BASE	equ	SOUND_BASE+$20
 ; sound indices

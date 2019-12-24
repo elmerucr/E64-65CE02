@@ -16,8 +16,8 @@ extern "C"
 E64::cpu_m68k::cpu_m68k()
 {
     // init breakpoints
-    m68kbreakpoints_array = (bool *)malloc(RAM_SIZE * sizeof(bool));
-    for(int i=0; i<RAM_SIZE; i++) m68kbreakpoints_array[i] = false;
+    m68kbreakpoints_array = (bool *)malloc(2 * RAM_SIZE * sizeof(bool));
+    for(int i=0; i<(2 * RAM_SIZE); i++) m68kbreakpoints_array[i] = false;
     disable_breakpoints();
     m68kbreakpoints_force_next_instruction = false;
     // init cpu
@@ -43,7 +43,7 @@ bool E64::cpu_m68k::breakpoints_active()
 
 bool E64::cpu_m68k::is_breakpoint(uint32_t address)
 {
-    if(m68kbreakpoints_array[address & (RAM_SIZE - 1)] == true)
+    if(m68kbreakpoints_array[address & ((2 * RAM_SIZE) - 1)] == true)
     {
         return true;
     }
@@ -65,12 +65,12 @@ void E64::cpu_m68k::disable_breakpoints()
 
 void E64::cpu_m68k::add_breakpoint(uint32_t address)
 {
-    m68kbreakpoints_array[address & (RAM_SIZE - 1)] = true;
+    m68kbreakpoints_array[address & ((2*RAM_SIZE) - 1)] = true;
 }
 
 void E64::cpu_m68k::remove_breakpoint(uint32_t address)
 {
-    m68kbreakpoints_array[address & (RAM_SIZE - 1)] = false;
+    m68kbreakpoints_array[address & ((2*RAM_SIZE) - 1)] = false;
 }
 
 void E64::cpu_m68k::force_next_instruction()

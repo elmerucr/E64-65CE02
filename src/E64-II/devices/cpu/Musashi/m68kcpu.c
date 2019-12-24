@@ -801,7 +801,7 @@ int m68k_execute(int num_cycles)
 		m68kbreakpoint_condition = false;                   // this is the default state
 		if( m68kbreakpoints_active == true )                // are we checking for breakpoints at all?
 		{
-			if( m68kbreakpoints_array[REG_PC] == true )     // do we have a breakpoint at the current pc?
+			if( m68kbreakpoints_array[(REG_PC & 0x01ffffff)] == true )     // do we have a breakpoint at the current pc?
 			{
 				if ( m68kbreakpoints_force_next_instruction == false )  // make sure we don't want to force the next instr
 				{

@@ -47,10 +47,8 @@ kernel_main
 	; clear screen
 	bsr		clear_screen
 
-	move.b	#'E',d0
-	bsr		put_char
-	move.b	#'l',d0
-	bsr		put_char
+	lea		welcome,a0
+	bsr		put_string
 
 	; set ipl to level 1
 	move.w	sr,d0
@@ -137,15 +135,16 @@ clear_screen
 	movem.l	(a7)+,d0-d1/a0-a2
 	rts
 
-
 ; put_char expects an ascii value in d0
 put_char
 	movem.l	d1-d2/a0-a2,-(a7)			; save registers
 	move.w	CURSOR_POS,d1				; load current cursor position into d1
 	move.b	CURR_TEXT_COLOR,d2			; load current text colour into d2
-	movea.l	VICV_TXT,a0
-	movea.l	VICV_COL,a1
+	movea.l	VICV_TXT,a0					; load pointer to current text screen into a0
+	movea.l	VICV_COL,a1					; load pointer to current color screen into a1
 	lea		ascii_to_screencode,a2		; a2 now points to ascii-screencode table
+	cmp.b	#ASCII_LF,d0				; do we have a line feed as the next ascii?
+	beq		.1
 	move.b	(a2,d0),d0					; change the ascii value to a screencode value
 	move.b	d0,(a0,d1)
 	move.b	d2,(a1,d1)
@@ -153,11 +152,27 @@ put_char
 	andi.w	#$07ff,CURSOR_POS
 	movem.l	(a7)+,d1-d2/a0-a2			; restore registers
 	rts
+.1	addi.w	#$40,d1						; add 64 positions to current cursor pos
+	andi.w	#%1111111111000000,d1		; move cursor pos to beginning of line
+	move.w	d1,CURSOR_POS				; store new value
+	movem.l	(a7)+,d1-d2/a0-a2			; restore registers
+	rts
+
+; put_string expects a pointer to a string in a0
+put_string
+	move.l	a0,-(a7)
+.1	move.b	(a0)+,d0						; move the first ascii value of string into d0
+	cmp.b	#ASCII_NULL,d0					; did we reach the end of the string?
+	beq		.2									; yes, go to end of function
+	bsr		put_char						; no, print char
+	bra		.1
+.2	move.l	(a7)+,a0
+	rts
 
 
 ; level 2 interrupt autovector (timer)
 interrupt_2_autovector
-	; acknowledge intterupt
+	; acknowledge interrupt
 	ori.b	#%00000001,TIMER_BASE
 	move.l	a0,-(a7)
 	movea.l	VICV_COL,a0
@@ -173,6 +188,10 @@ interrupt_6_autovector
 ; level 7 interrupt autovector
 interrupt_7_autovector
 	rte
+
+; string data
+welcome
+	dc.b	"E64-II (C)2019 kernel 0.1.20191224",ASCII_LF,ASCII_NULL
 
 	align 1
 	include "E64-II_kernel_tables.asm"

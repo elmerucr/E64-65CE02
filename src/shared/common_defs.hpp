@@ -13,7 +13,7 @@
 
 #define E64_MAJOR_VERSION       0
 #define E64_MINOR_VERSION       4
-#define E64_BUILD               20191218
+#define E64_BUILD               20191224
 #define E64_YEAR                2019
 
 // E64_I or E64_II must be defined externally by the build system
@@ -33,12 +33,12 @@
     #include "machine_E64_II.hpp"
     #define APPLICATION_NAME            "E64-II"
     #define CPU_CLOCK_SPEED             8192000     // 8MHz system
-    #define IO_CIA_PAGE                 0xffff03
-    #define IO_VICV_PAGE                0xffff04
-    #define IO_SND_PAGE                 0xffff05
-    #define IO_TIMER_PAGE               0xffff06
+    #define IO_CIA_PAGE                 0x01ff03
+    #define IO_VICV_PAGE                0x01ff04
+    #define IO_SND_PAGE                 0x01ff05
+    #define IO_TIMER_PAGE               0x01ff06
     #define IO_RESET_VECTOR_MASK        0xfffffff8
-    #define IO_KERNEL_MASK              0xfffe
+    #define IO_KERNEL_MASK              0x01fe
     #define DEBUGGER_FOREGROUND_COLOR   0x39
     #define DEBUGGER_BACKGROUND_COLOR   0x34
 #endif
@@ -56,7 +56,7 @@ extern const char screencode_to_ascii[];
 #define CPU_CYCLES_PER_SCANLINE     (CPU_CLOCK_SPEED/(320*FPS))
 #define SID_CLOCK_SPEED             985248
 #define SAMPLE_RATE                 44100
-//#define NO_OF_SIDS               4
+//#define NO_OF_SIDS                  4
 #define AUDIO_BUFFER_SIZE           8192.0
 
 // E64 elmerucr colors

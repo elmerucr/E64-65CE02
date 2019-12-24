@@ -326,7 +326,7 @@ put_string
 
 ; strings
 welc1	.text "E64 (C)2019",ASCII_NULL
-welc2	.text " kernel V0.1.20191205",ASCII_NULL
+welc2	.text " kernel 0.1.20191205",ASCII_NULL
 
 	* = $ff00
 	.include "E64_kernel_rom_tables.asm"
