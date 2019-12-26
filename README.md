@@ -13,7 +13,7 @@ Technical specifications (not yet complete and a work in progress):
 ### E64-II
 * Motorola 68020 CPU running at 8.192MHz using the [Musashi](https://github.com/kstenerud/Musashi) library.
 * A total of 16MB ram.
-* Two SID chips (like E64), but several registers (lo/hi from frequency, pulse width and filters) have been exchanged to facilitate use with the big-endian M68020.
+* Two SID chips (like E64), but several registers (lo/hi from frequency, pulse width and filters) have been swapped to facilitate use with the big endian M68020.
 ## Motivation
 todo
 ## Screenshots
