@@ -27,7 +27,7 @@ int main(int argc, char **argv)
     //    std::cout << std::endl;
     
     // needs switching for E64 / E64-II names...
-    printf("E64 (C)%i by elmerucr V%i.%i.%i\n", E64_YEAR, E64_MAJOR_VERSION, E64_MINOR_VERSION, E64_BUILD);
+    printf("E64 (C)%i by elmerucr - version %i.%i.%i\n", E64_YEAR, E64_MAJOR_VERSION, E64_MINOR_VERSION, E64_BUILD);
     
     // set up window management, audio and some other stuff
     E64::sdl2_init();

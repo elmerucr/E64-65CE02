@@ -267,7 +267,7 @@ F00:0143       	movea.l	VICV_TXT,a0					; load pointer to current text screen in
 F00:0144       	movea.l	VICV_COL,a1					; load pointer to current color screen into a1
                S01:01FE0180:  22 79 01 FF 04 06
 F00:0145       	lea		ascii_to_screencode,a2		; a2 now points to ascii-screencode table
-               S01:01FE0186:  45 FA 00 8E
+               S01:01FE0186:  45 FA 00 96
 F00:0146       	cmp.b	#ASCII_LF,d0				; do we have a line feed as the next ascii?
                S01:01FE018A:  B0 3C 00 0A
 F00:0147       	beq		.1
@@ -347,9 +347,9 @@ F00:0190       	rte
 F00:0191       
 F00:0192       ; string data
 F00:0193       welcome
-F00:0194       	dc.b	"E64-II (C)2019 kernel 0.1.20191224",ASCII_LF,ASCII_NULL
+F00:0194       	dc.b	"E64-II (C)2019 kernel version 0.1.20191224",ASCII_LF,ASCII_NULL
                S01:01FE01F2:  45 36 34 2D 49 49 20 28 43 29 32 30 31 39 20 6B
-               S01:01FE0202:  65 72 6E 65 6C 20 30 2E 31 2E 32 30 31 39 31 32
+               S01:01FE0202:  65 72 6E 65 6C 20 76 65 72 73 69 6F 6E 20 30 2E
                S01:01FE0212:  0A
                S01:01FE0213:  00
 F00:0195       
@@ -359,265 +359,265 @@ F02:0001       ; rom tables
 F02:0002       
 F02:0003       ascii_to_screencode
 F02:0004       	dc.b	$80		; 0x00 - NUL	non printable character
-               S01:01FE0216:  80
-F02:0005       	dc.b	$80		; 0x01 - SOH	non printable character
-               S01:01FE0217:  80
-F02:0006       	dc.b	$80		; 0x02 - STX	non printable character
-               S01:01FE0218:  80
-F02:0007       	dc.b	$80		; 0x03 - ETX	non printable character
-               S01:01FE0219:  80
-F02:0008       	dc.b	$80		; 0x04 - EOT	non printable character
-               S01:01FE021A:  80
-F02:0009       	dc.b	$80		; 0x05 - ENQ	non printable character
-               S01:01FE021B:  80
-F02:0010       	dc.b	$80		; 0x06 - ACK	non printable character
-               S01:01FE021C:  80
-F02:0011       	dc.b	$80		; 0x07 - BEL	non printable character
-               S01:01FE021D:  80
-F02:0012       	dc.b	$80		; 0x08 - BS	non printable character
                S01:01FE021E:  80
-F02:0013       	dc.b	$80		; 0x09 - TAB	non printable character
+F02:0005       	dc.b	$80		; 0x01 - SOH	non printable character
                S01:01FE021F:  80
-F02:0014       	dc.b	$80		; 0x0a - LF	non printable character
+F02:0006       	dc.b	$80		; 0x02 - STX	non printable character
                S01:01FE0220:  80
-F02:0015       	dc.b	$80		; 0x0b - VT	non printable character
+F02:0007       	dc.b	$80		; 0x03 - ETX	non printable character
                S01:01FE0221:  80
-F02:0016       	dc.b	$80		; 0x0c - FF	non printable character
+F02:0008       	dc.b	$80		; 0x04 - EOT	non printable character
                S01:01FE0222:  80
-F02:0017       	dc.b	$80		; 0x0d - CR	non printable character
+F02:0009       	dc.b	$80		; 0x05 - ENQ	non printable character
                S01:01FE0223:  80
-F02:0018       	dc.b	$80		; 0x0e - SO	non printable character
+F02:0010       	dc.b	$80		; 0x06 - ACK	non printable character
                S01:01FE0224:  80
-F02:0019       	dc.b	$80		; 0x0f - SI	non printable character
+F02:0011       	dc.b	$80		; 0x07 - BEL	non printable character
                S01:01FE0225:  80
-F02:0020       	dc.b	$80		; 0x10 - DLE	non printable character
+F02:0012       	dc.b	$80		; 0x08 - BS	non printable character
                S01:01FE0226:  80
-F02:0021       	dc.b	$80		; 0x11 - DC1	non printable character
+F02:0013       	dc.b	$80		; 0x09 - TAB	non printable character
                S01:01FE0227:  80
-F02:0022       	dc.b	$80		; 0x12 - DC2	non printable character
+F02:0014       	dc.b	$80		; 0x0a - LF	non printable character
                S01:01FE0228:  80
-F02:0023       	dc.b	$80		; 0x13 - DC3	non printable character
+F02:0015       	dc.b	$80		; 0x0b - VT	non printable character
                S01:01FE0229:  80
-F02:0024       	dc.b	$80		; 0x14 - DC4	non printable character
+F02:0016       	dc.b	$80		; 0x0c - FF	non printable character
                S01:01FE022A:  80
-F02:0025       	dc.b	$80		; 0x15 - NAC	non printable character
+F02:0017       	dc.b	$80		; 0x0d - CR	non printable character
                S01:01FE022B:  80
-F02:0026       	dc.b	$80		; 0x16 - SYN	non printable character
+F02:0018       	dc.b	$80		; 0x0e - SO	non printable character
                S01:01FE022C:  80
-F02:0027       	dc.b	$80		; 0x17 - ETB	non printable character
+F02:0019       	dc.b	$80		; 0x0f - SI	non printable character
                S01:01FE022D:  80
-F02:0028       	dc.b	$80		; 0x18 - CAN	non printable character
+F02:0020       	dc.b	$80		; 0x10 - DLE	non printable character
                S01:01FE022E:  80
-F02:0029       	dc.b	$80		; 0x19 - EM	non printable character
+F02:0021       	dc.b	$80		; 0x11 - DC1	non printable character
                S01:01FE022F:  80
-F02:0030       	dc.b	$80		; 0x1a - SUB	non printable character
+F02:0022       	dc.b	$80		; 0x12 - DC2	non printable character
                S01:01FE0230:  80
-F02:0031       	dc.b	$80		; 0x1b - ESC	non printable character
+F02:0023       	dc.b	$80		; 0x13 - DC3	non printable character
                S01:01FE0231:  80
-F02:0032       	dc.b	$80		; 0x1c - FS	non printable character
+F02:0024       	dc.b	$80		; 0x14 - DC4	non printable character
                S01:01FE0232:  80
-F02:0033       	dc.b	$80		; 0x1d - GS	non printable character
+F02:0025       	dc.b	$80		; 0x15 - NAC	non printable character
                S01:01FE0233:  80
-F02:0034       	dc.b	$80		; 0x1e - RS	non printable character
+F02:0026       	dc.b	$80		; 0x16 - SYN	non printable character
                S01:01FE0234:  80
-F02:0035       	dc.b	$80		; 0x1f - US	non printable character
+F02:0027       	dc.b	$80		; 0x17 - ETB	non printable character
                S01:01FE0235:  80
+F02:0028       	dc.b	$80		; 0x18 - CAN	non printable character
+               S01:01FE0236:  80
+F02:0029       	dc.b	$80		; 0x19 - EM	non printable character
+               S01:01FE0237:  80
+F02:0030       	dc.b	$80		; 0x1a - SUB	non printable character
+               S01:01FE0238:  80
+F02:0031       	dc.b	$80		; 0x1b - ESC	non printable character
+               S01:01FE0239:  80
+F02:0032       	dc.b	$80		; 0x1c - FS	non printable character
+               S01:01FE023A:  80
+F02:0033       	dc.b	$80		; 0x1d - GS	non printable character
+               S01:01FE023B:  80
+F02:0034       	dc.b	$80		; 0x1e - RS	non printable character
+               S01:01FE023C:  80
+F02:0035       	dc.b	$80		; 0x1f - US	non printable character
+               S01:01FE023D:  80
 F02:0036       	dc.b	$20		; 0x20 - (space)
-               S01:01FE0236:  20
+               S01:01FE023E:  20
 F02:0037       	dc.b	$21		; 0x21 - !
-               S01:01FE0237:  21
+               S01:01FE023F:  21
 F02:0038       	dc.b	$22		; 0x22 - "
-               S01:01FE0238:  22
+               S01:01FE0240:  22
 F02:0039       	dc.b	$23		; 0x23 - #
-               S01:01FE0239:  23
+               S01:01FE0241:  23
 F02:0040       	dc.b	$24		; 0x24 - $
-               S01:01FE023A:  24
+               S01:01FE0242:  24
 F02:0041       	dc.b	$25		; 0x25 - %
-               S01:01FE023B:  25
+               S01:01FE0243:  25
 F02:0042       	dc.b	$26		; 0x26 - &
-               S01:01FE023C:  26
+               S01:01FE0244:  26
 F02:0043       	dc.b	$27		; 0x27 - '
-               S01:01FE023D:  27
+               S01:01FE0245:  27
 F02:0044       	dc.b	$28		; 0x28 - (
-               S01:01FE023E:  28
+               S01:01FE0246:  28
 F02:0045       	dc.b	$29		; 0x29 - )
-               S01:01FE023F:  29
+               S01:01FE0247:  29
 F02:0046       	dc.b	$2a		; 0x2a - *
-               S01:01FE0240:  2A
+               S01:01FE0248:  2A
 F02:0047       	dc.b	$2b		; 0x2b - +
-               S01:01FE0241:  2B
+               S01:01FE0249:  2B
 F02:0048       	dc.b	$2c		; 0x2c - ,
-               S01:01FE0242:  2C
+               S01:01FE024A:  2C
 F02:0049       	dc.b	$2d		; 0x2d - -
-               S01:01FE0243:  2D
+               S01:01FE024B:  2D
 F02:0050       	dc.b	$2e		; 0x2e - .
-               S01:01FE0244:  2E
+               S01:01FE024C:  2E
 F02:0051       	dc.b	$2f		; 0x2f - /
-               S01:01FE0245:  2F
+               S01:01FE024D:  2F
 F02:0052       	dc.b	$30		; 0x30 - 0
-               S01:01FE0246:  30
+               S01:01FE024E:  30
 F02:0053       	dc.b	$31		; 0x31 - 1
-               S01:01FE0247:  31
+               S01:01FE024F:  31
 F02:0054       	dc.b	$32		; 0x32 - 2
-               S01:01FE0248:  32
+               S01:01FE0250:  32
 F02:0055       	dc.b	$33		; 0x33 - 3
-               S01:01FE0249:  33
+               S01:01FE0251:  33
 F02:0056       	dc.b	$34		; 0x34 - 4
-               S01:01FE024A:  34
+               S01:01FE0252:  34
 F02:0057       	dc.b	$35		; 0x35 - 5
-               S01:01FE024B:  35
+               S01:01FE0253:  35
 F02:0058       	dc.b	$36		; 0x36 - 6
-               S01:01FE024C:  36
+               S01:01FE0254:  36
 F02:0059       	dc.b	$37		; 0x37 - 7
-               S01:01FE024D:  37
+               S01:01FE0255:  37
 F02:0060       	dc.b	$38		; 0x38 - 8
-               S01:01FE024E:  38
+               S01:01FE0256:  38
 F02:0061       	dc.b	$39		; 0x39 - 9
-               S01:01FE024F:  39
+               S01:01FE0257:  39
 F02:0062       	dc.b	$3a		; 0x3a - :
-               S01:01FE0250:  3A
+               S01:01FE0258:  3A
 F02:0063       	dc.b	$3b		; 0x3b - ;
-               S01:01FE0251:  3B
+               S01:01FE0259:  3B
 F02:0064       	dc.b	$3c		; 0x3c - <
-               S01:01FE0252:  3C
+               S01:01FE025A:  3C
 F02:0065       	dc.b	$3d		; 0x3d - =
-               S01:01FE0253:  3D
+               S01:01FE025B:  3D
 F02:0066       	dc.b	$3e		; 0x3e - >
-               S01:01FE0254:  3E
+               S01:01FE025C:  3E
 F02:0067       	dc.b	$3f		; 0x3f - ?
-               S01:01FE0255:  3F
+               S01:01FE025D:  3F
 F02:0068       	dc.b	$00		; 0x40 - @
-               S01:01FE0256:  00
+               S01:01FE025E:  00
 F02:0069       	dc.b	$41		; 0x41 - A
-               S01:01FE0257:  41
+               S01:01FE025F:  41
 F02:0070       	dc.b	$42		; 0x42 - B
-               S01:01FE0258:  42
+               S01:01FE0260:  42
 F02:0071       	dc.b	$43		; 0x43 - C
-               S01:01FE0259:  43
+               S01:01FE0261:  43
 F02:0072       	dc.b	$44		; 0x44 - D
-               S01:01FE025A:  44
+               S01:01FE0262:  44
 F02:0073       	dc.b	$45		; 0x45 - E
-               S01:01FE025B:  45
+               S01:01FE0263:  45
 F02:0074       	dc.b	$46		; 0x46 - F
-               S01:01FE025C:  46
+               S01:01FE0264:  46
 F02:0075       	dc.b	$47		; 0x47 - G
-               S01:01FE025D:  47
+               S01:01FE0265:  47
 F02:0076       	dc.b	$48		; 0x48 - H
-               S01:01FE025E:  48
+               S01:01FE0266:  48
 F02:0077       	dc.b	$49		; 0x49 - I
-               S01:01FE025F:  49
+               S01:01FE0267:  49
 F02:0078       	dc.b	$4a		; 0x4a - J
-               S01:01FE0260:  4A
+               S01:01FE0268:  4A
 F02:0079       	dc.b	$4b		; 0x4b - K
-               S01:01FE0261:  4B
+               S01:01FE0269:  4B
 F02:0080       	dc.b	$4c		; 0x4c - L
-               S01:01FE0262:  4C
+               S01:01FE026A:  4C
 F02:0081       	dc.b	$4d		; 0x4d - M
-               S01:01FE0263:  4D
+               S01:01FE026B:  4D
 F02:0082       	dc.b	$4e		; 0x4e - N
-               S01:01FE0264:  4E
+               S01:01FE026C:  4E
 F02:0083       	dc.b	$4f		; 0x4f - O
-               S01:01FE0265:  4F
+               S01:01FE026D:  4F
 F02:0084       	dc.b	$50		; 0x50 - P
-               S01:01FE0266:  50
+               S01:01FE026E:  50
 F02:0085       	dc.b	$51		; 0x51 - Q
-               S01:01FE0267:  51
+               S01:01FE026F:  51
 F02:0086       	dc.b	$52		; 0x52 - R
-               S01:01FE0268:  52
+               S01:01FE0270:  52
 F02:0087       	dc.b	$53		; 0x53 - S
-               S01:01FE0269:  53
+               S01:01FE0271:  53
 F02:0088       	dc.b	$54		; 0x54 - T
-               S01:01FE026A:  54
+               S01:01FE0272:  54
 F02:0089       	dc.b	$55		; 0x55 - U
-               S01:01FE026B:  55
+               S01:01FE0273:  55
 F02:0090       	dc.b	$56		; 0x56 - V
-               S01:01FE026C:  56
+               S01:01FE0274:  56
 F02:0091       	dc.b	$57		; 0x57 - W
-               S01:01FE026D:  57
+               S01:01FE0275:  57
 F02:0092       	dc.b	$58		; 0x58 - X
-               S01:01FE026E:  58
+               S01:01FE0276:  58
 F02:0093       	dc.b	$59		; 0x59 - Y
-               S01:01FE026F:  59
+               S01:01FE0277:  59
 F02:0094       	dc.b	$5a		; 0x5a - Z
-               S01:01FE0270:  5A
+               S01:01FE0278:  5A
 F02:0095       	dc.b	$1b		; 0x5b - [
-               S01:01FE0271:  1B
+               S01:01FE0279:  1B
 F02:0096       	dc.b	$5c		; 0x5c - \	patched
-               S01:01FE0272:  5C
+               S01:01FE027A:  5C
 F02:0097       	dc.b	$1d		; 0x5d - ]
-               S01:01FE0273:  1D
+               S01:01FE027B:  1D
 F02:0098       	dc.b	$5e		; 0x5e - ^	patched
-               S01:01FE0274:  5E
+               S01:01FE027C:  5E
 F02:0099       	dc.b	$5f		; 0x5f - _	patched
-               S01:01FE0275:  5F
+               S01:01FE027D:  5F
 F02:0100       	dc.b	$63		; 0x60 - `	patched
-               S01:01FE0276:  63
+               S01:01FE027E:  63
 F02:0101       	dc.b	$01		; 0x61 - a
-               S01:01FE0277:  01
+               S01:01FE027F:  01
 F02:0102       	dc.b	$02		; 0x62 - b
-               S01:01FE0278:  02
+               S01:01FE0280:  02
 F02:0103       	dc.b	$03		; 0x63 - c
-               S01:01FE0279:  03
+               S01:01FE0281:  03
 F02:0104       	dc.b	$04		; 0x64 - d
-               S01:01FE027A:  04
+               S01:01FE0282:  04
 F02:0105       	dc.b	$05		; 0x65 - e
-               S01:01FE027B:  05
+               S01:01FE0283:  05
 F02:0106       	dc.b	$06		; 0x66 - f
-               S01:01FE027C:  06
+               S01:01FE0284:  06
 F02:0107       	dc.b	$07		; 0x67 - g
-               S01:01FE027D:  07
+               S01:01FE0285:  07
 F02:0108       	dc.b	$08		; 0x68 - h
-               S01:01FE027E:  08
+               S01:01FE0286:  08
 F02:0109       	dc.b	$09		; 0x69 - i
-               S01:01FE027F:  09
+               S01:01FE0287:  09
 F02:0110       	dc.b	$0a		; 0x6a - j
-               S01:01FE0280:  0A
+               S01:01FE0288:  0A
 F02:0111       	dc.b	$0b		; 0x6b - k
-               S01:01FE0281:  0B
+               S01:01FE0289:  0B
 F02:0112       	dc.b	$0c		; 0x6c - l
-               S01:01FE0282:  0C
+               S01:01FE028A:  0C
 F02:0113       	dc.b	$0d		; 0x6d - m
-               S01:01FE0283:  0D
+               S01:01FE028B:  0D
 F02:0114       	dc.b	$0e		; 0x6e - n
-               S01:01FE0284:  0E
+               S01:01FE028C:  0E
 F02:0115       	dc.b	$0f		; 0x6f - o
-               S01:01FE0285:  0F
+               S01:01FE028D:  0F
 F02:0116       	dc.b	$10		; 0x70 - p
-               S01:01FE0286:  10
+               S01:01FE028E:  10
 F02:0117       	dc.b	$11		; 0x71 - q
-               S01:01FE0287:  11
+               S01:01FE028F:  11
 F02:0118       	dc.b	$12		; 0x72 - r
-               S01:01FE0288:  12
+               S01:01FE0290:  12
 F02:0119       	dc.b	$13		; 0x73 - s
-               S01:01FE0289:  13
+               S01:01FE0291:  13
 F02:0120       	dc.b	$14		; 0x74 - t
-               S01:01FE028A:  14
+               S01:01FE0292:  14
 F02:0121       	dc.b	$15		; 0x75 - u
-               S01:01FE028B:  15
+               S01:01FE0293:  15
 F02:0122       	dc.b	$16		; 0x76 - v
-               S01:01FE028C:  16
+               S01:01FE0294:  16
 F02:0123       	dc.b	$17		; 0x77 - w
-               S01:01FE028D:  17
+               S01:01FE0295:  17
 F02:0124       	dc.b	$18		; 0x78 - x
-               S01:01FE028E:  18
+               S01:01FE0296:  18
 F02:0125       	dc.b	$19		; 0x79 - y
-               S01:01FE028F:  19
+               S01:01FE0297:  19
 F02:0126       	dc.b	$1a		; 0x7a - z
-               S01:01FE0290:  1A
+               S01:01FE0298:  1A
 F02:0127       	dc.b	$64		; 0x7b - {	patched
-               S01:01FE0291:  64
+               S01:01FE0299:  64
 F02:0128       	dc.b	$65		; 0x7c - |	patched
-               S01:01FE0292:  65
+               S01:01FE029A:  65
 F02:0129       	dc.b	$66		; 0x7d - }	patched
-               S01:01FE0293:  66
+               S01:01FE029B:  66
 F02:0130       	dc.b	$67		; 0x7e - ~	patched
-               S01:01FE0294:  67
+               S01:01FE029C:  67
 F02:0131       	dc.b	$80		; 0x7f - DEL	non printable character
-               S01:01FE0295:  80
+               S01:01FE029D:  80
 F02:0132       
 F02:0133       hexTable
 F02:0134       	dc.b	'0123456789abcdef'
-               S01:01FE0296:  30 31 32 33 34 35 36 37 38 39 61 62 63 64 65 66
+               S01:01FE029E:  30 31 32 33 34 35 36 37 38 39 61 62 63 64 65 66
 F02:0135       
 F00:0198       
 F00:0199       	org		KERNEL_LOC+$fffc
@@ -637,11 +637,11 @@ F02  E64-II_kernel_tables.asm
 
 
 Symbols:
-hexTable EXPR(33424022=0x1fe0296) UNUSED ABS 
+hexTable EXPR(33424030=0x1fe029e) UNUSED ABS 
  put_string .2 EXPR(33423824=0x1fe01d0) ABS 
  put_string .1 EXPR(33423814=0x1fe01c6) ABS 
  put_char .1 EXPR(33423792=0x1fe01b0) ABS 
-ascii_to_screencode EXPR(33423894=0x1fe0216) ABS 
+ascii_to_screencode EXPR(33423902=0x1fe021e) ABS 
 put_char EXPR(33423722=0x1fe016a) ABS 
  clear_screen .1 EXPR(33423708=0x1fe015c) ABS 
  mainloop .1 EXPR(33423626=0x1fe010a) ABS 

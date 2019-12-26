@@ -191,7 +191,7 @@ interrupt_7_autovector
 
 ; string data
 welcome
-	dc.b	"E64-II (C)2019 kernel 0.1.20191224",ASCII_LF,ASCII_NULL
+	dc.b	"E64-II (C)2019 kernel version 0.1.20191224",ASCII_LF,ASCII_NULL
 
 	align 1
 	include "E64-II_kernel_tables.asm"

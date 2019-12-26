@@ -74,7 +74,7 @@ void E64::sdl2_init()
     context0.current_window_size = 2;
     context0.fullscreen = false;
     // create window - title will be set later by function E64::sdl2_update_title()
-    context0.window = SDL_CreateWindow("", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_sizes[context0.current_window_size].x, window_sizes[context0.current_window_size].y, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+    context0.window = SDL_CreateWindow("", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_sizes[context0.current_window_size].x, window_sizes[context0.current_window_size].y, SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI);
     // create renderer and link it to window
     context0.renderer = SDL_CreateRenderer(context0.window, -1, SDL_RENDERER_ACCELERATED);
     // suggest to make the scaled rendering look smoother
@@ -83,6 +83,9 @@ void E64::sdl2_init()
     SDL_RenderSetLogicalSize(context0.renderer, VICV_PIXELS_PER_SCANLINE, 320);
     // create a texture that is able to refresh very frequently
     context0.texture = SDL_CreateTexture(context0.renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, VICV_PIXELS_PER_SCANLINE, 320);
+
+    // make sure mouse cursor isn't visible
+    SDL_ShowCursor(SDL_DISABLE);
     
     // each call to SDL_PollEvent invokes SDL_PumpEvents() that updates this array
     E64_sdl2_keyboard_state = SDL_GetKeyboardState(NULL);
@@ -162,12 +165,10 @@ void E64::sdl2_toggle_fullscreen()
     if(context0.fullscreen)
     {
         SDL_SetWindowFullscreen(context0.window, SDL_WINDOW_FULLSCREEN_DESKTOP);
-        SDL_ShowCursor(SDL_DISABLE);
     }
     else
     {
         SDL_SetWindowFullscreen(context0.window, SDL_WINDOW_RESIZABLE);
-        SDL_ShowCursor(SDL_ENABLE);
     }
 }
 
@@ -569,7 +570,7 @@ void E64::sdl2_cleanup()
     SDL_Quit();
 }
 
-void E64::sdl2_delay_10ms(void)
+void E64::sdl2_delay_10ms()
 {
     std::this_thread::sleep_for(std::chrono::microseconds(10000));
 }

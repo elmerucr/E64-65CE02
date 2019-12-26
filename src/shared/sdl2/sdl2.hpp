@@ -24,27 +24,27 @@ namespace E64
     };
 
     // general init and cleanup
-    void sdl2_init(void);
-    void sdl2_cleanup(void);
+    void sdl2_init();
+    void sdl2_cleanup();
 
     // event related
-    int sdl2_process_events(void);
-    void sdl2_wait_until_f9_released(void);
+    int sdl2_process_events();
+    void sdl2_wait_until_f9_released();
 
     // window management
-    void sdl2_update_screen(void);
-    void sdl2_update_title(void);
-    void sdl2_reset_window_size(void);
-    void sdl2_increase_window_size(void);
-    void sdl2_decrease_window_size(void);
-    void sdl2_toggle_fullscreen(void);
-    void sdl2_wait_until_enter_released(void);
+    void sdl2_update_screen();
+    void sdl2_update_title();
+    void sdl2_reset_window_size();
+    void sdl2_increase_window_size();
+    void sdl2_decrease_window_size();
+    void sdl2_toggle_fullscreen();
+    void sdl2_wait_until_enter_released();
 
     // audio related
-    void sdl2_start_audio(void);
-    void sdl2_stop_audio(void);
+    void sdl2_start_audio();
+    void sdl2_stop_audio();
     void sdl2_queue_audio(void *buffer, unsigned size);
-    unsigned sdl2_get_queued_audio_size(void);
+    unsigned sdl2_get_queued_audio_size();
 
     // delay related
     void sdl2_delay_10ms(void);
