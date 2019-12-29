@@ -21,9 +21,7 @@ void debug_console_init(void)
     debug_console.cursor_pos = debug_console.current_base;
     // 55 is blink speed in xcode :-) 32 is c64
     debug_console.cursor_blink_time = 32;
-    // C64_GRN_07
     debug_console.current_foreground_color = DEBUGGER_FOREGROUND_COLOR;
-    // C64_GRN_02
     debug_console.current_background_color = DEBUGGER_BACKGROUND_COLOR;
     for(int i=0; i<1024*64; i++)
     {
@@ -82,7 +80,6 @@ void debug_console_putchar(char character)
     switch(character)
     {
         case ASCII_LF:
-            // "crlf"
             debug_console.cursor_pos = (debug_console.cursor_pos + 64) & 0xffc0;
             break;
         default:

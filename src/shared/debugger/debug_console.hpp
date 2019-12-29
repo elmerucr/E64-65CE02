@@ -10,7 +10,7 @@
 
 typedef struct
 {
-    uint8_t console_character_buffer[1024 * 64];      // 64k makes up 1024 rows of 64 bytes
+    uint8_t console_character_buffer[1024 * 64];
     uint8_t console_foreground_color_buffer[1024 * 64];
     uint8_t console_background_color_buffer[1024 * 64];
 

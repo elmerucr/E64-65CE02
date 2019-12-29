@@ -3,7 +3,8 @@
 //
 //  Copyright © 2017 elmerucr. All rights reserved.
 //
-//  c256_debug_screen covers 32 rows, the bottom 8 rows are used to display part of the current framebuffer
+//  c256_debug_screen covers 32 rows (256 lines)
+//  the bottom 64 lines are used to display part of the current framebuffer
 
 #include "common_defs.hpp"
 
