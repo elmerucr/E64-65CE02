@@ -59,7 +59,8 @@ kernel_main
 	; play a welcome sound on SID0
 	lea		SID0_BASE,a0
 	; frequency of voice 1
-	move.w	#$099f,(a0)
+	lea		notes,a1
+	move.w	(N_D3_,a1),(a0)
 	; attack and decay of voice 1
 	move.b	#%00001001,($05,a0)
 	; freq of voice 3
@@ -78,7 +79,9 @@ kernel_main
 	; play a welcome sound on SID1
 	lea		SID1_BASE,a0
 	; frequency of voice 1
-	move.w	#$0e6b,(a0)
+	lea		notes,a1
+	move.w	(N_A3_,a1),(a0)
+	;move.w	#N_A3_,(a0)
 	; attack and decay of voice 1
 	move.b	#%00001001,($05,a0)
 	; freq of voice 3
