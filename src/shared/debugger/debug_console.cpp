@@ -17,13 +17,12 @@ char console_help_string[2048];
 
 void debug_console_init(void)
 {
-    debug_console.current_base = 0;
-    debug_console.cursor_pos = debug_console.current_base;
+    debug_console.cursor_pos = 0;
     // 55 is blink speed in xcode :-) 32 is c64
     debug_console.cursor_blink_time = 32;
     debug_console.current_foreground_color = DEBUGGER_FOREGROUND_COLOR;
     debug_console.current_background_color = DEBUGGER_BACKGROUND_COLOR;
-    for(int i=0; i<1024*64; i++)
+    for(int i=0; i<2048; i++)
     {
         debug_console.console_character_buffer[i] = ascii_to_screencode[ASCII_SPACE];
         debug_console.console_foreground_color_buffer[i] = debug_console.current_foreground_color;
@@ -55,13 +54,19 @@ void debug_console_welcome()
     debug_console_print("Debugger - type <help> for more information");
 }
 
-void debug_console_add_row_if_necessary()
+void debug_console_add_bottom_row_if_necessary()
 {
     // cursor out of current screen?
-    if( ((uint16_t)(debug_console.cursor_pos - debug_console.current_base)) > 2047 )
+    if( debug_console.cursor_pos > 2047 )
     {
-        debug_console.current_base = (debug_console.cursor_pos & 0xffc0);
-        debug_console.current_base -= 31*64;
+        // move all text one line up
+        for(int i=0; i<(2048-64); i++)
+        {
+            debug_console.console_character_buffer[i] = debug_console.console_character_buffer[i+64];
+            debug_console.console_foreground_color_buffer[i] = debug_console.console_foreground_color_buffer[i+64];
+            debug_console.console_background_color_buffer[i] = debug_console.console_background_color_buffer[i+64];
+        }
+        debug_console.cursor_pos -= 64;
         uint16_t start_pos = debug_console.cursor_pos & 0xffc0;
         for(int i=0; i<64; i++)
         {
@@ -70,6 +75,24 @@ void debug_console_add_row_if_necessary()
             debug_console.console_background_color_buffer[start_pos] = debug_console.current_background_color;
             start_pos++;
         }
+    }
+}
+
+void debug_console_add_top_row()
+{
+    for(int i=2047; i>63; i--)
+    {
+        debug_console.console_character_buffer[i] = debug_console.console_character_buffer[i-64];
+        debug_console.console_foreground_color_buffer[i] = debug_console.console_foreground_color_buffer[i-64];
+        debug_console.console_background_color_buffer[i] = debug_console.console_background_color_buffer[i-64];
+    }
+    uint16_t start_pos = debug_console.cursor_pos & 0xffc0;
+    for(int i=0; i<64; i++)
+    {
+        debug_console.console_character_buffer[start_pos] = ascii_to_screencode[ASCII_SPACE];
+        debug_console.console_foreground_color_buffer[start_pos] = debug_console.current_foreground_color;
+        debug_console.console_background_color_buffer[start_pos] = debug_console.current_background_color;
+        start_pos++;
     }
 }
 
@@ -89,7 +112,7 @@ void debug_console_putchar(char character)
             debug_console.cursor_pos++;
             break;
     }
-    debug_console_add_row_if_necessary();
+    debug_console_add_bottom_row_if_necessary();
     debug_console_cursor_activate();
 }
 
@@ -107,9 +130,9 @@ void debug_console_blit_to_debug_screen(void)
 {
     for(int i = 0; i < 2048; i++)
     {
-        debug_screen_character_buffer[i] = debug_console.console_character_buffer[(debug_console.current_base+i)&65535];
-        debug_screen_foreground_color_buffer[i] = debug_console.console_foreground_color_buffer[(debug_console.current_base+i)&65535];
-        debug_screen_background_color_buffer[i] = debug_console.console_background_color_buffer[(debug_console.current_base+i)&65535];
+        debug_screen_character_buffer[i] = debug_console.console_character_buffer[i];
+        debug_screen_foreground_color_buffer[i] = debug_console.console_foreground_color_buffer[i];
+        debug_screen_background_color_buffer[i] = debug_console.console_background_color_buffer[i];
     }
     if( debug_console.status_bar_active == true )
     {
@@ -176,14 +199,14 @@ void debug_console_arrow_left()
     debug_console.cursor_pos--;
     if( debug_console.status_bar_active)
     {
-        if( (debug_console.cursor_pos - debug_console.current_base) < (debug_console.status_bar_rows * 64) )
+        if( debug_console.cursor_pos < (debug_console.status_bar_rows * 64) )
         {
             debug_console.cursor_pos++;
         }
     }
     else
     {
-        if( (debug_console.cursor_pos - debug_console.current_base) & 0x8000 )
+        if( debug_console.cursor_pos < 0 )
         {
             debug_console.cursor_pos++;
         }
@@ -195,7 +218,7 @@ void debug_console_arrow_right()
 {
     debug_console_cursor_deactivate();
     debug_console.cursor_pos++;
-    debug_console_add_row_if_necessary();
+    debug_console_add_bottom_row_if_necessary();
     debug_console_cursor_activate();
 }
 
@@ -205,16 +228,18 @@ void debug_console_arrow_up()
     debug_console.cursor_pos -= 0x40;
     if( debug_console.status_bar_active)
     {
-        if( (debug_console.cursor_pos - debug_console.current_base) < (debug_console.status_bar_rows * 64) )
+        if( debug_console.cursor_pos < (debug_console.status_bar_rows * 64) )
         {
             debug_console.cursor_pos += 0x40;
+            debug_console_add_top_row();
         }
     }
     else
     {
-        if( (debug_console.cursor_pos - debug_console.current_base) & 0x8000 )
+        if( debug_console.cursor_pos < 0 )
         {
             debug_console.cursor_pos += 0x40;
+            debug_console_add_top_row();
         }
     }
     debug_console_cursor_activate();
@@ -224,7 +249,7 @@ void debug_console_arrow_down()
 {
     debug_console_cursor_deactivate();
     debug_console.cursor_pos += 0x40;
-    debug_console_add_row_if_necessary();
+    debug_console_add_bottom_row_if_necessary();
     debug_console_cursor_activate();
 }
 
@@ -254,7 +279,7 @@ void debug_console_backspace()
     bool cursor_move = true;
     if( debug_console.status_bar_active)
     {
-        if( (debug_console.cursor_pos - debug_console.current_base) < (debug_console.status_bar_rows * 64) )
+        if( debug_console.cursor_pos < (debug_console.status_bar_rows * 64) )
         {
             debug_console.cursor_pos++;
             cursor_move = false;
@@ -262,7 +287,7 @@ void debug_console_backspace()
     }
     else
     {
-        if( (debug_console.cursor_pos - debug_console.current_base) & 0x8000 )
+        if( debug_console.cursor_pos < 0 )
         {
             debug_console.cursor_pos++;
             cursor_move = false;
@@ -302,22 +327,18 @@ void debug_console_insert()
 
 void debug_console_clear()
 {
-    debug_console.current_base += 0x0800;
-    debug_console.cursor_pos = debug_console.current_base;
-    // use uint16_t pointer to make sure it wraps after 65535 to 0
-    uint16_t temp_pointer = debug_console.current_base;
+    debug_console.cursor_pos = 0;
     for(int i = 0; i < 2048; i++)
     {
-        debug_console.console_character_buffer[temp_pointer] = ascii_to_screencode[ASCII_SPACE];
-        debug_console.console_background_color_buffer[temp_pointer] = debug_console.current_background_color;
-        debug_console.console_foreground_color_buffer[temp_pointer] = debug_console.current_foreground_color;
-        temp_pointer++;
+        debug_console.console_character_buffer[i] = ascii_to_screencode[ASCII_SPACE];
+        debug_console.console_background_color_buffer[i] = debug_console.current_background_color;
+        debug_console.console_foreground_color_buffer[i] = debug_console.current_foreground_color;
     }
     if( debug_console.status_bar_active == true )
     {
-        if( (debug_console.cursor_pos - debug_console.current_base) < (debug_console.status_bar_rows * 64) )
+        if( debug_console.cursor_pos < (debug_console.status_bar_rows * 64) )
         {
-            debug_console.cursor_pos = debug_console.current_base + (debug_console.status_bar_rows * 64);
+            debug_console.cursor_pos = debug_console.status_bar_rows * 64;
         }
     }
 }
@@ -331,9 +352,9 @@ void debug_console_toggle_status_bar()
     else
     {
         debug_console.status_bar_active = true;
-        if( (debug_console.cursor_pos - debug_console.current_base) < (debug_console.status_bar_rows * 64) )
+        if( debug_console.cursor_pos < (debug_console.status_bar_rows * 64) )
         {
-            debug_console.cursor_pos = debug_console.current_base + (debug_console.status_bar_rows * 64);
+            debug_console.cursor_pos = debug_console.status_bar_rows * 64;
         }
     }
 }

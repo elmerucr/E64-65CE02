@@ -13,7 +13,7 @@
 
 #define E64_MAJOR_VERSION       0
 #define E64_MINOR_VERSION       4
-#define E64_BUILD               20200101
+#define E64_BUILD               20200102
 #define E64_YEAR                2020
 
 // E64_I or E64_II must be defined externally by the build system
@@ -39,7 +39,7 @@
     #define IO_TIMER_PAGE               0x01ff06
     #define IO_RESET_VECTOR_MASK        0xfffffff8
     #define IO_KERNEL_MASK              0x01fe
-    #define DEBUGGER_FOREGROUND_COLOR   0x39
+    #define DEBUGGER_FOREGROUND_COLOR   0x3b
     #define DEBUGGER_BACKGROUND_COLOR   0x34
 #endif
 

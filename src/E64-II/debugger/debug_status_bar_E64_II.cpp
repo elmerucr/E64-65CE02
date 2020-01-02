@@ -20,11 +20,11 @@ void debug_status_bar_clear()
     for(int i=0; i<(debug_console.status_bar_rows * 64); i++)
     {
         status_bar_chars[i] = ascii_to_screencode[ASCII_SPACE];
-        status_bar_foreground_color_buffer[i] = 0x3b;
+        status_bar_foreground_color_buffer[i] = 0x3d;
         status_bar_background_color_buffer[i] = 0x36;
     }
     debug_console.status_bar_cursor_pos = 0;
-    debug_console.status_bar_foreground_color = 0x3b;  // default value
+    debug_console.status_bar_foreground_color = 0x3d;  // default value
     debug_console.status_bar_background_color = 0x36;  // default value
 }
 
