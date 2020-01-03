@@ -16,12 +16,12 @@ extern "C"
 E64::cpu_m68k::cpu_m68k()
 {
     // init breakpoints
-    m68kbreakpoints_array = (bool *)malloc(2 * RAM_SIZE * sizeof(bool));
-    for(int i=0; i<(2 * RAM_SIZE); i++) m68kbreakpoints_array[i] = false;
+    m68kbreakpoints_array = (bool *)malloc(RAM_SIZE * sizeof(bool));
+    for(int i=0; i<(RAM_SIZE); i++) m68kbreakpoints_array[i] = false;
     disable_breakpoints();
     m68kbreakpoints_force_next_instruction = false;
     // init cpu
-    m68k_set_cpu_type(M68K_CPU_TYPE_68020);
+    m68k_set_cpu_type(M68K_CPU_TYPE_68000);
     m68k_init();
 }
 
@@ -43,7 +43,7 @@ bool E64::cpu_m68k::breakpoints_active()
 
 bool E64::cpu_m68k::is_breakpoint(uint32_t address)
 {
-    if(m68kbreakpoints_array[address & ((2 * RAM_SIZE) - 1)] == true)
+    if(m68kbreakpoints_array[address & (RAM_SIZE - 1)] == true)
     {
         return true;
     }
@@ -65,12 +65,12 @@ void E64::cpu_m68k::disable_breakpoints()
 
 void E64::cpu_m68k::add_breakpoint(uint32_t address)
 {
-    m68kbreakpoints_array[address & ((2*RAM_SIZE) - 1)] = true;
+    m68kbreakpoints_array[address & (RAM_SIZE - 1)] = true;
 }
 
 void E64::cpu_m68k::remove_breakpoint(uint32_t address)
 {
-    m68kbreakpoints_array[address & ((2*RAM_SIZE) - 1)] = false;
+    m68kbreakpoints_array[address & (RAM_SIZE - 1)] = false;
 }
 
 void E64::cpu_m68k::force_next_instruction()
@@ -88,13 +88,13 @@ void E64::cpu_m68k::dump_registers(char *temp_string)
     n = snprintf(temp_string,max,"d1:%08x a1:%08x usp:%08x\n", m68k_get_reg(NULL, M68K_REG_D1), m68k_get_reg(NULL, M68K_REG_A1), m68k_get_reg(NULL, M68K_REG_USP));
     temp_string += n;
     max -= n;
-    n = snprintf(temp_string,max,"d2:%08x a2:%08x isp:%08x\n", m68k_get_reg(NULL, M68K_REG_D2), m68k_get_reg(NULL, M68K_REG_A2), m68k_get_reg(NULL, M68K_REG_ISP));
+    n = snprintf(temp_string,max,"d2:%08x a2:%08x ssp:%08x\n", m68k_get_reg(NULL, M68K_REG_D2), m68k_get_reg(NULL, M68K_REG_A2), m68k_get_reg(NULL, M68K_REG_ISP));
     temp_string += n;
     max -= n;
-    n = snprintf(temp_string,max,"d3:%08x a3:%08x msp:%08x\n", m68k_get_reg(NULL, M68K_REG_D3), m68k_get_reg(NULL, M68K_REG_A3), m68k_get_reg(NULL, M68K_REG_MSP));
+    n = snprintf(temp_string,max,"d3:%08x a3:%08x\n", m68k_get_reg(NULL, M68K_REG_D3), m68k_get_reg(NULL, M68K_REG_A3));
     temp_string += n;
     max -= n;
-    n = snprintf(temp_string,max,"d4:%08x a4:%08x vbr:%08x\n", m68k_get_reg(NULL, M68K_REG_D4), m68k_get_reg(NULL, M68K_REG_A4), m68k_get_reg(NULL, M68K_REG_VBR));
+    n = snprintf(temp_string,max,"d4:%08x a4:%08x\n", m68k_get_reg(NULL, M68K_REG_D4), m68k_get_reg(NULL, M68K_REG_A4));
     temp_string += n;
     max -= n;
     n = snprintf(temp_string,max,"d5:%08x a5:%08x  sr:    %04x\n", m68k_get_reg(NULL, M68K_REG_D5), m68k_get_reg(NULL, M68K_REG_A5), m68k_get_reg(NULL, M68K_REG_SR));
@@ -112,7 +112,7 @@ void E64::cpu_m68k::dump_status_register(char *temp_string)
 {
     int n;
     int max = 2048;
-    n = snprintf(temp_string,max,"ttsm-ipl---xnzvc\n");
+    n = snprintf(temp_string,max,"t-s--ipl---xnzvc\n");
     temp_string += n;
     max -= n;
     uint16_t temp_sr = m68k_get_reg(NULL, M68K_REG_SR);
@@ -143,8 +143,8 @@ int E64::cpu_m68k::run(int no_of_cycles)
 int E64::cpu_m68k::disassemble(char *temp_string, uint32_t pc)
 {
     char instruction[256];
-    int n = m68k_disassemble(instruction, pc, M68K_CPU_TYPE_68020);
-    snprintf(temp_string, 256, "%08x %s", pc, instruction);
+    int n = m68k_disassemble(instruction, pc, M68K_CPU_TYPE_68000);
+    snprintf(temp_string, 256, "%06x %s", pc, instruction);
     return n;
 }
 

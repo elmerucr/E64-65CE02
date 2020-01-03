@@ -34,6 +34,10 @@ todo / bugs
     - works automatically in fullscreen
 - with any change to irq related pins, directly call c256_exceptions_collector_update(), it's not in the main loop
 
+2020
+====
+2020-01-03 Changed to 68000 (in stead of 68020)
+
 2019
 ====
 2019-12-15 debugger in E64-II defaults to cobalt colors

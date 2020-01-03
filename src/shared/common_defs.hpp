@@ -33,12 +33,12 @@
     #include "machine_E64_II.hpp"
     #define APPLICATION_NAME            "E64-II"
     #define CPU_CLOCK_SPEED             8192000     // 8MHz system
-    #define IO_CIA_PAGE                 0x01ff03
-    #define IO_VICV_PAGE                0x01ff04
-    #define IO_SND_PAGE                 0x01ff05
-    #define IO_TIMER_PAGE               0x01ff06
-    #define IO_RESET_VECTOR_MASK        0xfffffff8
-    #define IO_KERNEL_MASK              0x01fe
+    #define IO_CIA_PAGE                 0xfe03
+    #define IO_VICV_PAGE                0xfe04
+    #define IO_SND_PAGE                 0xfe05
+    #define IO_TIMER_PAGE               0xfe06
+    #define IO_RESET_VECTOR_MASK        0xfffff8
+    #define IO_KERNEL_MASK              0xff
     #define DEBUGGER_FOREGROUND_COLOR   0x3b
     #define DEBUGGER_BACKGROUND_COLOR   0x34
 #endif

@@ -199,7 +199,7 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
                     temp_32bit = debug_command_hex_string_to_int(token1);
                     if( token2 == NULL)
                     {
-                        debug_command_memory_dump(temp_32bit, 8);
+                        debug_command_memory_dump(temp_32bit & (RAM_SIZE - 1), 8);
                     }
 //                    else
 //                    {
@@ -321,7 +321,7 @@ void E64::debug_command_memory_dump(uint32_t address, int rows)
     for(int i=0; i<rows; i++ )
     {
         uint32_t temp_address = address;
-        snprintf(command_help_string, 256, ".:%08x", temp_address);
+        snprintf(command_help_string, 256, ".:%06x", temp_address);
         debug_console_print(command_help_string);
         for(int i=0; i<16; i++)
         {
@@ -329,6 +329,7 @@ void E64::debug_command_memory_dump(uint32_t address, int rows)
             snprintf(command_help_string, 256, "%02x", computer.mmu_ic->read_memory_8(temp_address));
             debug_console_print(command_help_string);
             temp_address++;
+            temp_address &= RAM_SIZE - 1;
         }
         debug_console_print(" ");
         temp_address = address;
@@ -340,6 +341,7 @@ void E64::debug_command_memory_dump(uint32_t address, int rows)
             temp_address++;
         }
         address += 16;
+        address &= RAM_SIZE - 1;
         debug_console_print("\n");
     }
 }
