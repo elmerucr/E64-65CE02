@@ -65,7 +65,6 @@
 		46757FB2236EF6A1000F0110 /* pid_delay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46757FB0236EF6A1000F0110 /* pid_delay.cpp */; };
 		46757FB3236EF6A1000F0110 /* pid_delay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46757FB0236EF6A1000F0110 /* pid_delay.cpp */; };
 		468022F52376D46E00F59C91 /* cpu_mmu_bridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468022F42376D46E00F59C91 /* cpu_mmu_bridge.cpp */; };
-		468022F82376D4CE00F59C91 /* m68kbreakpoints.c in Sources */ = {isa = PBXBuildFile; fileRef = 468022F62376D4CD00F59C91 /* m68kbreakpoints.c */; };
 		468022F92376DB8E00F59C91 /* patched_char_rom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46C069E823699BA600B1DCB4 /* patched_char_rom.cpp */; };
 		468022FF2376E1FB00F59C91 /* debug_command_E64_II.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468022FB2376E1FB00F59C91 /* debug_command_E64_II.cpp */; };
 		468023002376E1FB00F59C91 /* debug_status_bar_E64_II.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468022FD2376E1FB00F59C91 /* debug_status_bar_E64_II.cpp */; };
@@ -154,8 +153,6 @@
 		46757FB0236EF6A1000F0110 /* pid_delay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pid_delay.cpp; path = ../../../src/shared/pid_delay.cpp; sourceTree = "<group>"; };
 		46757FB1236EF6A1000F0110 /* pid_delay.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = pid_delay.hpp; path = ../../../src/shared/pid_delay.hpp; sourceTree = "<group>"; };
 		468022F42376D46E00F59C91 /* cpu_mmu_bridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cpu_mmu_bridge.cpp; path = "../../../src/E64-II/devices/cpu/cpu_mmu_bridge.cpp"; sourceTree = "<group>"; };
-		468022F62376D4CD00F59C91 /* m68kbreakpoints.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kbreakpoints.c; path = "../../../src/E64-II/devices/cpu/m68kbreakpoints.c"; sourceTree = "<group>"; };
-		468022F72376D4CE00F59C91 /* m68kbreakpoints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m68kbreakpoints.h; path = "../../../src/E64-II/devices/cpu/m68kbreakpoints.h"; sourceTree = "<group>"; };
 		468022FB2376E1FB00F59C91 /* debug_command_E64_II.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = debug_command_E64_II.cpp; path = "../../../src/E64-II/debugger/debug_command_E64_II.cpp"; sourceTree = "<group>"; };
 		468022FC2376E1FB00F59C91 /* debug_command_E64_II.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = debug_command_E64_II.hpp; path = "../../../src/E64-II/debugger/debug_command_E64_II.hpp"; sourceTree = "<group>"; };
 		468022FD2376E1FB00F59C91 /* debug_status_bar_E64_II.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = debug_status_bar_E64_II.cpp; path = "../../../src/E64-II/debugger/debug_status_bar_E64_II.cpp"; sourceTree = "<group>"; };
@@ -530,8 +527,6 @@
 				46723D3E2365E46D007ADDC2 /* Musashi */,
 				46AB7605236DA7DC00AF2F14 /* cpu_m68k.hpp */,
 				46AB7606236DA7DC00AF2F14 /* cpu_m68k.cpp */,
-				468022F72376D4CE00F59C91 /* m68kbreakpoints.h */,
-				468022F62376D4CD00F59C91 /* m68kbreakpoints.c */,
 				468022F42376D46E00F59C91 /* cpu_mmu_bridge.cpp */,
 			);
 			name = cpu;
@@ -671,7 +666,6 @@
 				46050A87236983B40073A85F /* sid.cc in Sources */,
 				46050A81236983B40073A85F /* wave6581__ST.cc in Sources */,
 				46050A89236983B40073A85F /* version.cc in Sources */,
-				468022F82376D4CE00F59C91 /* m68kbreakpoints.c in Sources */,
 				46D0E6B223663BC000F32578 /* main.cpp in Sources */,
 				46050A8D236983CD0073A85F /* sound.cpp in Sources */,
 				46CE158F2374B15D00369A13 /* debug_console.cpp in Sources */,

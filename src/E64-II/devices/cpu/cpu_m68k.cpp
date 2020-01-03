@@ -4,10 +4,6 @@
 //  Copyright © 2019 elmerucr. All rights reserved.
 
 #include "m68k.h"
-extern "C"
-{
-#include "m68kbreakpoints.h"
-}
 
 #include <cstdlib>
 #include "cpu_m68k.hpp"
@@ -16,10 +12,10 @@ extern "C"
 E64::cpu_m68k::cpu_m68k()
 {
     // init breakpoints
-    m68kbreakpoints_array = (bool *)malloc(RAM_SIZE * sizeof(bool));
-    for(int i=0; i<(RAM_SIZE); i++) m68kbreakpoints_array[i] = false;
+    breakpoints_array = (bool *)malloc(RAM_SIZE * sizeof(bool));
+    for(int i=0; i<(RAM_SIZE); i++) breakpoints_array[i] = false;
     disable_breakpoints();
-    m68kbreakpoints_force_next_instruction = false;
+    breakpoints_force_next_instruction = false;
     // init cpu
     m68k_set_cpu_type(M68K_CPU_TYPE_68000);
     m68k_init();
@@ -28,7 +24,7 @@ E64::cpu_m68k::cpu_m68k()
 E64::cpu_m68k::~cpu_m68k()
 {
     // cleanup breakpoints
-    free(m68kbreakpoints_array);
+    free(breakpoints_array);
 }
 
 void E64::cpu_m68k::reset()
@@ -36,14 +32,14 @@ void E64::cpu_m68k::reset()
     m68k_pulse_reset();
 }
 
-bool E64::cpu_m68k::breakpoints_active()
+bool E64::cpu_m68k::are_breakpoints_active()
 {
-    return m68kbreakpoints_active;
+    return breakpoints_active;
 }
 
 bool E64::cpu_m68k::is_breakpoint(uint32_t address)
 {
-    if(m68kbreakpoints_array[address & (RAM_SIZE - 1)] == true)
+    if(breakpoints_array[address & (RAM_SIZE - 1)] == true)
     {
         return true;
     }
@@ -55,27 +51,27 @@ bool E64::cpu_m68k::is_breakpoint(uint32_t address)
 
 void E64::cpu_m68k::activate_breakpoints()
 {
-    m68kbreakpoints_active = true;
+    breakpoints_active = true;
 }
 
 void E64::cpu_m68k::disable_breakpoints()
 {
-    m68kbreakpoints_active = false;
+    breakpoints_active = false;
 }
 
 void E64::cpu_m68k::add_breakpoint(uint32_t address)
 {
-    m68kbreakpoints_array[address & (RAM_SIZE - 1)] = true;
+    breakpoints_array[address & (RAM_SIZE - 1)] = true;
 }
 
 void E64::cpu_m68k::remove_breakpoint(uint32_t address)
 {
-    m68kbreakpoints_array[address & (RAM_SIZE - 1)] = false;
+    breakpoints_array[address & (RAM_SIZE - 1)] = false;
 }
 
 void E64::cpu_m68k::force_next_instruction()
 {
-    m68kbreakpoints_force_next_instruction = true;
+    breakpoints_force_next_instruction = true;
 }
 
 void E64::cpu_m68k::dump_registers(char *temp_string)
@@ -127,17 +123,38 @@ void E64::cpu_m68k::dump_status_register(char *temp_string)
 
 int E64::cpu_m68k::run(int no_of_cycles)
 {
+    int initial_cycles = no_of_cycles;
+    
     exit_code_run_function = 0;
-    unsigned int n = 0;
-//    while(no_of_cycles >= 0)
-//    {
-//        int i = m68k_execute(0);
-//        n += i;
-//        no_of_cycles -= n;
-//    }
-    n = m68k_execute(no_of_cycles);
-    if(m68kbreakpoint_condition == true) exit_code_run_function = 1;
-    return n;
+    
+    breakpoint_condition = false;                   // this is the default state
+    if( breakpoints_active == true )                // are we checking for breakpoints at all?
+    {
+        if( breakpoints_array[(m68k_get_reg(NULL, M68K_REG_PC) & 0x00ffffff)] == true )     // do we have a breakpoint at the current pc?
+        {
+            if ( breakpoints_force_next_instruction == false )  // make sure we don't want to force the next instr
+            {
+                breakpoint_condition = true;        // we have a breakpoint here before the loop starts
+            }
+        }
+    }
+    breakpoints_force_next_instruction = false;     // make sure, for a next instruction, we're able to stop on a breakpoint again
+    
+    if( !breakpoint_condition )
+    {
+        do
+        {
+            no_of_cycles -= m68k_execute(0);
+            if(breakpoints_active && (breakpoints_array[m68k_get_reg(NULL, M68K_REG_PC)] == true) )
+            {
+                initial_cycles -= no_of_cycles;
+                no_of_cycles = 0;
+            }
+        }
+        while (no_of_cycles > 0);
+    }
+    if(breakpoint_condition == true) exit_code_run_function = 1;
+    return initial_cycles - no_of_cycles;
 }
 
 int E64::cpu_m68k::disassemble(char *temp_string, uint32_t pc)

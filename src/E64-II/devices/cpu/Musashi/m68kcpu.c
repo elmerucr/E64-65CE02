@@ -47,10 +47,6 @@ extern void m68ki_build_opcode_table(void);
 #include "m68kops.h"
 #include "m68kcpu.h"
 
-// elmerucr
-#include "m68kbreakpoints.h"
-// elmerucr
-
 /* ======================================================================== */
 /* ================================= DATA ================================= */
 /* ======================================================================== */
@@ -797,55 +793,30 @@ int m68k_execute(int num_cycles)
 		/* Return point if we had an address error */
 		m68ki_set_address_error_trap(); /* auto-disable (see m68kcpu.h) */
 
-		// elmerucr
-		m68kbreakpoint_condition = false;                   // this is the default state
-		if( m68kbreakpoints_active == true )                // are we checking for breakpoints at all?
-		{
-			if( m68kbreakpoints_array[(REG_PC & 0x01ffffff)] == true )     // do we have a breakpoint at the current pc?
-			{
-				if ( m68kbreakpoints_force_next_instruction == false )  // make sure we don't want to force the next instr
-				{
-					m68kbreakpoint_condition = true;        // we have a breakpoint here before the loop starts
-				}
-			}
-		}
-		m68kbreakpoints_force_next_instruction = false;     // make sure, for a next instruction, we're able to stop on a breakpoint again
-		// elmerucr
-
 		/* Main loop.  Keep going until we run out of clock cycles */
-		// elmerucr
-		if( !m68kbreakpoint_condition )
-		{
-		// elmerucr
-			do
-			{
-				/* Set tracing accodring to T1. (T0 is done inside instruction) */
-				m68ki_trace_t1(); /* auto-disable (see m68kcpu.h) */
+        do
+        {
+            /* Set tracing accodring to T1. (T0 is done inside instruction) */
+            m68ki_trace_t1(); /* auto-disable (see m68kcpu.h) */
 
-				/* Set the address space for reads */
-				m68ki_use_data_space(); /* auto-disable (see m68kcpu.h) */
+            /* Set the address space for reads */
+            m68ki_use_data_space(); /* auto-disable (see m68kcpu.h) */
 
-				/* Call external hook to peek at CPU */
-				m68ki_instr_hook(REG_PC); /* auto-disable (see m68kcpu.h) */
+            /* Call external hook to peek at CPU */
+            m68ki_instr_hook(REG_PC); /* auto-disable (see m68kcpu.h) */
 
-				/* Record previous program counter */
-				REG_PPC = REG_PC;
+            /* Record previous program counter */
+            REG_PPC = REG_PC;
 
-				/* Read an instruction and call its handler */
-				REG_IR = m68ki_read_imm_16();
-				m68ki_instruction_jump_table[REG_IR]();
-				USE_CYCLES(CYC_INSTRUCTION[REG_IR]);
+            /* Read an instruction and call its handler */
+            REG_IR = m68ki_read_imm_16();
+            m68ki_instruction_jump_table[REG_IR]();
+            USE_CYCLES(CYC_INSTRUCTION[REG_IR]);
 
-				/* Trace m68k_exception, if necessary */
-				m68ki_exception_if_trace(); /* auto-disable (see m68kcpu.h) */
-
-				// elmerucr addition
-				if(m68kbreakpoints_active && (m68kbreakpoints_array[REG_PC] == true) ) m68k_end_timeslice();
-				// end elmerucr addition
-			} while(GET_CYCLES() > 0);
-		// elmerucr
-		}
-		// elmerucr
+            /* Trace m68k_exception, if necessary */
+            m68ki_exception_if_trace(); /* auto-disable (see m68kcpu.h) */
+            
+        } while(GET_CYCLES() > 0);
 
 		/* set previous PC to current PC for the next entry into the loop */
 		REG_PPC = REG_PC;

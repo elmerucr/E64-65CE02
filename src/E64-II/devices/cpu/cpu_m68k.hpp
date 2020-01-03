@@ -13,7 +13,10 @@ namespace E64
     class cpu_m68k
     {
     private:
-        
+        bool breakpoint_condition;
+        bool breakpoints_active;
+        bool *breakpoints_array;
+        bool breakpoints_force_next_instruction;
     public:
         cpu_m68k();
         ~cpu_m68k();
@@ -22,7 +25,7 @@ namespace E64
         
         // this function returns true if breakpoints in Musashi are activated
         // and false if not
-        bool breakpoints_active();
+        bool are_breakpoints_active();
         
         // this will activate breakpoints, if any are defined
         void activate_breakpoints();
@@ -44,7 +47,7 @@ namespace E64
         
         void set_irq(unsigned int level);
         
-        int exit_code_run_function;
+        int exit_code_run_function;                                 // default 0, 1 if breakpoint cond.
         int run(int no_of_cycles);
         int disassemble(char *temp_string, uint32_t pc);            // returns no of bytes for instruction
         void disassemble_next_instruction(char *temp_string);

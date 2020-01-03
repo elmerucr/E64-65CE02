@@ -34,7 +34,7 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     {
         if(token1 == NULL)
         {
-            if( computer.cpu_ic->breakpoints_active() )
+            if( computer.cpu_ic->are_breakpoints_active() )
             {
                 debug_console_print("system responds to breakpoints\n");
             }
@@ -43,12 +43,12 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
                 debug_console_print("system neglects breakpoints\n");
             }
             int count = 0;
-            for(int i = 0; i<(2*RAM_SIZE); i++)
+            for(int i = 0; i<(RAM_SIZE); i++)
             {
                 if( computer.cpu_ic->is_breakpoint(i) == true )
                 {
                     count++;
-                    snprintf(command_help_string, 256, "$%08x\n", i);
+                    snprintf(command_help_string, 256, "$%06x\n", i);
                     debug_console_print(command_help_string);
                 }
             }
@@ -64,16 +64,16 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
         }
         else
         {
-            uint32_t temp_32bit = debug_command_hex_string_to_int(token1) & ((2*RAM_SIZE) - 1);
+            uint32_t temp_32bit = debug_command_hex_string_to_int(token1) & (RAM_SIZE - 1);
             if( computer.cpu_ic->is_breakpoint(temp_32bit) )
             {
-                snprintf(command_help_string, 256, "breakpoint at $%08x removed\n", temp_32bit);
+                snprintf(command_help_string, 256, "breakpoint at $%06x removed\n", temp_32bit);
                 debug_console_print(command_help_string);
                 computer.cpu_ic->remove_breakpoint(temp_32bit);
             }
             else
             {
-                snprintf(command_help_string, 256, "breakpoint at $%08x added\n", temp_32bit);
+                snprintf(command_help_string, 256, "breakpoint at $%06x added\n", temp_32bit);
                 debug_console_print(command_help_string);
                 computer.cpu_ic->add_breakpoint(temp_32bit);
             }

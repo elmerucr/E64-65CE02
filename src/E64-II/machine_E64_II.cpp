@@ -94,7 +94,7 @@ int E64::machine::run(uint16_t no_of_cycles)
     if( this->cpu_ic->exit_code_run_function == 1 )
     {
         // cpu breakpoint encountered
-        snprintf(machine_help_string, 256, "\ncpu breakpoint occurred at $%08x\n.", cpu_ic->get_pc());
+        snprintf(machine_help_string, 256, "\ncpu breakpoint occurred at $%06x\n.", cpu_ic->get_pc());
         debug_console_print(machine_help_string);
         exit_code = CPU_BREAKPOINT;
     }
