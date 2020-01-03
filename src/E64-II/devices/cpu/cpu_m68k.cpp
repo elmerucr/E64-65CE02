@@ -128,7 +128,14 @@ void E64::cpu_m68k::dump_status_register(char *temp_string)
 int E64::cpu_m68k::run(int no_of_cycles)
 {
     exit_code_run_function = 0;
-    unsigned int n = m68k_execute(no_of_cycles);
+    unsigned int n = 0;
+//    while(no_of_cycles >= 0)
+//    {
+//        int i = m68k_execute(0);
+//        n += i;
+//        no_of_cycles -= n;
+//    }
+    n = m68k_execute(no_of_cycles);
     if(m68kbreakpoint_condition == true) exit_code_run_function = 1;
     return n;
 }
