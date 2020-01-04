@@ -27,6 +27,11 @@ namespace E64
         // and false if not
         bool are_breakpoints_active();
         
+        inline int is_breakpoint_condition()
+        {
+            return breakpoint_condition ? 1 : 0;
+        }
+        
         // this will activate breakpoints, if any are defined
         void activate_breakpoints();
         
