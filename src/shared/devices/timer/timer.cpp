@@ -50,25 +50,25 @@ void E64::timer::run(uint32_t number_of_cycles)
     {
         timer0_counter -= timer0_clock_interval;
         irq_pin = false;
-        registers[0] |= 0x81;
+        registers[0] |= 0x81;       // turn on bits 7 and 0
     }
     if( (timer1_counter >= timer1_clock_interval) && (registers[1] & 0x02) )
     {
         timer1_counter -= timer1_clock_interval;
         irq_pin = false;
-        registers[0] |= 0x82;
+        registers[0] |= 0x82;       // turn on bits 7 and 1
     }
     if( (timer2_counter >= timer2_clock_interval) && (registers[1] & 0x04) )
     {
         timer2_counter -= timer2_clock_interval;
         irq_pin = false;
-        registers[0] |= 0x84;
+        registers[0] |= 0x84;       // turn on bits 7 and 2
     }
     if( (timer3_counter >= timer3_clock_interval) && (registers[1] & 0x08) )
     {
         timer3_counter -= timer3_clock_interval;
         irq_pin = false;
-        registers[0] |= 0x88;
+        registers[0] |= 0x88;       // turn on bits 7 and 3
     }
 }
 
@@ -102,6 +102,7 @@ void E64::timer::write_byte(uint8_t address, uint8_t byte)
             registers[0] = (~(byte & 0x0f)) & registers[0];
             if( (registers[0] & 0x0f) == 0 )
             {
+                // there are no pending interrupts anymore
                 irq_pin = true;
                 registers[0] = 0x00;    // clear timer status register
             }

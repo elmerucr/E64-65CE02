@@ -32,11 +32,6 @@ void E64::cpu_m68k::reset()
     m68k_pulse_reset();
 }
 
-bool E64::cpu_m68k::are_breakpoints_active()
-{
-    return breakpoints_active;
-}
-
 bool E64::cpu_m68k::is_breakpoint(uint32_t address)
 {
     if(breakpoints_array[address & (RAM_SIZE - 1)] == true)
@@ -47,11 +42,6 @@ bool E64::cpu_m68k::is_breakpoint(uint32_t address)
     {
         return false;
     }
-}
-
-void E64::cpu_m68k::activate_breakpoints()
-{
-    breakpoints_active = true;
 }
 
 void E64::cpu_m68k::disable_breakpoints()
@@ -124,36 +114,28 @@ void E64::cpu_m68k::dump_status_register(char *temp_string)
 int E64::cpu_m68k::run(int no_of_cycles)
 {
     int initial_cycles = no_of_cycles;
-    
-    exit_code_run_function = 0;
-    
-    breakpoint_condition = false;                   // this is the default state
-    if( breakpoints_active == true )                // are we checking for breakpoints at all?
+    breakpoint_condition = false;       // default state
+    if( breakpoints_active && !breakpoints_force_next_instruction )
     {
-        if( breakpoints_array[(m68k_get_reg(NULL, M68K_REG_PC) & 0x00ffffff)] == true )     // do we have a breakpoint at the current pc?
-        {
-            if ( breakpoints_force_next_instruction == false )  // make sure we don't want to force the next instr
-            {
-                breakpoint_condition = true;        // we have a breakpoint here before the loop starts
-            }
-        }
+        if( breakpoints_array[ (m68k_get_reg(NULL, M68K_REG_PC) & 0xffffff) ]) breakpoint_condition = true;
     }
-    breakpoints_force_next_instruction = false;     // make sure, for a next instruction, we're able to stop on a breakpoint again
+    // for a next instruction, we must be able to stop on a breakpoint again
+    breakpoints_force_next_instruction = false;
     
     if( !breakpoint_condition )
     {
         do
         {
             no_of_cycles -= m68k_execute(0);
-            if(breakpoints_active && (breakpoints_array[m68k_get_reg(NULL, M68K_REG_PC)] == true) )
+            if( breakpoints_active && breakpoints_array[m68k_get_reg(NULL, M68K_REG_PC) & 0xffffff] )
             {
                 initial_cycles -= no_of_cycles;
                 no_of_cycles = 0;
+                breakpoint_condition = true;
             }
         }
         while (no_of_cycles > 0);
     }
-    if(breakpoint_condition == true) exit_code_run_function = 1;
     return initial_cycles - no_of_cycles;
 }
 

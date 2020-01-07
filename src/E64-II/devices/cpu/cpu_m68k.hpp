@@ -25,15 +25,12 @@ namespace E64
         
         // this function returns true if breakpoints in Musashi are activated
         // and false if not
-        bool are_breakpoints_active();
+        inline bool are_breakpoints_active() { return breakpoints_active; }
         
-        inline int is_breakpoint_condition()
-        {
-            return breakpoint_condition ? 1 : 0;
-        }
+        inline int is_breakpoint_condition() { return breakpoint_condition ? 1 : 0; }
         
         // this will activate breakpoints, if any are defined
-        void activate_breakpoints();
+        inline void activate_breakpoints() { breakpoints_active = true; }
         
         // this will disable any activated breakpoints
         void disable_breakpoints();
@@ -52,7 +49,6 @@ namespace E64
         
         void set_irq(unsigned int level);
         
-        int exit_code_run_function;                                 // default 0, 1 if breakpoint cond.
         int run(int no_of_cycles);
         int disassemble(char *temp_string, uint32_t pc);            // returns no of bytes for instruction
         void disassemble_next_instruction(char *temp_string);

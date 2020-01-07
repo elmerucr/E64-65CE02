@@ -91,7 +91,7 @@ int E64::machine::run(uint16_t no_of_cycles)
     // default exit_code of the function is 0, no breakpoints have occurred
     int exit_code = NOTHING;
     unsigned int processed_cycles = computer.cpu_ic->run(no_of_cycles);
-    if( this->cpu_ic->exit_code_run_function == 1 )
+    if( this->cpu_ic->is_breakpoint_condition() )
     {
         // cpu breakpoint encountered
         snprintf(machine_help_string, 256, "\ncpu breakpoint occurred at $%06x\n.", cpu_ic->get_pc());

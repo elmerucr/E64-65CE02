@@ -25,11 +25,18 @@ kernel_main
 	move.l	a0,VEC_30_LEVEL6_IRQ_AUTOVECT
 	lea		interrupt_7_autovector,a0
 	move.l	a0,VEC_31_LEVEL7_IRQ_AUTOVECT
+	lea		timer0_irq_handler_continued,a0
+	move.l	a0,TIMER0_VECTOR
+	lea		timer1_irq_handler_continued,a0
+	move.l	a0,TIMER1_VECTOR
 
 	; set up timer0 interrupt
-	;move.w	#$0bb8,TIMER_BASE+2		; load value 3000 ($0bb8 = 3000bpm = 50Hz) into high and low bytes
 	move.w	#$003c,TIMER_BASE+2		; load value 60 ($003c = 60bpm = 1Hz) into high and low bytes
 	ori.b	#%00000001,TIMER_BASE+1	; turn on interrupt generation by clock0
+	; set up timer1 interrupt
+	move.w	#$00f0,TIMER_BASE+2		; load value 240
+	ori.b	#%00000010,TIMER_BASE+1	; turn on interrupt generation by clock1
+
 
 	; set screen colors
 	move.b	#$00,VICV_BASE			; c64 black
@@ -99,22 +106,22 @@ kernel_main
 
 mainloop
 	; put something in the usp
-	movea.l	#$00d00000,a0
+	movea.l	#$c00000,a0
 	move	a0,usp
 
 	; copy keyboard state in to screen
-	moveq	#$0,d0
+.1	moveq	#$0,d0
 	movea.l	VICV_TXT,a0
 	lea		$400(a0),a0
 	lea		CIA_BASE,a1
 	lea		$80(a1),a1
-.1	move.b	(a1,d0),(a0,d0)
+.2	move.b	(a1,d0),(a0,d0)
 	addq	#$1,d0
 	cmp.b	#$49,d0
-	bne		.1
+	bne		.2
 
 	addq.b	#$1,$00f00080
-	bra.s	mainloop
+	bra.s	.1
 
 clear_screen
 	movem.l	d0-d1/a0-a2,-(a7)
@@ -175,13 +182,34 @@ put_string
 
 ; level 2 interrupt autovector (timer)
 interrupt_2_autovector
-	; acknowledge interrupt
-	ori.b	#%00000001,TIMER_BASE
+	nop								;
+	move.l	a0,-(a7)				; save a0
+timer0_irq_handler
+	btst	#0,TIMER_BASE			; did timer 0 cause the interrupt?
+	beq		timer1_irq_handler		; no, go to next timer
+	move.b	#%00000001,TIMER_BASE	; yes, acknowledge interrupt
+	movea.l	TIMER0_VECTOR,a0
+	jmp		(a0)
+timer0_irq_handler_continued
 	move.l	a0,-(a7)
 	movea.l	VICV_COL,a0
 	addq.b	#$1,(a0)
 	andi.b	#%00001111,(a0)
 	movea.l	(a7)+,a0
+timer1_irq_handler
+	btst	#1,TIMER_BASE
+	beq		timer2_irq_handler
+	move.b	#%00000010,TIMER_BASE
+	movea.l	TIMER1_VECTOR,a0
+	jmp		(a0)
+timer1_irq_handler_continued
+	move.l	a0,-(a7)
+	movea.l	VICV_COL,a0
+	addq.b	#$1,(1,a0)
+	andi.b	#%00001111,(1,a0)
+	movea.l	(a7)+,a0
+timer2_irq_handler
+	move.l	(a7)+,a0				; restore a0
 	rte
 
 ; level 6 interrupt autovector
@@ -191,6 +219,8 @@ interrupt_6_autovector
 ; level 7 interrupt autovector
 interrupt_7_autovector
 	rte
+
+
 
 ; string data
 welcome

@@ -1,7 +1,7 @@
 
 ; 64tass Turbo Assembler Macro V1.54.1900 listing file
 ; 64tass -b -C -L E64_kernel.lst -o E64_kernel.bin E64_kernel.asm
-; Thu Dec 26 22:26:06 2019
+; Mon Jan  6 23:15:20 2020
 
 ;Offset	;Hex		;Monitor	;Source
 
@@ -184,7 +184,7 @@
 .e108	ad 00 06	lda $0600		lda TIMER_BASE			; load ISR status
 .e10b	10 5b		bpl $e168		bpl cia_irq_handler		; did timer cause interrupt? No: (bit 7 = 0), skip to cia irq handler
 .e10d					timer0_irq_handler
-.e10d	85 e8		sta $e8			sta IP4L				; No: store acc in basepage
+.e10d	85 e8		sta $e8			sta IP4L				; Yes (bit 7 = 1): store ISR status in basepage
 .e10f	0f e8 14	bbr 0,$e8,$e126		bbr 0,IP4L,timer1_irq_handler
 .e112	a9 01		lda #$01		lda #%00000001
 .e114	8d 00 06	sta $0600		sta TIMER_BASE			; acknowledge

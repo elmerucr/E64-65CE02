@@ -174,10 +174,10 @@ irq_handler
 	; timer portion
 timer_irq_handler
 	lda TIMER_BASE			; load ISR status
-	bpl cia_irq_handler		; did timer cause interrupt? No: (bit 7 = 0), skip to cia irq handler
+	bpl cia_irq_handler		; did timer cause an interrupt? No: (bit 7 = 0), skip to cia irq handler
 timer0_irq_handler
-	sta IP4L				; No: store acc in basepage
-	bbr 0,IP4L,timer1_irq_handler
+	sta IP4L						; there is an interrupt, store ISR status in basepage
+	bbr 0,IP4L,timer1_irq_handler	; If not caused by timer 0, skip to timer 1
 	lda #%00000001
 	sta TIMER_BASE			; acknowledge
 	jmp (TIMER0_VECTOR)
