@@ -3,7 +3,10 @@
 //
 //  Copyright © 2019 elmerucr. All rights reserved.
 
-#include "m68k.h"
+extern "C"
+{
+    #include "m68k.h"
+}
 
 #include <cstdlib>
 #include "cpu_m68k.hpp"

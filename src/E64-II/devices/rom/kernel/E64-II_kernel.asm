@@ -182,7 +182,6 @@ put_string
 
 ; level 2 interrupt autovector (timer)
 interrupt_2_autovector
-	nop								;
 	move.l	a0,-(a7)				; save a0
 timer0_irq_handler
 	btst	#0,TIMER_BASE			; did timer 0 cause the interrupt?

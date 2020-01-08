@@ -36,6 +36,7 @@ todo / bugs
 
 2020
 ====
+2020-01-08 Revert back to old style Musashi 3.4: exception handling is preferred over new style
 2020-01-03 Changed to 68000 (in stead of 68020)
 
 2019
