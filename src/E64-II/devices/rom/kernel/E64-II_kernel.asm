@@ -42,7 +42,7 @@ kernel_main
 	move.b	#$00,VICV_BASE			; c64 black
 	move.b	#$06,VICV_BASE+1		; c64 blue
 	; set text color
-	move.b	#$0e,CURR_TEXT_COLOR	; c64 light blue
+	move.b	#$0c,CURR_TEXT_COLOR	; c64 grey
 
 	; set txt pointer
 	move.l	#$00f00000,VICV_TXT
@@ -223,7 +223,7 @@ interrupt_7_autovector
 
 ; string data
 welcome
-	dc.b	"E64-II (C)2019 kernel version 0.1.20191224",ASCII_LF,ASCII_NULL
+	dc.b	"E64-II (C)2019 kernel version 0.1.20200110",ASCII_LF,ASCII_NULL
 
 	align 1
 	include "E64-II_kernel_tables.asm"

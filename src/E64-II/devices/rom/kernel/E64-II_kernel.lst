@@ -213,8 +213,8 @@ F00:0042       	move.b	#$00,VICV_BASE			; c64 black
 F00:0043       	move.b	#$06,VICV_BASE+1		; c64 blue
                S01:00FF0074:  13 FC 00 06 00 FE 04 01
 F00:0044       	; set text color
-F00:0045       	move.b	#$0e,CURR_TEXT_COLOR	; c64 light blue
-               S01:00FF007C:  13 FC 00 0E 00 00 80 00
+F00:0045       	move.b	#$0c,CURR_TEXT_COLOR	; c64 grey
+               S01:00FF007C:  13 FC 00 0C 00 00 80 00
 F00:0046       
 F00:0047       	; set txt pointer
 F00:0048       	move.l	#$00f00000,VICV_TXT
@@ -509,7 +509,7 @@ F00:0222
 F00:0223       
 F00:0224       ; string data
 F00:0225       welcome
-F00:0226       	dc.b	"E64-II (C)2019 kernel version 0.1.20191224",ASCII_LF,ASCII_NULL
+F00:0226       	dc.b	"E64-II (C)2019 kernel version 0.1.20200110",ASCII_LF,ASCII_NULL
                S01:00FF0266:  45 36 34 2D 49 49 20 28 43 29 32 30 31 39 20 6B
                S01:00FF0276:  65 72 6E 65 6C 20 76 65 72 73 69 6F 6E 20 30 2E
                S01:00FF0286:  0A
