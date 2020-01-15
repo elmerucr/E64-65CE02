@@ -32,19 +32,19 @@ void debug_status_bar_refresh()
 {
     debug_status_bar_clear();
 
-    computer.cpu_ic->dump_registers(status_bar_help_string);
+    computer.m68k_ic->dump_registers(status_bar_help_string);
     debug_status_bar_set_cursor_pos( 1*64 +  0);
     debug_status_bar_print(status_bar_help_string);
     
-    computer.cpu_ic->dump_status_register(status_bar_help_string);
+    computer.m68k_ic->disassembleSR(computer.m68k_ic->getSR(), status_bar_help_string);
     debug_status_bar_set_cursor_pos( 1*64 + 40);
     debug_status_bar_print(status_bar_help_string);
     
     debug_status_bar_set_cursor_pos(10*64 +  0);
-    uint32_t temp_pc = computer.cpu_ic->get_pc();
+    uint32_t temp_pc = computer.m68k_ic->getPC();
     for(int i= 0; i<6; i++ )
     {
-        temp_pc += computer.cpu_ic->disassemble(status_bar_help_string, temp_pc);
+        temp_pc += computer.m68k_ic->disassemble(temp_pc, status_bar_help_string);
         debug_status_bar_print(status_bar_help_string);
         debug_status_bar_putchar('\n');
     }
@@ -54,40 +54,6 @@ void debug_status_bar_refresh()
     debug_status_bar_set_cursor_pos(360);
     debug_status_bar_print(status_bar_help_string);
     
-//    // interrupt pins
-//    snprintf(c256_string2, 256, "irq  : %1u\nnmi  : %1u(%1u)",computer.exception_collector_ic->irq_output_pin ? 1 : 0, computer.exception_collector_ic->nmi_output_pin ? 1 : 0, computer.cpu_ic->nmi_pin_previous_state);
-//    debug_status_bar_set_cursor_pos(332);
-//    debug_status_bar_print(c256_string2);
-//    status_bar_foreground_color_buffer[404] = 0x26;
-//    status_bar_foreground_color_buffer[405] = 0x26;
-//    status_bar_foreground_color_buffer[406] = 0x26;
-//    // cpu scanlines
-//    snprintf(c256_string2, 256, "line: %3u\npix : %3u", computer.vicv_ic->return_current_scanline(), computer.vicv_ic->return_current_pixel() );
-//    debug_status_bar_set_cursor_pos(344);
-//    debug_status_bar_print(c256_string2);
-//    // disassembly of next instruction
-//    uint16_t temp_pc = computer.cpu_ic->pc;
-//    debug_status_bar_set_cursor_pos(98);
-//    for(int i= 0; i<7; i++ )
-//    {
-//        temp_pc += csg65ce02_dasm(temp_pc, c256_string2, 256);
-//        debug_status_bar_print(c256_string2);
-//        debug_status_bar_putchar('\n');
-//    }
-//    // timer ic information
-//    snprintf(c256_string2, 256, "%6llu %6llu", computer.timer_ic->get_timer0_counter(), computer.timer_ic->get_timer0_clock_interval());
-//    debug_status_bar_set_cursor_pos(579);
-//    debug_status_bar_print(c256_string2);
-//    snprintf(c256_string2, 256, "%6llu %6llu", computer.timer_ic->get_timer1_counter(), computer.timer_ic->get_timer1_clock_interval());
-//    debug_status_bar_set_cursor_pos(643);
-//    debug_status_bar_print(c256_string2);
-//    snprintf(c256_string2, 256, "%6llu %6llu", computer.timer_ic->get_timer2_counter(), computer.timer_ic->get_timer2_clock_interval());
-//    debug_status_bar_set_cursor_pos(707);
-//    debug_status_bar_print(c256_string2);
-//    snprintf(c256_string2, 256, "%6llu %6llu", computer.timer_ic->get_timer3_counter(), computer.timer_ic->get_timer3_clock_interval());
-//    debug_status_bar_set_cursor_pos(771);
-//    debug_status_bar_print(c256_string2);
-//    
     // set accent colors for titles etc...
     debug_console.status_bar_foreground_color = 0x3f;
     debug_console.status_bar_background_color = 0x39;

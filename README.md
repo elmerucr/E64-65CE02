@@ -11,7 +11,7 @@ Technical specifications (not yet complete and a work in progress):
 * Two SID chips (MOS 6581) with stereo mixing possibilities. Each individual SID chip runs at 985248Hz (C64 pal) for correct pitch. Emulation is achieved with the excellent [resid](http://www.zimmers.net/anonftp/pub/cbm/crossplatform/emulators/resid/index.html) library.
 * Four independent and programmable timers with interrupt functionality.
 ### E64-II
-* Motorola 68000 CPU running at 8.192MHz using the [Musashi](https://github.com/kstenerud/Musashi) library.
+* Motorola 68000 CPU running at 8.192MHz using the [Moira](https://github.com/dirkwhoffmann/Moira) library.
 * A total of 16MB ram.
 * Two SID chips (like E64), but several registers (lo/hi from frequency, pulse width and filters) have been swapped to facilitate use with the big endian M68000.
 ## Motivation
@@ -56,8 +56,9 @@ In the ````./src/devices/roms/kernel/```` directory, a ````Makefile```` can be f
 * [Hatari](https://hatari.tuxfamily.org) - Hatari is an Atari ST/STE/TT/Falcon emulator
 * [lib65ce02](https://github.com/elmerucr/lib65ce02) - CSG65CE02 emulator written in C
 * [Mega65](http://mega65.org) - The 21st century realization of the C65 heritage
-* [Musashi](https://github.com/kstenerud/Musashi) - Motorola 680x0 emulator written in C
-* [SDL Simple DirectMedia Layer](https://www.libsdl.org) - A cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware
+* [Moira](https://github.com/dirkwhoffmann/Moira) - New Motorola 68000 emulator written in C++ by Dirk W. Hoffmann
+* [Musashi](https://github.com/kstenerud/Musashi) - Motorola 680x0 emulator written in C by Karl Stenerud
+* [SDL Simple DirectMedia Layer](https://www.libsdl.org) - A cross-platform development library by Sam Lantinga designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware
 * [ultimate64](https://ultimate64.com/Ultimate-64) - A hardware implementation (FPGA) of the C64
 * [vAmiga](http://www.dirkwhoffmann.de/software/vAmiga.html) - An Amiga 500, 1000, or 2000 on your Apple Macintosh
 * [vasm](http://sun.hasenbraten.de/vasm/) - A portable and retargetable assembler with very good support for the Motorola 680x0 family (including M6888x, M68851 and CPU32)

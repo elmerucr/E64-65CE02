@@ -55,12 +55,6 @@
 		46050A9C236984270073A85F /* sdl2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A97236984270073A85F /* sdl2.cpp */; };
 		46050A9D236984270073A85F /* sdl2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46050A97236984270073A85F /* sdl2.cpp */; };
 		46130D7923814A9100FAE3F4 /* TTL74LS148.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46130D7723814A9100FAE3F4 /* TTL74LS148.cpp */; };
-		46513B7723C91D4300B6E8D4 /* m68kcpu.c in Sources */ = {isa = PBXBuildFile; fileRef = 46513B6D23C91D4200B6E8D4 /* m68kcpu.c */; };
-		46513B7823C91D4300B6E8D4 /* m68kopnz.c in Sources */ = {isa = PBXBuildFile; fileRef = 46513B6E23C91D4200B6E8D4 /* m68kopnz.c */; };
-		46513B7923C91D4300B6E8D4 /* m68kops.c in Sources */ = {isa = PBXBuildFile; fileRef = 46513B6F23C91D4200B6E8D4 /* m68kops.c */; };
-		46513B7A23C91D4300B6E8D4 /* m68kdasm.c in Sources */ = {isa = PBXBuildFile; fileRef = 46513B7023C91D4200B6E8D4 /* m68kdasm.c */; };
-		46513B7B23C91D4300B6E8D4 /* m68kopac.c in Sources */ = {isa = PBXBuildFile; fileRef = 46513B7123C91D4200B6E8D4 /* m68kopac.c */; };
-		46513B7C23C91D4300B6E8D4 /* m68kopdm.c in Sources */ = {isa = PBXBuildFile; fileRef = 46513B7623C91D4300B6E8D4 /* m68kopdm.c */; };
 		466646AB237219D9008885D2 /* machine_E64_II.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466646A9237219D9008885D2 /* machine_E64_II.cpp */; };
 		4666C62F23760A6B00458CD7 /* cpu_mmu_bridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4666C62E23760A6B00458CD7 /* cpu_mmu_bridge.cpp */; };
 		46723D332365E397007ADDC2 /* SN74LS612.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46723D2F2365E397007ADDC2 /* SN74LS612.cpp */; };
@@ -70,10 +64,12 @@
 		46723D3D2365E428007ADDC2 /* exception_collector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46723D3C2365E428007ADDC2 /* exception_collector.cpp */; };
 		46757FB2236EF6A1000F0110 /* pid_delay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46757FB0236EF6A1000F0110 /* pid_delay.cpp */; };
 		46757FB3236EF6A1000F0110 /* pid_delay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46757FB0236EF6A1000F0110 /* pid_delay.cpp */; };
-		468022F52376D46E00F59C91 /* cpu_mmu_bridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468022F42376D46E00F59C91 /* cpu_mmu_bridge.cpp */; };
 		468022F92376DB8E00F59C91 /* patched_char_rom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46C069E823699BA600B1DCB4 /* patched_char_rom.cpp */; };
 		468022FF2376E1FB00F59C91 /* debug_command_E64_II.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468022FB2376E1FB00F59C91 /* debug_command_E64_II.cpp */; };
 		468023002376E1FB00F59C91 /* debug_status_bar_E64_II.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468022FD2376E1FB00F59C91 /* debug_status_bar_E64_II.cpp */; };
+		4698867023CE5566004F8F95 /* Moira.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4698866523CE5565004F8F95 /* Moira.cpp */; };
+		4698867123CE5566004F8F95 /* MoiraDebugger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4698866A23CE5565004F8F95 /* MoiraDebugger.cpp */; };
+		4698867423CE566A004F8F95 /* cpu_moira.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4698867323CE566A004F8F95 /* cpu_moira.cpp */; };
 		469BDFF4231D9FEC00868BBE /* SDL2.framework in Resources */ = {isa = PBXBuildFile; fileRef = 469BDFF3231D9FEC00868BBE /* SDL2.framework */; };
 		469BDFF5231DA03400868BBE /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469BDFF3231D9FEC00868BBE /* SDL2.framework */; };
 		469DBF33237D90D8005DAD03 /* kernel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 469DBF32237D90D8005DAD03 /* kernel.cpp */; };
@@ -81,7 +77,6 @@
 		469EBBE2234FB36B00028136 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46A1F87D231D721A003982FA /* Assets.xcassets */; };
 		469EBBE3234FB36B00028136 /* SDL2.framework in Resources */ = {isa = PBXBuildFile; fileRef = 469BDFF3231D9FEC00868BBE /* SDL2.framework */; };
 		46A1F87E231D721A003982FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46A1F87D231D721A003982FA /* Assets.xcassets */; };
-		46AB7607236DA7DC00AF2F14 /* cpu_m68k.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46AB7606236DA7DC00AF2F14 /* cpu_m68k.cpp */; };
 		46B7F6F4236F5A79006D4714 /* machine_E64_I.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B7F6F2236F5A79006D4714 /* machine_E64_I.cpp */; };
 		46C069E923699BA600B1DCB4 /* patched_char_rom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46C069E823699BA600B1DCB4 /* patched_char_rom.cpp */; };
 		46C17B5823761518008DBF9E /* mmu_E64_II.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46C17B5623761518008DBF9E /* mmu_E64_II.cpp */; };
@@ -139,16 +134,6 @@
 		46130D7723814A9100FAE3F4 /* TTL74LS148.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTL74LS148.cpp; path = "../../../src/E64-II/devices/TTL74LS148/TTL74LS148.cpp"; sourceTree = "<group>"; };
 		46130D7823814A9100FAE3F4 /* TTL74LS148.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TTL74LS148.hpp; path = "../../../src/E64-II/devices/TTL74LS148/TTL74LS148.hpp"; sourceTree = "<group>"; };
 		46241B11232444A000569490 /* log.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = log.txt; path = ../../../log.txt; sourceTree = "<group>"; };
-		46513B6D23C91D4200B6E8D4 /* m68kcpu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kcpu.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kcpu.c"; sourceTree = "<group>"; };
-		46513B6E23C91D4200B6E8D4 /* m68kopnz.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kopnz.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kopnz.c"; sourceTree = "<group>"; };
-		46513B6F23C91D4200B6E8D4 /* m68kops.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kops.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kops.c"; sourceTree = "<group>"; };
-		46513B7023C91D4200B6E8D4 /* m68kdasm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kdasm.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kdasm.c"; sourceTree = "<group>"; };
-		46513B7123C91D4200B6E8D4 /* m68kopac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kopac.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kopac.c"; sourceTree = "<group>"; };
-		46513B7223C91D4200B6E8D4 /* m68kcpu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m68kcpu.h; path = "../../../src/E64-II/devices/cpu/Musashi/m68kcpu.h"; sourceTree = "<group>"; };
-		46513B7323C91D4200B6E8D4 /* m68k.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m68k.h; path = "../../../src/E64-II/devices/cpu/Musashi/m68k.h"; sourceTree = "<group>"; };
-		46513B7423C91D4200B6E8D4 /* m68kops.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m68kops.h; path = "../../../src/E64-II/devices/cpu/Musashi/m68kops.h"; sourceTree = "<group>"; };
-		46513B7523C91D4300B6E8D4 /* m68kconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = m68kconf.h; path = "../../../src/E64-II/devices/cpu/Musashi/m68kconf.h"; sourceTree = "<group>"; };
-		46513B7623C91D4300B6E8D4 /* m68kopdm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = m68kopdm.c; path = "../../../src/E64-II/devices/cpu/Musashi/m68kopdm.c"; sourceTree = "<group>"; };
 		466646A9237219D9008885D2 /* machine_E64_II.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = machine_E64_II.cpp; path = "../../../src/E64-II/machine_E64_II.cpp"; sourceTree = "<group>"; };
 		466646AA237219D9008885D2 /* machine_E64_II.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = machine_E64_II.hpp; path = "../../../src/E64-II/machine_E64_II.hpp"; sourceTree = "<group>"; };
 		4666C62E23760A6B00458CD7 /* cpu_mmu_bridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cpu_mmu_bridge.cpp; path = "../../../src/E64-I/devices/cpu/cpu_mmu_bridge.cpp"; sourceTree = "<group>"; };
@@ -164,11 +149,30 @@
 		46723D3C2365E428007ADDC2 /* exception_collector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = exception_collector.cpp; path = "../../../src/E64-I/devices/cpu/exception_collector.cpp"; sourceTree = "<group>"; };
 		46757FB0236EF6A1000F0110 /* pid_delay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pid_delay.cpp; path = ../../../src/shared/pid_delay.cpp; sourceTree = "<group>"; };
 		46757FB1236EF6A1000F0110 /* pid_delay.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = pid_delay.hpp; path = ../../../src/shared/pid_delay.hpp; sourceTree = "<group>"; };
-		468022F42376D46E00F59C91 /* cpu_mmu_bridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cpu_mmu_bridge.cpp; path = "../../../src/E64-II/devices/cpu/cpu_mmu_bridge.cpp"; sourceTree = "<group>"; };
 		468022FB2376E1FB00F59C91 /* debug_command_E64_II.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = debug_command_E64_II.cpp; path = "../../../src/E64-II/debugger/debug_command_E64_II.cpp"; sourceTree = "<group>"; };
 		468022FC2376E1FB00F59C91 /* debug_command_E64_II.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = debug_command_E64_II.hpp; path = "../../../src/E64-II/debugger/debug_command_E64_II.hpp"; sourceTree = "<group>"; };
 		468022FD2376E1FB00F59C91 /* debug_status_bar_E64_II.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = debug_status_bar_E64_II.cpp; path = "../../../src/E64-II/debugger/debug_status_bar_E64_II.cpp"; sourceTree = "<group>"; };
 		468022FE2376E1FB00F59C91 /* debug_status_bar_E64_II.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = debug_status_bar_E64_II.hpp; path = "../../../src/E64-II/debugger/debug_status_bar_E64_II.hpp"; sourceTree = "<group>"; };
+		4698865E23CE5565004F8F95 /* MoiraALU_cpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoiraALU_cpp.h; path = "../../../src/E64-II/devices/cpu/Moira/MoiraALU_cpp.h"; sourceTree = "<group>"; };
+		4698865F23CE5565004F8F95 /* MoiraDasm_cpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoiraDasm_cpp.h; path = "../../../src/E64-II/devices/cpu/Moira/MoiraDasm_cpp.h"; sourceTree = "<group>"; };
+		4698866023CE5565004F8F95 /* Moira.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Moira.h; path = "../../../src/E64-II/devices/cpu/Moira/Moira.h"; sourceTree = "<group>"; };
+		4698866123CE5565004F8F95 /* MoiraConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoiraConfig.h; path = "../../../src/E64-II/devices/cpu/Moira/MoiraConfig.h"; sourceTree = "<group>"; };
+		4698866223CE5565004F8F95 /* MoiraInit_cpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoiraInit_cpp.h; path = "../../../src/E64-II/devices/cpu/Moira/MoiraInit_cpp.h"; sourceTree = "<group>"; };
+		4698866323CE5565004F8F95 /* StrWriter_cpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StrWriter_cpp.h; path = "../../../src/E64-II/devices/cpu/Moira/StrWriter_cpp.h"; sourceTree = "<group>"; };
+		4698866423CE5565004F8F95 /* MoiraInit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoiraInit.h; path = "../../../src/E64-II/devices/cpu/Moira/MoiraInit.h"; sourceTree = "<group>"; };
+		4698866523CE5565004F8F95 /* Moira.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Moira.cpp; path = "../../../src/E64-II/devices/cpu/Moira/Moira.cpp"; sourceTree = "<group>"; };
+		4698866623CE5565004F8F95 /* MoiraALU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoiraALU.h; path = "../../../src/E64-II/devices/cpu/Moira/MoiraALU.h"; sourceTree = "<group>"; };
+		4698866723CE5565004F8F95 /* MoiraDataflow_cpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoiraDataflow_cpp.h; path = "../../../src/E64-II/devices/cpu/Moira/MoiraDataflow_cpp.h"; sourceTree = "<group>"; };
+		4698866823CE5565004F8F95 /* MoiraExec_cpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoiraExec_cpp.h; path = "../../../src/E64-II/devices/cpu/Moira/MoiraExec_cpp.h"; sourceTree = "<group>"; };
+		4698866923CE5565004F8F95 /* MoiraDataflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoiraDataflow.h; path = "../../../src/E64-II/devices/cpu/Moira/MoiraDataflow.h"; sourceTree = "<group>"; };
+		4698866A23CE5565004F8F95 /* MoiraDebugger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MoiraDebugger.cpp; path = "../../../src/E64-II/devices/cpu/Moira/MoiraDebugger.cpp"; sourceTree = "<group>"; };
+		4698866B23CE5565004F8F95 /* MoiraDasm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoiraDasm.h; path = "../../../src/E64-II/devices/cpu/Moira/MoiraDasm.h"; sourceTree = "<group>"; };
+		4698866C23CE5565004F8F95 /* MoiraExec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoiraExec.h; path = "../../../src/E64-II/devices/cpu/Moira/MoiraExec.h"; sourceTree = "<group>"; };
+		4698866D23CE5565004F8F95 /* MoiraDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoiraDebugger.h; path = "../../../src/E64-II/devices/cpu/Moira/MoiraDebugger.h"; sourceTree = "<group>"; };
+		4698866E23CE5565004F8F95 /* MoiraTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoiraTypes.h; path = "../../../src/E64-II/devices/cpu/Moira/MoiraTypes.h"; sourceTree = "<group>"; };
+		4698866F23CE5565004F8F95 /* StrWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StrWriter.h; path = "../../../src/E64-II/devices/cpu/Moira/StrWriter.h"; sourceTree = "<group>"; };
+		4698867223CE566A004F8F95 /* cpu_moira.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = cpu_moira.hpp; path = "../../../src/E64-II/devices/cpu/cpu_moira.hpp"; sourceTree = "<group>"; };
+		4698867323CE566A004F8F95 /* cpu_moira.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cpu_moira.cpp; path = "../../../src/E64-II/devices/cpu/cpu_moira.cpp"; sourceTree = "<group>"; };
 		469BDFF3231D9FEC00868BBE /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
 		469DBF32237D90D8005DAD03 /* kernel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = kernel.cpp; path = "../../../src/E64-II/devices/rom/kernel/kernel.cpp"; sourceTree = "<group>"; };
 		469EBBE7234FB36B00028136 /* E64-II.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "E64-II.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,8 +180,6 @@
 		46A1F878231D7218003982FA /* E64.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = E64.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46A1F87D231D721A003982FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		46A1F882231D721A003982FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		46AB7605236DA7DC00AF2F14 /* cpu_m68k.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = cpu_m68k.hpp; path = "../../../src/E64-II/devices/cpu/cpu_m68k.hpp"; sourceTree = "<group>"; };
-		46AB7606236DA7DC00AF2F14 /* cpu_m68k.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cpu_m68k.cpp; path = "../../../src/E64-II/devices/cpu/cpu_m68k.cpp"; sourceTree = "<group>"; };
 		46B7F6F2236F5A79006D4714 /* machine_E64_I.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = machine_E64_I.cpp; path = "../../../src/E64-I/machine_E64_I.cpp"; sourceTree = "<group>"; };
 		46B7F6F3236F5A79006D4714 /* machine_E64_I.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = machine_E64_I.hpp; path = "../../../src/E64-I/machine_E64_I.hpp"; sourceTree = "<group>"; };
 		46C069E823699BA600B1DCB4 /* patched_char_rom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = patched_char_rom.cpp; path = ../../../src/shared/devices/char_rom/patched_char_rom.cpp; sourceTree = "<group>"; };
@@ -350,23 +352,6 @@
 			name = timer;
 			sourceTree = "<group>";
 		};
-		46723D3E2365E46D007ADDC2 /* Musashi */ = {
-			isa = PBXGroup;
-			children = (
-				46513B7323C91D4200B6E8D4 /* m68k.h */,
-				46513B7523C91D4300B6E8D4 /* m68kconf.h */,
-				46513B6D23C91D4200B6E8D4 /* m68kcpu.c */,
-				46513B7223C91D4200B6E8D4 /* m68kcpu.h */,
-				46513B7023C91D4200B6E8D4 /* m68kdasm.c */,
-				46513B7123C91D4200B6E8D4 /* m68kopac.c */,
-				46513B7623C91D4300B6E8D4 /* m68kopdm.c */,
-				46513B6E23C91D4200B6E8D4 /* m68kopnz.c */,
-				46513B6F23C91D4200B6E8D4 /* m68kops.c */,
-				46513B7423C91D4200B6E8D4 /* m68kops.h */,
-			);
-			name = Musashi;
-			sourceTree = "<group>";
-		};
 		46723D3F2365E66B007ADDC2 /* mmu */ = {
 			isa = PBXGroup;
 			children = (
@@ -385,6 +370,31 @@
 				468022FD2376E1FB00F59C91 /* debug_status_bar_E64_II.cpp */,
 			);
 			name = debugger;
+			sourceTree = "<group>";
+		};
+		4698865D23CE553C004F8F95 /* Moira */ = {
+			isa = PBXGroup;
+			children = (
+				4698866523CE5565004F8F95 /* Moira.cpp */,
+				4698866023CE5565004F8F95 /* Moira.h */,
+				4698865E23CE5565004F8F95 /* MoiraALU_cpp.h */,
+				4698866623CE5565004F8F95 /* MoiraALU.h */,
+				4698866123CE5565004F8F95 /* MoiraConfig.h */,
+				4698865F23CE5565004F8F95 /* MoiraDasm_cpp.h */,
+				4698866B23CE5565004F8F95 /* MoiraDasm.h */,
+				4698866723CE5565004F8F95 /* MoiraDataflow_cpp.h */,
+				4698866923CE5565004F8F95 /* MoiraDataflow.h */,
+				4698866A23CE5565004F8F95 /* MoiraDebugger.cpp */,
+				4698866D23CE5565004F8F95 /* MoiraDebugger.h */,
+				4698866823CE5565004F8F95 /* MoiraExec_cpp.h */,
+				4698866C23CE5565004F8F95 /* MoiraExec.h */,
+				4698866223CE5565004F8F95 /* MoiraInit_cpp.h */,
+				4698866423CE5565004F8F95 /* MoiraInit.h */,
+				4698866E23CE5565004F8F95 /* MoiraTypes.h */,
+				4698866323CE5565004F8F95 /* StrWriter_cpp.h */,
+				4698866F23CE5565004F8F95 /* StrWriter.h */,
+			);
+			name = Moira;
 			sourceTree = "<group>";
 		};
 		469DBF30237D909C005DAD03 /* rom */ = {
@@ -530,10 +540,9 @@
 		46ED0027234FBD8E00B43B56 /* cpu */ = {
 			isa = PBXGroup;
 			children = (
-				46723D3E2365E46D007ADDC2 /* Musashi */,
-				46AB7605236DA7DC00AF2F14 /* cpu_m68k.hpp */,
-				46AB7606236DA7DC00AF2F14 /* cpu_m68k.cpp */,
-				468022F42376D46E00F59C91 /* cpu_mmu_bridge.cpp */,
+				4698865D23CE553C004F8F95 /* Moira */,
+				4698867223CE566A004F8F95 /* cpu_moira.hpp */,
+				4698867323CE566A004F8F95 /* cpu_moira.cpp */,
 			);
 			name = cpu;
 			sourceTree = "<group>";
@@ -659,30 +668,27 @@
 			files = (
 				46050A6D236983B40073A85F /* voice.cc in Sources */,
 				46050A71236983B40073A85F /* filter.cc in Sources */,
-				46513B7723C91D4300B6E8D4 /* m68kcpu.c in Sources */,
 				46050A85236983B40073A85F /* pot.cc in Sources */,
 				46050A77236983B40073A85F /* wave8580_PST.cc in Sources */,
 				46C17B5823761518008DBF9E /* mmu_E64_II.cpp in Sources */,
 				46050A492369822B0073A85F /* cia.cpp in Sources */,
 				46050A83236983B40073A85F /* wave8580_P_T.cc in Sources */,
+				4698867423CE566A004F8F95 /* cpu_moira.cpp in Sources */,
 				46CE158D2374B15D00369A13 /* debug_screen.cpp in Sources */,
 				46050A7D236983B40073A85F /* extfilt.cc in Sources */,
 				466646AB237219D9008885D2 /* machine_E64_II.cpp in Sources */,
 				468022FF2376E1FB00F59C91 /* debug_command_E64_II.cpp in Sources */,
-				46513B7823C91D4300B6E8D4 /* m68kopnz.c in Sources */,
-				46513B7C23C91D4300B6E8D4 /* m68kopdm.c in Sources */,
-				46513B7B23C91D4300B6E8D4 /* m68kopac.c in Sources */,
 				46050A87236983B40073A85F /* sid.cc in Sources */,
 				46050A81236983B40073A85F /* wave6581__ST.cc in Sources */,
 				46050A89236983B40073A85F /* version.cc in Sources */,
 				46D0E6B223663BC000F32578 /* main.cpp in Sources */,
+				4698867123CE5566004F8F95 /* MoiraDebugger.cpp in Sources */,
 				46050A8D236983CD0073A85F /* sound.cpp in Sources */,
 				46CE158F2374B15D00369A13 /* debug_console.cpp in Sources */,
 				46050A6F236983B40073A85F /* wave6581_PST.cc in Sources */,
 				46050A95236984060073A85F /* vicv.cpp in Sources */,
 				46050A7F236983B40073A85F /* wave8580__ST.cc in Sources */,
 				46130D7923814A9100FAE3F4 /* TTL74LS148.cpp in Sources */,
-				46AB7607236DA7DC00AF2F14 /* cpu_m68k.cpp in Sources */,
 				46757FB3236EF6A1000F0110 /* pid_delay.cpp in Sources */,
 				46050A6B236983B40073A85F /* wave8580_PS_.cc in Sources */,
 				46050A9D236984270073A85F /* sdl2.cpp in Sources */,
@@ -690,14 +696,12 @@
 				46050A41236981B40073A85F /* common_defs.cpp in Sources */,
 				468023002376E1FB00F59C91 /* debug_status_bar_E64_II.cpp in Sources */,
 				46050A45236981B40073A85F /* frequency_divider.cpp in Sources */,
-				46513B7923C91D4300B6E8D4 /* m68kops.c in Sources */,
 				46050A79236983B40073A85F /* wave6581_PS_.cc in Sources */,
 				468022F92376DB8E00F59C91 /* patched_char_rom.cpp in Sources */,
 				46050A73236983B40073A85F /* wave.cc in Sources */,
 				46050A7B236983B40073A85F /* envelope.cc in Sources */,
 				469DBF33237D90D8005DAD03 /* kernel.cpp in Sources */,
-				468022F52376D46E00F59C91 /* cpu_mmu_bridge.cpp in Sources */,
-				46513B7A23C91D4300B6E8D4 /* m68kdasm.c in Sources */,
+				4698867023CE5566004F8F95 /* Moira.cpp in Sources */,
 				46050A75236983B40073A85F /* wave6581_P_T.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

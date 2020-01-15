@@ -188,7 +188,8 @@ int E64::sdl2_process_events()
                 {
                     E64::sdl2_wait_until_f9_released();
                     computer.switch_mode();
-                    computer.force_next_instruction();
+                    // NEEDS WORK
+                    //computer.force_next_instruction();
                 }
                 else if(computer.current_mode == NORMAL_MODE)
                 {

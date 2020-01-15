@@ -17,7 +17,7 @@ E64::machine::machine()
     
     mmu_ic = new mmu();
     
-    cpu_ic = new cpu_m68k();
+    m68k_ic = new CPU();
     
     timer_ic = new timer();
     TTL74LS148_ic->connect_device(&timer_ic->irq_pin, 2);
@@ -33,7 +33,7 @@ E64::machine::machine()
     cpu_m68k_to_sid   = new frequency_divider(CPU_CLOCK_SPEED, SID_CLOCK_SPEED );
     cpu_m68k_to_timer = new frequency_divider(CPU_CLOCK_SPEED, CPU_CLOCK_SPEED );
     
-    cpu_ic->reset();
+    m68k_ic->configDasm(true, false);   // output numbers in hex, use small case for mnemonics
 }
 
 E64::machine::~machine()
@@ -46,7 +46,7 @@ E64::machine::~machine()
     delete sound_ic;
     delete vicv_ic;
     delete timer_ic;
-    delete cpu_ic;
+    delete m68k_ic;
     delete mmu_ic;
     delete TTL74LS148_ic;
 }
@@ -81,23 +81,23 @@ void E64::machine::switch_mode()
     }
 }
 
-void E64::machine::force_next_instruction()
-{
-    cpu_ic->force_next_instruction();
-}
+//void E64::machine::force_next_instruction()
+//{
+//    cpu_ic->force_next_instruction();
+//}
 
 int E64::machine::run(uint16_t no_of_cycles)
 {
     // default exit_code of the function is 0, no breakpoints have occurred
     int exit_code = NOTHING;
-    unsigned int processed_cycles = computer.cpu_ic->run(no_of_cycles);
-    if( this->cpu_ic->is_breakpoint_condition() )
-    {
-        // cpu breakpoint encountered
-        snprintf(machine_help_string, 256, "\ncpu breakpoint occurred at $%06x\n.", cpu_ic->get_pc());
-        debug_console_print(machine_help_string);
-        exit_code = CPU_BREAKPOINT;
-    }
+    unsigned int processed_cycles = computer.m68k_ic->run(no_of_cycles);
+//    if( this->cpu_ic->is_breakpoint_condition() )
+//    {
+//        // cpu breakpoint encountered
+//        snprintf(machine_help_string, 256, "\ncpu breakpoint occurred at $%06x\n.", m68k_ic->getPC());
+//        debug_console_print(machine_help_string);
+//        exit_code = CPU_BREAKPOINT;
+//    }
     // run cycles on vicv
     vicv_ic->run(cpu_m68k_to_vicv->clock(processed_cycles));
     // run cycles on timer
@@ -110,7 +110,8 @@ int E64::machine::run(uint16_t no_of_cycles)
 
 void E64::machine::reset()
 {
-    cpu_ic->reset();
+    m68k_ic->reset();
+    TTL74LS148_ic->update_interrupt_level();
     sound_ic->reset();
     vicv_ic->reset();
 }

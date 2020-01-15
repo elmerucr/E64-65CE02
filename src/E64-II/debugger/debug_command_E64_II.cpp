@@ -30,55 +30,55 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     {
         // do nothing
     }
-    else if( strcmp(token0, "b") == 0 )
-    {
-        if(token1 == NULL)
-        {
-            if( computer.cpu_ic->are_breakpoints_active() )
-            {
-                debug_console_print("system responds to breakpoints\n");
-            }
-            else
-            {
-                debug_console_print("system neglects breakpoints\n");
-            }
-            int count = 0;
-            for(int i = 0; i<(RAM_SIZE); i++)
-            {
-                if( computer.cpu_ic->is_breakpoint(i) == true )
-                {
-                    count++;
-                    snprintf(command_help_string, 256, "$%06x\n", i);
-                    debug_console_print(command_help_string);
-                }
-            }
-            if( count == 0 ) debug_console_print("no breakpoints defined\n");
-        }
-        else if( strcmp(token1, "on") == 0)
-        {
-            computer.cpu_ic->activate_breakpoints();
-        }
-        else if( strcmp(token1, "off") == 0)
-        {
-            computer.cpu_ic->disable_breakpoints();
-        }
-        else
-        {
-            uint32_t temp_32bit = debug_command_hex_string_to_int(token1) & (RAM_SIZE - 1);
-            if( computer.cpu_ic->is_breakpoint(temp_32bit) )
-            {
-                snprintf(command_help_string, 256, "breakpoint at $%06x removed\n", temp_32bit);
-                debug_console_print(command_help_string);
-                computer.cpu_ic->remove_breakpoint(temp_32bit);
-            }
-            else
-            {
-                snprintf(command_help_string, 256, "breakpoint at $%06x added\n", temp_32bit);
-                debug_console_print(command_help_string);
-                computer.cpu_ic->add_breakpoint(temp_32bit);
-            }
-        }
-    }
+//    else if( strcmp(token0, "b") == 0 )
+//    {
+//        if(token1 == NULL)
+//        {
+//            if( computer.cpu_ic->are_breakpoints_active() )
+//            {
+//                debug_console_print("system responds to breakpoints\n");
+//            }
+//            else
+//            {
+//                debug_console_print("system neglects breakpoints\n");
+//            }
+//            int count = 0;
+//            for(int i = 0; i<(RAM_SIZE); i++)
+//            {
+//                if( computer.cpu_ic->is_breakpoint(i) == true )
+//                {
+//                    count++;
+//                    snprintf(command_help_string, 256, "$%06x\n", i);
+//                    debug_console_print(command_help_string);
+//                }
+//            }
+//            if( count == 0 ) debug_console_print("no breakpoints defined\n");
+//        }
+//        else if( strcmp(token1, "on") == 0)
+//        {
+//            computer.cpu_ic->activate_breakpoints();
+//        }
+//        else if( strcmp(token1, "off") == 0)
+//        {
+//            computer.cpu_ic->disable_breakpoints();
+//        }
+//        else
+//        {
+//            uint32_t temp_32bit = debug_command_hex_string_to_int(token1) & (RAM_SIZE - 1);
+//            if( computer.cpu_ic->is_breakpoint(temp_32bit) )
+//            {
+//                snprintf(command_help_string, 256, "breakpoint at $%06x removed\n", temp_32bit);
+//                debug_console_print(command_help_string);
+//                computer.cpu_ic->remove_breakpoint(temp_32bit);
+//            }
+//            else
+//            {
+//                snprintf(command_help_string, 256, "breakpoint at $%06x added\n", temp_32bit);
+//                debug_console_print(command_help_string);
+//                computer.cpu_ic->add_breakpoint(temp_32bit);
+//            }
+//        }
+//    }
     else if( strcmp(token0, "bar") == 0 )
     {
         debug_console_toggle_status_bar();
@@ -87,7 +87,8 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     {
         E64::sdl2_wait_until_enter_released();
         computer.switch_to_running();
-        computer.cpu_ic->force_next_instruction();
+        // NEEDS WORK
+        //computer.cpu_ic->force_next_instruction();
     }
     else if( strcmp(token0, "clear") == 0 )
     {
@@ -187,7 +188,7 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     {
         if( token1 == NULL )
         {
-            debug_command_memory_dump(computer.cpu_ic->get_pc(), 8);
+            debug_command_memory_dump(computer.m68k_ic->getPC(), 8);
         }
         else
         {
@@ -291,10 +292,10 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
 
 void E64::debug_command_dump_cpu_status()
 {
-    computer.cpu_ic->dump_registers(command_help_string);
+    computer.m68k_ic->dump_registers(command_help_string);
     debug_console_print(command_help_string);
     
-    computer.cpu_ic->dump_status_register(command_help_string);
+    computer.m68k_ic->disassembleSR(command_help_string);
     debug_console_print(command_help_string);
     
 //    debug_console_print("\n\n");
@@ -377,7 +378,8 @@ uint32_t E64::debug_command_hex_string_to_int(const char *temp_string)
 
 void E64::debug_command_single_step_cpu()
 {
-    computer.cpu_ic->force_next_instruction();
+    // NEEDS WORK
+    //computer.cpu_ic->force_next_instruction();
     computer.run(0);
     computer.TTL74LS148_ic->update_interrupt_level();
 }

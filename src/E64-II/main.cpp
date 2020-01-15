@@ -40,6 +40,8 @@ int main(int argc, char **argv)
     // Select starting mode of E64
     //computer.switch_to_running();
     computer.switch_to_debug();
+    
+    computer.reset();
 
     // start of main loop
     computer.running = true;

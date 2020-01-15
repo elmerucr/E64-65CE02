@@ -8,11 +8,6 @@
 	dc.l	$00d00000				; vector 0 - supervisor stackpointer
 	dc.l	kernel_main				; vector 1 - reset vector
 
-; fake exception handler
-exception_handler
-	move.l #$deadbeef,d0
-	rte
-
 ; start of main kernel code
 kernel_main
 	lea		exception_handler,a0
@@ -25,9 +20,9 @@ kernel_main
 	move.l	a0,VEC_30_LEVEL6_IRQ_AUTOVECT
 	lea		interrupt_7_autovector,a0
 	move.l	a0,VEC_31_LEVEL7_IRQ_AUTOVECT
-	lea		timer0_irq_handler_continued,a0
+	lea		timer0_irq_handler,a0
 	move.l	a0,TIMER0_VECTOR
-	lea		timer1_irq_handler_continued,a0
+	lea		timer1_irq_handler,a0
 	move.l	a0,TIMER1_VECTOR
 
 	; set up timer0 interrupt
@@ -179,35 +174,27 @@ put_string
 .2	move.l	(a7)+,a0
 	rts
 
+; fake exception handler
+exception_handler
+	move.l #$deadbeef,d0
+	rte
 
 ; level 2 interrupt autovector (timer)
 interrupt_2_autovector
 	move.l	a0,-(a7)				; save a0
-timer0_irq_handler
+timer0_check
 	btst	#0,TIMER_BASE			; did timer 0 cause the interrupt?
-	beq		timer1_irq_handler		; no, go to next timer
+	beq		timer1_check			; no, go to next timer
 	move.b	#%00000001,TIMER_BASE	; yes, acknowledge interrupt
 	movea.l	TIMER0_VECTOR,a0
 	jmp		(a0)
-timer0_irq_handler_continued
-	move.l	a0,-(a7)
-	movea.l	VICV_COL,a0
-	addq.b	#$1,(a0)
-	andi.b	#%00001111,(a0)
-	movea.l	(a7)+,a0
-timer1_irq_handler
+timer1_check
 	btst	#1,TIMER_BASE
-	beq		timer2_irq_handler
+	beq		timer2_check
 	move.b	#%00000010,TIMER_BASE
 	movea.l	TIMER1_VECTOR,a0
 	jmp		(a0)
-timer1_irq_handler_continued
-	move.l	a0,-(a7)
-	movea.l	VICV_COL,a0
-	addq.b	#$1,(1,a0)
-	andi.b	#%00001111,(1,a0)
-	movea.l	(a7)+,a0
-timer2_irq_handler
+timer2_check
 	move.l	(a7)+,a0				; restore a0
 	rte
 
@@ -219,7 +206,21 @@ interrupt_6_autovector
 interrupt_7_autovector
 	rte
 
+timer0_irq_handler
+	move.l	a0,-(a7)
+	movea.l	VICV_COL,a0
+	addq.b	#$1,(a0)
+	andi.b	#%00001111,(a0)
+	movea.l	(a7)+,a0
+	bra		timer1_check
 
+timer1_irq_handler
+	move.l	a0,-(a7)
+	movea.l	VICV_COL,a0
+	addq.b	#$1,(1,a0)
+	andi.b	#%00001111,(1,a0)
+	movea.l	(a7)+,a0
+	bra		timer2_check
 
 ; string data
 welcome

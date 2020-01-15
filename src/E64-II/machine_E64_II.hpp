@@ -7,7 +7,7 @@
 #define MACHINE_E64_II_HPP
 
 #include "cia.hpp"
-#include "cpu_m68k.hpp"
+#include "cpu_moira.hpp"
 #include "frequency_divider.hpp"
 #include "mmu_E64_II.hpp"
 #include "sound.hpp"
@@ -42,7 +42,7 @@ namespace E64
         bool running;
         
         mmu                 *mmu_ic;
-        cpu_m68k            *cpu_ic;
+        CPU                 *m68k_ic;
         TTL74LS148          *TTL74LS148_ic;
         timer               *timer_ic;
         vicv                *vicv_ic;
@@ -52,7 +52,7 @@ namespace E64
         machine();
         ~machine();
         
-        void force_next_instruction();
+//        void force_next_instruction();
         int  run(uint16_t no_of_cycles);
         
         void reset();

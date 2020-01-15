@@ -13,7 +13,6 @@ E64::TTL74LS148::TTL74LS148()
     {
         devices[i] = { &default_device, 0 };
     }
-    update_interrupt_level();
 }
 
 void E64::TTL74LS148::connect_device(bool *device_pin, int level)
@@ -29,5 +28,5 @@ void E64::TTL74LS148::update_interrupt_level()
     {
         if( (*devices[i].device_pin == false) && (devices[i].level > temp_level) ) temp_level = devices[i].level;
     }
-    computer.cpu_ic->set_irq(temp_level);
+    computer.m68k_ic->setIPL(temp_level);
 }
