@@ -66,20 +66,6 @@ unsigned int E64::mmu::read_memory_16(unsigned int address)
     return result;
 }
 
-unsigned int E64::mmu::read_memory_32(unsigned int address)
-{
-    unsigned int result;
-    uint32_t temp_address = address;
-    result = read_memory_8(temp_address);
-    temp_address++;
-    result = read_memory_8(temp_address) | (result << 8);
-    temp_address++;
-    result = read_memory_8(temp_address) | (result << 8);
-    temp_address++;
-    result = read_memory_8(temp_address) | (result << 8);
-    return result;
-}
-
 unsigned int E64::mmu::read_disassembler_8(unsigned int address)
 {
     return read_memory_8(address);
@@ -88,11 +74,6 @@ unsigned int E64::mmu::read_disassembler_8(unsigned int address)
 unsigned int E64::mmu::read_disassembler_16(unsigned int address)
 {
     return read_memory_16(address);
-}
-
-unsigned int E64::mmu::read_disassembler_32(unsigned int address)
-{
-    return read_memory_32(address);
 }
 
 void E64::mmu::write_memory_8(unsigned int address, unsigned int value)
@@ -125,18 +106,6 @@ void E64::mmu::write_memory_16(unsigned int address, unsigned int value)
 {
     uint32_t temp_address = address;
     write_memory_8(temp_address, value >> 8);
-    temp_address++;
-    write_memory_8(temp_address, value & 0xff);
-}
-
-void E64::mmu::write_memory_32(unsigned int address, unsigned int value)
-{
-    uint32_t temp_address = address;
-    write_memory_8(temp_address, (value >> 24) & 0xff);
-    temp_address++;
-    write_memory_8(temp_address, (value >> 16) & 0xff);
-    temp_address++;
-    write_memory_8(temp_address, (value >> 8) & 0xff);
     temp_address++;
     write_memory_8(temp_address, value & 0xff);
 }

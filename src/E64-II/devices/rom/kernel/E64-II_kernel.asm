@@ -16,6 +16,8 @@ kernel_main
 	move.l	a0,VEC_11_UNIMPL_INSTRUCTION
 	lea		interrupt_2_autovector,a0
 	move.l	a0,VEC_26_LEVEL2_IRQ_AUTOVECT
+	lea		interrupt_5_autovector,a0
+	move.l	a0,VEC_29_LEVEL5_IRQ_AUTOVECT
 	lea		interrupt_6_autovector,a0
 	move.l	a0,VEC_30_LEVEL6_IRQ_AUTOVECT
 	lea		interrupt_7_autovector,a0
@@ -198,6 +200,12 @@ timer2_check
 	move.l	(a7)+,a0				; restore a0
 	rte
 
+; level 5 interrupt autovector
+interrupt_5_autovector
+	move.l	a0,-(a7)
+	move.l	(a7)+,a0
+	rte
+
 ; level 6 interrupt autovector
 interrupt_6_autovector
 	rte
@@ -224,7 +232,7 @@ timer1_irq_handler
 
 ; string data
 welcome
-	dc.b	"E64-II (C)2019 kernel version 0.1.20200110",ASCII_LF,ASCII_NULL
+	dc.b	"E64-II (C)2019 kernel version 0.1.20200115",ASCII_LF,ASCII_NULL
 
 	align 1
 	include "E64-II_kernel_tables.asm"

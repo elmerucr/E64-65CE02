@@ -32,17 +32,17 @@ namespace E64
     class machine
     {
     private:
-        frequency_divider *cpu_m68k_to_vicv;
-        frequency_divider *cpu_m68k_to_sid;
-        frequency_divider *cpu_m68k_to_timer;
-        
+        frequency_divider *m68k_to_vicv;
+        frequency_divider *m68k_to_sid;
+        frequency_divider *m68k_to_timer;
+        bool debugger_irq_pin;
         char machine_help_string[2048];
     public:
         enum machine_mode   current_mode;
         bool running;
         
         mmu                 *mmu_ic;
-        CPU                 *m68k_ic;
+        cpu_moira           *m68k_ic;
         TTL74LS148          *TTL74LS148_ic;
         timer               *timer_ic;
         vicv                *vicv_ic;
@@ -54,6 +54,8 @@ namespace E64
         
 //        void force_next_instruction();
         int  run(uint16_t no_of_cycles);
+        
+        bool toggle_debugger_irq_pin();
         
         void reset();
         

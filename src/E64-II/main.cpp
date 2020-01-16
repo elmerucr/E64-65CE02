@@ -19,7 +19,7 @@
 
 // global components of the system
 E64::machine computer;
-E64::pid_delay frame_delay(15000.0);
+E64::pid_delay frame_delay(12800.0);
 
 int main(int argc, char **argv)
 {
@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 
     debug_console_init();
 
-    // Select starting mode of E64
+    // Select starting mode of E64-II
     //computer.switch_to_running();
     computer.switch_to_debug();
     

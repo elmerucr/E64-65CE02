@@ -31,62 +31,58 @@ void debug_status_bar_clear()
 void debug_status_bar_refresh()
 {
     debug_status_bar_clear();
-
-    computer.m68k_ic->dump_registers(status_bar_help_string);
-    debug_status_bar_set_cursor_pos( 1*64 +  0);
-    debug_status_bar_print(status_bar_help_string);
-    
-    computer.m68k_ic->disassembleSR(computer.m68k_ic->getSR(), status_bar_help_string);
-    debug_status_bar_set_cursor_pos( 1*64 + 40);
-    debug_status_bar_print(status_bar_help_string);
-    
-    debug_status_bar_set_cursor_pos(10*64 +  0);
-    uint32_t temp_pc = computer.m68k_ic->getPC();
-    for(int i= 0; i<6; i++ )
-    {
-        temp_pc += computer.m68k_ic->disassemble(temp_pc, status_bar_help_string);
-        debug_status_bar_print(status_bar_help_string);
-        debug_status_bar_putchar('\n');
-    }
-    
-    // cpu scanlines
-    snprintf(status_bar_help_string, 256, "line: %3u\npix : %3u", computer.vicv_ic->return_current_scanline(), computer.vicv_ic->return_current_pixel() );
-    debug_status_bar_set_cursor_pos(360);
-    debug_status_bar_print(status_bar_help_string);
     
     // set accent colors for titles etc...
     debug_console.status_bar_foreground_color = 0x3f;
     debug_console.status_bar_background_color = 0x39;
 
-    snprintf(status_bar_help_string, 256, "                       cpu internal status                      ");
+    snprintf(status_bar_help_string, 256, "                           cpu status                           ");
     debug_status_bar_set_cursor_pos(0);
     debug_status_bar_print(status_bar_help_string);
     snprintf(status_bar_help_string, 256, "                           disassembly                          ");
-    debug_status_bar_set_cursor_pos(576);
+    debug_status_bar_set_cursor_pos(640);
     debug_status_bar_print(status_bar_help_string);
     snprintf(status_bar_help_string, 256, "  vic v  ");
-    debug_status_bar_set_cursor_pos(296);
+    debug_status_bar_set_cursor_pos(2*64 + 54);
     debug_status_bar_print(status_bar_help_string);
-//
-//    snprintf(c256_string2, 256, "        disassembly         ");
-//    debug_status_bar_set_cursor_pos(34);
-//    debug_status_bar_print(c256_string2);
-//
-//    snprintf(c256_string2, 256, "cpu cycles");
-//    debug_status_bar_set_cursor_pos(256);
-//    debug_status_bar_print(c256_string2);
-//
-//    snprintf(c256_string2, 256, "  cpu pins  ");
-//    debug_status_bar_set_cursor_pos(267);
-//    debug_status_bar_print(c256_string2);
-//
-//    snprintf(c256_string2, 256, "  vic v  ");
-//    debug_status_bar_set_cursor_pos(280);
-//    debug_status_bar_print(c256_string2);
-//
-//    snprintf(c256_string2, 256, "    timer_ic    \n 0 \n 1 \n 2 \n 3 ");
-//    debug_status_bar_set_cursor_pos(512);
-//    debug_status_bar_print(c256_string2);
+
+    // default colors
+    debug_console.status_bar_foreground_color = 0x3d;
+    debug_console.status_bar_background_color = 0x36;
+    
+    // registers
+    computer.m68k_ic->dump_registers(status_bar_help_string);
+    debug_status_bar_set_cursor_pos( 1*64 +  0);
+    debug_status_bar_print(status_bar_help_string);
+    
+    // ipl pins
+    uint8_t pins = computer.m68k_ic->getIPL();
+    snprintf(status_bar_help_string, 256, "%c%c%c", pins&0b100?'1':'0', pins&0b010?'1':'0', pins&0b001?'1':'0');
+    debug_status_bar_set_cursor_pos( 6*64 + 29);
+    debug_status_bar_print(status_bar_help_string);
+    
+    // disassembly
+    debug_status_bar_set_cursor_pos(11*64 +  0);
+    uint32_t temp_pc = computer.m68k_ic->getPC();
+    for(int i= 0; i<5; i++ )
+    {
+        snprintf(status_bar_help_string, 256, "%06x ", temp_pc );
+        debug_status_bar_print(status_bar_help_string);
+        temp_pc += computer.m68k_ic->disassemble(temp_pc, status_bar_help_string);
+        debug_status_bar_print(status_bar_help_string);
+        debug_status_bar_putchar('\n');
+    }
+    
+    // vicv scanlines
+    snprintf(status_bar_help_string, 256, "line: %3u\npix : %3u", computer.vicv_ic->return_current_scanline(), computer.vicv_ic->return_current_pixel() );
+    debug_status_bar_set_cursor_pos(3*64 + 54);
+    debug_status_bar_print(status_bar_help_string);
+
+    // status register
+    debug_console.status_bar_foreground_color = 0x2c;
+    computer.m68k_ic->disassembleSR(computer.m68k_ic->getSR(), status_bar_help_string);
+    debug_status_bar_set_cursor_pos( 9*64 + 5);
+    debug_status_bar_print(status_bar_help_string);
 }
 
 void debug_status_bar_set_cursor_pos(uint16_t pos)

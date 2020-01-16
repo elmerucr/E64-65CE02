@@ -30,41 +30,30 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
     {
         // do nothing
     }
-//    else if( strcmp(token0, "b") == 0 )
-//    {
-//        if(token1 == NULL)
-//        {
-//            if( computer.cpu_ic->are_breakpoints_active() )
-//            {
-//                debug_console_print("system responds to breakpoints\n");
-//            }
-//            else
-//            {
-//                debug_console_print("system neglects breakpoints\n");
-//            }
-//            int count = 0;
-//            for(int i = 0; i<(RAM_SIZE); i++)
-//            {
-//                if( computer.cpu_ic->is_breakpoint(i) == true )
-//                {
-//                    count++;
-//                    snprintf(command_help_string, 256, "$%06x\n", i);
-//                    debug_console_print(command_help_string);
-//                }
-//            }
-//            if( count == 0 ) debug_console_print("no breakpoints defined\n");
-//        }
-//        else if( strcmp(token1, "on") == 0)
-//        {
-//            computer.cpu_ic->activate_breakpoints();
-//        }
-//        else if( strcmp(token1, "off") == 0)
-//        {
-//            computer.cpu_ic->disable_breakpoints();
-//        }
-//        else
-//        {
-//            uint32_t temp_32bit = debug_command_hex_string_to_int(token1) & (RAM_SIZE - 1);
+    else if( strcmp(token0, "b") == 0 )
+    {
+        if(token1 == NULL)
+        {
+            unsigned int no_of_breakpoints = (unsigned int)computer.m68k_ic->debugger.breakpoints.elements();
+            snprintf(command_help_string, 256, "currently %i breakpoint(s) defined\n", no_of_breakpoints);
+            debug_console_print(command_help_string);
+            if( no_of_breakpoints > 0 )
+            {
+                snprintf(command_help_string, 256, "\n # address\n");
+                debug_console_print(command_help_string);
+                for(int i=0; i<no_of_breakpoints; i++)
+                {
+                    snprintf(command_help_string, 256, "%2u $%06x %1u\n", i, computer.m68k_ic->debugger.breakpoints.guardAddr(i), computer.m68k_ic->debugger.breakpoints.isEnabled(i) ? 1 : 0);
+                    debug_console_print(command_help_string);
+                }
+            }
+        }
+        else
+        {
+            uint32_t temp_32bit = debug_command_hex_string_to_int(token1) & (RAM_SIZE - 1);
+            computer.m68k_ic->debugger.breakpoints.addAt(temp_32bit);
+            snprintf(command_help_string, 256, "breakpoint at $%06x added\n", temp_32bit);
+            debug_console_print(command_help_string);
 //            if( computer.cpu_ic->is_breakpoint(temp_32bit) )
 //            {
 //                snprintf(command_help_string, 256, "breakpoint at $%06x removed\n", temp_32bit);
@@ -77,11 +66,16 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
 //                debug_console_print(command_help_string);
 //                computer.cpu_ic->add_breakpoint(temp_32bit);
 //            }
-//        }
-//    }
+        }
+    }
     else if( strcmp(token0, "bar") == 0 )
     {
         debug_console_toggle_status_bar();
+    }
+    else if( strcmp(token0, "bc") == 0 )
+    {
+        computer.m68k_ic->debugger.breakpoints.removeAll();
+        debug_console_print("all breakpoints removed\n");
     }
     else if( strcmp(token0, "c") == 0 )
     {
@@ -160,30 +154,12 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
 //            debug_console_print(c256_string2);
 //        }
 //    }
-//    else if( strcmp(token0, "irq") == 0 )
-//    {
-//        if( token1 == NULL )
-//        {
-//            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", computer.exception_collector_ic->irq_output_pin ? 1 : 0);
-//            debug_console_print(c256_string2);
-//        }
-//        else if( strcmp(token1, "0") == 0)
-//        {
-//            computer.exception_collector_ic->irq_output_pin = false;
-//            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", computer.exception_collector_ic->irq_output_pin ? 1 : 0);
-//            debug_console_print(c256_string2);
-//        }
-//        else if( strcmp(token1, "1") == 0)
-//        {
-//            computer.exception_collector_ic->irq_output_pin = true;
-//            snprintf(c256_string2, 256, "Current status of irq pin is %1u\n", computer.exception_collector_ic->irq_output_pin ? 1 : 0);
-//            debug_console_print(c256_string2);
-//        }
-//        else
-//        {
-//            debug_console_print("error: argument must be 0 or 1\n");
-//        }
-//    }
+    else if( strcmp(token0, "irq") == 0 )
+    {
+        snprintf(command_help_string, 256, "debugger irq pin status: %1u\n", computer.toggle_debugger_irq_pin() ? 1 : 0);
+        debug_console_print(command_help_string);
+        computer.TTL74LS148_ic->update_interrupt_level();
+    }
     else if( strcmp(token0, "m") == 0 )
     {
         if( token1 == NULL )
@@ -192,61 +168,14 @@ void E64::debug_command_execute(char *string_to_parse_and_exec)
         }
         else
         {
-//            uint8_t temp_8bit;
             uint32_t temp_32bit;
-//            switch(strlen(token1))
-//            {
-//                case 8:
-                    temp_32bit = debug_command_hex_string_to_int(token1);
-                    if( token2 == NULL)
-                    {
-                        debug_command_memory_dump(temp_32bit & (RAM_SIZE - 1), 8);
-                    }
-//                    else
-//                    {
-//                        switch(strlen(token2))
-//                        {
-//                            case 2:
-//                                temp_8bit = debug_command_hex_string_to_int(token2);
-//                                csg65ce02_write_byte(temp_16bit, temp_8bit);
-//                                break;
-//                            default:
-//                                snprintf(c256_string2, 256, "error: invalid argument '%s'\n", token2);
-//                                debug_console_print(c256_string2);
-//                        }
-//                    }
-//                    break;
-//                default:
-//                    snprintf(c256_string2, 256, "error: invalid argument '%s'\n", token1);
-//                    debug_console_print(c256_string2);
-//            }
+            temp_32bit = debug_command_hex_string_to_int(token1);
+            if( token2 == NULL)
+            {
+                debug_command_memory_dump(temp_32bit & (RAM_SIZE - 1), 8);
+            }
         }
     }
-//    else if( strcmp(token0, "nmi") == 0 )
-//    {
-//        if( token1 == NULL )
-//        {
-//            snprintf(c256_string2, 256, "Current status of nmi pin is %1u\n", computer.exception_collector_ic->nmi_output_pin ? 1 : 0);
-//            debug_console_print(c256_string2);
-//        }
-//        else if( strcmp(token1, "0") == 0)
-//        {
-//            computer.exception_collector_ic->nmi_output_pin = false;
-//            //csg65ce02_set_nmi(&cpu_ic, false);
-//            snprintf(c256_string2, 256, "Current status of nmi pin is %1u\n", computer.exception_collector_ic->nmi_output_pin ? 1 : 0);
-//            debug_console_print(c256_string2);
-//        }
-//        else if( strcmp(token1, "1") == 0)
-//        {
-//            computer.exception_collector_ic->nmi_output_pin = true;
-//            snprintf(c256_string2, 256, "Current status of nmi pin is %1u\n", computer.exception_collector_ic->nmi_output_pin ? 1 : 0);
-//            debug_console_print(c256_string2);
-//        }
-//        else
-//        {
-//            debug_console_print("error: argument must be 0 or 1\n");
-//        }
-//    }
     else if( strcmp(token0, "r") == 0 )
     {
         debug_command_dump_cpu_status();
@@ -316,7 +245,7 @@ void E64::debug_command_dump_cpu_status()
 //        debug_console_putchar('\n');
 //    }
 //}
-//
+
 void E64::debug_command_memory_dump(uint32_t address, int rows)
 {
     for(int i=0; i<rows; i++ )

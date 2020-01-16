@@ -22,15 +22,12 @@ namespace E64
         
         unsigned int read_memory_8(unsigned int address);
         unsigned int read_memory_16(unsigned int address);
-        unsigned int read_memory_32(unsigned int address);
         
         unsigned int read_disassembler_8(unsigned int address);
         unsigned int read_disassembler_16(unsigned int address);
-        unsigned int read_disassembler_32(unsigned int address);
         
         void write_memory_8(unsigned int address, unsigned int value);
         void write_memory_16(unsigned int address, unsigned int value);
-        void write_memory_32(unsigned int address, unsigned int value);
     };
 }
 
