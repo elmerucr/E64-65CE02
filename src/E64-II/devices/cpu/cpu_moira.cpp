@@ -48,26 +48,26 @@ void cpu_moira::dump_registers(char *temp_string)
 {
     int n;
     int max = 2048;
-    n = snprintf( temp_string,max,"d0:%08x a0:%08x  pc:%08x\n", getD(0), getA(0), getPC() );
+    n = snprintf( temp_string,max,"   PC:%08x SSP/USP: %08x %08x\n\n", getPC(), getSSP(), getUSP() );
     temp_string += n;
     max -= n;
-    n = snprintf( temp_string,max,"d1:%08x a1:%08x usp:%08x\n", getD(1), getA(1), getUSP() );
+    n = snprintf( temp_string,max,"D0-D3:%08x %08x %08x %08x\n", getD(0), getD(1), getD(2), getD(3) );
     temp_string += n;
     max -= n;
-    n = snprintf( temp_string,max,"d2:%08x a2:%08x ssp:%08x\n", getD(2), getA(2), getSSP() );
+    n = snprintf( temp_string,max,"D4-D7:%08x %08x %08x %08x\n", getD(4), getD(5), getD(6), getD(7) );
     temp_string += n;
     max -= n;
-    n = snprintf( temp_string,max,"d3:%08x a3:%08x  sr:    %04x\n", getD(3), getA(3), getSR() );
+    n = snprintf( temp_string,max,"A0-A3:%08x %08x %08x %08x\n", getA(0), getA(1), getA(2), getA(3) );
     temp_string += n;
     max -= n;
-    n = snprintf( temp_string,max,"d4:%08x a4:%08x\n", getD(4), getA(4) );
+    n = snprintf( temp_string,max,"A4-A7:%08x %08x %08x %08x\n\n", getA(4), getA(5), getA(6), getA(7) );
     temp_string += n;
     max -= n;
-    n = snprintf( temp_string,max,"d5:%08x a5:%08x\n", getD(5), getA(5) );
+    n = snprintf( temp_string, max, "   SR: ");
     temp_string += n;
     max -= n;
-    n = snprintf( temp_string,max,"d6:%08x a6:%08x\n", getD(6), getA(6) );
-    temp_string += n;
-    max -= n;
-    n = snprintf( temp_string,max,"d7:%08x a7:%08x\n", getD(7), getA(7) );
+    disassembleSR(temp_string);
+    temp_string += 16;
+    max -= 16;
+    n = snprintf( temp_string, max, "     IPL: %c%c%c", getIPL()&0b100?'1':'0', getIPL()&0b010?'1':'0', getIPL()&0b001?'1':'0');
 }
