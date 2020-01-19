@@ -1,27 +1,28 @@
-# E64
+# E64 & E64-II
 ![E64](./docs/E64_icon.png)
+![E64](./docs/E64-II_icon.png)
 ## Description
 The E64 (Enhanced 64) and E64-II are virtual computer systems (under construction) that run on macOS and linux. Heavily inspired by the Commodore 64 and other (more advanced) personal computer systems of the era.
 
-Technical specifications (not yet complete and a work in progress):
+## Technical specifications (a work in progress):
 ### E64
 * CSG 65CE02 CPU (mostly 8 bit and some 16 bit instructions) running at 4.096MHz using the [lib65ce02](https://github.com/elmerucr/lib65ce02) library.
 * A total of 16MB ram connected to a Texas Instruments SN74LS612 Memory Management Unit.
 * A custom Video Interface Chip with a resolution of 512x320 pixels (512x256 excluding  top and bottom borders).
-* Two SID chips (MOS 6581) with stereo mixing possibilities. Each individual SID chip runs at 985248Hz (C64 pal) for correct pitch. Emulation is achieved with the excellent [resid](http://www.zimmers.net/anonftp/pub/cbm/crossplatform/emulators/resid/index.html) library.
+* Two SID chips (MOS 6581) with stereo mixing possibilities. Each individual SID chip runs at 985248Hz (C64 pal) for correct pitch. Emulation is achieved with the excellent [resid](http://www.zimmers.net/anonftp/pub/cbm/crossplatform/emulators/resid/index.html) library by Dag Lem.
 * Four independent and programmable timers with interrupt functionality.
 ### E64-II
 * Motorola 68000 CPU running at 8.192MHz using the [Moira](https://github.com/dirkwhoffmann/Moira) library.
 * A total of 16MB ram.
-* Two SID chips (like E64), but several registers (lo/hi from frequency, pulse width and filters) have been swapped to facilitate use with the big endian M68000.
-## Motivation
-todo
+* Same custom Video Interface Chip as E64
+* Two SID chips (same as E64), but several registers (lo/hi from frequency, pulse width and filters) have been swapped to facilitate use with the big endian M68000.
+* Same timer functionality.
 ## Screenshots
-E64 running in normal mode:
+### E64 running in normal mode:
 ![E64 normal mode](./docs/E64_2019-09-23.png)
-E64 debugger:
+### E64 debugger:
 ![E64 debugger](./docs/E64_debug_2019-09-23.png)
-E64-II debugger:
+### E64-II debugger:
 ![E64-II debugger](./docs/E64-II_debug_2020-01-18.png)
 ## Compiling
 ### Core application
@@ -29,7 +30,7 @@ E64-II debugger:
 * Install [Xcode](https://developer.apple.com/xcode)
 * Install the [SDL2 framework](https://www.libsdl.org/download-2.0.php) development library to /Library/Frameworks
 * Open the Xcode project in the ./macOS/E64 folder and build
-#### Ubuntu Linux and derivatives
+#### Ubuntu Linux and derivatives (build system currently broken)
 Run the following commands in a terminal:
 
 ````console
@@ -46,9 +47,13 @@ Finally, to run the application from the build directory:
 $ ./E64
 ````
 ### Assembling the kernel ROM
+#### E64
 Make sure to have ````64tass```` installed on your system and working from the command line.
 
-In the ````./src/devices/roms/kernel/```` directory, a ````Makefile```` can be found that makes use of ````64tass```` to assemble the ````*.asm```` sourcefiles into a binary rom image. Furthermore, a small ````bin2hex```` utility will be built that converts this image into a c++ sourcefile (````kernel.cpp````) that's part of the larger E64 project.
+In the ````./src/E64-I/devices/rom/kernel/```` directory, a ````Makefile```` can be found that makes use of ````64tass```` to assemble the ````*.asm```` sourcefiles into a binary rom image. Furthermore, a small ````bin2hex```` utility will be built that converts this image into a c++ sourcefile (````kernel.cpp````) that's part of the larger E64 project.
+#### E64-II
+Make sure to have ````vasmm68k_mot```` installed on your system and working from the command line.
+In the ````./src/E64-II/devices/rom/kernel/```` directory, a ````Makefile```` can be found that makes use of ````vasmm68k_mot```` to assemble the ````*.asm```` sourcefiles into a binary rom image. Furthermore, a small ````bin2hex_64k```` utility will be built that converts this image into a c++ sourcefile (````kernel.cpp````) that's part of the larger E64-II project.
 ## Other websites and projects of interest
 * [64tass](https://sourceforge.net/projects/tass64/) - An assembler for the legendary 6502 processor and its derivatives
 * [asmx multi-CPU assembler](http://xi6.com/projects/asmx/) - Excellent assembler with Motorola 680x0 support amongst others
@@ -58,10 +63,11 @@ In the ````./src/devices/roms/kernel/```` directory, a ````Makefile```` can be f
 * [Mega65](http://mega65.org) - The 21st century realization of the C65 heritage
 * [Moira](https://github.com/dirkwhoffmann/Moira) - New Motorola 68000 emulator written in C++ by Dirk W. Hoffmann
 * [Musashi](https://github.com/kstenerud/Musashi) - Motorola 680x0 emulator written in C by Karl Stenerud
+* [reSID](http://www.zimmers.net/anonftp/pub/cbm/crossplatform/emulators/resid/index.html) - ReSID is a Commodore 6581 or 8580 Sound Interface Device emulator by Dag Lem.
 * [SDL Simple DirectMedia Layer](https://www.libsdl.org) - A cross-platform development library by Sam Lantinga designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware
 * [ultimate64](https://ultimate64.com/Ultimate-64) - A hardware implementation (FPGA) of the C64
 * [vAmiga](http://www.dirkwhoffmann.de/software/vAmiga.html) - An Amiga 500, 1000, or 2000 on your Apple Macintosh
-* [vasm](http://sun.hasenbraten.de/vasm/) - A portable and retargetable assembler with very good support for the Motorola 680x0 family (including M6888x, M68851 and CPU32)
+* [vasm](http://sun.hasenbraten.de/vasm/) - A portable and retargetable assembler with very good support for the Motorola 680x0 family.
 * [VICE](http://vice-emu.sourceforge.net) - The Versatile Commodore Emulator
 * [VirtualC64](http://www.dirkwhoffmann.de/software/virtualC64.html) - A Commodore 64 on your Apple Macintosh
 * [visual6502](http://www.visual6502.org) - Visual Transistor-level Simulation of the 6502 CPU and other chips

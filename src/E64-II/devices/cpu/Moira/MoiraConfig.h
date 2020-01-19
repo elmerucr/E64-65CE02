@@ -12,7 +12,7 @@
 
 /* Set to true to enable address error checking
  */
-#define MOIRA_EMULATE_ADDRESS_ERROR true
+#define MOIRA_EMULATE_ADDRESS_ERROR false
 
 /* Capacity of the debug logging buffer
  */

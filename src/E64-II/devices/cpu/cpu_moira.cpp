@@ -69,5 +69,5 @@ void cpu_moira::dump_registers(char *temp_string)
     disassembleSR(temp_string);
     temp_string += 16;
     max -= 16;
-    n = snprintf( temp_string, max, "     IPL: %c%c%c", getIPL()&0b100?'1':'0', getIPL()&0b010?'1':'0', getIPL()&0b001?'1':'0');
+    n = snprintf( temp_string, max, "  IPL Pins: %c%c%c", getIPL()&0b100?'1':'0', getIPL()&0b010?'1':'0', getIPL()&0b001?'1':'0');
 }
