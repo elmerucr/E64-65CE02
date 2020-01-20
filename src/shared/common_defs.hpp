@@ -13,7 +13,7 @@
 
 #define E64_MAJOR_VERSION       0
 #define E64_MINOR_VERSION       4
-#define E64_BUILD               20200119
+#define E64_BUILD               20200120
 #define E64_YEAR                2020
 
 // E64_I or E64_II must be defined externally by the build system
@@ -147,22 +147,22 @@ extern const char screencode_to_ascii[];
 #define C64_COBALT_14  0xff6270ee
 #define C64_COBALT_15  0xff6978ff
 
-#define C64_BRWN_00 0xff000000      // kimbie dark from Visual Studio Code
-#define C64_BRWN_01 0xff110c08
-#define C64_BRWN_02 0xff221911      // background
-#define C64_BRWN_03 0xff33261a
-#define C64_BRWN_04 0xff443323
-#define C64_BRWN_05 0xff553f2c
-#define C64_BRWN_06 0xff664c35      // background select
-#define C64_BRWN_07 0xff77593e
-#define C64_BRWN_08 0xff886647
-#define C64_BRWN_09 0xff99724f
-#define C64_BRWN_10 0xffaa7f58
-#define C64_BRWN_11 0xffbb8c61
-#define C64_BRWN_12 0xffcc996a
-#define C64_BRWN_13 0xffdda573      // text
-#define C64_BRWN_14 0xffeeb27c
-#define C64_BRWN_15 0xffffbf85
+#define C64_AMBER_00 0xff000000      // kimbie dark from Visual Studio Code
+#define C64_AMBER_01 0xff110c08
+#define C64_AMBER_02 0xff221911      // background
+#define C64_AMBER_03 0xff33261a
+#define C64_AMBER_04 0xff443323
+#define C64_AMBER_05 0xff553f2c
+#define C64_AMBER_06 0xff664c35      // background select
+#define C64_AMBER_07 0xff77593e
+#define C64_AMBER_08 0xff886647
+#define C64_AMBER_09 0xff99724f
+#define C64_AMBER_10 0xffaa7f58
+#define C64_AMBER_11 0xffbb8c61
+#define C64_AMBER_12 0xffcc996a
+#define C64_AMBER_13 0xffdda573      // text
+#define C64_AMBER_14 0xffeeb27c
+#define C64_AMBER_15 0xffffbf85
 
 #define ASCII_NULL          0x00    // null
 #define ASCII_LF            0x0a    // linefeed

@@ -38,15 +38,17 @@ void debug_status_bar_refresh()
     debug_status_bar_print(status_bar_help_string);
     
     // disassembly
-    debug_status_bar_set_cursor_pos(10*64 +  0);
+    debug_status_bar_set_cursor_pos(10*64 + 0);
     uint32_t temp_pc = computer.m68k_ic->getPC();
     for(int i= 0; i<6; i++ )
     {
+        if(computer.m68k_ic->debugger.breakpoints.isSetAt(temp_pc)) debug_console.status_bar_foreground_color = 0x4b; // bright amber
         snprintf(status_bar_help_string, 256, "%06x ", temp_pc );
         debug_status_bar_print(status_bar_help_string);
         temp_pc += computer.m68k_ic->disassemble(temp_pc, status_bar_help_string);
         debug_status_bar_print(status_bar_help_string);
         debug_status_bar_putchar('\n');
+        debug_console.status_bar_foreground_color = 0x3d; // revert to normal color
     }
     
     // vicv scanlines

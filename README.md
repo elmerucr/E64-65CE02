@@ -23,7 +23,7 @@ The E64 (Enhanced 64) and E64-II are virtual computer systems (under constructio
 ### E64 debugger:
 ![E64 debugger](./docs/E64_debug_2019-09-23.png)
 ### E64-II debugger:
-![E64-II debugger](./docs/E64-II_debug_2020-01-18.png)
+![E64-II debugger](./docs/E64-II_debug_2020-01-20.png)
 ## Compiling
 ### Core application
 #### macOS

@@ -102,22 +102,22 @@ void E64::vicv::reset()
     color_palette[0x3f] = C64_COBALT_15;
     
     // 16 brown tones from 0x40-0x4f
-    color_palette[0x40] = C64_BRWN_00;
-    color_palette[0x41] = C64_BRWN_01;
-    color_palette[0x42] = C64_BRWN_02;
-    color_palette[0x43] = C64_BRWN_03;
-    color_palette[0x44] = C64_BRWN_04;
-    color_palette[0x45] = C64_BRWN_05;
-    color_palette[0x46] = C64_BRWN_06;
-    color_palette[0x47] = C64_BRWN_07;
-    color_palette[0x48] = C64_BRWN_08;
-    color_palette[0x49] = C64_BRWN_09;
-    color_palette[0x4a] = C64_BRWN_10;
-    color_palette[0x4b] = C64_BRWN_11;
-    color_palette[0x4c] = C64_BRWN_12;
-    color_palette[0x4d] = C64_BRWN_13;
-    color_palette[0x4e] = C64_BRWN_14;
-    color_palette[0x4f] = C64_BRWN_15;
+    color_palette[0x40] = C64_AMBER_00;
+    color_palette[0x41] = C64_AMBER_01;
+    color_palette[0x42] = C64_AMBER_02;
+    color_palette[0x43] = C64_AMBER_03;
+    color_palette[0x44] = C64_AMBER_04;
+    color_palette[0x45] = C64_AMBER_05;
+    color_palette[0x46] = C64_AMBER_06;
+    color_palette[0x47] = C64_AMBER_07;
+    color_palette[0x48] = C64_AMBER_08;
+    color_palette[0x49] = C64_AMBER_09;
+    color_palette[0x4a] = C64_AMBER_10;
+    color_palette[0x4b] = C64_AMBER_11;
+    color_palette[0x4c] = C64_AMBER_12;
+    color_palette[0x4d] = C64_AMBER_13;
+    color_palette[0x4e] = C64_AMBER_14;
+    color_palette[0x4f] = C64_AMBER_15;
     
     // the rest (0x50-0xff) is C64_BLUE
     for(int i = 0x50; i < 0x100; i++) color_palette[i] = C64_BLUE;
