@@ -1,6 +1,5 @@
-# E64 & E64-II
+# E64
 ![E64](./docs/E64_icon.png)
-![E64](./docs/E64-II_icon.png)
 ## Description
 The E64 (Enhanced 64) and E64-II are virtual computer systems (under construction) that run on macOS and linux. Heavily inspired by the Commodore 64 and other (more advanced) personal computer systems of the era.
 
@@ -11,19 +10,11 @@ The E64 (Enhanced 64) and E64-II are virtual computer systems (under constructio
 * A custom Video Interface Chip with a resolution of 512x320 pixels (512x256 excluding  top and bottom borders).
 * Two SID chips (MOS 6581) with stereo mixing possibilities. Each individual SID chip runs at 985248Hz (C64 pal) for correct pitch. Emulation is achieved with the excellent [resid](http://www.zimmers.net/anonftp/pub/cbm/crossplatform/emulators/resid/index.html) library by Dag Lem.
 * Four independent and programmable timers with interrupt functionality.
-### E64-II
-* Motorola 68000 CPU running at 8.192MHz using the [Moira](https://github.com/dirkwhoffmann/Moira) library.
-* A total of 16MB ram.
-* Same custom Video Interface Chip as E64
-* Two SID chips (same as E64), but several registers (lo/hi from frequency, pulse width and filters) have been swapped to facilitate use with the big endian M68000.
-* Same timer functionality.
 ## Screenshots
 ### E64 running in normal mode:
 ![E64 normal mode](./docs/E64_2019-09-23.png)
 ### E64 debugger:
 ![E64 debugger](./docs/E64_debug_2019-09-23.png)
-### E64-II debugger:
-![E64-II debugger](./docs/E64-II_debug_2020-01-20.png)
 ## Compiling
 ### Core application
 #### macOS
@@ -47,13 +38,9 @@ Finally, to run the application from the build directory:
 $ ./E64
 ````
 ### Assembling the kernel ROM
-#### E64
 Make sure to have ````64tass```` installed on your system and working from the command line.
 
 In the ````./src/E64-I/devices/rom/kernel/```` directory, a ````Makefile```` can be found that makes use of ````64tass```` to assemble the ````*.asm```` sourcefiles into a binary rom image. Furthermore, a small ````bin2hex```` utility will be built that converts this image into a c++ sourcefile (````kernel.cpp````) that's part of the larger E64 project.
-#### E64-II
-Make sure to have ````vasmm68k_mot```` installed on your system and working from the command line.
-In the ````./src/E64-II/devices/rom/kernel/```` directory, a ````Makefile```` can be found that makes use of ````vasmm68k_mot```` to assemble the ````*.asm```` sourcefiles into a binary rom image. Furthermore, a small ````bin2hex_64k```` utility will be built that converts this image into a c++ sourcefile (````kernel.cpp````) that's part of the larger E64-II project.
 ## Other websites and projects of interest
 * [64tass](https://sourceforge.net/projects/tass64/) - An assembler for the legendary 6502 processor and its derivatives
 * [asmx multi-CPU assembler](http://xi6.com/projects/asmx/) - Excellent assembler with Motorola 680x0 support amongst others
