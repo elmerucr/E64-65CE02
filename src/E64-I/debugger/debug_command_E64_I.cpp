@@ -17,13 +17,9 @@ char command_help_string[2048];
 
 void E64::debug_command_execute(char *string_to_parse_and_exec)
 {
-    // use temporary pointer
-    char *clean_start = string_to_parse_and_exec;
-    // if present, remove the dot
-    if(*clean_start == '.') clean_start++;
     // get tokens, if commands could take more arguments, make more ....
     char *token0, *token1, *token2, *token3;
-    token0 = strtok( clean_start, " ");
+    token0 = strtok( string_to_parse_and_exec, " ");
     token1 = strtok( NULL, " ");
     token2 = strtok( NULL, " ");
     token3 = strtok( NULL, " ");
@@ -325,25 +321,24 @@ void E64::debug_command_memory_dump(uint16_t address, int rows)
     for(int i=0; i<rows; i++ )
     {
         uint16_t temp_address = address;
-        snprintf(command_help_string, 256, ".:%04x", temp_address);
+        snprintf(command_help_string, 256, ":%04x ", temp_address);
         debug_console_print(command_help_string);
-        for(int i=0; i<16; i++)
+        for(int i=0; i<8; i++)
         {
-            if((i & 3) == 0) debug_console_print(" ");
-            snprintf(command_help_string, 256, "%02x", computer.mmu_ic->read_byte(temp_address));
+            //if((i & 3) == 0) debug_console_print(" ");
+            snprintf(command_help_string, 256, "%02x ", computer.mmu_ic->read_byte(temp_address));
             debug_console_print(command_help_string);
             temp_address++;
         }
-        debug_console_print(" ");
         temp_address = address;
-        for(int i=0; i<16; i++)
+        for(int i=0; i<8; i++)
         {
             uint8_t temp_byte = computer.mmu_ic->read_byte(temp_address);
             if( temp_byte == ASCII_LF ) temp_byte = 0x80;
             debug_console_putchar( temp_byte );
             temp_address++;
         }
-        address += 16;
+        address += 8;
         debug_console_print("\n");
     }
 }

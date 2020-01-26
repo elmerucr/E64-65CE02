@@ -47,7 +47,6 @@ void debug_console_cursor_activate();
 void debug_console_cursor_deactivate();
 bool debug_console_cursor_flash();         // returns true if state of cursor changed
 
-void debug_console_put_prompt();
 void debug_console_enter();
 void debug_console_insert();
 void debug_console_backspace();

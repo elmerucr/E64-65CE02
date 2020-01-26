@@ -1,5 +1,5 @@
-C256 log file - elmerucr
-========================
+E64 log file - elmerucr
+=======================
 
 goals
 =====
@@ -32,6 +32,7 @@ todo / bugs
 
 2020
 ====
+2020-01-22 Preparing for removal of E64-II (is in a separate project)
 2020-01-15 Musashi removed, Moira implemented, breakpoints still need to be done
 2020-01-14 Moira is a new 68000 emulation core from Dirk Hoffmann
 2020-01-08 Revert back to old style Musashi 3.4: Exception handling is preferred over new style

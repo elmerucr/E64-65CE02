@@ -37,6 +37,9 @@ typedef struct
 } E64_sdl2;
 
 E64_sdl2 context0;
+int window_width;
+int window_height;
+SDL_Rect destination;
 
 SDL_AudioDeviceID E64_sdl2_audio_dev;
 SDL_AudioSpec want, have;
@@ -74,16 +77,15 @@ void E64::sdl2_init()
     context0.current_window_size = 2;
     context0.fullscreen = false;
     // create window - title will be set later by function E64::sdl2_update_title()
-    context0.window = SDL_CreateWindow("", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_sizes[context0.current_window_size].x, window_sizes[context0.current_window_size].y, SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI);
+    context0.window = SDL_CreateWindow("", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_sizes[context0.current_window_size].x, window_sizes[context0.current_window_size].y, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE );
     // create renderer and link it to window
     context0.renderer = SDL_CreateRenderer(context0.window, -1, SDL_RENDERER_ACCELERATED);
-    // suggest to make the scaled rendering look smoother
-    //SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
-    // set logical size
-    SDL_RenderSetLogicalSize(context0.renderer, VICV_PIXELS_PER_SCANLINE, 320);
     // create a texture that is able to refresh very frequently
     context0.texture = SDL_CreateTexture(context0.renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, VICV_PIXELS_PER_SCANLINE, 320);
-
+    
+    SDL_GetWindowSize(context0.window, &window_width, &window_height);
+    destination = { 0, 0, window_width, window_height };
+    
     // make sure mouse cursor isn't visible
     SDL_ShowCursor(SDL_DISABLE);
     
@@ -145,6 +147,8 @@ void E64::sdl2_increase_window_size()
     {
         context0.current_window_size++;
         SDL_SetWindowSize(context0.window, window_sizes[context0.current_window_size].x, window_sizes[context0.current_window_size].y);
+        SDL_GetWindowSize(context0.window, &window_width, &window_height);
+        destination = { 0, 0, window_width, window_height };
         SDL_SetWindowPosition(context0.window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
     }
 }
@@ -155,6 +159,8 @@ void E64::sdl2_decrease_window_size()
     {
         context0.current_window_size--;
         SDL_SetWindowSize(context0.window, window_sizes[context0.current_window_size].x, window_sizes[context0.current_window_size].y);
+        SDL_GetWindowSize(context0.window, &window_width, &window_height);
+        destination = { 0, 0, window_width, window_height };
         SDL_SetWindowPosition(context0.window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
     }
 }
@@ -170,6 +176,8 @@ void E64::sdl2_toggle_fullscreen()
     {
         SDL_SetWindowFullscreen(context0.window, SDL_WINDOW_RESIZABLE);
     }
+    SDL_GetWindowSize(context0.window, &window_width, &window_height);
+    destination = { 0, 0, window_width, window_height };
 }
 
 int E64::sdl2_process_events()
@@ -483,7 +491,7 @@ void E64::sdl2_update_screen()
             SDL_UpdateTexture(context0.texture, NULL, debug_screen_buffer, VICV_PIXELS_PER_SCANLINE * sizeof(uint32_t));
             break;
     }
-    SDL_RenderCopy(context0.renderer, context0.texture, NULL, NULL);
+    SDL_RenderCopy(context0.renderer, context0.texture, NULL, &destination);
     SDL_RenderPresent(context0.renderer);
 }
 

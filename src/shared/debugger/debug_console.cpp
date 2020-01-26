@@ -51,7 +51,7 @@ void debug_console_version()
 
 void debug_console_welcome()
 {
-    debug_console_print("Debugger - type <help> for more information");
+    debug_console_print("Debugger - type <help> for more information\n");
 }
 
 void debug_console_add_bottom_row_if_necessary()
@@ -253,11 +253,6 @@ void debug_console_arrow_down()
     debug_console_cursor_activate();
 }
 
-void debug_console_put_prompt()
-{
-    debug_console_putchar('.');
-}
-
 void debug_console_enter()
 {
     // find starting position of the current row
@@ -269,7 +264,6 @@ void debug_console_enter()
     console_help_string[64] = ASCII_NULL;
     debug_console_putchar('\n');
     E64::debug_command_execute(console_help_string);
-    debug_console_put_prompt();
 }
 
 void debug_console_backspace()

@@ -76,9 +76,6 @@ void E64::machine::switch_to_debug()
     current_mode = DEBUG_MODE;
     E64::sdl2_update_title();
     E64::sdl2_stop_audio();
-    
-    debug_console_putchar('\n');
-    debug_console_put_prompt();
 }
 
 void E64::machine::switch_mode()
@@ -107,7 +104,7 @@ int E64::machine::run(uint16_t no_of_cycles)
     if( this->cpu_ic->exit_code_run_function == 1 )
     {
         // cpu breakpoint encountered
-        snprintf(machine_help_string, 256, "\ncpu breakpoint occurred at $%04x\n.", cpu_ic->pc);
+        snprintf(machine_help_string, 256, "cpu breakpoint occurred at $%04x\n", cpu_ic->pc);
         debug_console_print(machine_help_string);
         exit_code = CPU_BREAKPOINT;
     }
